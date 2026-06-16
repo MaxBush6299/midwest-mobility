@@ -8,3 +8,4 @@ htmlcov/
 *.egg-info/
 docs/specs/*.html
 infra/bicep/**/*.json
+scenario_out.txt
