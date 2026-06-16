@@ -1,0 +1,52 @@
+{
+  "SUP-001": {
+    "Country": "US",
+    "Disruption_Days": "21",
+    "Disruption_Flag": "Y",
+    "Lead_Time_Days": "14",
+    "Name": "Acme Brakes",
+    "Risk_Score": "High",
+    "Supplier_ID": "SUP-001",
+    "Tier": "1"
+  },
+  "SUP-002": {
+    "Country": "US",
+    "Disruption_Days": "0",
+    "Disruption_Flag": "N",
+    "Lead_Time_Days": "7",
+    "Name": "Midwest Stampings",
+    "Risk_Score": "Low",
+    "Supplier_ID": "SUP-002",
+    "Tier": "2"
+  },
+  "SUP-003": {
+    "Country": "DE",
+    "Disruption_Days": "0",
+    "Disruption_Flag": "N",
+    "Lead_Time_Days": "28",
+    "Name": "Globex Robotics",
+    "Risk_Score": "Medium",
+    "Supplier_ID": "SUP-003",
+    "Tier": "1"
+  },
+  "SUP-004": {
+    "Country": "US",
+    "Disruption_Days": "0",
+    "Disruption_Flag": "N",
+    "Lead_Time_Days": "5",
+    "Name": "Initech Fasteners",
+    "Risk_Score": "Low",
+    "Supplier_ID": "SUP-004",
+    "Tier": "2"
+  },
+  "SUP-005": {
+    "Country": "MX",
+    "Disruption_Days": "0",
+    "Disruption_Flag": "N",
+    "Lead_Time_Days": "21",
+    "Name": "Hooli Castings",
+    "Risk_Score": "Medium",
+    "Supplier_ID": "SUP-005",
+    "Tier": "1"
+  }
+}

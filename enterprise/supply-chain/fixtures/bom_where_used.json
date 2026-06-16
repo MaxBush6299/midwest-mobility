@@ -1,0 +1,47 @@
+{
+  "BRK-CAL-XYZ": {
+    "Effective_Date": "2025-01-01",
+    "Line_ID": "L1",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Part_Name": "Brake Caliper Assembly",
+    "Plant_ID": "plant7",
+    "Qty_Per_Assy": "1",
+    "Supplier_ID": "SUP-001"
+  },
+  "CST-HSG-04": {
+    "Effective_Date": "2025-01-01",
+    "Line_ID": "L3",
+    "Part_ID": "CST-HSG-04",
+    "Part_Name": "Cast Housing 04",
+    "Plant_ID": "plant7",
+    "Qty_Per_Assy": "1",
+    "Supplier_ID": "SUP-005"
+  },
+  "FST-M8-100": {
+    "Effective_Date": "2025-01-01",
+    "Line_ID": "L1",
+    "Part_ID": "FST-M8-100",
+    "Part_Name": "M8 Fastener Pack",
+    "Plant_ID": "plant7",
+    "Qty_Per_Assy": "50",
+    "Supplier_ID": "SUP-004"
+  },
+  "ROB-ARM-G3": {
+    "Effective_Date": "2025-01-01",
+    "Line_ID": "L2",
+    "Part_ID": "ROB-ARM-G3",
+    "Part_Name": "Robot Arm Gen3",
+    "Plant_ID": "plant7",
+    "Qty_Per_Assy": "1",
+    "Supplier_ID": "SUP-003"
+  },
+  "STM-PNL-A1": {
+    "Effective_Date": "2025-01-01",
+    "Line_ID": "L1",
+    "Part_ID": "STM-PNL-A1",
+    "Part_Name": "Stamped Panel A1",
+    "Plant_ID": "plant7",
+    "Qty_Per_Assy": "2",
+    "Supplier_ID": "SUP-002"
+  }
+}
