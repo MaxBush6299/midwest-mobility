@@ -1,13 +1,12 @@
 """Create/update portal-managed Foundry Prompt Agents from profile.yaml (Task 22).
 
 Uses the *new* Foundry Agents Service (azure-ai-projects >= 2.2.0) at the
-services.ai.azure.com endpoint — NOT the deprecated classic Agents API on
-cognitiveservices.azure.com. Each profile entry maps to a versioned
+services.ai.azure.com endpoint. Each profile entry maps to a versioned
 PromptAgentDefinition created via AIProjectClient.agents.create_version().
 
-Agents are created with instructions only — operators attach Foundry IQ
-kb-plant7 in the Foundry portal (Task 22b). This avoids preview MCP plumbing
-and makes "swap the KB in the portal" a documented Day-2 operation.
+KB attachment: when PLANT_KB_CONNECTION_ID / PLANT_KB_MCP_URL are set, the
+factory attaches the Foundry IQ MCP tool to every agent so every new version
+includes the KB binding (idempotent — no portal step required).
 """
 from __future__ import annotations
 
@@ -17,7 +16,11 @@ from pathlib import Path
 
 import yaml
 from azure.ai.projects import AIProjectClient
-from azure.ai.projects.models import AgentVersionDetails, PromptAgentDefinition
+from azure.ai.projects.models import (
+    AgentVersionDetails,
+    MCPTool,
+    PromptAgentDefinition,
+)
 from azure.core.credentials import TokenCredential
 from azure.core.exceptions import ResourceNotFoundError
 
@@ -27,7 +30,25 @@ except Exception:  # pragma: no cover - allow import without agent_framework
     FoundryAgent = None  # type: ignore[assignment]
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-MODEL = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
+
+
+def _model() -> str:
+    """Read model deployment lazily so .env loaded after import still wins."""
+    return os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
+
+
+def _kb_tool() -> MCPTool | None:
+    """Construct the Foundry IQ MCP tool from env, or None if unconfigured."""
+    conn_id = os.environ.get("PLANT_KB_CONNECTION_ID")
+    url = os.environ.get("PLANT_KB_MCP_URL")
+    if not (conn_id and url):
+        return None
+    return MCPTool(
+        server_label=conn_id,
+        server_url=url,
+        require_approval="never",
+        project_connection_id=conn_id,
+    )
 
 
 @dataclass
@@ -77,21 +98,21 @@ def _upsert_version(
     description: str,
     instructions: str,
 ) -> AgentVersionDetails:
-    definition = PromptAgentDefinition(model=MODEL, instructions=instructions)
-    try:
-        client.agents.get(name)
-        existed = True
-    except ResourceNotFoundError:
-        existed = False
+    tools = []
+    kb = _kb_tool()
+    if kb is not None:
+        tools.append(kb)
+    definition = PromptAgentDefinition(
+        model=_model(),
+        instructions=instructions,
+        tools=tools or None,
+    )
 
     version = client.agents.create_version(
         agent_name=name,
         definition=definition,
         description=description,
     )
-    if not existed:
-        # First version of a brand-new agent — nothing else to do here.
-        pass
     return version
 
 

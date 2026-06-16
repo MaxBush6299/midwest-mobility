@@ -1,0 +1,37 @@
+# MMC Plant 7 — Line 1 Build Schedule (Next 3 Weeks)
+
+**Document owner:** Plant 7 Production Control
+**Effective:** Current rolling 21-day horizon
+**Lines covered:** L1 (Stamping/Forming), L2 (Assembly/Robot Cells)
+
+## Material requirement: BRK-CAL-XYZ (Brake Caliper Casting)
+
+| Field | Value |
+|---|---|
+| Part number | BRK-CAL-XYZ |
+| Description | Front brake caliper raw casting, FG family BRK-FG-7 |
+| Primary line | L1 (Stamping/Forming) |
+| Affected shifts | A and B (06:00–22:00) |
+| Standard daily build | 480 units/day across A+B shifts |
+| On-hand inventory | 1,440 units (≈ 3.0 days of build at standard rate) |
+| Safety stock floor | 240 units (≈ 0.5 day) |
+| Outstanding open POs | 1 PO open with Acme Brakes (PO-2026-0418) — delayed 3 weeks |
+
+## Earliest run-short date if no mitigation
+
+At the standard 480/day consumption rate and 1,440 units on hand, Line 1 reaches the safety stock floor in **2.5 days** and runs to zero in **3.0 days**. **Earliest line-stop risk date: Day 3 from today.**
+
+## Resequencing / rate options (Production Control playbook)
+
+The following levers can extend coverage; each is an evaluation, not an active mitigation:
+
+- **Resequence to FG family BRK-FG-3** (uses casting BRK-CAL-ABC, fully stocked): extends BRK-CAL-XYZ runway by ~4 days but ships fewer FG-7 units; requires sales/order-mgmt sign-off.
+- **Drop Line 1 rate from 480/day → 280/day** for the last week of the horizon: extends runway by ~2 additional days. Triggers OT plan re-baseline (see Shift Ops handover).
+- **Temporary build hold on FG-7 orders ≤ priority 3** for 5 business days: extends runway by ~3.5 days. Customer Service must notify affected accounts.
+- **Pull alternate casting BRK-CAL-XYZ-ALT** from supplier Bravo Castings (qualified second source, longer 9-day lead time): only viable if PO is placed within 24h.
+
+## Cross-references
+
+- Maintenance BOM: see `MMC_P7_BOM_L1_Brake_Caliper_Assy.md`
+- Quality spec: see `MMC_P7_Brake_Caliper_QA_Spec.md`
+- Open supplier risk record: SR-2026-0617 (Acme Brakes 3-week delay)

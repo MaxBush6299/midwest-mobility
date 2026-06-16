@@ -22,6 +22,7 @@ from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
     KnowledgeBase,
+    KnowledgeRetrievalMinimalReasoningEffort,
     KnowledgeSourceReference,
     SearchableField,
     SearchFieldDataType,
@@ -139,6 +140,7 @@ def _seed(search_endpoint: str, scope: str, sources: dict[str, dict], kb_name: s
         name=kb_name,
         description=f"MMC {scope} grounding KB (auto-seeded)",
         knowledge_sources=ks_refs,
+        retrieval_reasoning_effort=KnowledgeRetrievalMinimalReasoningEffort(),
     )
     idx_client.create_or_update_knowledge_base(kb)
     print(f"  done. KB '{kb_name}' is ready.")

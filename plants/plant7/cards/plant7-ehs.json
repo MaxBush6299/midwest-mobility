@@ -4,7 +4,7 @@
   "description": "Plant 7 EHS / Safety",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant",
   "agent_id": "plant7-ehs",
-  "version": "4",
+  "version": "5",
   "skills": [],
   "metadata": {
     "plant_id": "plant7",
