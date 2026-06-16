@@ -42,9 +42,9 @@ This spec does **not** restate architecture, agent rosters, KB→agent mapping, 
 Each gate is a "could I demo this today" checkpoint that lines up with the phases in `DEMO_BUILD_HANDOFF.md` §6.
 
 - **Gate A — Thin slice (~4–5 days, +1d for from-scratch provisioning).** Fresh `rg-magentictest` provisioned via Bicep (both Foundry projects, Plant 7 KB seeded with 3 sources, identities, Search). Brake-caliper composes a multi-agent flow live, traced via Foundry portal threads. Covers Phase 0 + Phase 1 + 1 stub enterprise agent (Supply Chain) + Magentic happy-path.
-- **Gate B — Both scenarios end-to-end (~6–9 days).** All 10 agents present; brake-caliper composes with at least one backtrack; Safety/LOTO composes a distinctly different flow. Covers Phases 2–4 in full.
-- **Gate C — Polished demo (~8–11 days).** Custom trace UI streaming manager ledgers and agent hops; hot-add of a new agent mid-run; governance overlay (Entra Agent ID per-agent scopes + blast-radius view). Covers Phase 5 + Phase 6.
-- **Gate D — Plant cloning (~11–13 days).** Plant 4 cloned from Plant 7 via `scripts/clone_plant.py` + hybrid content generation; brake-caliper re-run produces a different (or cross-plant) composition with zero orchestrator code changes. New work, not in original handoff.
+- **Gate B — Both scenarios end-to-end (~7–10 days).** All 10 agents present; brake-caliper composes with at least one backtrack; Safety/LOTO composes a distinctly different flow. Covers Phases 2–4 in full (Phase 2 widened to 2–3 days per §8a).
+- **Gate C — Polished demo (~9–12 days).** Custom trace UI streaming manager ledgers and agent hops; hot-add of a new agent mid-run; governance overlay (Entra Agent ID per-agent scopes + blast-radius view). Covers Phase 5 + Phase 6.
+- **Gate D — Plant cloning (~12–14 days).** Plant 4 cloned from Plant 7 via `scripts/clone_plant.py` + hybrid content generation; brake-caliper re-run produces a different (or cross-plant) composition with zero orchestrator code changes. New work, not in original handoff.
 
 ## 4. Repository layout (additions to `DEMO_BUILD_HANDOFF.md` §7)
 
@@ -179,6 +179,36 @@ No custom Python agent logic. All 10 agents go through the same factory.
 - `scripts/validate_plant.py` enforces ID formats, cross-reference integrity (e.g., every BOM `where_used` references a real line/equipment in the profile), and naming-convention conformance.
 
 A new plant exists when all four pass: scaffolder, content gen, validators, KB seed.
+
+## 8a. Enterprise content generation (Phase 2)
+
+The repo today contains only Plant 7 content. The entire `enterprise/` tree is generated from scratch in Phase 2. Per-node deliverables:
+
+| Node | Structured data (CSV) | Narrative docs (markdown) | Tool fixtures (JSON) |
+|---|---|---|---|
+| **Supply Chain** | `supplier_master.csv`, `bom_where_used.csv`, `erp_inventory.csv`, `tms_freight.csv` | Supplier qualification policy, logistics SOP, disruption playbook | `erp.json`, `tms.json`, `supplier_master.json` |
+| **Procurement & Cost** | `contracts.csv`, `po_spend.csv`, `should_cost_model.csv` | Procurement policy, expedite-cost methodology, supplier-tier definitions | `contracts.json`, `po.json` |
+| **Engineering / PLM** | `plm_part_master.csv`, `eco_log.csv`, `effectivity.csv` | ECO workflow doc, part-numbering standard, cross-plant change procedure | `plm.json`, `eco.json` |
+| **Enterprise Quality** | `warranty_claims.csv`, `field_failure_feed.csv`, `recall_ruleset.csv` | Warranty handling SOP, recall-threshold policy, cross-plant defect-trend methodology | `warranty.json`, `recall.json` |
+| **Demand / Program** | `order_crm_feed.csv`, `program_plan.csv`, `allocation_model.csv` | Launch-readiness checklist, demand-allocation policy, OEM-program definitions | `demand.json`, `allocation.json` |
+
+**Cross-link constraint (must hold for the brake-caliper scenario to resolve end-to-end):**
+- `supplier_master.csv` contains a supplier (working name "Acme Brakes") with a 21-day disruption flag.
+- `bom_where_used.csv` maps that supplier's part `BRK-CAL-XYZ` to **Plant 7's L1**.
+- Plant 7's existing `MMC_P7_PM_Schedule.csv` and `MMC_P7_Incident_Log.csv` contain at least one row touching L1 brake-related equipment so the Plant 7 Maintenance and Quality agents return relevant data when queried with the same part/line context. If they don't today, Phase 2 adds the rows (recorded as a profile change in `docs/MMC_Plant7_Company_Profile_v1.md`).
+- Equivalent cross-link audit for the Safety/LOTO scenario.
+
+**Generation approach (mirrors D10 hybrid):**
+- **CSVs** — `scripts/generate_enterprise_data.py`, parameterized by a `scenario_seed.yaml` that pins the cross-link facts (supplier name, part number, plant, line). Reproducible by seed; row counts realistic (hundreds–low thousands per file).
+- **Narrative docs** — LLM-generated from a per-doc-type prompt template, validated for naming-convention and standards-reference conformance.
+- **Tool fixtures** — *derived from the CSVs* by `scripts/derive_fixtures.py`. A tool call like `erp.bom_where_used("BRK-CAL-XYZ")` returns exactly what's in the CSV. Single source of truth, no fixture-vs-CSV drift.
+
+**Validators (run as pytest):**
+- Schema conformance per CSV (column types, IDs match naming conventions).
+- Scenario cross-link integrity (the constraint above).
+- Fixture derivation determinism (running `derive_fixtures.py` twice produces byte-identical JSON).
+
+**Phase 2 estimate:** **2–3 days** for from-scratch generation of all 5 nodes plus the cross-link validation pass — up from 1–2 days in the handoff, which assumed lighter scope.
 
 ## 9. Error handling
 
