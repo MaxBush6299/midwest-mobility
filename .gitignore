@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+agents/catalog.json
+.pytest_cache/
+htmlcov/
