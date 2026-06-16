@@ -5,3 +5,5 @@ __pycache__/
 agents/catalog.json
 .pytest_cache/
 htmlcov/
+*.egg-info/
+docs/specs/*.html
