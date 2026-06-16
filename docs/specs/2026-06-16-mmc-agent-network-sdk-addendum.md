@@ -130,11 +130,13 @@ We keep the `MmcMagenticManager` class name (it owns config, lifecycle, and our 
 
 ---
 
-## D18 — Foundry Agent Service Provider Choice
+## D18 — Provider Choice: Portal-Managed Foundry Agents (revised 2026-06-16)
 
-Agent Framework's `FoundryChatClient` talks to a Foundry project endpoint (`https://<account>.cognitiveservices.azure.com/api/projects/<project>`). It can use a model deployed on the Foundry account directly — no separate Azure OpenAI resource needed, which matches our current deploy (gpt-4o-mini deployed on `mmcfdy`).
+**Decision (supersedes earlier `FoundryChatClient` plan):** Each Plant 7 + Supply Chain agent is a **portal-managed Foundry Agent Service agent** (created/updated via the Azure AI Agents SDK, visible and editable in the Foundry portal). Rationale: enables the "easy to maintain & update" demo story — ops can edit instructions, swap tools, view traces in the portal without code changes.
 
-For agents that need tools beyond what the Agent Service hosts, we attach `@tool`-decorated Python callables to the `Agent(tools=[...])` parameter. These run **client-side** (in our Python process), not server-side in the Agent Service. This is fine for thin slice; later we can promote tools to MCP servers.
+We use **Basic Setup** (Microsoft-managed threads/files/vector stores), which requires only our existing Foundry account + project + model deployment — no Cosmos, no BYO storage, no capability hosts. See [Microsoft Foundry agent environment setup](https://learn.microsoft.com/azure/ai-foundry/agents/environment-setup).
+
+`FoundryChatClient` is retained only for the Magentic **manager** model call (lightweight planner over the same gpt-4o-mini deployment).
 
 ---
 
@@ -149,10 +151,48 @@ Roles already required for thin slice (must be granted):
 
 ---
 
-## Capability Hosts deferred
+## D20 — Foundry Agents Service SDK + AzureAISearchTool
 
-The Foundry sample wires `capabilityHosts` of kind `Agents` on both the account and each project. We **skipped** these in our Bicep deploy because:
-1. The sample wires them to a BYO Azure OpenAI connection we don't have
-2. Without BYO, agents created via `FoundryChatClient` may still work for direct chat completion, but server-hosted Agent Service features (assistants, threads, file search) require capability hosts
+Packages (added to `pyproject.toml`):
+- `azure-ai-projects` — `AIProjectClient` for connection management (resolve connection IDs by name)
+- `azure-ai-agents>=1.2.0b6` — `AgentsClient` for agent CRUD; tool definition models
 
-If Task 22 (`agent_factory.py`) hits an error like "agents capability not enabled on project", we add a follow-up Bicep update creating capability hosts that point at the account's own AIServices model deployment. Leaving as a known potential blocker.
+**Project → Search connection** (Bicep): one `Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview` resource per project with `properties.category='CognitiveSearch'`, `authType='AAD'`, `target=<search.endpoint>`, `metadata.ResourceId=<search.id>`, `metadata.ApiType='Azure'`. The project's system-assigned managed identity needs `Search Index Data Reader` on the Search service for queries.
+
+**Agent creation (idempotent upsert by name)** via Agent Framework's `FoundryAgent`:
+```python
+from agent_framework.foundry import FoundryAgent, FoundryAgentOptions
+from azure.ai.agents.models import AzureAISearchTool, AzureAISearchQueryType
+from azure.ai.projects import AIProjectClient
+from azure.identity import AzureCliCredential
+
+cred = AzureCliCredential()
+project = AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=cred)
+search_conn_id = project.connections.get("srch-mmc-plant").id
+
+tools = [
+    AzureAISearchTool(
+        index_connection_id=search_conn_id,
+        index_name="ks-plant7-ehs",
+        query_type=AzureAISearchQueryType.SEMANTIC,
+        top_k=5,
+    ).definitions[0],
+    # ... one per attached index
+]
+
+agent = FoundryAgent(
+    project_endpoint=PROJECT_ENDPOINT,
+    credential=cred,
+    name="plant7-ehs",
+    instructions=profile_yaml_instructions,
+    default_options=FoundryAgentOptions(model=MODEL_DEPLOYMENT, tools=tools),
+)
+```
+
+`FoundryAgent` is a `ChatAgent`-compatible wrapper; Magentic accepts it directly as a participant. The hosted agent is created on first call if `id` is not supplied; for idempotent upsert we list existing agents in the project and reuse by name.
+
+**Function tools (erp, supplier)** still attach as local Python callables via `tools=[erp.bom_where_used, supplier.lookup]` (Agent Framework auto-derives JSON schema). These run client-side during tool calls — fine for thin slice; later promote to MCP servers.
+
+Roles needed on top of existing grants:
+- Project MI: `Search Index Data Reader` on each Search service it queries
+- Developer (`<admin-object-id>`): `Azure AI User` (= `Foundry User`) on the Foundry account (for agent CRUD via SDK)

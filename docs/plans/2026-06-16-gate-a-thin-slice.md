@@ -1350,484 +1350,321 @@ git commit -m "feat(scripts): refresh_catalog aggregator"
 
 ---
 
-## Task 21: `kb_client.py` — Search-backed KB tool factory
+## Task 21: Foundry project → Search connection (Bicep) ✏️ **REVISED for portal-managed agents**
 
-**Per SDK addendum D16:** Foundry IQ retrieval at agent runtime is just a search call against the KB on our Search service. We expose it as a single `@tool`-decorated callable per agent, scoped to the agent's KB sources (filtered by `source_name`).
+The Azure AI Search tool consumes a **project connection** by ID. Add one connection per project pointing at the matching Search service, using `AAD` auth so the project's system-assigned MI is used at query time.
+
+- [ ] **Step 1: New module `infra/bicep/modules/search-connection.bicep`**
+
+```bicep
+param foundryAccountName string
+param projectName string
+param connectionName string
+param searchName string
+
+resource search 'Microsoft.Search/searchServices@2024-03-01-preview' existing = {
+  name: searchName
+}
+
+resource project 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' existing = {
+  name: '${foundryAccountName}/${projectName}'
+}
+
+resource conn 'Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview' = {
+  parent: project
+  name: connectionName
+  properties: {
+    category: 'CognitiveSearch'
+    target: 'https://${searchName}.search.windows.net/'
+    authType: 'AAD'
+    isSharedToAll: true
+    metadata: {
+      ApiType: 'Azure'
+      ResourceId: search.id
+      Location: search.location
+    }
+  }
+}
+
+output connectionId string = conn.id
+output connectionName string = conn.name
+```
+
+- [ ] **Step 2: Wire in `main.bicep`** — after the foundry module, add two `search-connection` module deployments (plant project → plant search, enterprise project → enterprise search). Output `plantSearchConnectionName` and `enterpriseSearchConnectionName` (these get added to `.env`).
+
+- [ ] **Step 3: Redeploy**: `az deployment group create -g rg-magentictest -f infra/bicep/main.bicep -p infra/bicep/parameters/dev.bicepparam`
+
+- [ ] **Step 4: Grant project MI `Search Index Data Reader`** on `srch-mmc-plant` (and enterprise search). Get each project's MI principalId from deployment output or `az resource show`, then:
+
+```powershell
+az role assignment create --role "Search Index Data Reader" --assignee-object-id <projectMIPrincipalId> --assignee-principal-type ServicePrincipal --scope $(az search service show -g rg-magentictest -n srch-mmc-plant --query id -o tsv)
+```
+
+- [ ] **Step 5: Append to `.env`**: `PLANT_SEARCH_CONNECTION_NAME=srch-mmc-plant`, `ENTERPRISE_SEARCH_CONNECTION_NAME=srch-mmc-enterprise`.
+
+- [ ] **Step 6: Commit**: `infra: project→Search connection for AI Search tool`
+
+---
+
+## Task 22: `agent_factory.py` — Foundry Agents Service upsert ✏️ **REVISED**
+
+Idempotent factory that reads `plants/{plant}/profile.yaml` and creates/updates one portal-managed Foundry agent per profile entry. Returns `FoundryAgent` wrappers for Magentic.
 
 **Files:**
-- Create: `src/mmc_agents/kb_client.py`
+- Create: `src/mmc_agents/agent_factory.py`
+- Create: `tests/test_agent_factory.py` (smoke test — gated on `MMC_LIVE=1`)
 
-- [ ] **Step 1: Write**
+- [ ] **Step 1: TDD smoke test** (`tests/test_agent_factory.py`)
 
 ```python
-"""KB tool factory: produces a per-agent grounded-search tool scoped to its sources."""
-from __future__ import annotations
+import os, pytest
+pytestmark = pytest.mark.skipif(os.getenv("MMC_LIVE") != "1", reason="live Azure test")
 
+def test_upsert_plant7_ehs_agent():
+    from mmc_agents.agent_factory import upsert_plant_agents
+    from azure.identity import AzureCliCredential
+    agents = upsert_plant_agents("plant7", project_endpoint=os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"],
+                                  credential=AzureCliCredential())
+    names = {a.name for a in agents}
+    assert "plant7-ehs" in names
+    assert len(agents) == 5
+```
+
+- [ ] **Step 2: Implementation** (`src/mmc_agents/agent_factory.py`)
+
+```python
+"""Create/update portal-managed Foundry agents from profile.yaml (Task 22)."""
+from __future__ import annotations
 import os
-from dataclasses import dataclass
-from typing import Callable
+from pathlib import Path
+from typing import Any
 
-from agent_framework import tool
-from azure.identity import DefaultAzureCredential
-from azure.search.documents import SearchClient
+import yaml
+from agent_framework.foundry import FoundryAgent, FoundryAgentOptions
+from azure.ai.agents.models import AzureAISearchTool, AzureAISearchQueryType
+from azure.ai.projects import AIProjectClient
+from azure.core.credentials import TokenCredential
 
+from mmc_agents.tools import erp, supplier
 
-@dataclass(frozen=True)
-class KBBinding:
-    """Per-agent KB binding — which Search service + KB + source-scoped indexes."""
+ROOT = Path(__file__).resolve().parent.parent.parent
+MODEL = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
 
-    search_endpoint: str
-    kb_name: str
-    indexes: list[str]  # one Search index per scoped source (e.g. ks-plant7-ehs)
-
-
-def kb_binding_for(profile_kb: dict, source_names: list[str], tier: str, scope_id: str) -> KBBinding:
-    """Build a KBBinding for an agent.
-
-    tier='plant'      -> SEARCH_PLANT_ENDPOINT
-    tier='enterprise' -> SEARCH_ENTERPRISE_ENDPOINT
-    scope_id          -> e.g. 'plant7' or 'enterprise' (used to construct index names)
-    """
-    if tier == "plant":
-        endpoint = os.environ["SEARCH_PLANT_ENDPOINT"]
-    elif tier == "enterprise":
-        endpoint = os.environ["SEARCH_ENTERPRISE_ENDPOINT"]
-    else:
-        raise ValueError(f"unknown tier: {tier}")
-    indexes = [f"ks-{scope_id}-{s}".lower().replace("_", "-") for s in source_names]
-    return KBBinding(
-        search_endpoint=endpoint,
-        kb_name=f"kb-{scope_id}",
-        indexes=indexes,
-    )
+# Map profile tool names to Python callables
+LOCAL_TOOLS: dict[str, Any] = {
+    "erp.bom_where_used": erp.bom_where_used,
+    "supplier.lookup": supplier.lookup,
+    "supplier.alternates": supplier.alternates,
+}
 
 
-def make_kb_tool(binding: KBBinding) -> Callable:
-    """Return a @tool-decorated function the agent can call to ground answers.
+def _load_profile(plant_id: str) -> dict:
+    with open(ROOT / "plants" / plant_id / "profile.yaml") as fh:
+        return yaml.safe_load(fh)
 
-    The tool searches each scoped index, returns top hits with content excerpts.
-    """
-    cred = DefaultAzureCredential()
-    clients = {
-        idx: SearchClient(endpoint=binding.search_endpoint, index_name=idx, credential=cred)
-        for idx in binding.indexes
-    }
 
-    @tool(description="Search this agent's scoped knowledge base. Returns up to N matching excerpts.")
-    def search_kb(query: str, top: int = 5) -> list[dict]:
-        results: list[dict] = []
-        per_index = max(1, top // max(1, len(clients)))
-        for idx_name, client in clients.items():
-            for hit in client.search(search_text=query, top=per_index, select=["content", "source_path", "source_name"]):
-                results.append({
-                    "index": idx_name,
-                    "source_path": hit.get("source_path"),
-                    "source_name": hit.get("source_name"),
-                    "excerpt": (hit.get("content") or "")[:800],
-                    "score": hit.get("@search.score"),
-                })
-        results.sort(key=lambda r: r.get("score") or 0.0, reverse=True)
-        return results[:top]
+def _index_name(plant_id: str, source_key: str) -> str:
+    return f"ks-{plant_id}-{source_key}".lower().replace("_", "-")
 
-    return search_kb
+
+def _build_search_tool_defs(project: AIProjectClient, connection_name: str,
+                              plant_id: str, sources: list[str]) -> list[dict]:
+    conn_id = project.connections.get(connection_name).id
+    defs: list[dict] = []
+    for s in sources:
+        tool = AzureAISearchTool(
+            index_connection_id=conn_id,
+            index_name=_index_name(plant_id, s),
+            query_type=AzureAISearchQueryType.SEMANTIC,
+            top_k=5,
+        )
+        defs.extend(tool.definitions)
+    return defs
+
+
+def upsert_plant_agents(plant_id: str, project_endpoint: str,
+                          credential: TokenCredential) -> list[FoundryAgent]:
+    profile = _load_profile(plant_id)
+    project = AIProjectClient(endpoint=project_endpoint, credential=credential)
+    conn_name = os.environ["PLANT_SEARCH_CONNECTION_NAME"]
+
+    agents: list[FoundryAgent] = []
+    for agent_def in profile["agents"]:
+        name = f"{plant_id}-{agent_def['id']}"
+        search_defs = _build_search_tool_defs(project, conn_name, plant_id,
+                                                agent_def.get("kb_sources", []))
+        local_tools = [LOCAL_TOOLS[t] for t in agent_def.get("tools", []) if t in LOCAL_TOOLS]
+
+        agents.append(FoundryAgent(
+            project_endpoint=project_endpoint,
+            credential=credential,
+            name=name,
+            description=agent_def.get("description", ""),
+            instructions=agent_def["instructions"],
+            tools=local_tools,
+            default_options=FoundryAgentOptions(
+                model=MODEL,
+                tools=search_defs,
+            ),
+        ))
+    return agents
 ```
 
-- [ ] **Step 2: Commit**
+- [ ] **Step 3: Run** `MMC_LIVE=1 pytest tests/test_agent_factory.py -v` — must pass. Verify agents appear in Foundry portal → Agents.
 
-```
-git add src/mmc_agents/kb_client.py
-git commit -m "feat(kb): per-agent Search-backed KB tool factory`n`nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
-```
+- [ ] **Step 4: Commit**: `feat(agents): Foundry Agents Service upsert factory`
 
 ---
 
-## Task 22: `agent_factory.py` (TDD)
+## Task 23: Agent cards point at portal agents ✏️ **REVISED**
 
-**Files:**
-- Create: `tests/test_agent_factory.py`, `src/mmc_agents/agent_factory.py`
+Cards are emitted by a one-off script that runs the factory once, then writes one `agent.json` per agent containing the **real Foundry agent id**. This is what `LocalCatalogSource` reads.
 
-- [ ] **Step 1: Write failing test (card-emission only — agent instantiation is integration)**
-
-```python
-# tests/test_agent_factory.py
-import json, yaml
-from pathlib import Path
-from mmc_agents.agent_factory import emit_agent_card
-
-PROFILE = yaml.safe_load("""
-plant_id: plant7
-display_name: MMC Plant 7
-kb:
-  kb_id_env: FOUNDRY_IQ_KB_PLANT7_ID
-  sources:
-    ehs: { paths: [] }
-agents:
-  - role: ehs
-    display_name: Plant 7 EHS / Safety
-    kb_sources: [ehs]
-    tools: [capa]
-    skills:
-      - { id: hazard_loto_lookup, description: Hazard & LOTO requirement lookup }
-""")
-
-def test_emit_card(tmp_path: Path):
-    out = tmp_path / "plant7-ehs.agent.json"
-    emit_agent_card(PROFILE, role="ehs", endpoint_base="https://demo.local", out_path=out)
-    card = json.loads(out.read_text())
-    assert card["name"] == "plant7-ehs"
-    assert card["tier"] == "plant"
-    assert card["endpoint"].endswith("/plant7-ehs/.well-known/agent-card.json")
-    assert card["skills"] == [{"id": "hazard_loto_lookup", "description": "Hazard & LOTO requirement lookup"}]
-```
-
-- [ ] **Step 2: Run — confirm failure**
-
-Run: `pytest tests/test_agent_factory.py -v`
-Expected: ImportError.
-
-- [ ] **Step 3: Implement card emission + agent build**
+- [ ] **Step 1: Script `scripts/generate_cards.py`**
 
 ```python
-# src/mmc_agents/agent_factory.py
-"""Builds Foundry agents (prompt-based) and emits A2A cards from profile.yaml."""
+"""Emit AgentCard JSON for each plant agent created in Foundry (Task 23)."""
 from __future__ import annotations
-
-import json
+import json, os
 from pathlib import Path
 
-from agent_framework import Agent
+from azure.identity import AzureCliCredential
+from dotenv import load_dotenv
 
-from mmc_agents.kb_client import kb_binding_for, make_kb_tool
+from mmc_agents.agent_factory import upsert_plant_agents
 
-PROMPT_TEMPLATE = """You are {display_name} for MMC ({plant_id}).
-Scope: {scope}.
-Always ground factual claims in your knowledge base sources: {sources}.
-If retrieval returns nothing, reply 'No grounded answer available' rather than speculating.
-You may call your registered tools when a question needs structured lookup.
-Respond concisely and cite source filenames you used.
-"""
-
-
-def _agent_name(plant_id: str, role: str) -> str:
-    return f"{plant_id}-{role}"
-
-
-def emit_agent_card(profile: dict, role: str, endpoint_base: str, out_path: Path) -> dict:
-    agent_def = next(a for a in profile["agents"] if a["role"] == role)
-    name = _agent_name(profile["plant_id"], role)
-    card = {
-        "name": name,
-        "display_name": agent_def["display_name"],
-        "description": f"{agent_def['display_name']} grounded in {', '.join(agent_def['kb_sources'])} KB sources.",
-        "endpoint": f"{endpoint_base.rstrip('/')}/{name}/.well-known/agent-card.json",
-        "skills": agent_def["skills"],
-        "tier": "plant",
-        "metadata": {
-            "plant_id": profile["plant_id"],
-            "kb_sources": agent_def["kb_sources"],
-            "tools": agent_def["tools"],
-        },
-    }
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(card, indent=2), encoding="utf-8")
-    return card
-
-
-def build_plant_agent(profile: dict, role: str, chat_client, tool_registry: dict) -> Agent:
-    """Build a live Agent for the given role from profile + tool registry.
-
-    The agent gets:
-    - System prompt assembled from profile
-    - KB tool scoped to the agent's KB sources (per D16)
-    - Any structured tools listed in profile.agents[*].tools
-    """
-    agent_def = next(a for a in profile["agents"] if a["role"] == role)
-    name = _agent_name(profile["plant_id"], role)
-    prompt = PROMPT_TEMPLATE.format(
-        display_name=agent_def["display_name"],
-        plant_id=profile["plant_id"],
-        scope=", ".join(s["description"] for s in agent_def["skills"]),
-        sources=", ".join(agent_def["kb_sources"]),
-    )
-    binding = kb_binding_for(profile["kb"], agent_def["kb_sources"], tier="plant", scope_id=profile["plant_id"])
-    kb_tool = make_kb_tool(binding)
-    structured_tools = [tool_registry[t] for t in agent_def["tools"] if t in tool_registry]
-    return Agent(
-        name=name,
-        description=agent_def["display_name"],
-        instructions=prompt,
-        client=chat_client,
-        tools=[kb_tool, *structured_tools],
-    )
-```
-
-- [ ] **Step 4: Run — confirm pass**
-
-Run: `pytest tests/test_agent_factory.py -v`
-Expected: 1 passed.
-
-- [ ] **Step 5: Commit**
-
-```
-git add src/mmc_agents/agent_factory.py tests/test_agent_factory.py
-git commit -m "feat(factory): emit_agent_card + build_plant_agent"
-```
-
----
-
-## Task 23: Generate 5 Plant 7 agent cards
-
-- [ ] **Step 1: One-off generation script**
-
-```python
-# scripts/generate_cards.py  (commit this too)
-from __future__ import annotations
-import os, yaml
-from pathlib import Path
-from mmc_agents.agent_factory import emit_agent_card
-
+load_dotenv()
 ROOT = Path(__file__).resolve().parent.parent
-PROFILE = yaml.safe_load((ROOT / "plants" / "plant7" / "profile.yaml").read_text())
-endpoint_base = os.environ.get("MMC_AGENT_ENDPOINT_BASE", "http://localhost:8080")
 
-for agent in PROFILE["agents"]:
-    role = agent["role"]
-    out = ROOT / "plants" / "plant7" / "agents" / f"plant7-{role}.agent.json"
-    emit_agent_card(PROFILE, role=role, endpoint_base=endpoint_base, out_path=out)
-print("Generated 5 cards.")
+
+def main() -> int:
+    plant_id = "plant7"
+    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    agents = upsert_plant_agents(plant_id, endpoint, AzureCliCredential())
+
+    out_dir = ROOT / "plants" / plant_id / "cards"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for a in agents:
+        card = {
+            "schema_version": "1",
+            "name": a.name,
+            "description": a.description or "",
+            "endpoint": endpoint,
+            "agent_id": a.id,
+            "skills": [],
+            "metadata": {"plant_id": plant_id, "project": "mmc-plant"},
+        }
+        (out_dir / f"{a.name}.json").write_text(json.dumps(card, indent=2))
+        print(f"wrote {a.name}.json (id={a.id})")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
 ```
 
-- [ ] **Step 2: Run**
+- [ ] **Step 2: Run** `.\.venv\Scripts\python.exe scripts/generate_cards.py` — 5 files in `plants/plant7/cards/`.
 
-Run: `python scripts/generate_cards.py`
-Expected: 5 files in `plants/plant7/agents/`.
-
-- [ ] **Step 3: Commit cards + script**
-
-```
-git add scripts/generate_cards.py plants/plant7/agents/
-git commit -m "feat(plant7): generate 5 A2A cards from profile"
-```
+- [ ] **Step 3: Commit**: `feat(cards): emit Plant 7 cards from live Foundry agent IDs`
 
 ---
 
-## Task 24: Supply Chain agent card (thin-slice stub)
+## Task 24: Supply Chain agent card (hand-authored for thin slice)
 
-**Files:**
-- Create: `enterprise/supply-chain/agent.json` (hand-authored for the thin slice — Task 24 of Gate B replaces with factory)
+Same as before — hand-authored `enterprise/supply-chain/agent.json` pointing at a placeholder Foundry agent. Gate B will upgrade it through the factory.
 
-- [ ] **Step 1: Author**
+- [ ] **Step 1: Author** `enterprise/supply-chain/agent.json`:
 
 ```json
 {
-  "name": "ent-supply-chain",
-  "display_name": "Supply Chain",
-  "description": "Enterprise supply chain agent. Resolves supplier health, BOM where-used, and alt-source lookups.",
-  "endpoint": "http://localhost:8080/ent-supply-chain/.well-known/agent-card.json",
-  "skills": [
-    {"id": "supplier_health", "description": "Supplier health & disruption impact"},
-    {"id": "bom_where_used", "description": "BOM explode & where-used"},
-    {"id": "alt_source_lookup", "description": "Alternate-source & inbound-logistics ETA"}
-  ],
-  "tier": "enterprise",
-  "metadata": {
-    "kb_sources": ["supply_chain"],
-    "tools": ["erp", "supplier"]
-  }
+  "schema_version": "1",
+  "name": "supply-chain",
+  "description": "Enterprise supply-chain operations (BOM, supplier risk)",
+  "endpoint": "stub://supply-chain",
+  "agent_id": "stub-supply-chain",
+  "skills": ["erp.bom_where_used", "supplier.lookup", "supplier.alternates"],
+  "metadata": {"project": "mmc-enterprise", "stub": true}
 }
 ```
 
-- [ ] **Step 2: Refresh catalog**
-
-Run: `python scripts/refresh_catalog.py`
-Expected: `agents/catalog.json` contains 6 agents.
-
-- [ ] **Step 3: Commit**
-
-```
-git add enterprise/supply-chain/agent.json
-git commit -m "feat(supply-chain): A2A card (thin-slice stub)"
-```
+- [ ] **Step 2: Commit**: `feat(cards): supply-chain stub agent card`
 
 ---
 
-## Task 25: `orchestrator/model_config.py`
+## Task 25: `orchestrator/model_config.py` — manager model only ✏️ **REVISED**
 
-**Per SDK addendum D17/D18:** the Agent Framework `FoundryChatClient` talks directly to a Foundry project endpoint and uses a model deployment hosted on the Foundry account. No separate AzureOpenAI client is needed.
+Agents carry their own model now. We only need a `FoundryChatClient` for the **Magentic manager** (lightweight planner over the same gpt-4o-mini deployment).
 
 **Files:**
-- Create: `src/mmc_agents/orchestrator/__init__.py` (empty), `src/mmc_agents/orchestrator/model_config.py`
+- Create: `src/mmc_agents/orchestrator/__init__.py` (empty)
+- Create: `src/mmc_agents/orchestrator/model_config.py`
 
-- [ ] **Step 1: Write**
+- [ ] **Step 1:** `src/mmc_agents/orchestrator/model_config.py`
 
 ```python
-# src/mmc_agents/orchestrator/model_config.py
-"""D2: configurable chat-client loader with fallback deployment."""
+"""Manager-side model client (Magentic planner)."""
 from __future__ import annotations
-
 import os
-
 from agent_framework.foundry import FoundryChatClient
-from azure.identity import AzureCliCredential, DefaultAzureCredential
+from azure.identity import AzureCliCredential
 
 
-def _credential():
-    # Local dev: az login.  CI / hosted: managed identity via DefaultAzureCredential.
-    if os.environ.get("MMC_USE_CLI_CREDENTIAL", "1") == "1":
-        return AzureCliCredential()
-    return DefaultAzureCredential()
-
-
-def load_chat_client(project_endpoint: str | None = None, deployment: str | None = None) -> FoundryChatClient:
-    """Load a chat client for a given Foundry project + model deployment.
-
-    Defaults to the plant project + the deployed model from .env.
-    """
+def manager_chat_client() -> FoundryChatClient:
     return FoundryChatClient(
-        project_endpoint=project_endpoint or os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"],
-        model=deployment or os.environ["FOUNDRY_MODEL_DEPLOYMENT"],
-        credential=_credential(),
+        project_endpoint=os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"],
+        model=os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini"),
+        credential=AzureCliCredential(),
+    )
+```
+
+- [ ] **Step 2: Commit**: `feat(orchestrator): manager chat client`
+
+---
+
+## Task 26: `orchestrator/manager.py` — Magentic over Foundry agents ✏️ **REVISED**
+
+- [ ] **Step 1:** `src/mmc_agents/orchestrator/manager.py`
+
+```python
+"""Magentic orchestration over portal-managed Foundry agents (Task 26)."""
+from __future__ import annotations
+import os
+from typing import AsyncIterator
+
+from agent_framework import AgentResponseUpdate
+from agent_framework.orchestrations import MagenticBuilder
+from azure.identity import AzureCliCredential
+
+from mmc_agents.agent_factory import upsert_plant_agents
+from mmc_agents.orchestrator.model_config import manager_chat_client
+
+
+async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
+    cred = AzureCliCredential()
+    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    participants = upsert_plant_agents(plant_id, endpoint, cred)
+
+    workflow = (
+        MagenticBuilder(
+            participants=participants,
+            manager_chat_client=manager_chat_client(),
+            max_round_count=10,
+            max_stall_count=3,
+            max_reset_count=2,
+        )
+        .build()
     )
 
-
-def load_fallback_client(project_endpoint: str | None = None) -> FoundryChatClient | None:
-    """Return a client using the fallback deployment, or None if not configured."""
-    fallback = os.environ.get("MMC_MODEL_FALLBACK_DEPLOYMENT")
-    if not fallback:
-        return None
-    return load_chat_client(project_endpoint=project_endpoint, deployment=fallback)
+    async for event in workflow.run(task, stream=True):
+        kind = getattr(event, "kind", "event")
+        data = getattr(event, "data", None)
+        if isinstance(data, AgentResponseUpdate):
+            yield {"kind": kind, "agent": data.agent_name, "text": data.text}
+        else:
+            yield {"kind": kind, "data": repr(data)[:200]}
 ```
 
-- [ ] **Step 2: Commit**
-
-```
-git add src/mmc_agents/orchestrator/__init__.py src/mmc_agents/orchestrator/model_config.py
-git commit -m "feat(orchestrator): FoundryChatClient loader + fallback`n`nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
-```
-
----
-
-## Task 26: `orchestrator/manager.py`
-
-**Per SDK addendum D17:** the real Magentic API is `MagenticBuilder(participants=[...], manager_agent=..., max_round_count=..., max_stall_count=..., max_reset_count=...).build()`, returning a `Workflow` whose `.run(task, stream=True)` is an `AsyncIterator[WorkflowEvent]`. Our `MmcMagenticManager` wraps this and emits `RunResult` after consuming the stream.
-
-**Files:**
-- Create: `src/mmc_agents/orchestrator/manager.py`
-
-- [ ] **Step 1: Write**
-
-```python
-# src/mmc_agents/orchestrator/manager.py
-"""Magentic manager wiring: registry → live agents → MagenticBuilder workflow."""
-from __future__ import annotations
-
-import asyncio
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Iterable
-
-import yaml
-from agent_framework import Agent, AgentResponseUpdate
-from agent_framework.orchestrations import MagenticBuilder
-
-from mmc_agents.agent_factory import build_plant_agent
-from mmc_agents.orchestrator.model_config import load_chat_client
-from mmc_agents.registry.base import AgentCard, RegistrySource
-from mmc_agents.registry.local_catalog import WatchedLocalCatalogSource
-
-MANAGER_INSTRUCTIONS = (
-    "You are the MMC Magentic Manager. You coordinate plant and enterprise "
-    "specialist agents to answer multi-disciplinary manufacturing questions. "
-    "Plan minimally, delegate to the right specialist, and reconcile their "
-    "answers into a single concise response that cites which agents contributed."
-)
-
-
-@dataclass
-class RunResult:
-    answer: str
-    hops: list[str] = field(default_factory=list)
-    backtracks: int = 0
-    events: list[dict] = field(default_factory=list)
-
-
-class MmcMagenticManager:
-    """High-level wrapper around Agent Framework's MagenticBuilder."""
-
-    def __init__(
-        self,
-        registry: RegistrySource | None = None,
-        max_round_count: int = 10,
-        max_stall_count: int = 3,
-        max_reset_count: int = 2,
-        repo_root: Path | None = None,
-    ) -> None:
-        self.repo_root = repo_root or Path(__file__).resolve().parents[3]
-        self.registry = registry or WatchedLocalCatalogSource(self.repo_root / "agents" / "catalog.json")
-        self.chat_client = load_chat_client()
-        self.max_round_count = max_round_count
-        self.max_stall_count = max_stall_count
-        self.max_reset_count = max_reset_count
-
-    def _hydrate_plant_agents(self, cards: Iterable[AgentCard], tool_registry: dict) -> list[Agent]:
-        """For Gate A thin slice, build plant agents in-process from their profile."""
-        profile_path = self.repo_root / "plants" / "plant7" / "profile.yaml"
-        profile = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
-        agents: list[Agent] = []
-        for card in cards:
-            if card.tier != "plant":
-                continue
-            role = card.name.split("-", 1)[1]
-            agents.append(build_plant_agent(profile, role, self.chat_client, tool_registry))
-        return agents
-
-    def _manager_agent(self) -> Agent:
-        return Agent(
-            name="MmcMagenticManager",
-            description="Orchestrator across MMC plant + enterprise agents",
-            instructions=MANAGER_INSTRUCTIONS,
-            client=self.chat_client,
-        )
-
-    async def run_async(self, problem_statement: str, tool_registry: dict) -> RunResult:
-        cards = self.registry.list_agents()
-        agents = self._hydrate_plant_agents(cards, tool_registry)
-        if not agents:
-            raise RuntimeError("no plant agents in catalog; run scripts/refresh_catalog.py first")
-
-        workflow = MagenticBuilder(
-            participants=agents,
-            intermediate_output_from=agents,
-            manager_agent=self._manager_agent(),
-            max_round_count=self.max_round_count,
-            max_stall_count=self.max_stall_count,
-            max_reset_count=self.max_reset_count,
-        ).build()
-
-        result = RunResult(answer="")
-        async for event in workflow.run(problem_statement, stream=True):
-            result.events.append({"type": event.type, "executor_id": getattr(event, "executor_id", None)})
-            if event.type == "output" and isinstance(event.data, AgentResponseUpdate):
-                result.answer += str(event.data)
-            if event.type == "intermediate" and isinstance(event.data, AgentResponseUpdate):
-                if event.executor_id and event.executor_id not in result.hops:
-                    result.hops.append(event.executor_id)
-            if event.type == "magentic_orchestrator":
-                meta = getattr(event, "data", {}) or {}
-                if isinstance(meta, dict) and meta.get("reset"):
-                    result.backtracks += 1
-        return result
-
-    def run(self, problem_statement: str, tool_registry: dict) -> RunResult:
-        return asyncio.run(self.run_async(problem_statement, tool_registry))
-```
-
-- [ ] **Step 2: Commit**
-
-```
-git add src/mmc_agents/orchestrator/manager.py
-git commit -m "feat(orchestrator): MmcMagenticManager via MagenticBuilder`n`nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
-```
+- [ ] **Step 2: Commit**: `feat(orchestrator): Magentic over Foundry agents`
 
 ---
 

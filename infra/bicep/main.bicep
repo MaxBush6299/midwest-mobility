@@ -36,6 +36,28 @@ module foundry 'modules/foundry-project.bicep' = {
   }
 }
 
+module plantSearchConn 'modules/search-connection.bicep' = {
+  name: 'plantSearchConn'
+  params: {
+    foundryAccountName: foundryAccountName
+    projectName: plantProjectName
+    connectionName: searchPlantName
+    searchName: searchPlantName
+  }
+  dependsOn: [foundry, searchPlant]
+}
+
+module enterpriseSearchConn 'modules/search-connection.bicep' = {
+  name: 'enterpriseSearchConn'
+  params: {
+    foundryAccountName: foundryAccountName
+    projectName: enterpriseProjectName
+    connectionName: searchEnterpriseName
+    searchName: searchEnterpriseName
+  }
+  dependsOn: [foundry, searchEnt]
+}
+
 module kbPlant7 'modules/foundry-iq-kb.bicep' = {
   name: 'kbPlant7'
   params: {
@@ -63,3 +85,5 @@ output foundryProjectEndpoints array = foundry.outputs.projectEndpoints
 output storageAccountName string = storage.outputs.storageAccountName
 output searchPlantId string = searchPlant.outputs.searchId
 output searchEnterpriseId string = searchEnt.outputs.searchId
+output plantSearchConnectionName string = plantSearchConn.outputs.connectionName
+output enterpriseSearchConnectionName string = enterpriseSearchConn.outputs.connectionName

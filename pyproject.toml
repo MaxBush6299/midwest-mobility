@@ -5,6 +5,9 @@ requires-python = ">=3.11"
 dependencies = [
   # Microsoft Agent Framework (preview) — D17. Meta package pulls in core + providers.
   "agent-framework>=0.1.0",
+  # Foundry Agents Service SDK (D20) — for portal-managed Foundry agents + tool defs.
+  "azure-ai-projects>=1.0.0b1",
+  "azure-ai-agents>=1.2.0b6",
   # Foundry IQ = Azure AI Search KB — D16. Preview features need preview SDK.
   "azure-search-documents>=11.6.0b1",
   "azure-identity>=1.17",
