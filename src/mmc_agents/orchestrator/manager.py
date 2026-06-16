@@ -13,6 +13,7 @@ from agent_framework.orchestrations import (
 from azure.identity import AzureCliCredential
 
 from mmc_agents.agent_factory import build_foundry_agents
+from mmc_agents.observability import setup_tracing
 from mmc_agents.orchestrator.model_config import manager_chat_client
 
 
@@ -36,6 +37,7 @@ def _build_manager() -> StandardMagenticManager:
 
 async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
     """Stream Magentic events for a plant scenario. Yields {kind, agent, text|data}."""
+    setup_tracing()
     cred = AzureCliCredential()
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     participants = build_foundry_agents(plant_id, endpoint, cred)
@@ -48,20 +50,26 @@ async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
         .build()
     )
 
-    async for ev in workflow.run(task, stream=True):
-        evtype = getattr(ev, "type", None)
-        executor_id = getattr(ev, "executor_id", None)
-        data = getattr(ev, "data", None)
+    from opentelemetry import trace
 
-        agent_name: str | None = None
-        if executor_id and executor_id.startswith(f"{plant_id}-"):
-            agent_name = executor_id
-        elif hasattr(data, "participant_name"):
-            agent_name = getattr(data, "participant_name", None)
+    tracer = trace.get_tracer("mmc_agents.orchestrator")
+    with tracer.start_as_current_span(f"magentic.scenario.{plant_id}") as span:
+        span.set_attribute("mmc.plant_id", plant_id)
+        span.set_attribute("mmc.task", task[:500])
+        async for ev in workflow.run(task, stream=True):
+            evtype = getattr(ev, "type", None)
+            executor_id = getattr(ev, "executor_id", None)
+            data = getattr(ev, "data", None)
 
-        yield {
-            "kind": str(evtype),
-            "agent": agent_name,
-            "executor": executor_id,
-            "data_type": type(data).__name__ if data is not None else None,
-        }
+            agent_name: str | None = None
+            if executor_id and executor_id.startswith(f"{plant_id}-"):
+                agent_name = executor_id
+            elif hasattr(data, "participant_name"):
+                agent_name = getattr(data, "participant_name", None)
+
+            yield {
+                "kind": str(evtype),
+                "agent": agent_name,
+                "executor": executor_id,
+                "data_type": type(data).__name__ if data is not None else None,
+            }
