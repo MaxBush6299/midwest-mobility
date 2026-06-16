@@ -7,3 +7,4 @@ agents/catalog.json
 htmlcov/
 *.egg-info/
 docs/specs/*.html
+infra/bicep/**/*.json
