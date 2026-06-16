@@ -1,13 +1,16 @@
 targetScope = 'resourceGroup'
 
 param location string = 'eastus'
-param storageName string
+param storageNamePrefix string = 'stmmcdemo'
 param searchPlantName string
 param searchEnterpriseName string
-param foundryPlantProjectName string
-param foundryEnterpriseProjectName string
+param foundryAccountName string
+param plantProjectName string = 'mmc-plant'
+param enterpriseProjectName string = 'mmc-enterprise'
 param plant7KbName string = 'kb-plant7'
 param enterpriseKbName string = 'kb-enterprise'
+
+var storageName = '${storageNamePrefix}${uniqueString(resourceGroup().id)}'
 
 module storage 'modules/storage.bicep' = {
   name: 'storage'
@@ -24,14 +27,13 @@ module searchEnt 'modules/ai-search.bicep' = {
   params: { location: location, searchName: searchEnterpriseName }
 }
 
-module foundryPlant 'modules/foundry-project.bicep' = {
-  name: 'foundryPlant'
-  params: { location: location, projectName: foundryPlantProjectName, tier: 'plant' }
-}
-
-module foundryEnt 'modules/foundry-project.bicep' = {
-  name: 'foundryEnt'
-  params: { location: location, projectName: foundryEnterpriseProjectName, tier: 'enterprise' }
+module foundry 'modules/foundry-project.bicep' = {
+  name: 'foundry'
+  params: {
+    location: location
+    accountName: foundryAccountName
+    projectNames: [plantProjectName, enterpriseProjectName]
+  }
 }
 
 module kbPlant7 'modules/foundry-iq-kb.bicep' = {
@@ -54,6 +56,10 @@ module kbEnterprise 'modules/foundry-iq-kb.bicep' = {
   }
 }
 
-output foundryPlantEndpoint string = foundryPlant.outputs.projectEndpoint
-output foundryEnterpriseEndpoint string = foundryEnt.outputs.projectEndpoint
+output foundryAccountEndpoint string = foundry.outputs.accountEndpoint
+output foundryAccountName string = foundry.outputs.accountName
+output foundryModelDeploymentName string = foundry.outputs.modelDeploymentName
+output foundryProjectEndpoints array = foundry.outputs.projectEndpoints
 output storageAccountName string = storage.outputs.storageAccountName
+output searchPlantId string = searchPlant.outputs.searchId
+output searchEnterpriseId string = searchEnt.outputs.searchId
