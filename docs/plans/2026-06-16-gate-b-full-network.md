@@ -163,9 +163,16 @@ Expected: FAIL with offender file list.
 Verify and record exact package/import/API versions for:
 - Agent Framework Python `@tool` decorator
 - Agent Framework Python Magentic manager and result shape
+  (resolved in Gate A: MagenticBuilder + StandardMagenticManager;
+   final answer arrives as WorkflowEvent(type='output') with data=AgentResponse;
+   no MaxStepsExceeded — termination message comes through the same channel.)
 - A2A hydration from agent-card URL
 - Foundry Agent Service prompt-agent constructor
 - Foundry IQ KB connector / MCP tool binding
+  (resolved in Gate A: azure-ai-projects 2.2.0 MCPTool(server_label, server_url,
+   require_approval='never', project_connection_id=...) works today;
+   KB itself needs retrieval_reasoning_effort=KnowledgeRetrievalMinimalReasoningEffort()
+   typed class, not the string "minimal".)
 - Bicep resource type/API for Foundry project
 - Bicep resource type/API for Foundry IQ KB or data-plane-only fallback
 ```
@@ -1402,9 +1409,17 @@ def emit_enterprise_agent_card(profile, role, endpoint_base, out_path):
     return card
 ```
 
+> **KB MCP tool wiring (from Gate A):** The plant factory bakes the Foundry IQ MCP
+> tool into every prompt-agent version via `PLANT_KB_CONNECTION_ID` +
+> `PLANT_KB_MCP_URL`. The enterprise factory must mirror this with
+> `ENTERPRISE_KB_CONNECTION_ID` + `ENTERPRISE_KB_MCP_URL` so the 5 enterprise
+> agents come up with `kb-enterprise` attached on first create — no portal step.
+> Add these to `.env.example` and to `agent_factory._kb_tool()` (or a new
+> `_enterprise_kb_tool()` helper if signature differs).
+
 ```pwsh
 pytest tests\test_enterprise_agent_factory.py tests\test_agent_factory.py -v
-git add enterprise\profile.yaml src\mmc_agents\agent_factory.py tests\test_enterprise_agent_factory.py
+git add enterprise\profile.yaml src\mmc_agents\agent_factory.py tests\test_enterprise_agent_factory.py .env.example
 git commit -m "feat(factory): enterprise agent cards from profile"
 ```
 Expected: factory tests pass; commit succeeds.
@@ -1464,86 +1479,179 @@ Expected: commit succeeds.
 **Files:**
 - Modify: `src/mmc_agents/orchestrator/manager.py`, `src/mmc_agents/orchestrator/scenarios/brake_caliper.py`
 - Modify: `enterprise/supply-chain/data/supplier_master.csv`, `enterprise/supply-chain/fixtures/supplier_master.json`
+- Modify: `scripts/run_scenario.py` (capture hops + backtracks alongside synthesis)
 - Create: `tests/test_manager_hardening.py`
 
-- [ ] **Step 1: Write failing backtrack test**
+> **API note (from Gate A):** the orchestrator is `MagenticBuilder + StandardMagenticManager`,
+> not a custom `MmcMagenticManager`. There is no `manager.run()` and no
+> `MaxStepsExceeded` exception. Hops, backtracks, and the final answer must be
+> derived by iterating `WorkflowEvent` objects from `wf.run(task, stream=True)`:
+> - per-agent turns: `evt.type == "executor_completed"` + `executor_id.startswith("plant7-"|"ent-")`
+> - replans / progress ledger: `isinstance(evt.data, MagenticOrchestratorEvent)` with
+>   `event_type in {PLAN_CREATED, REPLANNED, PROGRESS_LEDGER_UPDATED}`
+>   (count `REPLANNED` events for `backtracks`)
+> - final synthesis (or termination message at `max_round_count`): `evt.type == "output"`
+>   with `data` of type `AgentResponse` / `AgentResponseUpdate`
+> Use `scripts/run_scenario.py` (committed in Gate A as `101eef0`) as the reference.
+
+- [ ] **Step 1: Add a `ScenarioRun` capture helper**
 
 ```python
-from mmc_agents.orchestrator.manager import RunResult, summarize_guarded_result
+# src/mmc_agents/orchestrator/manager.py
+from dataclasses import dataclass, field
+from agent_framework.orchestrations import MagenticOrchestratorEvent, MagenticOrchestratorEventType
 
-def test_run_result_exposes_backtrack_reason():
-    result = RunResult(answer="alternate source requires procurement review", hops=["ent-supply-chain", "plant7-maintenance", "plant7-quality", "ent-procurement", "ent-supply-chain"], backtracks=1, raw_ledgers={"progress": {"backtrack_reason": "NO_DIRECT_ALT for BRK-CAL-XYZ"}})
-    summary = summarize_guarded_result(result)
-    assert "NO_DIRECT_ALT" in summary
-    assert "ent-supply-chain" in summary
+@dataclass
+class ScenarioRun:
+    answer: str = ""
+    hops: list[str] = field(default_factory=list)
+    backtracks: int = 0
+    plan_text: str = ""
+    last_progress_ledger: str = ""
+    terminated_by_max_rounds: bool = False
+
+async def run_and_capture(workflow, task: str) -> ScenarioRun:
+    out = ScenarioRun()
+    async for ev in workflow.run(task, stream=True):
+        evtype = str(getattr(ev, "type", ""))
+        data = getattr(ev, "data", None)
+        executor_id = getattr(ev, "executor_id", None)
+        if evtype == "executor_completed" and executor_id and (
+            executor_id.startswith("plant") or executor_id.startswith("ent-")
+        ):
+            out.hops.append(executor_id)
+        if isinstance(data, MagenticOrchestratorEvent):
+            text = getattr(getattr(data, "content", None), "text", "") or ""
+            if data.event_type == MagenticOrchestratorEventType.PLAN_CREATED:
+                out.plan_text = text
+            elif data.event_type == MagenticOrchestratorEventType.REPLANNED:
+                out.backtracks += 1
+            elif data.event_type == MagenticOrchestratorEventType.PROGRESS_LEDGER_UPDATED:
+                out.last_progress_ledger = text
+        if evtype == "output":
+            # AgentResponse (non-streaming) or AgentResponseUpdate (streaming)
+            msgs = getattr(data, "messages", None)
+            if msgs:
+                out.answer += msgs[-1].text or ""
+            else:
+                cs = getattr(data, "contents", None) or []
+                out.answer += "".join(getattr(c, "text", str(c)) for c in cs)
+    out.terminated_by_max_rounds = "maximum round count" in out.answer.lower()
+    return out
 ```
-Expected: missing helper fails.
 
-- [ ] **Step 2: Update scenario bounds**
+- [ ] **Step 2: Tighten manager instructions for the NO_DIRECT_ALT backtrack**
+
+Preserve the current `final_answer_prompt` and the "converge in 4-6 rounds"
+guidance from Gate A, then append:
+
+```python
+NO_DIRECT_ALT_RULE = (
+    " When a supply-chain or plant tool reports NO_DIRECT_ALT, treat it as a "
+    "dead-end on that path, record the phrase in the progress ledger, and "
+    "route the next turn to procurement, PLM, or demand to explore a different "
+    "mitigation dimension."
+)
+```
+Append `NO_DIRECT_ALT_RULE` to the manager's `instructions=` in
+`_build_manager()` rather than replacing them.
+
+- [ ] **Step 3: Update scenario bounds**
 
 ```python
 EXPECTED_BOUNDS = {
     "min_distinct_agents": 5,
     "min_backtracks": 1,
     "must_include_agents": {"ent-supply-chain", "plant7-maintenance", "plant7-quality", "ent-procurement"},
-    "must_observe_ledger_terms": {"NO_DIRECT_ALT", "BRK-CAL-XYZ"},
+    "must_observe_terms": {"NO_DIRECT_ALT", "BRK-CAL-XYZ"},
 }
 ```
-Expected: smoke now requires the backtrack evidence.
 
-- [ ] **Step 3: Tune manager instructions and helper**
+- [ ] **Step 4: Add a hardening test that uses the real capture helper**
 
 ```python
-MANAGER_INSTRUCTIONS = "When a tool or agent reports NO_DIRECT_ALT, treat it as a dead-end, backtrack, and ask procurement, PLM, demand, or enterprise quality for another mitigation dimension. Record the dead-end phrase in the progress ledger."
-def summarize_guarded_result(result: RunResult) -> str:
-    return f"answer={result.answer}\nhops={result.hops}\nbacktracks={result.backtracks}\nledgers={result.raw_ledgers}"
-```
-Expected: instructions are passed through verified Magentic API from Task 2.
+# tests/test_manager_hardening.py
+import os, pytest
+from mmc_agents.orchestrator.manager import ScenarioRun
 
-- [ ] **Step 4: Verify and commit**
+def test_scenario_run_records_backtracks_and_hops():
+    run = ScenarioRun(answer="x", hops=["a", "b", "a"], backtracks=1)
+    assert run.backtracks == 1
+    assert run.hops.count("a") == 2
+
+LIVE = os.environ.get("MMC_LIVE") == "1"
+
+@pytest.mark.skipif(not LIVE, reason="Requires deployed Foundry + KBs.")
+def test_brake_caliper_backtracks_on_no_direct_alt():
+    # Re-uses scripts/run_scenario.py wiring via run_and_capture()
+    from mmc_agents.orchestrator.manager import run_and_capture, _build_manager
+    from mmc_agents.agent_factory import build_foundry_agents
+    from agent_framework.orchestrations import MagenticBuilder
+    from azure.identity import AzureCliCredential
+    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    participants = build_foundry_agents("plant7", endpoint, AzureCliCredential())
+    wf = MagenticBuilder(participants=participants, manager=_build_manager()).build()
+    run = asyncio.run(run_and_capture(wf, "...brake-caliper task..."))
+    assert run.backtracks >= 1
+    assert "NO_DIRECT_ALT" in run.last_progress_ledger or "NO_DIRECT_ALT" in run.answer
+```
+
+- [ ] **Step 5: Verify and commit**
 
 ```pwsh
 python scripts\derive_fixtures.py --node supply-chain
 pytest tests\test_manager_hardening.py -v
+$env:MMC_LIVE = "1"; python scripts\run_scenario.py  # spot-check synthesis still works
 git add src\mmc_agents\orchestrator\manager.py src\mmc_agents\orchestrator\scenarios\brake_caliper.py enterprise\supply-chain\data\supplier_master.csv enterprise\supply-chain\fixtures\supplier_master.json tests\test_manager_hardening.py
-git commit -m "feat(orchestrator): tune brake-caliper backtracking"
+git commit -m "feat(orchestrator): NO_DIRECT_ALT backtrack rule + ScenarioRun capture"
 ```
 Expected: tests pass; commit succeeds.
 
 ---
 
-## Task 28: Max-step guard handling
+## Task 28: Max-round termination handling
 
 **Files:**
 - Modify: `src/mmc_agents/orchestrator/manager.py`
 - Modify: `tests/test_manager_hardening.py`
 
-- [ ] **Step 1: Add failing guard test**
+> **API note:** the framework does **not** raise an exception when
+> `max_round_count` is hit. Instead it yields a `WorkflowEvent(type='output')`
+> whose payload's text contains `"Workflow terminated due to reaching maximum
+> round count."` — captured by `ScenarioRun.answer` and the
+> `terminated_by_max_rounds` flag from Task 27.
+
+- [ ] **Step 1: Add termination test**
 
 ```python
-def test_max_step_guard_returns_partial_answer_and_ledgers():
-    result = RunResult(answer="Partial answer: supply impact known.", hops=["ent-supply-chain", "plant7-maintenance"], backtracks=0, raw_ledgers={"task": {"solved": False}, "progress": {"guard": "max_steps"}})
-    assert "max_steps" in summarize_guarded_result(result)
-    assert "Partial answer" in summarize_guarded_result(result)
+def test_scenario_run_detects_max_round_termination():
+    run = ScenarioRun(answer="Workflow terminated due to reaching maximum round count.")
+    run.terminated_by_max_rounds = "maximum round count" in run.answer.lower()
+    assert run.terminated_by_max_rounds is True
 ```
-Expected: fails if guard details are discarded.
 
-- [ ] **Step 2: Implement guard normalization**
+- [ ] **Step 2: Add a `summarize_scenario_run()` helper that exposes the
+  partial state for the demo / UI consumers**
 
 ```python
-try:
-    result = manager.run(problem_statement)
-except MaxStepsExceeded as exc:
-    return RunResult(answer=f"Partial answer: manager reached max_steps={self.max_steps} before full resolution.", hops=getattr(exc, "hops", []), backtracks=getattr(exc, "backtracks", 0), raw_ledgers={"task": getattr(exc, "task_ledger", {}), "progress": {"guard": "max_steps", **getattr(exc, "progress_ledger", {})}})
+def summarize_scenario_run(run: ScenarioRun) -> str:
+    body = run.answer or "(no answer captured)"
+    suffix = ""
+    if run.terminated_by_max_rounds:
+        suffix = (
+            "\n\n[Manager hit max_round_count before converging. "
+            f"Hops so far: {run.hops}. "
+            f"Last progress ledger: {run.last_progress_ledger[:300]}]"
+        )
+    return body + suffix
 ```
-Expected: use the verified SDK exception/result type from Task 2.
 
 - [ ] **Step 3: Verify and commit**
 
 ```pwsh
 pytest tests\test_manager_hardening.py -v
 git add src\mmc_agents\orchestrator\manager.py tests\test_manager_hardening.py
-git commit -m "feat(orchestrator): return ledgers on max-step guard"
+git commit -m "feat(orchestrator): surface partial state on max-round termination"
 ```
 Expected: tests pass; commit succeeds.
 
@@ -1599,20 +1707,31 @@ Expected: tests pass; commit succeeds.
 - [ ] **Step 1: Write smoke test**
 
 ```python
-import os, pytest
-from mmc_agents.orchestrator.manager import MmcMagenticManager
+import asyncio, os, pytest
+from azure.identity import AzureCliCredential
+from agent_framework.orchestrations import MagenticBuilder
+from mmc_agents.agent_factory import build_foundry_agents
+from mmc_agents.orchestrator.manager import _build_manager, run_and_capture
 from mmc_agents.orchestrator.scenarios.loto_cluster import PROBLEM_STATEMENT, EXPECTED_BOUNDS
+
 LIVE = os.environ.get("MMC_LIVE", "0") == "1"
 @pytest.mark.skipif(not LIVE, reason="Requires deployed Foundry + KBs; set MMC_LIVE=1.")
 def test_loto_cluster_composes_distinct_flow():
-    result = MmcMagenticManager(max_steps=14).run(PROBLEM_STATEMENT)
-    distinct = set(result.hops)
+    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    participants = build_foundry_agents("plant7", endpoint, AzureCliCredential())
+    wf = MagenticBuilder(participants=participants, manager=_build_manager()).build()
+    run = asyncio.run(run_and_capture(wf, PROBLEM_STATEMENT))
+    distinct = set(run.hops)
     assert len(distinct) >= EXPECTED_BOUNDS["min_distinct_agents"]
     assert EXPECTED_BOUNDS["must_include_agents"].issubset(distinct)
     for term in EXPECTED_BOUNDS["must_observe_terms"]:
-        assert term in result.answer.upper()
+        assert term in run.answer.upper()
 ```
 Expected: skipped without live environment.
+
+> **Pre-flight (from Gate A):** `FOUNDRY_MANAGER_DEPLOYMENT` (e.g. `gpt-5.4`)
+> must exist as a separate deployment from `FOUNDRY_MODEL_DEPLOYMENT`
+> (`gpt-5.4-mini`). Sharing one deployment causes 429s.
 
 - [ ] **Step 2: Seed and run live**
 
@@ -1640,6 +1759,11 @@ Expected: commit succeeds.
 - Modify: `scripts/seed_foundry_iq.py`
 - Modify: `tests/test_brake_caliper_smoke.py`
 
+> **From Gate A:** `KnowledgeBase(...)` must be created with
+> `retrieval_reasoning_effort=KnowledgeRetrievalMinimalReasoningEffort()`
+> (typed class, not the string `"minimal"`) — already in place for the plant
+> KB; the enterprise branch added here must do the same.
+
 - [ ] **Step 1: Update seeder**
 
 ```python
@@ -1648,15 +1772,17 @@ for subdir in ["data", "kb"]:
         if f.is_file():
             source.upload(str(f))
 ```
-Expected: `--enterprise` uploads all 5 sources; `--source <node>` refreshes one source.
+Expected: `--enterprise` uploads all 5 sources; `--source <node>` refreshes one source. KB constructor must pass `retrieval_reasoning_effort=KnowledgeRetrievalMinimalReasoningEffort()`.
 
 - [ ] **Step 2: Tighten brake-caliper smoke**
 
 ```python
-for term in EXPECTED_BOUNDS.get("must_observe_ledger_terms", set()):
-    assert term in str(result.raw_ledgers) or term in result.answer
+# Use run_and_capture from manager.py (added in Task 27) so we can assert on hops + last ledger
+run = asyncio.run(run_and_capture(wf, PROBLEM_STATEMENT))
+for term in EXPECTED_BOUNDS.get("must_observe_terms", set()):
+    assert term in run.last_progress_ledger or term in run.answer
 ```
-Expected: smoke verifies `NO_DIRECT_ALT` evidence.
+Expected: smoke verifies `NO_DIRECT_ALT` evidence in the ledger or final answer.
 
 - [ ] **Step 3: Run live smokes**
 
