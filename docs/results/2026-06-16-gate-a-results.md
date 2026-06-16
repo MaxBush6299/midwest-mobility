@@ -74,3 +74,47 @@ top 3 hits each. All three returned grounded hits from the expected KB folder:
 
 All three queries cited files under `plants/plant7/kb/` as required by the plan's
 acceptance criterion.
+
+---
+
+## Tasks 12–16 — Supply Chain pipeline ✅
+
+Run in parallel with Tasks 17–20 by background subagent `supply-chain-stream`.
+No deviations from plan.
+
+| Task | Commit | Deliverable |
+|---|---|---|
+| 12 | `f5c6fe4` | `enterprise/supply-chain/data/{supplier_master,bom_where_used}.csv` — 5 suppliers, 5 BOM rows including SUP-001 Acme + BRK-CAL-XYZ |
+| 13 | `f6c0f41` | `scripts/derive_fixtures.py` → `enterprise/supply-chain/fixtures/{supplier_master,bom_where_used}.json` (keyed lookups) |
+| 14 | `b37aa94` | `src/mmc_agents/tools/fixtures_loader.py` — cached JSON loader (3 tests) |
+| 15 | `d913953` | `src/mmc_agents/tools/erp.py` — `bom_where_used(part_id)` (2 tests) |
+| 16 | `74bf392` | `src/mmc_agents/tools/supplier.py` — `lookup(supplier_id)` + `alternates(part_id)` (3 tests) |
+
+---
+
+## Tasks 17–20 — Registry stack ✅
+
+Run in parallel with Tasks 12–16 by background subagent `registry-stream`.
+One minor deviation: added `src/mmc_agents/__init__.py` so the package is
+importable (plan only mentioned the `registry/__init__.py`).
+
+| Task | Commit | Deliverable |
+|---|---|---|
+| 17 | `21ef662` | `src/mmc_agents/registry/base.py` — `AgentCard` model + `RegistrySource` protocol |
+| 18 | `63bc465` | `src/mmc_agents/registry/local_catalog.py` — `LocalCatalogSource` + `WatchedLocalCatalogSource` (2 tests) |
+| 19 | `379a214` | `src/mmc_agents/registry/agent365.py` — `Agent365Source` stub (raises `NotImplementedError`) |
+| 20 | `0c327e1` | `scripts/refresh_catalog.py` — multi-source aggregator |
+
+---
+
+## Test status after Task 20
+
+```
+10 passed in 0.45s
+```
+
+- fixtures_loader: 3 ✅
+- erp tool: 2 ✅
+- supplier tool: 3 ✅
+- local_catalog: 2 ✅
+
