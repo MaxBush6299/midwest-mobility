@@ -21,6 +21,11 @@ from azure.ai.projects.models import AgentVersionDetails, PromptAgentDefinition
 from azure.core.credentials import TokenCredential
 from azure.core.exceptions import ResourceNotFoundError
 
+try:
+    from agent_framework.foundry import FoundryAgent
+except Exception:  # pragma: no cover - allow import without agent_framework
+    FoundryAgent = None  # type: ignore[assignment]
+
 ROOT = Path(__file__).resolve().parent.parent.parent
 MODEL = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
 
@@ -88,6 +93,35 @@ def _upsert_version(
         # First version of a brand-new agent — nothing else to do here.
         pass
     return version
+
+
+def build_foundry_agents(
+    plant_id: str,
+    project_endpoint: str,
+    credential: TokenCredential,
+) -> list["FoundryAgent"]:
+    """Construct FoundryAgent participants for Magentic from profile.yaml.
+
+    Does not provision — assumes upsert_plant_agents() has already created
+    the portal agents. Each returned FoundryAgent is bound to the latest
+    version of its named portal agent.
+    """
+    if FoundryAgent is None:
+        raise RuntimeError("agent_framework.foundry not installed")
+    profile = _load_profile(plant_id)
+    agents: list[FoundryAgent] = []
+    for agent_def in profile["agents"]:
+        name = f"{plant_id}-{agent_def['role']}"
+        agents.append(
+            FoundryAgent(
+                project_endpoint=project_endpoint,
+                agent_name=name,
+                credential=credential,
+                name=name,
+                description=agent_def["display_name"],
+            )
+        )
+    return agents
 
 
 def upsert_plant_agents(

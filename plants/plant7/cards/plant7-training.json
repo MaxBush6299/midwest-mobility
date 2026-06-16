@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "name": "plant7-training",
+  "description": "Plant 7 Training / Competency",
+  "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant",
+  "agent_id": "plant7-training",
+  "version": "4",
+  "skills": [],
+  "metadata": {
+    "plant_id": "plant7",
+    "project": "mmc-plant"
+  }
+}
