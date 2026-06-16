@@ -1,0 +1,6 @@
+Part_ID,Part_Name,Supplier_ID,Plant_ID,Line_ID,Qty_Per_Assy,Effective_Date
+BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant7,L1,1,2025-01-01
+STM-PNL-A1,Stamped Panel A1,SUP-002,plant7,L1,2,2025-01-01
+ROB-ARM-G3,Robot Arm Gen3,SUP-003,plant7,L2,1,2025-01-01
+FST-M8-100,M8 Fastener Pack,SUP-004,plant7,L1,50,2025-01-01
+CST-HSG-04,Cast Housing 04,SUP-005,plant7,L3,1,2025-01-01

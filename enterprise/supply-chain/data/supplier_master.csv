@@ -1,0 +1,6 @@
+Supplier_ID,Name,Tier,Country,Lead_Time_Days,Disruption_Flag,Disruption_Days,Risk_Score
+SUP-001,Acme Brakes,1,US,14,Y,21,High
+SUP-002,Midwest Stampings,2,US,7,N,0,Low
+SUP-003,Globex Robotics,1,DE,28,N,0,Medium
+SUP-004,Initech Fasteners,2,US,5,N,0,Low
+SUP-005,Hooli Castings,1,MX,21,N,0,Medium
