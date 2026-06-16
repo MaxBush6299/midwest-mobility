@@ -9,7 +9,9 @@ pytestmark = pytest.mark.skipif(
 
 def test_upsert_plant7_agents_creates_five():
     from azure.identity import AzureCliCredential
+    from dotenv import load_dotenv
 
+    load_dotenv()
     from mmc_agents.agent_factory import upsert_plant_agents
 
     agents = upsert_plant_agents(
@@ -25,3 +27,5 @@ def test_upsert_plant7_agents_creates_five():
         "plant7-shiftops",
         "plant7-training",
     }
+    for a in agents:
+        assert a.version, f"{a.name} missing version"

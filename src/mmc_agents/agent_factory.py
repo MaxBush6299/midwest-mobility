@@ -1,28 +1,42 @@
-"""Create/update portal-managed Foundry agents from profile.yaml (Task 22).
+"""Create/update portal-managed Foundry Prompt Agents from profile.yaml (Task 22).
 
-Idempotent upsert via azure-ai-agents AgentsClient: for each agent in
-plants/{plant}/profile.yaml we either create a new Foundry agent on the
-service or update the existing one (keyed by name). Returns FoundryAgent
-wrappers ready for the Magentic orchestrator.
+Uses the *new* Foundry Agents Service (azure-ai-projects >= 2.2.0) at the
+services.ai.azure.com endpoint — NOT the deprecated classic Agents API on
+cognitiveservices.azure.com. Each profile entry maps to a versioned
+PromptAgentDefinition created via AIProjectClient.agents.create_version().
 
-Agents are created without KB tools — operators attach Foundry IQ kb-plant7
-through the Foundry portal (Task 22b). This is intentional: it keeps
-agent_factory free of preview-SDK MCP plumbing and makes "swap the KB in
-the portal" a documented Day-2 operation.
+Agents are created with instructions only — operators attach Foundry IQ
+kb-plant7 in the Foundry portal (Task 22b). This avoids preview MCP plumbing
+and makes "swap the KB in the portal" a documented Day-2 operation.
 """
 from __future__ import annotations
 
 import os
+from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
-from agent_framework.foundry import FoundryAgent, FoundryAgentOptions
-from azure.ai.agents import AgentsClient
-from azure.ai.agents.models import Agent
+from azure.ai.projects import AIProjectClient
+from azure.ai.projects.models import AgentVersionDetails, PromptAgentDefinition
 from azure.core.credentials import TokenCredential
+from azure.core.exceptions import ResourceNotFoundError
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 MODEL = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
+
+
+@dataclass
+class PlantAgentRef:
+    """Reference to a portal-managed prompt agent (returned by the factory)."""
+
+    name: str
+    description: str
+    version: str
+    project_endpoint: str
+
+    @property
+    def display(self) -> str:
+        return f"{self.name}@{self.version}"
 
 
 def _load_profile(plant_id: str) -> dict:
@@ -52,62 +66,52 @@ manager. Stay focused on your role; defer questions outside your scope to the
 manager so it can route them to the right agent."""
 
 
-def _upsert_one(
-    client: AgentsClient,
-    existing: dict[str, Agent],
+def _upsert_version(
+    client: AIProjectClient,
     name: str,
     description: str,
     instructions: str,
-) -> Agent:
-    if name in existing:
-        return client.update_agent(
-            agent_id=existing[name].id,
-            model=MODEL,
-            name=name,
-            description=description,
-            instructions=instructions,
-        )
-    return client.create_agent(
-        model=MODEL,
-        name=name,
+) -> AgentVersionDetails:
+    definition = PromptAgentDefinition(model=MODEL, instructions=instructions)
+    try:
+        client.agents.get(name)
+        existed = True
+    except ResourceNotFoundError:
+        existed = False
+
+    version = client.agents.create_version(
+        agent_name=name,
+        definition=definition,
         description=description,
-        instructions=instructions,
     )
+    if not existed:
+        # First version of a brand-new agent — nothing else to do here.
+        pass
+    return version
 
 
 def upsert_plant_agents(
     plant_id: str,
     project_endpoint: str,
     credential: TokenCredential,
-) -> list[FoundryAgent]:
+) -> list[PlantAgentRef]:
     profile = _load_profile(plant_id)
     plant_display = profile.get("display_name", plant_id)
 
-    client = AgentsClient(endpoint=project_endpoint, credential=credential)
-    existing = {a.name: a for a in client.list_agents() if a.name}
-
-    real_agents: list[Agent] = []
+    client = AIProjectClient(endpoint=project_endpoint, credential=credential)
+    refs: list[PlantAgentRef] = []
     for agent_def in profile["agents"]:
         name = f"{plant_id}-{agent_def['role']}"
-        real_agents.append(
-            _upsert_one(
-                client,
-                existing,
+        description = agent_def["display_name"]
+        instructions = _instructions(plant_id, plant_display, agent_def)
+
+        version = _upsert_version(client, name, description, instructions)
+        refs.append(
+            PlantAgentRef(
                 name=name,
-                description=agent_def["display_name"],
-                instructions=_instructions(plant_id, plant_display, agent_def),
+                description=description,
+                version=getattr(version, "version", "?"),
+                project_endpoint=project_endpoint,
             )
         )
-
-    return [
-        FoundryAgent(
-            project_endpoint=project_endpoint,
-            credential=credential,
-            agent_name=a.name,
-            name=a.name,
-            description=a.description,
-            default_options=FoundryAgentOptions(model=MODEL),
-        )
-        for a in real_agents
-    ]
-
+    return refs
