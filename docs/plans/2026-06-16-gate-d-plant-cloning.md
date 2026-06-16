@@ -45,7 +45,7 @@
 | `src/mmc_agents/orchestrator/scenarios/multi_plant_warranty.py` | Explicit cross-plant warranty spike scenario. |
 | `infra/bicep/main.bicep` | Add Plant 4 KB module with the same three-source shape as Plant 7. |
 | `infra/bicep/parameters/dev.bicepparam` | Add `plant4KbName = 'kb-plant4'`. |
-| `.env.example` | Add `FOUNDRY_IQ_KB_PLANT4_ID=`. |
+| `.env.example` | Add `FOUNDRY_IQ_KB_PLANT4_ID=`, plus per-plant KB MCP wiring `PLANT4_KB_CONNECTION_ID=` and `PLANT4_KB_MCP_URL=` (mirrors the global `PLANT_KB_*` pattern from Gate A). |
 | `governance/blast_radius.json` | Regenerated Gate C artifact including Plant 4 agents. |
 | `docs/specs/gate-d-status.md` | Gate D verification evidence and v1.0 tag readiness. |
 
@@ -807,7 +807,16 @@ Instantiate `modules/foundry-iq-kb.bicep` as `kbPlant4` with plant search resour
 
 - [ ] **Step 3: Update env example**
 
-Append `FOUNDRY_IQ_KB_PLANT4_ID=` to `.env.example`.
+Append three lines to `.env.example` (the KB id is used by the seeder; the
+connection id + MCP url are baked into agent versions by the factory):
+```
+FOUNDRY_IQ_KB_PLANT4_ID=
+PLANT4_KB_CONNECTION_ID=
+PLANT4_KB_MCP_URL=
+```
+The connection id pattern is `kb-<kb-name>-<5-char-suffix>` and the MCP URL is
+`https://<search>.search.windows.net/knowledgebases/<kb-name>/mcp?api-version=2026-05-01-preview`
+(see Gate A `gate-a-status.md` for the exact format).
 
 - [ ] **Step 4: Build**
 
@@ -857,11 +866,32 @@ Expected: `kb-plant4` is created/updated with EHS, maintenance, and quality_ops 
 
 - [ ] **Step 3: Store local env**
 
-Add the printed KB id to untracked `.env` as `FOUNDRY_IQ_KB_PLANT4_ID=<id>`. Expected: `.env` remains untracked and is not committed.
+Add the printed KB id to untracked `.env` as `FOUNDRY_IQ_KB_PLANT4_ID=<id>`,
+**plus** the MCP connection id and URL so the factory can bake the tool into
+plant4 agent versions:
+```
+PLANT4_KB_CONNECTION_ID=kb-kb-plant4-<5-char-suffix>
+PLANT4_KB_MCP_URL=https://srch-mmc-plant.search.windows.net/knowledgebases/kb-plant4/mcp?api-version=2026-05-01-preview
+```
+Expected: `.env` remains untracked and is not committed.
+
+> **Factory change needed before Task 21:** `agent_factory._kb_tool()` currently
+> reads global `PLANT_KB_CONNECTION_ID` / `PLANT_KB_MCP_URL`. For Gate D,
+> generalize it to look up `<PLANT_ID_UPPER>_KB_CONNECTION_ID` /
+> `<PLANT_ID_UPPER>_KB_MCP_URL` first, falling back to the globals (so Plant 7
+> keeps working without rename). Add a unit test
+> `tests/test_agent_factory.py::test_kb_tool_uses_per_plant_env`.
 
 - [ ] **Step 4: Smoke retrieval**
 
-In Foundry portal, query `What Plant 4 line builds BRK-CAL-XYZ and what maintenance precautions apply?` Expected: citations come from Plant 4 sources and shared OSHA/OEM sources only.
+Run a brake-caliper scenario scoped to plant4:
+```pwsh
+$env:MMC_LIVE = "1"
+python scripts\run_scenario.py --plant plant4   # add --plant flag if not present
+```
+Open App Insights (`mmc-plant-appinsights-5430`) → Transaction search →
+`magentic.scenario.plant4`. Expected: citations in agent spans come from
+Plant 4 sources and shared OSHA/OEM sources only — **no Plant 7 leakage**.
 
 - [ ] **Step 5: Commit if fixes needed**
 
@@ -931,7 +961,21 @@ git commit -m "feat(plant4): register generated plant agents in catalog"
 
 - [ ] **Step 1: Deploy agents**
 
-Run the Gate B/C plant-agent deployment command, expected shape `python scripts\deploy_agents.py --plant plant4` if that script exists. Expected: five agents are deployed to `mmc-foundry-plant` and bound to `FOUNDRY_IQ_KB_PLANT4_ID`.
+Run the Gate B/C plant-agent deployment command, expected shape
+`python scripts\deploy_agents.py --plant plant4` if that script exists.
+The factory must read `PLANT4_KB_CONNECTION_ID` / `PLANT4_KB_MCP_URL` (set
+in Task 19 Step 3) so the Foundry IQ MCP tool is baked into each of the five
+agent versions at create time — no portal action required (mirrors Plant 7).
+Expected: five agents are deployed to `mmc-foundry-plant`, each version's
+tools list includes the plant4 KB MCP tool, and `FOUNDRY_IQ_KB_PLANT4_ID`
+is referenced by the seeder run in Task 19.
+
+> **Quota note (from Gate A):** the manager runs on its own
+> `FOUNDRY_MANAGER_DEPLOYMENT` (`gpt-5.4`) so it does not consume the
+> agent-pool TPM. If you plan to run plant7 and plant4 scenarios in parallel,
+> request a quota bump on `gpt-5.4-mini` before Task 24's live composition
+> test — Gate A is currently provisioned at 500 TPM, which is the operational
+> floor for a single 5-agent loop.
 
 - [ ] **Step 2: Smoke role questions**
 
