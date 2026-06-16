@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MMC Reusable Agent Network &mdash; Implementation Design</title>
+<style>
+:root {
+  --bg:#f6f3ec; --panel:#fbf9f4; --ink:#22201c; --soft:#5a544a; --line:#d8cfbf;
+  --blue:#2f6db5; --teal:#2b8a86; --plum:#7a4f9e; --rose:#b05568; --code-bg:#efe9df;
+}
+* { box-sizing:border-box; }
+html,body { background:var(--bg); margin:0; }
+body {
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  color:var(--ink); line-height:1.55; font-size:15px;
+}
+.wrap {
+  max-width:980px; margin:32px auto; background:var(--panel);
+  border:1px solid var(--line); border-radius:14px;
+  box-shadow:0 2px 4px rgba(40,34,24,.05),0 10px 28px rgba(40,34,24,.08);
+  padding:48px 56px;
+}
+h1 { font-size:30px; color:var(--blue); margin:0 0 6px; letter-spacing:-.3px; }
+h2 {
+  font-size:21px; margin:32px 0 10px; color:var(--ink);
+  border-bottom:1px solid var(--line); padding-bottom:6px;
+}
+h3 { font-size:17px; margin:22px 0 8px; color:var(--plum); }
+p { margin:8px 0 12px; }
+ul,ol { margin:8px 0 12px; padding-left:24px; }
+li { margin:4px 0; }
+strong { color:var(--ink); }
+a { color:var(--blue); }
+hr { border:none; border-top:1px solid var(--line); margin:28px 0; }
+blockquote {
+  border-left:4px solid var(--teal); background:#eef5f4;
+  margin:12px 0; padding:10px 16px; color:var(--soft);
+}
+code {
+  font-family:'Cascadia Code',Consolas,monospace; font-size:13px;
+  background:var(--code-bg); padding:1px 5px; border-radius:4px;
+  border:1px solid var(--line);
+}
+pre {
+  background:#2b2a28; color:#f0ebe0; padding:16px 18px; border-radius:10px;
+  overflow-x:auto; font-size:13px; line-height:1.45;
+}
+pre code { background:transparent; border:none; padding:0; color:inherit; }
+table {
+  border-collapse:collapse; width:100%; margin:14px 0; font-size:14px;
+  background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden;
+}
+th,td { border-bottom:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:#ece4d3; color:var(--ink); font-weight:700; font-size:13px;
+     text-transform:uppercase; letter-spacing:.5px; }
+tr:last-child td { border-bottom:none; }
+tr:nth-child(even) td { background:#faf7ee; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="mmc-reusable-agent-network-implementation-design">MMC Reusable Agent Network — Implementation Design</h1>
+<p><strong>Status:</strong> Design approved, ready for implementation plan.
+<strong>Date:</strong> 2026-06-16
+<strong>Source:</strong> Refines <code>DEMO_BUILD_HANDOFF.md</code> with implementation decisions captured during the 2026-06-16 brainstorm.
+<strong>Next step:</strong> Hand off to the writing-plans skill to produce an executable plan.</p>
+<hr />
+<h2 id="1-scope">1. Scope</h2>
+<p>Build the <strong>full 10-agent MMC reusable agent network</strong> described in <code>DEMO_BUILD_HANDOFF.md</code>, sequenced so a <strong>thin slice is demoable at ~3–4 days</strong> and the <strong>full polished build lands at ~8–13 days</strong>. Add a <strong>plant-cloning capability</strong> (Gate D) that proves a new facility can be added as a copy of Plant 7 with zero orchestrator code changes.</p>
+<p>Two scripted scenarios are landed end-to-end for the live demo:
+- <strong>Brake-caliper supply disruption</strong> (hero scenario from <code>DEMO_BUILD_HANDOFF.md</code> §5).
+- <strong>Safety / LOTO incident cluster on L1</strong> — same plant agents, totally different composition, on stage.</p>
+<p>This spec does <strong>not</strong> restate architecture, agent rosters, KB→agent mapping, naming conventions, or dataset schemas — those live in <code>DEMO_BUILD_HANDOFF.md</code> and <code>docs/MMC_Plant7_Company_Profile_v1.md</code> and remain the source of truth. This spec captures only what was added/decided on top of those.</p>
+<h2 id="2-decisions-captured">2. Decisions captured</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td><strong>Full build, thin-slice first.</strong></td>
+<td>Lets us reach a demoable wow at Gate A before committing to the full surface.</td>
+</tr>
+<tr>
+<td>D2</td>
+<td><strong>Reasoning model: configurable with a sensible default.</strong> Default = a GPT-5-class reasoning model; hot-swappable at runtime via env / YAML.</td>
+<td>Preserves the "model-agnostic" claim in <code>DEMO_BUILD_HANDOFF.md</code> §2; enables a "swap the brain mid-demo" moment.</td>
+</tr>
+<tr>
+<td>D3</td>
+<td><strong>Trace surface: both, sequenced.</strong> Foundry portal threads for Gates A–B; custom web trace UI added at Gate C.</td>
+<td>Avoids building UI before the orchestrator is interesting; portal is "free" for the thin slice.</td>
+</tr>
+<tr>
+<td>D4</td>
+<td><strong>Implementation language: Python.</strong></td>
+<td>Strongest Agent Framework + Magentic story for fast iteration; pandas-native data generation.</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><strong>Enterprise data storage: CSV/JSON in repo</strong>, one folder per node, ingested as its own Foundry IQ knowledge source.</td>
+<td>Matches existing <code>kb/</code> pattern; trivially versionable and reviewable in git.</td>
+</tr>
+<tr>
+<td>D6</td>
+<td><strong>Non-KB tool APIs: deterministic stub fixtures.</strong> Each tool is a Python <code>@tool</code> function backed by <code>fixtures/&lt;tool&gt;.json</code>, keyed by input args, returning canned data or a deterministic "not found."</td>
+<td>Reproducible demos, no live-network failure modes, scenario authoring is just fixture authoring. The function body is the only thing that has to change to swap in a real API later.</td>
+</tr>
+<tr>
+<td>D7</td>
+<td><strong>Scripted scenarios for the full build: 2</strong> — brake-caliper + Safety/LOTO.</td>
+<td>Strongest reuse story on stage ("same agents, different flow") without scenario-rehearsal sprawl.</td>
+</tr>
+<tr>
+<td>D8</td>
+<td><strong>All 10 agents are prompt-based Foundry Agent Service agents.</strong> No hand-written agent logic — intelligence comes from prompt + KB grounding + tool bindings + model. Magentic manager is the only piece with real coordination code.</td>
+<td>Honest attribution of intelligence to the platform; fast iteration (prompt edit → redeploy → re-run).</td>
+</tr>
+<tr>
+<td>D9</td>
+<td><strong>Registry: local catalog file (<code>agents/catalog.json</code>) only for the demo build.</strong> Microsoft Agent 365 is the documented end-state and will be added by implementing a second <code>RegistrySource</code> against the same interface. A stub <code>Agent365Source</code> class with <code>NotImplementedError</code> is committed so the seam is visible in code from day one.</td>
+<td>Removes Agent 365 access as a prerequisite; "registry-driven discovery" claim still holds against the local catalog.</td>
+</tr>
+<tr>
+<td>D10</td>
+<td><strong>Plant cloning content strategy (Gate D): hybrid.</strong> Mechanical clone + ID/date substitution for CSV logs (schemas stay identical); LLM-generated narrative docs (SOPs, manuals) from the new plant's <code>profile.yaml</code>. Both gated by <code>validate_plant.py</code> for ID format + cross-reference integrity.</td>
+<td>Cheap to operate, content reads as genuinely different across plants.</td>
+</tr>
+<tr>
+<td>D11</td>
+<td><strong>Plant agents are parameterized from a <code>plant_profile.yaml</code> from Phase 1.</strong> Agent cards are generated by <code>agent_factory.py</code>, not hand-authored.</td>
+<td>Makes Gate D essentially free; no per-plant copy-pasted JSON.</td>
+</tr>
+<tr>
+<td>D12</td>
+<td><strong>Build from scratch in a fresh Azure resource group:</strong> <code>rg-magentictest</code> in <code>EastUS</code>. Nothing reused from any prior demo environment, including the Foundry IQ KB.</td>
+<td>Clean slate, no hidden dependencies on prior state, repeatable provisioning.</td>
+</tr>
+<tr>
+<td>D13</td>
+<td><strong>Infra-as-code: Bicep.</strong> All Azure resources (Foundry projects, Azure AI Search, Foundry IQ KBs, storage, identities) defined under <code>infra/bicep/</code> and deployable to <code>rg-magentictest</code> via <code>az deployment group create</code>.</td>
+<td>Repeatable, reviewable, supports tear-down/rebuild cycles during development.</td>
+</tr>
+<tr>
+<td>D14</td>
+<td><strong>Two Foundry projects, split by tier:</strong> <code>mmc-foundry-plant</code> (Plant 7 + Plant 4 at Gate D) and <code>mmc-foundry-enterprise</code> (5 enterprise nodes).</td>
+<td>Realistic governance boundary — plant-floor data and enterprise data have different sensitivity profiles and different stewards in real customers.</td>
+</tr>
+<tr>
+<td>D15</td>
+<td><strong>Foundry IQ KB topology:</strong> <strong>1 KB per plant</strong> with 3 sources (mirrors handoff §3 — Plant 7 today, Plant 4 at Gate D). <strong>1 enterprise KB</strong> with 5 sources (one per enterprise node).</td>
+<td>The handoff's headline claim is "AI plans the path at two layers — Magentic across agents; Foundry IQ across knowledge sources." Mirroring the multi-source pattern at both tiers gives two distinct places to demonstrate layer 2 (cross-source agentic retrieval). Halves the Search infra vs. one-KB-per-enterprise-node.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-demo-gates">3. Demo gates</h2>
+<p>Each gate is a "could I demo this today" checkpoint that lines up with the phases in <code>DEMO_BUILD_HANDOFF.md</code> §6.</p>
+<ul>
+<li><strong>Gate A — Thin slice (~4–5 days, +1d for from-scratch provisioning).</strong> Fresh <code>rg-magentictest</code> provisioned via Bicep (both Foundry projects, Plant 7 KB seeded with 3 sources, identities, Search). Brake-caliper composes a multi-agent flow live, traced via Foundry portal threads. Covers Phase 0 + Phase 1 + 1 stub enterprise agent (Supply Chain) + Magentic happy-path.</li>
+<li><strong>Gate B — Both scenarios end-to-end (~7–10 days).</strong> All 10 agents present; brake-caliper composes with at least one backtrack; Safety/LOTO composes a distinctly different flow. Covers Phases 2–4 in full (Phase 2 widened to 2–3 days per §8a).</li>
+<li><strong>Gate C — Polished demo (~9–12 days).</strong> Custom trace UI streaming manager ledgers and agent hops; hot-add of a new agent mid-run; governance overlay (Entra Agent ID per-agent scopes + blast-radius view). Covers Phase 5 + Phase 6.</li>
+<li><strong>Gate D — Plant cloning (~12–14 days).</strong> Plant 4 cloned from Plant 7 via <code>scripts/clone_plant.py</code> + hybrid content generation; brake-caliper re-run produces a different (or cross-plant) composition with zero orchestrator code changes. New work, not in original handoff.</li>
+</ul>
+<h2 id="4-repository-layout-additions-to-demo_build_handoffmd-7">4. Repository layout (additions to <code>DEMO_BUILD_HANDOFF.md</code> §7)</h2>
+<pre><code>mmc_demo/
+├── docs/
+│   ├── MMC_Plant7_Company_Profile_v1.md      # exists — source of truth
+│   └── specs/
+│       └── 2026-06-16-mmc-agent-network-implementation-design.md  # this file
+├── infra/                                     # NEW — Bicep IaC (D13)
+│   └── bicep/
+│       ├── main.bicep                         # top-level: targets rg-magentictest / EastUS
+│       ├── modules/
+│       │   ├── foundry-project.bicep          # parameterized; instantiated twice (D14)
+│       │   ├── ai-search.bicep
+│       │   ├── foundry-iq-kb.bicep            # KB + sources, parameterized by source list
+│       │   ├── storage.bicep
+│       │   └── identity.bicep                 # Entra Agent ID scaffolding for Gate C
+│       ├── parameters/
+│       │   ├── dev.bicepparam                 # RG name, region, project names
+│       │   └── prod.bicepparam                # placeholder for later
+│       └── README.md                          # deploy + tear-down commands
+├── plants/                                    # NEW — replaces flat kb/ for plant data
+│   ├── plant7/
+│   │   ├── profile.yaml
+│   │   ├── kb/                                # migrated from kb/Internal/*
+│   │   ├── fixtures/
+│   │   └── agents/
+│   └── plant4/                                # Gate D
+├── enterprise/                                # Phase 2 — datasets only; one shared KB (D15)
+│   ├── supply-chain/{data/, fixtures/, agent.json}
+│   ├── procurement/...
+│   ├── engineering-plm/...
+│   ├── enterprise-quality/...
+│   └── demand-program/...
+├── shared/
+│   └── kb/
+│       ├── oem-manuals/                       # migrated from kb/oem-manuals/
+│       └── regulatory-reference/OSHA/         # migrated from kb/regulatory-reference/
+├── agents/
+│   └── catalog.json                           # local A2A catalog (auto-generated)
+├── src/mmc_agents/
+│   ├── agent_factory.py
+│   ├── kb_client.py
+│   ├── tools/
+│   │   └── fixtures_loader.py
+│   ├── registry/
+│   │   ├── base.py
+│   │   ├── local_catalog.py
+│   │   └── agent365.py                        # stub
+│   ├── orchestrator/
+│   │   ├── manager.py
+│   │   ├── model_config.py
+│   │   └── scenarios/
+│   └── trace_ui/                              # Gate C
+├── scripts/
+│   ├── clone_plant.py                         # Gate D
+│   ├── generate_plant_content.py
+│   ├── validate_plant.py
+│   ├── refresh_catalog.py
+│   ├── render_spec_html.py                    # renders this spec to HTML for review
+│   └── seed_foundry_iq.py                     # uploads plant/enterprise content into provisioned KBs
+├── tests/
+├── pyproject.toml
+└── DEMO_BUILD_HANDOFF.md                      # exists
+</code></pre>
+<p><strong>Migration:</strong> Phase 0 does a single <code>git mv</code> from <code>kb/Internal/*</code> → <code>plants/plant7/kb/</code>, <code>kb/oem-manuals/</code> → <code>shared/kb/oem-manuals/</code>, <code>kb/regulatory-reference/</code> → <code>shared/kb/regulatory-reference/</code>. Because we are <strong>building Foundry IQ from scratch</strong> (D12), there is no existing KB to re-point — Phase 0's Bicep deploy is what stands up the new KBs, and <code>seed_foundry_iq.py</code> uploads the migrated content into them.</p>
+<h2 id="4a-azure-deployment-target-d12d15">4a. Azure deployment target (D12–D15)</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Name (parameter)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resource group</td>
+<td><strong><code>rg-magentictest</code></strong></td>
+<td>Already created by user; region <strong>EastUS</strong>.</td>
+</tr>
+<tr>
+<td>Foundry project (plant tier)</td>
+<td><code>mmc-foundry-plant</code></td>
+<td>Hosts the 5 Plant 7 agents and (at Gate D) the 5 Plant 4 agents.</td>
+</tr>
+<tr>
+<td>Foundry project (enterprise tier)</td>
+<td><code>mmc-foundry-enterprise</code></td>
+<td>Hosts the 5 enterprise agents.</td>
+</tr>
+<tr>
+<td>Azure AI Search (plant)</td>
+<td><code>srch-mmc-plant</code></td>
+<td>Backbone for plant Foundry IQ KBs.</td>
+</tr>
+<tr>
+<td>Azure AI Search (enterprise)</td>
+<td><code>srch-mmc-enterprise</code></td>
+<td>Backbone for the enterprise Foundry IQ KB.</td>
+</tr>
+<tr>
+<td>Foundry IQ KB — Plant 7</td>
+<td><code>kb-plant7</code></td>
+<td>3 sources: EHS, Maintenance, Quality&amp;Ops (per handoff §3).</td>
+</tr>
+<tr>
+<td>Foundry IQ KB — Plant 4 (Gate D)</td>
+<td><code>kb-plant4</code></td>
+<td>3 sources, same shape as Plant 7.</td>
+</tr>
+<tr>
+<td>Foundry IQ KB — Enterprise</td>
+<td><code>kb-enterprise</code></td>
+<td><strong>5 sources</strong>: supply-chain, procurement, engineering-plm, enterprise-quality, demand-program (D15).</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td><code>stmmcdemo&lt;suffix&gt;</code></td>
+<td>Holds raw documents before KB ingestion + fixture blobs.</td>
+</tr>
+<tr>
+<td>Entra Agent ID (Gate C)</td>
+<td>per-agent identities</td>
+<td>Provisioned by <code>identity.bicep</code> once Gate C work begins.</td>
+</tr>
+</tbody>
+</table>
+<p>All names parameterized in <code>infra/bicep/parameters/dev.bicepparam</code>. Tear-down is a single <code>az group delete -n rg-magentictest</code>.</p>
+<h2 id="5-orchestration-design">5. Orchestration design</h2>
+<p><strong>Entry:</strong> <code>manager.run(problem_statement: str) -&gt; RunResult</code></p>
+<p><strong>Discovery:</strong> Manager calls <code>registry.list_agents()</code> at start of every run. The active implementation is <code>LocalCatalogSource</code> reading <code>agents/catalog.json</code>. A <code>WatchedLocalCatalogSource</code> variant re-reads the file on every call so a freshly dropped agent card appears without a manager restart — this powers the Gate C hot-add demo.</p>
+<p><strong>Magentic loop:</strong>
+1. <strong>Task ledger</strong> — facts + initial plan (candidate agents from the registry).
+2. <strong>Progress ledger</strong> — on-track? who next? looping?
+3. <strong>Invoke</strong> the next agent via A2A.
+4. <strong>Evaluate</strong> response; update both ledgers.
+5. <strong>Backtrack</strong> when a step dead-ends (e.g., supplier has no alt-source → re-plan to a different agent).
+6. <strong>Stop</strong> when the task ledger says "solved" or a max-step guard fires.</p>
+<p><strong>Model:</strong> any <code>ChatClient</code> (Agent Framework SDK). Default = a GPT-5-class reasoning model; overridable via <code>model_config.py</code> (env var + YAML). Hot-swap supported between runs.</p>
+<p><strong>Tracing:</strong> every ledger update + agent call emits a structured event consumed by (a) Foundry portal threads (Gates A–B) and (b) the <code>trace_ui/</code> SSE stream (Gate C onward).</p>
+<h2 id="6-agent-design-recap-of-d8">6. Agent design (recap of D8)</h2>
+<p>Each of the 10 agents is a <strong>Foundry Agent Service agent</strong> defined by:
+- <strong>System prompt</strong> — persona, scope, "always cite KB," "never hallucinate facts not in the KB," skill-specific guidance.
+- <strong>Tool bindings</strong> — its scoped Foundry IQ KB source(s) via the first-party MCP connector, plus the stub tools in §7.
+- <strong>Model</strong> — same default as the manager, overridable per-agent.
+- <strong>A2A card</strong> — generated by <code>agent_factory.py</code>, published at <code>/.well-known/agent-card.json</code>, listing the skills from <code>DEMO_BUILD_HANDOFF.md</code> §4. The card is what the registry returns and what the manager reasons over.</p>
+<p>No custom Python agent logic. All 10 agents go through the same factory.</p>
+<h2 id="7-tool-implementations-d6">7. Tool implementations (D6)</h2>
+<ul>
+<li>One module per tool family in <code>src/mmc_agents/tools/</code> (<code>capa.py</code>, <code>cmms.py</code>, <code>erp.py</code>, <code>tms.py</code>, <code>qms.py</code>, <code>lms.py</code>, <code>plm.py</code>, <code>contracts.py</code>, <code>warranty.py</code>, <code>demand.py</code>).</li>
+<li>Each function decorated as an Agent Framework <code>@tool</code>; signature mirrors what a real API would expose.</li>
+<li>Body loads <code>fixtures/&lt;tool&gt;.json</code> via <code>fixtures_loader.py</code>, key-lookups by input args, returns the matching record or a deterministic not-found response.</li>
+<li>Fixtures live next to the data they describe: <code>enterprise/&lt;node&gt;/fixtures/&lt;tool&gt;.json</code>, <code>plants/&lt;plant&gt;/fixtures/&lt;tool&gt;.json</code>.</li>
+<li>Swap-in for a real API later is a body change: replace fixture lookup with <code>httpx.get(...)</code>. The <code>@tool</code> signature and the agent prompt do not change.</li>
+</ul>
+<h2 id="8-plant-cloning-gate-d">8. Plant cloning (Gate D)</h2>
+<ul>
+<li><code>scripts/clone_plant.py &lt;source_plant&gt; &lt;new_plant_id&gt; --profile path/to/new_profile.yaml</code> scaffolds <code>plants/&lt;new_plant_id&gt;/</code> from the source plant's structure.</li>
+<li><code>scripts/generate_plant_content.py &lt;new_plant_id&gt;</code> produces content (D10 hybrid):</li>
+<li><strong>Mechanical:</strong> copy CSV schemas, substitute IDs (<code>P7</code>→<code>P4</code>, <code>L1-PRS-001</code>→<code>L1-PRS-401</code>), shift dates per profile, regenerate row counts from new seeds.</li>
+<li><strong>LLM:</strong> generate SOPs, manuals, narrative docs from <code>profile.yaml</code> (line mix, equipment, shifts, standards), enforcing naming conventions via post-generation validators.</li>
+<li><code>agent_factory.py</code> regenerates the 5 agent cards for the new plant from the new profile.</li>
+<li><code>scripts/refresh_catalog.py</code> updates <code>agents/catalog.json</code>.</li>
+<li><code>scripts/seed_foundry_iq.py</code> creates a per-plant KB (1 KB / 3 sources, matching Plant 7's pattern).</li>
+<li><code>scripts/validate_plant.py</code> enforces ID formats, cross-reference integrity (e.g., every BOM <code>where_used</code> references a real line/equipment in the profile), and naming-convention conformance.</li>
+</ul>
+<p>A new plant exists when all four pass: scaffolder, content gen, validators, KB seed.</p>
+<h2 id="8a-enterprise-content-generation-phase-2">8a. Enterprise content generation (Phase 2)</h2>
+<p>The repo today contains only Plant 7 content. The entire <code>enterprise/</code> tree is generated from scratch in Phase 2. Per-node deliverables:</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Structured data (CSV)</th>
+<th>Narrative docs (markdown)</th>
+<th>Tool fixtures (JSON)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Supply Chain</strong></td>
+<td><code>supplier_master.csv</code>, <code>bom_where_used.csv</code>, <code>erp_inventory.csv</code>, <code>tms_freight.csv</code></td>
+<td>Supplier qualification policy, logistics SOP, disruption playbook</td>
+<td><code>erp.json</code>, <code>tms.json</code>, <code>supplier_master.json</code></td>
+</tr>
+<tr>
+<td><strong>Procurement &amp; Cost</strong></td>
+<td><code>contracts.csv</code>, <code>po_spend.csv</code>, <code>should_cost_model.csv</code></td>
+<td>Procurement policy, expedite-cost methodology, supplier-tier definitions</td>
+<td><code>contracts.json</code>, <code>po.json</code></td>
+</tr>
+<tr>
+<td><strong>Engineering / PLM</strong></td>
+<td><code>plm_part_master.csv</code>, <code>eco_log.csv</code>, <code>effectivity.csv</code></td>
+<td>ECO workflow doc, part-numbering standard, cross-plant change procedure</td>
+<td><code>plm.json</code>, <code>eco.json</code></td>
+</tr>
+<tr>
+<td><strong>Enterprise Quality</strong></td>
+<td><code>warranty_claims.csv</code>, <code>field_failure_feed.csv</code>, <code>recall_ruleset.csv</code></td>
+<td>Warranty handling SOP, recall-threshold policy, cross-plant defect-trend methodology</td>
+<td><code>warranty.json</code>, <code>recall.json</code></td>
+</tr>
+<tr>
+<td><strong>Demand / Program</strong></td>
+<td><code>order_crm_feed.csv</code>, <code>program_plan.csv</code>, <code>allocation_model.csv</code></td>
+<td>Launch-readiness checklist, demand-allocation policy, OEM-program definitions</td>
+<td><code>demand.json</code>, <code>allocation.json</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cross-link constraint (must hold for the brake-caliper scenario to resolve end-to-end):</strong>
+- <code>supplier_master.csv</code> contains a supplier (working name "Acme Brakes") with a 21-day disruption flag.
+- <code>bom_where_used.csv</code> maps that supplier's part <code>BRK-CAL-XYZ</code> to <strong>Plant 7's L1</strong>.
+- Plant 7's existing <code>MMC_P7_PM_Schedule.csv</code> and <code>MMC_P7_Incident_Log.csv</code> contain at least one row touching L1 brake-related equipment so the Plant 7 Maintenance and Quality agents return relevant data when queried with the same part/line context. If they don't today, Phase 2 adds the rows (recorded as a profile change in <code>docs/MMC_Plant7_Company_Profile_v1.md</code>).
+- Equivalent cross-link audit for the Safety/LOTO scenario.</p>
+<p><strong>Generation approach (mirrors D10 hybrid):</strong>
+- <strong>CSVs</strong> — <code>scripts/generate_enterprise_data.py</code>, parameterized by a <code>scenario_seed.yaml</code> that pins the cross-link facts (supplier name, part number, plant, line). Reproducible by seed; row counts realistic (hundreds–low thousands per file).
+- <strong>Narrative docs</strong> — LLM-generated from a per-doc-type prompt template, validated for naming-convention and standards-reference conformance.
+- <strong>Tool fixtures</strong> — <em>derived from the CSVs</em> by <code>scripts/derive_fixtures.py</code>. A tool call like <code>erp.bom_where_used("BRK-CAL-XYZ")</code> returns exactly what's in the CSV. Single source of truth, no fixture-vs-CSV drift.</p>
+<p><strong>Validators (run as pytest):</strong>
+- Schema conformance per CSV (column types, IDs match naming conventions).
+- Scenario cross-link integrity (the constraint above).
+- Fixture derivation determinism (running <code>derive_fixtures.py</code> twice produces byte-identical JSON).</p>
+<p><strong>Phase 2 estimate:</strong> <strong>2–3 days</strong> for from-scratch generation of all 5 nodes plus the cross-link validation pass — up from 1–2 days in the handoff, which assumed lighter scope.</p>
+<h2 id="9-error-handling">9. Error handling</h2>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent unreachable (A2A timeout)</td>
+<td>Manager logs to progress ledger, marks the agent unavailable for the run, tries an alternate from the registry. If none, returns "no agent could serve X" with the ledgers attached.</td>
+</tr>
+<tr>
+<td>Stub tool returns "not found"</td>
+<td>Treated as a normal tool response; the calling agent decides via its prompt whether to try a different input, escalate, or hand back to the manager. This is what produces the brake-caliper backtrack.</td>
+</tr>
+<tr>
+<td>KB retrieval returns no hits</td>
+<td>Agent responds with explicit "no grounded answer." Prompt rule: no factual claim without a KB citation.</td>
+</tr>
+<tr>
+<td>Reasoning model errors / rate limits</td>
+<td>Manager retries with exponential backoff; falls back to the secondary model configured in <code>model_config.py</code> on persistent failure.</td>
+</tr>
+<tr>
+<td>Manager hits max-step guard</td>
+<td>Returns partial answer plus both ledgers so the audience can see why it stopped.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-testing-strategy">10. Testing strategy</h2>
+<p><code>pytest</code> suite covering:
+- <strong>Fixture determinism</strong> — every stub tool: same input → same output. Critical for demo reproducibility.
+- <strong>Schema validators</strong> — <code>validate_plant.py</code> runs as a test against every plant under <code>plants/</code>.
+- <strong>Cross-link integrity</strong> — loads supplier_master, BOM, Plant 7 line/equipment IDs and asserts brake-caliper resolves end-to-end (supplier exists, part in BOM, line in plant profile, matching CMMS/QMS fixture records).
+- <strong>Agent card validation</strong> — generated cards conform to the A2A card JSON schema.
+- <strong>Orchestrator smoke test</strong> — deterministic (low-temperature) run of brake-caliper asserts the manager hops ≥4 distinct agents and backtracks ≥1 time. Bounds-checking, not DAG-checking.</p>
+<p>No tests for prompt content — judged in rehearsal.</p>
+<h2 id="11-governance-overlay-gate-c">11. Governance overlay (Gate C)</h2>
+<ul>
+<li>Each agent has its own <strong>Entra Agent ID</strong> identity. Access scope (which KBs, which tools, which downstream agents) is exported per-agent to <code>governance/blast_radius.json</code>.</li>
+<li>A page in <code>trace_ui/</code> renders blast-radius for a selected agent: callers (A2A allow-list), callees (registry-derived), readable KB sources, writable tools (empty set for stub demo).</li>
+<li><strong>Sensitivity moment:</strong> Plant 7 EHS scoped to a restricted KB source containing one synthetic "confidential" incident; a less-privileged caller cannot elicit it through the manager.</li>
+</ul>
+<h2 id="12-out-of-scope-explicit-non-goals">12. Out of scope (explicit non-goals)</h2>
+<ul>
+<li>Real ERP/CMMS/PLM integrations beyond the stub seam.</li>
+<li>Production-grade auth flows beyond the Entra Agent ID demo overlay.</li>
+<li>Multi-tenant deployment, CI/CD, infra-as-code.</li>
+<li>Web admin UI for editing agent cards (file-based for this demo).</li>
+<li>More than 2 plants. Plant 4 lands at Gate D; further plants are a "you can keep cloning" talking point, not a build deliverable.</li>
+</ul>
+<h2 id="13-open-items-deferred-to-the-implementation-plan">13. Open items deferred to the implementation plan</h2>
+<p>These are intentionally not decided here; the writing-plans skill will surface them as planning questions:</p>
+<ul>
+<li>Exact default reasoning model SKU + secondary fallback SKU.</li>
+<li>Azure AI Search SKU (Standard S1 vs. Basic) — depends on KB size after seeding.</li>
+<li>Whether <code>mmc-foundry-plant</code> and <code>mmc-foundry-enterprise</code> share a single Azure OpenAI / model deployment or each gets its own.</li>
+<li>Trace UI tech (FastAPI + minimal SPA vs. plain server-rendered) — Gate C only.</li>
+<li>Whether the LLM used for plant-content generation (D10) is the same as the reasoning model or a separate, smaller model.</li>
+<li>Concrete fixture authoring approach for each enterprise tool (hand-authored vs. generator script vs. derived-from-CSV).</li>
+</ul>
+</div>
+</body>
+</html>
