@@ -1406,9 +1406,9 @@ az role assignment create --role "Search Index Data Reader" --assignee-object-id
 
 ---
 
-## Task 22: `agent_factory.py` — Foundry Agents Service upsert ✏️ **REVISED**
+## Task 22: `agent_factory.py` — Foundry Agents Service upsert ✏️ **REVISED (2026-06-16)**
 
-Idempotent factory that reads `plants/{plant}/profile.yaml` and creates/updates one portal-managed Foundry agent per profile entry. Returns `FoundryAgent` wrappers for Magentic.
+Idempotent factory that reads `plants/{plant}/profile.yaml` and creates/updates one portal-managed Foundry agent per profile entry. **Agents are created with instructions + (optional) local function tools only.** The Foundry IQ knowledge base is attached **manually in the portal** (Task 22b) — this is the "easy to maintain" demo moment and avoids the not-yet-shipped `azure-ai-agents 2.0.0` MCP plumbing.
 
 **Files:**
 - Create: `src/mmc_agents/agent_factory.py`
@@ -1420,20 +1420,25 @@ Idempotent factory that reads `plants/{plant}/profile.yaml` and creates/updates 
 import os, pytest
 pytestmark = pytest.mark.skipif(os.getenv("MMC_LIVE") != "1", reason="live Azure test")
 
-def test_upsert_plant7_ehs_agent():
+def test_upsert_plant7_agents_creates_five():
     from mmc_agents.agent_factory import upsert_plant_agents
     from azure.identity import AzureCliCredential
     agents = upsert_plant_agents("plant7", project_endpoint=os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"],
                                   credential=AzureCliCredential())
     names = {a.name for a in agents}
-    assert "plant7-ehs" in names
-    assert len(agents) == 5
+    assert names == {"plant7-ehs", "plant7-maintenance", "plant7-quality", "plant7-shiftops", "plant7-training"}
 ```
 
 - [ ] **Step 2: Implementation** (`src/mmc_agents/agent_factory.py`)
 
 ```python
-"""Create/update portal-managed Foundry agents from profile.yaml (Task 22)."""
+"""Create/update portal-managed Foundry agents from profile.yaml (Task 22).
+
+Agents are created without KB tools — operators attach Foundry IQ kb-plant7
+to each agent through the Foundry portal (Task 22b). This is intentional:
+it keeps the agent_factory free of preview-SDK MCP plumbing and makes "swap
+the KB in the portal" a documented Day-2 operation.
+"""
 from __future__ import annotations
 import os
 from pathlib import Path
@@ -1441,21 +1446,10 @@ from typing import Any
 
 import yaml
 from agent_framework.foundry import FoundryAgent, FoundryAgentOptions
-from azure.ai.agents.models import AzureAISearchTool, AzureAISearchQueryType
-from azure.ai.projects import AIProjectClient
 from azure.core.credentials import TokenCredential
-
-from mmc_agents.tools import erp, supplier
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 MODEL = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
-
-# Map profile tool names to Python callables
-LOCAL_TOOLS: dict[str, Any] = {
-    "erp.bom_where_used": erp.bom_where_used,
-    "supplier.lookup": supplier.lookup,
-    "supplier.alternates": supplier.alternates,
-}
 
 
 def _load_profile(plant_id: str) -> dict:
@@ -1463,58 +1457,69 @@ def _load_profile(plant_id: str) -> dict:
         return yaml.safe_load(fh)
 
 
-def _index_name(plant_id: str, source_key: str) -> str:
-    return f"ks-{plant_id}-{source_key}".lower().replace("_", "-")
+def _instructions(plant_id: str, plant_display: str, agent_def: dict) -> str:
+    """Synthesize agent instructions from the profile entry."""
+    role = agent_def["role"]
+    display = agent_def["display_name"]
+    skills = "\n".join(f"  - {s['id']}: {s['description']}" for s in agent_def.get("skills", []))
+    kb_sources = ", ".join(agent_def.get("kb_sources", [])) or "(none assigned)"
+    return f"""You are the {display} agent for {plant_display} (id: {plant_id}, role: {role}).
 
+Your responsibilities:
+{skills}
 
-def _build_search_tool_defs(project: AIProjectClient, connection_name: str,
-                              plant_id: str, sources: list[str]) -> list[dict]:
-    conn_id = project.connections.get(connection_name).id
-    defs: list[dict] = []
-    for s in sources:
-        tool = AzureAISearchTool(
-            index_connection_id=conn_id,
-            index_name=_index_name(plant_id, s),
-            query_type=AzureAISearchQueryType.SEMANTIC,
-            top_k=5,
-        )
-        defs.extend(tool.definitions)
-    return defs
+You have access to a Foundry IQ knowledge base covering: {kb_sources}.
+ALWAYS ground your answers in the knowledge base when available. When you cite
+information, include the source document name. If retrieval returns nothing
+relevant, say "I could not find that in my knowledge base" rather than guessing.
+
+You are participating in a multi-agent workflow orchestrated by a Magentic
+manager. Stay focused on your role; defer questions outside your scope to the
+manager so it can route them to the right agent."""
 
 
 def upsert_plant_agents(plant_id: str, project_endpoint: str,
                           credential: TokenCredential) -> list[FoundryAgent]:
     profile = _load_profile(plant_id)
-    project = AIProjectClient(endpoint=project_endpoint, credential=credential)
-    conn_name = os.environ["PLANT_SEARCH_CONNECTION_NAME"]
+    plant_display = profile.get("display_name", plant_id)
 
     agents: list[FoundryAgent] = []
     for agent_def in profile["agents"]:
-        name = f"{plant_id}-{agent_def['id']}"
-        search_defs = _build_search_tool_defs(project, conn_name, plant_id,
-                                                agent_def.get("kb_sources", []))
-        local_tools = [LOCAL_TOOLS[t] for t in agent_def.get("tools", []) if t in LOCAL_TOOLS]
-
+        name = f"{plant_id}-{agent_def['role']}"
         agents.append(FoundryAgent(
             project_endpoint=project_endpoint,
             credential=credential,
             name=name,
-            description=agent_def.get("description", ""),
-            instructions=agent_def["instructions"],
-            tools=local_tools,
-            default_options=FoundryAgentOptions(
-                model=MODEL,
-                tools=search_defs,
-            ),
+            description=agent_def["display_name"],
+            instructions=_instructions(plant_id, plant_display, agent_def),
+            default_options=FoundryAgentOptions(model=MODEL),
         ))
     return agents
 ```
 
-- [ ] **Step 3: Run** `MMC_LIVE=1 pytest tests/test_agent_factory.py -v` — must pass. Verify agents appear in Foundry portal → Agents.
+- [ ] **Step 3: Run** `MMC_LIVE=1 .\.venv\Scripts\python.exe -m pytest tests/test_agent_factory.py -v` — must pass. Verify all 5 agents appear in Foundry portal → Agents.
 
-- [ ] **Step 4: Commit**: `feat(agents): Foundry Agents Service upsert factory`
+- [ ] **Step 4: Commit**: `feat(agents): Foundry Agents Service upsert factory (KB attached via portal)`
 
 ---
+
+## Task 22b: Attach `kb-plant7` to each agent in the Foundry portal ✨ **NEW**
+
+This is a Day-2 ops action that demonstrates the "edit in portal" story. Do once, after Task 22 has created the 5 agents.
+
+**For each of the 5 agents** (`plant7-ehs`, `plant7-maintenance`, `plant7-quality`, `plant7-shiftops`, `plant7-training`):
+
+- [ ] **Step 1**: Open [Microsoft Foundry portal](https://ai.azure.com) → `mmcfdy` → `mmc-plant` project → **Agents**.
+- [ ] **Step 2**: Click the agent name → **Tools** pane → **+ Add**.
+- [ ] **Step 3**: Choose **Knowledge** → **Foundry IQ knowledge base**.
+- [ ] **Step 4**: Select connection: the Search service connection (`srch-mmc-plant`). If it doesn't show your KB yet, add it as an MCP connection per [Connect a Foundry IQ KB to Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect).
+- [ ] **Step 5**: Select knowledge base: `kb-plant7`. Approval mode: `never` (auto-approve retrievals).
+- [ ] **Step 6**: Save.
+- [ ] **Step 7**: Test in the portal's Playground with a role-relevant query (e.g., for `plant7-ehs`: "What LOTO procedure applies to L1-PRS-001?"). Confirm citation comes back from the KB.
+
+**Record in `docs/results/2026-06-16-gate-a-results.md`**: which agents got the KB, plus the test query and one-line "grounded ✓" confirmation per agent.
+
+No commit (no code change). This step is verification.
 
 ## Task 23: Agent cards point at portal agents ✏️ **REVISED**
 

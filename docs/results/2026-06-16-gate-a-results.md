@@ -118,3 +118,63 @@ importable (plan only mentioned the `registry/__init__.py`).
 - supplier tool: 3 ✅
 - local_catalog: 2 ✅
 
+---
+
+## Task 21 — Foundry project → Search connection ✅
+
+Commits `816e3bd` (Bicep + pivot to portal-managed agents).
+
+| Resource | Status |
+|---|---|
+| `infra/bicep/modules/search-connection.bicep` | created |
+| `mmc-plant` ↔ `srch-mmc-plant` connection | deployed |
+| `mmc-enterprise` ↔ `srch-mmc-enterprise` connection | deployed |
+| Project MIs granted `Search Index Data Reader` | both Search services |
+| `.env` keys `PLANT_SEARCH_CONNECTION_NAME` + `ENTERPRISE_SEARCH_CONNECTION_NAME` | populated |
+
+The Search→project connection is in place so an operator can attach either an
+`AzureAISearchTool` (per-index) or a Foundry IQ MCP tool (per-KB) from the
+portal without further Bicep changes.
+
+---
+
+## Task 22 — Agent factory (Foundry Agents Service upsert) ✅
+
+Files: `src/mmc_agents/agent_factory.py`, `tests/test_agent_factory.py`.
+
+**Approach (revised mid-session):** Hand-off model — code creates and updates
+the agents idempotently via `azure-ai-agents.AgentsClient`; the KB is attached
+by an operator in the Foundry portal (Task 22b). This avoids the not-yet-shipped
+`azure-ai-agents 2.0.0` MCP plumbing AND makes the "edit in portal" workflow a
+real demo moment instead of a hidden code path.
+
+**Live result against `mmc-plant`** (5/5 agents created):
+
+```
+plant7-training      asst_16sIVi8Sr5GLaaHiO8hzRJJE   gpt-4o-mini
+plant7-shiftops      asst_ZEJiwSkxjwZU59i26G1w8DgD   gpt-4o-mini
+plant7-quality       asst_9cwT1foCv6yC0KEI2TBD397B   gpt-4o-mini
+plant7-maintenance   asst_gRG7IhNPtj7buB8oiL6rS7aO   gpt-4o-mini
+plant7-ehs           asst_8ceyejLOjoRwXh5k1JXF9A7E   gpt-4o-mini
+```
+
+Test: `MMC_LIVE=1 pytest tests/test_agent_factory.py -v` → 1 passed (19s).
+
+The factory is **safe to re-run**: existing agents are PATCHed; new ones are POSTed.
+Editing instructions in `plants/plant7/profile.yaml` and re-running propagates the
+change to the Foundry service.
+
+---
+
+## Task 22b — Attach `kb-plant7` to each agent in Foundry portal ⏳
+
+Per-agent action; record verification here as it's done.
+
+| Agent | KB attached | Test query | Grounded |
+|---|---|---|---|
+| `plant7-ehs` | ⬜ | "What LOTO procedure applies to L1-PRS-001?" | ⬜ |
+| `plant7-maintenance` | ⬜ | "What is the PM schedule for the brake caliper line?" | ⬜ |
+| `plant7-quality` | ⬜ | "What are common quality defects on Line 1?" | ⬜ |
+| `plant7-shiftops` | ⬜ | "Summarize open items for the next shift handover." | ⬜ |
+| `plant7-training` | ⬜ | "Who is certified for LOTO on Line 1?" | ⬜ |
+
