@@ -125,7 +125,10 @@ def main(argv: list[str]) -> int:
                         help="Plant name (repeatable). e.g. plant7")
     args = parser.parse_args(argv)
     do_enterprise = args.node is not None or args.plant is None
-    nodes = args.node if args.node else (list(MAPPINGS) if do_enterprise else [])
+    if args.node == ["all"]:
+        nodes = list(MAPPINGS)
+    else:
+        nodes = args.node if args.node else (list(MAPPINGS) if do_enterprise else [])
     plants = args.plant or ([] if args.node else list(PLANT_MAPPINGS))
     total = 0
     for node in nodes:
