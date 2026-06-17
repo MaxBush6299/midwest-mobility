@@ -2,7 +2,7 @@
   "ADH-CYAN-50ML": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0038",
+      "ECO_ID": "ECO-2026-038",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ADH-CYAN-50ML",
       "Reason": "Material change for cost reduction",
@@ -15,7 +15,7 @@
   "BRG-RAD-090": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0036",
+      "ECO_ID": "ECO-2026-036",
       "Opened_Date": "2025-12-15",
       "Part_ID": "BRG-RAD-090",
       "Reason": "Wall thickness optimization",
@@ -28,7 +28,7 @@
   "BRK-CAL-XYZ": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0014",
+      "ECO_ID": "ECO-2026-014",
       "Opened_Date": "2025-12-15",
       "Part_ID": "BRK-CAL-XYZ",
       "Reason": "Material change for cost reduction",
@@ -41,7 +41,7 @@
   "BRK-FLD-DOT4": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0021",
+      "ECO_ID": "ECO-2026-021",
       "Opened_Date": "2025-12-15",
       "Part_ID": "BRK-FLD-DOT4",
       "Reason": "Tolerance tightening",
@@ -54,7 +54,7 @@
   "BRK-PAD-STD": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0019",
+      "ECO_ID": "ECO-2026-019",
       "Opened_Date": "2025-12-15",
       "Part_ID": "BRK-PAD-STD",
       "Reason": "Process refinement",
@@ -67,7 +67,7 @@
   "BRK-ROT-090": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0020",
+      "ECO_ID": "ECO-2026-020",
       "Opened_Date": "2025-12-15",
       "Part_ID": "BRK-ROT-090",
       "Reason": "Material change for cost reduction",
@@ -80,7 +80,7 @@
   "CMP-TRIM-A": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0043",
+      "ECO_ID": "ECO-2026-043",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CMP-TRIM-A",
       "Reason": "Process refinement",
@@ -93,7 +93,7 @@
   "CMP-TRIM-B": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0044",
+      "ECO_ID": "ECO-2026-044",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CMP-TRIM-B",
       "Reason": "Material change for cost reduction",
@@ -106,7 +106,7 @@
   "CST-HSG-04": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0018",
+      "ECO_ID": "ECO-2026-018",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CST-HSG-04",
       "Reason": "Wall thickness optimization",
@@ -119,7 +119,7 @@
   "CST-HSG-05": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0034",
+      "ECO_ID": "ECO-2026-034",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CST-HSG-05",
       "Reason": "Supplier casting process update",
@@ -132,7 +132,7 @@
   "CST-HSG-06": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0035",
+      "ECO_ID": "ECO-2026-035",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CST-HSG-06",
       "Reason": "Cable routing update",
@@ -145,7 +145,7 @@
   "CTG-PAINT-BLK": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0046",
+      "ECO_ID": "ECO-2026-046",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CTG-PAINT-BLK",
       "Reason": "Supplier casting process update",
@@ -158,7 +158,7 @@
   "CTG-PAINT-WHT": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0045",
+      "ECO_ID": "ECO-2026-045",
       "Opened_Date": "2025-12-15",
       "Part_ID": "CTG-PAINT-WHT",
       "Reason": "Tolerance tightening",
@@ -171,7 +171,7 @@
   "ELC-FW-LOAD": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0029",
+      "ECO_ID": "ECO-2026-029",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ELC-FW-LOAD",
       "Reason": "Cable routing update",
@@ -184,7 +184,7 @@
   "ELC-HRN-12V": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0026",
+      "ECO_ID": "ECO-2026-026",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ELC-HRN-12V",
       "Reason": "Material change for cost reduction",
@@ -197,7 +197,7 @@
   "ELC-MEM-08G": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0028",
+      "ECO_ID": "ECO-2026-028",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ELC-MEM-08G",
       "Reason": "Supplier casting process update",
@@ -210,7 +210,7 @@
   "ELC-PCB-MAIN": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0027",
+      "ECO_ID": "ECO-2026-027",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ELC-PCB-MAIN",
       "Reason": "Tolerance tightening",
@@ -223,7 +223,7 @@
   "FRG-LNK-077": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0024",
+      "ECO_ID": "ECO-2026-024",
       "Opened_Date": "2025-12-15",
       "Part_ID": "FRG-LNK-077",
       "Reason": "Wall thickness optimization",
@@ -236,7 +236,7 @@
   "FST-M8-100": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0017",
+      "ECO_ID": "ECO-2026-017",
       "Opened_Date": "2025-12-15",
       "Part_ID": "FST-M8-100",
       "Reason": "Cable routing update",
@@ -249,7 +249,7 @@
   "GEAR-PIN-018": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0041",
+      "ECO_ID": "ECO-2026-041",
       "Opened_Date": "2025-12-15",
       "Part_ID": "GEAR-PIN-018",
       "Reason": "Cable routing update",
@@ -262,7 +262,7 @@
   "GEAR-SPR-024": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0042",
+      "ECO_ID": "ECO-2026-042",
       "Opened_Date": "2025-12-15",
       "Part_ID": "GEAR-SPR-024",
       "Reason": "Wall thickness optimization",
@@ -275,7 +275,7 @@
   "HYD-PUMP-A": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0049",
+      "ECO_ID": "ECO-2026-049",
       "Opened_Date": "2025-12-15",
       "Part_ID": "HYD-PUMP-A",
       "Reason": "Process refinement",
@@ -288,7 +288,7 @@
   "HYD-PUMP-B": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0050",
+      "ECO_ID": "ECO-2026-050",
       "Opened_Date": "2025-12-15",
       "Part_ID": "HYD-PUMP-B",
       "Reason": "Material change for cost reduction",
@@ -301,7 +301,7 @@
   "LUB-OIL-MULTI": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0037",
+      "ECO_ID": "ECO-2026-037",
       "Opened_Date": "2025-12-15",
       "Part_ID": "LUB-OIL-MULTI",
       "Reason": "Process refinement",
@@ -314,7 +314,7 @@
   "OPT-FLT-002": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0033",
+      "ECO_ID": "ECO-2026-033",
       "Opened_Date": "2025-12-15",
       "Part_ID": "OPT-FLT-002",
       "Reason": "Tolerance tightening",
@@ -327,7 +327,7 @@
   "OPT-LNS-002": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0032",
+      "ECO_ID": "ECO-2026-032",
       "Opened_Date": "2025-12-15",
       "Part_ID": "OPT-LNS-002",
       "Reason": "Material change for cost reduction",
@@ -340,7 +340,7 @@
   "PLA-CLIP-A": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0051",
+      "ECO_ID": "ECO-2026-051",
       "Opened_Date": "2025-12-15",
       "Part_ID": "PLA-CLIP-A",
       "Reason": "Tolerance tightening",
@@ -353,7 +353,7 @@
   "PLA-CLIP-B": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0052",
+      "ECO_ID": "ECO-2026-052",
       "Opened_Date": "2025-12-15",
       "Part_ID": "PLA-CLIP-B",
       "Reason": "Supplier casting process update",
@@ -366,7 +366,7 @@
   "ROB-ARM-G3": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0016",
+      "ECO_ID": "ECO-2026-016",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ROB-ARM-G3",
       "Reason": "Supplier casting process update",
@@ -379,7 +379,7 @@
   "ROB-ARM-G4": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0025",
+      "ECO_ID": "ECO-2026-025",
       "Opened_Date": "2025-12-15",
       "Part_ID": "ROB-ARM-G4",
       "Reason": "Process refinement",
@@ -392,7 +392,7 @@
   "SNS-PRX-001": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0030",
+      "ECO_ID": "ECO-2026-030",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SNS-PRX-001",
       "Reason": "Wall thickness optimization",
@@ -405,7 +405,7 @@
   "SNS-PRX-002": [
     {
       "Approved_Date": "",
-      "ECO_ID": "ECO-2026-0031",
+      "ECO_ID": "ECO-2026-031",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SNS-PRX-002",
       "Reason": "Process refinement",
@@ -418,7 +418,7 @@
   "SPR-COIL-022": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0039",
+      "ECO_ID": "ECO-2026-039",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SPR-COIL-022",
       "Reason": "Tolerance tightening",
@@ -431,7 +431,7 @@
   "SPR-LEAF-118": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0040",
+      "ECO_ID": "ECO-2026-040",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SPR-LEAF-118",
       "Reason": "Supplier casting process update",
@@ -444,7 +444,7 @@
   "SRV-MOTOR-220": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0047",
+      "ECO_ID": "ECO-2026-047",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SRV-MOTOR-220",
       "Reason": "Cable routing update",
@@ -457,7 +457,7 @@
   "SRV-MOTOR-330": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0048",
+      "ECO_ID": "ECO-2026-048",
       "Opened_Date": "2025-12-15",
       "Part_ID": "SRV-MOTOR-330",
       "Reason": "Wall thickness optimization",
@@ -470,7 +470,7 @@
   "STM-PNL-A1": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0015",
+      "ECO_ID": "ECO-2026-015",
       "Opened_Date": "2025-12-15",
       "Part_ID": "STM-PNL-A1",
       "Reason": "Tolerance tightening",
@@ -483,7 +483,7 @@
   "STM-PNL-B2": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0022",
+      "ECO_ID": "ECO-2026-022",
       "Opened_Date": "2025-12-15",
       "Part_ID": "STM-PNL-B2",
       "Reason": "Supplier casting process update",
@@ -496,7 +496,7 @@
   "STM-PNL-C3": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0023",
+      "ECO_ID": "ECO-2026-023",
       "Opened_Date": "2025-12-15",
       "Part_ID": "STM-PNL-C3",
       "Reason": "Cable routing update",
@@ -509,7 +509,7 @@
   "TRIM-INT-001": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0053",
+      "ECO_ID": "ECO-2026-053",
       "Opened_Date": "2025-12-15",
       "Part_ID": "TRIM-INT-001",
       "Reason": "Cable routing update",
@@ -522,7 +522,7 @@
   "TRIM-INT-002": [
     {
       "Approved_Date": "2026-01-10",
-      "ECO_ID": "ECO-2026-0054",
+      "ECO_ID": "ECO-2026-054",
       "Opened_Date": "2025-12-15",
       "Part_ID": "TRIM-INT-002",
       "Reason": "Wall thickness optimization",

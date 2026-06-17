@@ -327,7 +327,7 @@ def _gen_engineering_plm(out: Path, seed: dict) -> None:
         status = "Released" if part_id == "BRK-CAL-XYZ" else statuses[i % 5]
         approved = "" if status == "In Review" else "2026-01-10"
         eco.append([
-            f"ECO-2026-{i+14:04d}", part_id, from_rev, to_rev, status,
+            f"ECO-2026-{i+14:03d}", part_id, from_rev, to_rev, status,
             reasons[i % len(reasons)], "2025-12-15", approved, safety,
         ])
     _write_csv(
