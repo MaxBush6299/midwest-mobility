@@ -215,3 +215,37 @@ async def test_run_stream_extracts_text_from_list_data():
     assert responses, "agent_response event missing"
     # Full reply wins, no token-by-token splitting.
     assert responses[0].content == full
+
+
+@pytest.mark.asyncio
+async def test_run_stream_extracts_text_from_agent_executor_response():
+    """The first list item from executor_completed is an AgentExecutorResponse
+    wrapper whose ``.agent_response`` is the canonical full reply. Streaming
+    update chunks (some of which carry annotation-only events with empty body
+    text but a ``【N:M†source】`` marker as the longest visible string) must
+    NOT win over the wrapper's full text.
+
+    Regression: live trace rendered ``【5:0†source】`` only because we ignored
+    the wrapper and picked the longest stringified streaming chunk.
+    """
+    full = "The open PO with supplier SUP-001 is PO-00001 for BRK-CAL-XYZ, Open_Qty 480, Extended_Value 68160.0."
+    wrapper = SimpleNamespace(
+        executor_id="ent-procurement",
+        agent_response=_FakeOutput(full),
+    )
+    annotation_chunk = SimpleNamespace(text="【5:0†source】")
+    events = [
+        _ev("executor_invoked", executor_id="ent-procurement"),
+        _ev(
+            "executor_completed",
+            executor_id="ent-procurement",
+            data=[wrapper, _FakeOutput("The"), _FakeOutput("The open PO"), annotation_chunk],
+        ),
+        _ev("output", data=_FakeOutput("done")),
+    ]
+    out = [e async for e in run_stream(_FakeWorkflow(events), run_id="r", task="t")]
+    responses = [e for e in out if e.type == "agent_response"]
+    assert responses, "agent_response event missing"
+    assert responses[0].content == full, (
+        f"expected full reply, got: {responses[0].content!r}"
+    )

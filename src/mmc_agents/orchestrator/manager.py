@@ -104,10 +104,18 @@ def _extract_text(data: Any) -> str:
     """Best-effort text extraction from agent_framework event payloads.
 
     Handles the shapes the orchestrator emits across event types:
+    - ``AgentExecutorResponse`` — workflow wrapper around the agent's full
+      reply. Its ``.agent_response`` is an ``AgentResponse`` whose ``.text``
+      property already concatenates all message contents correctly. This is
+      the **canonical full reply** for an executor_completed event.
     - ``AgentResponse``: ``.text`` property, or ``.messages[-1].text``.
     - ``Message``: ``.text`` property, or concatenated ``.contents[*].text``.
     - Lists (executor_completed packs ``sent_messages + yielded_outputs`` as
-      a list) — recurse into each item and join non-empty results.
+      a list, where the first item is the AgentExecutorResponse wrapper and
+      the tail is streaming AgentResponseUpdate chunks) — recurse into each
+      item and return the longest non-empty extraction so the wrapper's
+      complete text wins over partial streaming chunks or annotation-only
+      events (which carry ``【N:M†source】`` markers but empty body text).
     - ``AgentResponseUpdate`` and similar single objects with ``.text`` or
       ``.contents``.
 
@@ -116,10 +124,6 @@ def _extract_text(data: Any) -> str:
     if data is None:
         return ""
 
-    # Lists / tuples — executor_completed bundles outputs this way. Streaming
-    # mode emits many AgentResponseUpdate chunks plus one full Message /
-    # AgentResponse; pick the longest non-empty extraction so we get the
-    # final assembled reply instead of token-by-token fragments.
     if isinstance(data, (list, tuple)):
         best = ""
         for item in data:
@@ -128,17 +132,24 @@ def _extract_text(data: Any) -> str:
                 best = t
         return best
 
-    # Single object — try the most informative attribute first.
+    inner = getattr(data, "agent_response", None)
+    if inner is not None:
+        t = _extract_text(inner)
+        if t:
+            return t
+
     t = getattr(data, "text", None)
     if isinstance(t, str) and t:
         return t
 
     msgs = getattr(data, "messages", None)
     if msgs:
+        joined = " ".join(
+            (getattr(m, "text", "") or "") for m in msgs
+        ).strip()
+        if joined:
+            return joined
         last = msgs[-1]
-        t = getattr(last, "text", None)
-        if isinstance(t, str) and t:
-            return t
         cs = getattr(last, "contents", None) or []
         joined = "".join(getattr(c, "text", "") or "" for c in cs)
         if joined:
@@ -149,6 +160,36 @@ def _extract_text(data: Any) -> str:
         return "".join(getattr(c, "text", "") or "" for c in cs)
 
     return ""
+
+
+def _dump_payload(executor_id: str | None, data: Any) -> None:
+    """Debug helper: dump executor_completed data structure to a file.
+
+    Enable with ``MMC_DEBUG_DUMP_PAYLOAD=1``. Appends one entry per call to
+    ``mmc_debug_payload.log`` in the cwd. Captures item types, attributes,
+    and ``repr()`` so we can see why ``_extract_text`` is missing content.
+    """
+    import pathlib, time
+    log = pathlib.Path("mmc_debug_payload.log")
+    lines: list[str] = []
+    lines.append(f"\n=== {time.strftime('%H:%M:%S')} executor={executor_id} ===")
+    lines.append(f"top-level type: {type(data).__name__}")
+    items = data if isinstance(data, (list, tuple)) else [data]
+    lines.append(f"item count: {len(items)}")
+    for i, it in enumerate(items):
+        lines.append(f"  [{i}] type={type(it).__name__} attrs={[a for a in dir(it) if not a.startswith('_')][:20]}")
+        t = getattr(it, "text", None)
+        lines.append(f"      .text={t!r}")
+        msgs = getattr(it, "messages", None)
+        if msgs:
+            lines.append(f"      .messages len={len(msgs)} last.text={getattr(msgs[-1], 'text', None)!r}")
+            cs = getattr(msgs[-1], "contents", None) or []
+            for j, c in enumerate(cs):
+                lines.append(f"        msg.contents[{j}] type={type(c).__name__} text={getattr(c, 'text', None)!r}")
+        cs = getattr(it, "contents", None) or []
+        for j, c in enumerate(cs):
+            lines.append(f"      .contents[{j}] type={type(c).__name__} text={getattr(c, 'text', None)!r}")
+    log.write_text(log.read_text(encoding="utf-8") + "\n".join(lines) if log.exists() else "\n".join(lines), encoding="utf-8")
 
 
 async def run_stream(
@@ -217,6 +258,8 @@ async def run_stream(
                 hop_index=hop_index,
             )
         elif evtype == "executor_completed" and _is_agent_executor(executor_id):
+            if os.environ.get("MMC_DEBUG_DUMP_PAYLOAD"):
+                _dump_payload(executor_id, data)
             yield _next(
                 type="agent_response",
                 message=f"{executor_id} responded",
