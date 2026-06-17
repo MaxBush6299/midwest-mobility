@@ -108,17 +108,17 @@ def _extract_text(data: Any) -> str:
     if data is None:
         return ""
 
-    # Lists / tuples — executor_completed bundles outputs this way.
+    # Lists / tuples — executor_completed bundles outputs this way. Streaming
+    # mode emits many AgentResponseUpdate chunks plus one full Message /
+    # AgentResponse; pick the longest non-empty extraction so we get the
+    # final assembled reply instead of token-by-token fragments.
     if isinstance(data, (list, tuple)):
-        parts = [_extract_text(item) for item in data]
-        parts = [p for p in parts if p]
-        # De-duplicate adjacent repeats (agent_response often appears in both
-        # sent_messages and yielded_outputs).
-        deduped: list[str] = []
-        for p in parts:
-            if not deduped or deduped[-1] != p:
-                deduped.append(p)
-        return "\n\n".join(deduped)
+        best = ""
+        for item in data:
+            t = _extract_text(item)
+            if t and len(t) > len(best):
+                best = t
+        return best
 
     # Single object — try the most informative attribute first.
     t = getattr(data, "text", None)

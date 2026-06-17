@@ -189,19 +189,23 @@ async def test_run_and_capture_collects_from_run_stream_unchanged_shape():
 async def test_run_stream_extracts_text_from_list_data():
     """executor_completed wraps `sent_messages + yielded_outputs` as a list.
 
-    Regression: the trace UI showed empty agent_response cards because
-    ``_extract_text`` didn't recurse into lists. See live trace screenshot.
+    In streaming mode the list contains many partial AgentResponseUpdate
+    chunks plus the final assembled message; we want the full reply, not
+    a vertical character salad. Regression: live trace showed each token
+    rendered on its own line because chunks were joined with newlines.
     """
+    full = "BRK-CAL-XYZ has NO_DIRECT_ALT per supplier.alternates()."
     events = [
         _ev("executor_invoked", executor_id="p7-supplier-quality"),
         _ev(
             "executor_completed",
             executor_id="p7-supplier-quality",
+            # Streaming chunks (partial prefixes) + the final full message.
             data=[
-                # First item: a forwarded Message to the next executor.
-                _FakeOutput("BRK-CAL-XYZ has NO_DIRECT_ALT per supplier.alternates()."),
-                # Second item: the yielded AgentResponse with the same body.
-                _FakeOutput("BRK-CAL-XYZ has NO_DIRECT_ALT per supplier.alternates()."),
+                _FakeOutput("BRK"),
+                _FakeOutput("BRK-CAL-XYZ"),
+                _FakeOutput("BRK-CAL-XYZ has NO_DIRECT_ALT"),
+                _FakeOutput(full),
             ],
         ),
         _ev("output", data=_FakeOutput("done")),
@@ -209,6 +213,5 @@ async def test_run_stream_extracts_text_from_list_data():
     out = [e async for e in run_stream(_FakeWorkflow(events), run_id="r", task="t")]
     responses = [e for e in out if e.type == "agent_response"]
     assert responses, "agent_response event missing"
-    assert "NO_DIRECT_ALT" in responses[0].content
-    # De-duplicated — even though the same text appeared twice in the list.
-    assert responses[0].content.count("NO_DIRECT_ALT") == 1
+    # Full reply wins, no token-by-token splitting.
+    assert responses[0].content == full
