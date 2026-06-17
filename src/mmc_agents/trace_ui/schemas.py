@@ -6,7 +6,13 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-ScenarioId = Literal["brake_caliper", "loto_cluster"]
+ScenarioId = Literal[
+    "brake_caliper",
+    "loto_cluster",
+    "training_gap",
+    "po_status",
+    "pm_check",
+]
 Tier = Literal["plant", "enterprise"]
 
 
@@ -29,6 +35,17 @@ class CreateRunResponse(BaseModel):
     run_id: str
     scenario: ScenarioId
     events_url: str
+
+
+class ScenarioInfo(BaseModel):
+    id: ScenarioId
+    label: str
+    blurb: str
+    problem_statement: str
+
+
+class ScenarioListResponse(BaseModel):
+    scenarios: list[ScenarioInfo]
 
 
 class AgentInfo(BaseModel):

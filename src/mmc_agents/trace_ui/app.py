@@ -37,6 +37,8 @@ from mmc_agents.trace_ui.schemas import (
     HotAddRequest,
     HotAddResponse,
     ScenarioId,
+    ScenarioInfo,
+    ScenarioListResponse,
 )
 
 logger = logging.getLogger(__name__)
@@ -85,12 +87,11 @@ async def _live_scenario_runner(
 
     from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
     from mmc_agents.orchestrator.manager import _build_manager, run_stream
-    from mmc_agents.orchestrator.scenarios.brake_caliper import PROBLEM_STATEMENT as BRAKE_TASK
-    from mmc_agents.orchestrator.scenarios.loto_cluster import PROBLEM_STATEMENT as LOTO_TASK
+    from mmc_agents.orchestrator.scenarios.registry import get as get_scenario
     from agent_framework.orchestrations import MagenticBuilder
     import os
 
-    scenario_task = task or (BRAKE_TASK if scenario == "brake_caliper" else LOTO_TASK)
+    scenario_task = task or get_scenario(scenario).problem_statement
     cred = AzureCliCredential()
     plant_endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     participants = build_foundry_agents("plant7", plant_endpoint, cred)
@@ -121,6 +122,22 @@ def create_app(runner: ScenarioRunner | None = None) -> FastAPI:
     @app.get("/agents", response_model=AgentListResponse)
     async def list_agents() -> AgentListResponse:
         return AgentListResponse(agents=_load_agents())
+
+    @app.get("/scenarios", response_model=ScenarioListResponse)
+    async def list_scenarios() -> ScenarioListResponse:
+        from mmc_agents.orchestrator.scenarios.registry import SCENARIOS
+
+        return ScenarioListResponse(
+            scenarios=[
+                ScenarioInfo(
+                    id=spec.id,  # type: ignore[arg-type]
+                    label=spec.label,
+                    blurb=spec.blurb,
+                    problem_statement=spec.problem_statement,
+                )
+                for spec in SCENARIOS.values()
+            ]
+        )
 
     @app.get(
         "/agents/{name}/blast-radius",

@@ -225,8 +225,8 @@
     </div>
     <div class="controls">
       <select id="scenario" aria-label="Scenario">
-        <option value="brake_caliper">Brake caliper · NO_DIRECT_ALT</option>
-        <option value="loto_cluster">LOTO cluster · L1 Press near-misses</option>
+        <!-- Populated dynamically from /scenarios so adding a scenario is a
+             single backend change. -->
       </select>
       <button id="run-btn" class="primary">Run scenario</button>
       <span class="stat">Hops: <strong id="stat-hops">0</strong></span>
@@ -260,10 +260,8 @@
   </main>
 
   <script>
-    const SCENARIO_BLURBS = {
-      brake_caliper: 'A Plant 7 line stop on <code>BRK-CAL-XYZ</code>. The plant supplier-quality agent observes <code>NO_DIRECT_ALT</code>, prompting the manager to fan out to enterprise procurement, PLM, and demand to find a mitigation.',
-      loto_cluster: 'Three L1 Press near-misses in 60 days (<code>INC-062/063/064</code>) with open CAPAs. EHS, maintenance, training, and quality collaborate; enterprise quality verifies the CAPA cluster.',
-    };
+    // Populated by loadScenarios() from GET /scenarios.
+    let scenarioBlurbs = {};
 
     const agentsEl = document.getElementById('agents');
     const traceEl = document.getElementById('trace');
@@ -284,10 +282,27 @@
     let usedAgents = new Set();
 
     function updateBlurb() {
-      blurbEl.innerHTML = SCENARIO_BLURBS[scenarioSel.value] || '';
+      blurbEl.innerHTML = scenarioBlurbs[scenarioSel.value] || '';
     }
     scenarioSel.addEventListener('change', updateBlurb);
-    updateBlurb();
+
+    async function loadScenarios() {
+      try {
+        const resp = await fetch('/scenarios');
+        const body = await resp.json();
+        scenarioSel.innerHTML = '';
+        for (const s of body.scenarios) {
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          opt.textContent = s.label;
+          scenarioSel.appendChild(opt);
+          scenarioBlurbs[s.id] = s.blurb;
+        }
+        updateBlurb();
+      } catch (err) {
+        toast('Failed to load scenarios: ' + err);
+      }
+    }
 
     async function loadAgents() {
       try {
@@ -523,6 +538,7 @@
     }
 
     runBtn.addEventListener('click', runScenario);
+    loadScenarios();
     loadAgents();
   </script>
 </body>
