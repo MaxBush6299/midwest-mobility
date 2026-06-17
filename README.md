@@ -1,191 +1,167 @@
-# MMC Plant 7 Demo Dataset
+# Midwest Mobility Components (MMC) — Multi-Agent Manufacturing Demo
 
-A comprehensive, realistic knowledge base for **Midwest Mobility Components (MMC) Plant 7** — a fictional Tier 1/Tier 2 automotive manufacturing facility. This dataset is designed for demonstrations, training, and development of AI-powered manufacturing operations tools.
+A reference implementation of a **multi-tier, multi-agent manufacturing assistant** built on Microsoft Agent Framework, Azure AI Foundry (Agents Service + Foundry IQ), and Azure SQL.
 
----
+A user asks a real plant-floor question. A **Magentic manager** decomposes it into a plan, dispatches the right specialists from a pool of 10 portal-managed Foundry Prompt Agents (5 plant + 5 enterprise), each grounded in a Foundry IQ knowledge base that mixes policy documents (markdown / PDF) with **live row data indexed straight from Azure SQL**. The full run streams to a tiny FastAPI + SSE trace UI so you can watch the plan, every hop, and every replan in real time.
 
-## Overview
-
-**Midwest Mobility Components (MMC)** is a mid-sized manufacturer supplying subassemblies and critical components to the mobility industry, including electric vehicle (EV) OEMs, heavy equipment manufacturers, and commercial fleet providers.
-
-**Plant 7 Profile:**
-- **Location:** Illinois, USA
-- **Employees:** ~280
-- **Operating Model:** 3-shift, 24/5 with weekend maintenance
-- **Plant Type:** High-mix / medium-volume manufacturing
+> 📐 **Looking for the deep dive?** See **[`docs/SOLUTION_ARCHITECTURE.md`](docs/SOLUTION_ARCHITECTURE.md)** — full component map, request flow, configuration surface, profile→KB→agent mapping, and gotchas.
+>
+> 📊 Looking for the source dataset? See **[`docs/DATASET.md`](docs/DATASET.md)** — the original Plant 7 knowledge base contents (markdown SOPs + CSV operational logs).
 
 ---
 
-## Production Lines
+## At a glance
 
-| Line | Description | Key Equipment | Primary Hazards |
-|------|-------------|---------------|-----------------|
-| **Line 1** | Stamping & Forming | High-tonnage presses, coil-fed material handling | Pinch points, ejected material, noise, oil mist |
-| **Line 2** | Assembly & Robot Cells | Industrial robots, servo torque tools, vision systems | Unexpected motion, bypassed guarding, PPE noncompliance |
-| **Line 3** | Conveyor & Pack-Out | Powered conveyors, stretch wrap, palletizer | Jams, pinch points, housekeeping, ergonomic strain |
+```
+   Browser  ──►  FastAPI trace UI (SSE)  ──►  Magentic Orchestrator
+                                                    │
+                                  ┌─────────────────┼─────────────────┐
+                                  ▼                                   ▼
+                          mmc-plant (Foundry)                 mmc-enterprise (Foundry)
+                          5 prompt agents                      5 prompt agents
+                                  │                                   │
+                                  ▼                                   ▼
+                          kb-plant7 (Foundry IQ)            kb-enterprise (Foundry IQ)
+                          docs + 3 SQL sources              docs + 2 SQL sources
+                                  │                                   │
+                                  └────────────┬──────────────────────┘
+                                               ▼
+                                  Azure SQL: mmcops (5 tables, CT on)
+```
 
-**Shared Areas:** Receiving/Shipping, Maintenance Crib, Chemical Storage Cage, Battery Handling Station, Tool Calibration Room
+| Tier | Component | Tech |
+|---|---|---|
+| 🖥️ UI | Live event stream, scenario picker | FastAPI + SSE + single static HTML file |
+| 🧠 Orchestrator | Magentic plan/dispatch/replan loop | `agent_framework.orchestrations.MagenticBuilder` |
+| 🤖 Agents | 10 portal-managed prompt agents (2 Foundry projects) | `azure-ai-projects` ≥ 2.2 `PromptAgentDefinition` |
+| 📚 Knowledge | Per-project KB; mix of doc-indexed + SQL-indexed sources | Foundry IQ (`azure-search-documents` ≥ 12.1.0b1) |
+| 🗃️ Data | Row-truthful operational data (training, PM, incidents, suppliers, POs) | Azure SQL Database (serverless Gen5, change tracking on) |
+| 🏗️ Infra | Reproducible deploy | Bicep modules under `infra/bicep/` |
 
 ---
 
-## Repository Structure
+## Quickstart (run the demo locally against your already-provisioned Azure)
+
+> Assumes Bicep has been deployed (`infra/bicep/main.bicep`), Foundry IQ project-connections have been wired in the portal, and `.env` is populated. See the architecture doc for the full provision recipe.
+
+```powershell
+# 1. Set up Python
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e .[dev]
+
+# 2. (One-time) load CSVs into Azure SQL and grant search MIs access
+python scripts/provision_sql.py
+python scripts/grant_sql_access.py
+
+# 3. (One-time per profile change) seed Foundry IQ knowledge bases
+python scripts/seed_foundry_iq.py --plant plant7
+python scripts/seed_foundry_iq.py --enterprise
+
+# 4. (One-time after KB+IQ-connection exist) create / update prompt agent versions
+python scripts/refresh_catalog.py
+
+# 5. Run the trace UI
+$env:MMC_TRACE_UI_PORT="8000"
+python -m mmc_agents.trace_ui
+# Open http://127.0.0.1:8000
+```
+
+To run a scenario from the CLI without the UI:
+
+```powershell
+python -m scripts.run_scenario --scenario supplier_risk_pm
+```
+
+---
+
+## Demo scenarios
+
+| Scenario | What it shows | Agents | Roughly |
+|---|---|---|---|
+| `training_gap` | SQL spot-check — list employees with expiring LOTO cert, cite `Training_Log` rows | 1 | ~35s, 1 hop |
+| `po_status` | SQL spot-check — open POs flagged At Risk / Watch, cite `po_spend` rows | 1 | ~15s, 1 hop |
+| `pm_check` | SQL spot-check — Line 1 PMs with follow-up WOs this quarter | 1 | ~30s, 1 hop |
+| **`supplier_risk_pm`** | **Cross-KB SQL story — at-risk PO → which Plant 7 PMs depend on the part → backup supplier in master** | **3** | **~6-10 hops** |
+| `loto_cluster` | Plant + enterprise — cluster L1 Press near-misses, check competency, escalate to enterprise quality | 5-6 | ~15 hops |
+| `brake_caliper` | Full fan-out — supplier delay impact, mitigation, cost; triggers `NO_DIRECT_ALT` replan | All 10 | ~30 hops |
+
+---
+
+## Repository layout
 
 ```
 mmc_demo/
-├── README.md
-├── docs/
-│   └── MMC_Plant7_Company_Profile_v1.md      # Source of truth for all documents
+├── README.md                       ← you are here
+├── pyproject.toml                  ← Python deps + package config
+├── .env(.example)                  ← Azure + Foundry + SQL env wiring
 │
-└── kb/
-    ├── Internal/
-    │   ├── 02_EHS_Internal/                   # Safety & Environmental Health
-    │   │   ├── MMC_P7_Safety_Program_Overview.md
-    │   │   ├── MMC_P7_LOTO_SOP.md
-    │   │   ├── MMC_P7_Machine_Guarding_SOP.md
-    │   │   └── MMC_P7_PPE_Matrix.md
-    │   │
-    │   ├── 03_Maintenance/                    # Maintenance & Equipment
-    │   │   ├── MMC_P7_PM_Program_Overview.md
-    │   │   ├── MMC_P7_Jam_Clearing_WI.md
-    │   │   └── MMC_P7_Conveyor_Line3_Manual_Excerpt.md
-    │   │
-    │   ├── 04_Quality/                        # Quality Management
-    │   │   ├── MMC_P7_Quality_Policy.md
-    │   │   └── MMC_P7_NCR_CAPA_Process.md
-    │   │
-    │   ├── 05_Ops_Shift/                      # Operations & Shift Management
-    │   │   ├── MMC_P7_Shift_Handover_Guidelines.md
-    │   │   └── MMC_P7_Standard_Work_Changeover.md
-    │   │
-    │   └── 08_Logs_Data/                      # Operational Data (CSV)
-    │       ├── MMC_P7_Incident_Log.csv
-    │       ├── MMC_P7_PM_Schedule.csv
-    │       └── MMC_P7_Training_Log.csv
-    │
-    ├── oem-manuals/                           # Equipment Reference (PDFs)
-    │   ├── Fanuc Robot LR Mate 200iD Operators Manual.pdf
-    │   └── HAAS-cnc-mill-manual.pdf
-    │
-    └── regulatory-reference/                  # Regulatory Standards (PDFs)
-        └── OSHA/
-            ├── OSHA_eCFR_1910_147_Lockout_Tagout.pdf
-            ├── OSHA_eCFR_1910_178_Powered_Industrial_Trucks.pdf
-            ├── OSHA_eCFR_1910_1200_Hazard_Communication.pdf
-            ├── OSHA_eCFR_1910_Subpart_D_Walking_Working_Surfaces.pdf
-            ├── OSHA_eCFR_1910_Subpart_I_PPE.pdf
-            └── OSHA_eCFR_1910_Subpart_O_Machine_Guarding.pdf
+├── docs/
+│   ├── SOLUTION_ARCHITECTURE.md    ← deep-dive technical doc
+│   ├── DATASET.md                  ← Plant 7 + enterprise dataset card
+│   ├── plans/                      ← gate plans (A/B/C)
+│   └── specs/                      ← gate status snapshots
+│
+├── infra/bicep/                    ← all Azure IaC
+│   ├── main.bicep                  ← top-level deployment
+│   └── modules/
+│       ├── ai-search.bicep         ← Search services (one per Foundry project)
+│       ├── foundry-iq-kb.bicep     ← Foundry IQ knowledge base
+│       ├── foundry-project.bicep   ← Foundry project + identity
+│       ├── search-connection.bicep
+│       ├── sql.bicep               ← Azure SQL (serverless Gen5, AAD-only)
+│       └── storage.bicep
+│
+├── plants/plant7/                  ← per-plant profile + docs
+│   ├── profile.yaml                ← agents, kb sources, tool wiring
+│   └── kb/                         ← markdown SOPs, OEM manuals, etc.
+│
+├── enterprise/                     ← per-node profiles + docs
+│   ├── profile.yaml
+│   ├── supply-chain/, procurement/, engineering-plm/, ...
+│
+├── shared/kb/                      ← cross-cutting docs (OSHA, manuals)
+│
+├── agents/catalog.json             ← snapshot of agent cards
+├── governance/                     ← per-agent blast-radius cards (Gate C)
+│
+├── scripts/                        ← all the one-shots
+│   ├── provision_sql.py            ← CSVs → SQL tables + change tracking
+│   ├── grant_sql_access.py         ← Create DB users for both Search MIs
+│   ├── seed_foundry_iq.py          ← Build KB sources (docs + indexedSql)
+│   ├── refresh_catalog.py          ← Re-emit agent JSON cards
+│   ├── run_scenario.py             ← CLI scenario runner
+│   ├── verify_kb_retrieval.py
+│   └── generate_*.py               ← synthetic data generators
+│
+├── src/mmc_agents/                 ← the actual Python package
+│   ├── agent_factory.py            ← PromptAgentDefinition + IQ MCP tool
+│   ├── orchestrator/
+│   │   ├── manager.py              ← MagenticBuilder + TraceEvent emission
+│   │   ├── trace.py                ← typed event vocabulary
+│   │   ├── model_config.py         ← separate manager vs worker deployments
+│   │   └── scenarios/              ← one .py per scenario + registry.py
+│   ├── trace_ui/                   ← FastAPI app + SSE + static HTML
+│   ├── registry/                   ← AgentCard schema, local catalog
+│   └── tools/                      ← stubbed tool fixtures (capa/cmms/etc.)
+│
+└── tests/                          ← 88 tests, all mocked Azure
+    └── snapshots/                  ← pinned factory output snapshots
 ```
 
 ---
 
-## Document Summaries
+## Key design choices (one-line each)
 
-### Company Profile
-| Document | Description |
-|----------|-------------|
-| `MMC_Plant7_Company_Profile_v1.md` | Master reference defining plant context, production lines, safety/quality frameworks, personas, and naming conventions |
-
-### EHS / Safety (02_EHS_Internal)
-| Document | Description |
-|----------|-------------|
-| `MMC_P7_Safety_Program_Overview.md` | Comprehensive EHS management system aligned to ISO 45001; covers LOTO, guarding, PPE, HazCom, forklift safety, hearing conservation, fall protection |
-| `MMC_P7_LOTO_SOP.md` | Lockout/Tagout standard operating procedure with energy source identification, step-by-step procedures, group lockout, and equipment-specific procedure index |
-| `MMC_P7_Machine_Guarding_SOP.md` | Machine guarding requirements by line, guard removal/reinstallation procedures, interlock bypass authorization, inspection schedules |
-| `MMC_P7_PPE_Matrix.md` | Area-specific and task-specific PPE requirements, selection criteria, inspection procedures, enforcement |
-
-### Maintenance (03_Maintenance)
-| Document | Description |
-|----------|-------------|
-| `MMC_P7_PM_Program_Overview.md` | Preventive maintenance program with equipment classification, PM schedules by line, lubrication program, spare parts management, KPIs |
-| `MMC_P7_Jam_Clearing_WI.md` | Work instruction for clearing jams on all lines; decision tree for LOTO requirement, line-specific procedures, authorization matrix |
-| `MMC_P7_Conveyor_Line3_Manual_Excerpt.md` | Technical manual for Line 3 conveyor system; specifications, safety systems, operating procedures, troubleshooting, spare parts |
-
-### Quality (04_Quality)
-| Document | Description |
-|----------|-------------|
-| `MMC_P7_Quality_Policy.md` | Quality Management System aligned to ISO 9001; quality objectives, process controls by line, inspection procedures, traceability |
-| `MMC_P7_NCR_CAPA_Process.md` | Nonconformance reporting and corrective action process using 8D methodology |
-
-### Operations (05_Ops_Shift)
-| Document | Description |
-|----------|-------------|
-| `MMC_P7_Shift_Handover_Guidelines.md` | Role-specific shift handover procedures for Supervisors, Operators, Maintenance, Quality; LOTO transfer, abnormal situations |
-| `MMC_P7_Standard_Work_Changeover.md` | Standardized changeover procedures for Lines 1-3; die changes, robot tooling, pack configuration; SMED principles, first-piece inspection |
-
-### Operational Data (08_Logs_Data)
-| File | Records | Date Range | Description |
-|------|---------|------------|-------------|
-| `MMC_P7_Incident_Log.csv` | 60 rows | Sept 2025 – Jan 2026 | Safety incidents with severity, root cause, CAPA tracking |
-| `MMC_P7_PM_Schedule.csv` | 80 rows | Sept 2025 – Feb 2026 | Preventive maintenance records with findings and follow-up |
-| `MMC_P7_Training_Log.csv` | 60 rows | Sept 2025 – Jan 2026 | Employee training completions by course and certification |
-
----
-
-## Data Patterns
-
-The operational data includes realistic, internally consistent patterns:
-
-| Area | Pattern |
-|------|---------|
-| **Line 1** | Energy control issues, LOTO compliance focus, hearing conservation |
-| **Line 2** | Guarding and interlock issues, robot cell safety, ESD protection |
-| **Line 3** | Housekeeping deficiencies, conveyor jams, ergonomic concerns |
-| **Receiving/Shipping** | Forklift incidents, pedestrian safety |
-
----
-
-## Regulatory Framework
-
-All documents reference applicable standards:
-- **OSHA 29 CFR 1910** — General Industry Standards
-- **ISO 45001** — Occupational Health & Safety Management
-- **ISO 9001** — Quality Management Systems
-- **ANSI/RIA R15.06** — Robot Safety
-- **NFPA 70E** — Electrical Safety
-
----
-
-## Personas
-
-The knowledge base supports queries from:
-
-| Role | Typical Questions |
-|------|-------------------|
-| **EHS Manager** | "Are we compliant with LOTO?" / "Where are repeat hazards?" |
-| **Maintenance Technician** | "How do I clear this jam safely?" / "What do I lock out?" |
-| **Line Supervisor** | "What PPE is required here?" / "Do I stop the line?" |
-| **Quality Engineer** | "Is this defect safety-related?" / "What containment is needed?" |
-| **Plant Manager** | "What are our top risks?" / "What actions are overdue?" |
-
----
-
-## Naming Conventions
-
-| Element | Convention | Example |
-|---------|------------|---------|
-| Plant | `MMC_P7` | — |
-| Lines | `L1`, `L2`, `L3` | — |
-| Documents | `MMC_P7_[Category]_[Name].md` | `MMC_P7_LOTO_SOP.md` |
-| Equipment | `[Type]-[Line]-[Number]` | `P1-001`, `RC2-003`, `CV3-007` |
-| LOTO Procedures | `LOTO-[Line]-[Number]` | `LOTO-L1-001` |
-| Dates | `YYYY-MM-DD` | `2026-01-27` |
-| Versions | `v1.0`, `v1.1` | — |
-
----
-
-## Usage Notes
-
-- All documents are written as realistic internal manufacturing documents
-- Cross-references between documents are consistent
-- Equipment IDs, employee names, and incident patterns are internally coherent
-- CSV data aligns with procedures and timelines described in markdown documents
+* **Portal-managed prompt agents, not local SDK agents** — the user wanted them visible/editable in the Foundry portal.
+* **Foundry IQ MCP tool baked into every agent version** — KB grounding is the agent's default behavior, not an orchestrator concern.
+* **`IndexedSqlKnowledgeSource` for row data, doc indexer for procedures** — when both held the same data the agent paraphrased instead of citing rows. Splitting them fixed it.
+* **Separate manager + worker LLM deployments** — sharing one deployment 429s reliably because the manager invokes the model every round on top of every worker call.
+* **Per-scenario `participants` whitelist + `max_rounds` cap** — keeps narrow scenarios narrow.
+* **Single source of truth = `profile.yaml`** — agents, KB sources, tools, and skills all live there; everything else (cards, KB seed, agent versions, snapshots) derives from it.
 
 ---
 
 ## License
 
-This is a fictional dataset created for demonstration purposes. Any resemblance to actual companies, facilities, or individuals is coincidental.
-
----
-
-**Last Updated:** 2026-01-27
+Fictional dataset; demo code. Any resemblance to actual companies, facilities, or individuals is coincidental.
