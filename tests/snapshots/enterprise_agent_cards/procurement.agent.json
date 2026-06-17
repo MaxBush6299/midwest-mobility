@@ -20,7 +20,8 @@
   "tier": "enterprise",
   "metadata": {
     "kb_sources": [
-      "procurement"
+      "procurement",
+      "po_data"
     ],
     "tools": [
       "procurement"

@@ -12,7 +12,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from . import brake_caliper, loto_cluster, pm_check, po_status, training_gap
+from . import (
+    brake_caliper,
+    loto_cluster,
+    pm_check,
+    po_status,
+    supplier_risk_pm,
+    training_gap,
+)
 
 
 @dataclass(frozen=True)
@@ -89,6 +96,24 @@ SCENARIOS: dict[str, ScenarioSpec] = {
         problem_statement=pm_check.PROBLEM_STATEMENT,
         participants=("plant7-quality",),
         max_rounds=5,
+    ),
+    "supplier_risk_pm": ScenarioSpec(
+        id="supplier_risk_pm",
+        label="At-risk PO · PM impact + alt supplier",
+        blurb=(
+            "Cross-KB SQL story: <code>PO-00001</code> (BRK-CAL-XYZ, SUP-001) "
+            "is At Risk. Procurement confirms the PO row, plant maintenance "
+            "finds Line 1 PMs touching the part, and supply chain checks "
+            "<code>supplier_master</code> for a backup. "
+            "<em>~6-10 hops, 3 agents.</em>"
+        ),
+        problem_statement=supplier_risk_pm.PROBLEM_STATEMENT,
+        participants=(
+            "ent-procurement",
+            "plant7-maintenance",
+            "ent-supply-chain",
+        ),
+        max_rounds=8,
     ),
 }
 

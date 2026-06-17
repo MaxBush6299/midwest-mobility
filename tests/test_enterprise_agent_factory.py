@@ -21,7 +21,7 @@ def test_emit_enterprise_card_procurement(tmp_path: Path):
     )
     assert card["name"] == "ent-procurement"
     assert card["tier"] == "enterprise"
-    assert card["metadata"]["kb_sources"] == ["procurement"]
+    assert card["metadata"]["kb_sources"] == ["procurement", "po_data"]
     assert card["metadata"]["tools"] == ["procurement"]
     AgentCard.model_validate(card)
 
