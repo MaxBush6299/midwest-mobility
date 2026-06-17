@@ -36,7 +36,11 @@ az group delete --name rg-magentictest --yes --no-wait
 
 ## Notes
 
-The `foundry-project.bicep` and `foundry-iq-kb.bicep` modules contain
-`TODO(verify-on-Learn)` markers. The Foundry project resource type/apiVersion
-and whether Foundry IQ KB is control-plane deployable should be verified
-against Microsoft Learn and pinned before the first real deploy.
+Foundry IQ KB is data-plane-only as of `azure-ai-projects` 2.2 — the
+`foundry-iq-kb.bicep` module emits names and bindings only, and
+`scripts/seed_foundry_iq.py` creates the KB at deploy time. The portal-managed
+IQ connection is then created by the operator and surfaced to agents via the
+`PLANT_KB_CONNECTION_ID` + `PLANT_KB_MCP_URL` env vars consumed by
+`agent_factory.py`. All Foundry agents are provisioned as portal-managed
+prompt agents (`PromptAgentDefinition`) — never via the classic
+`azure-ai-agents` SDK (retired 2027-03-31).

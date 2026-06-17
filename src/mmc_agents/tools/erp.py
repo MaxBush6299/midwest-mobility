@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from mmc_agents.tools.fixtures_loader import load_fixture
 
-# Agent Framework's @tool decorator. Verify exact import on Microsoft Learn.
-from agent_framework import tool  # TODO(verify): exact module path
+# Agent Framework @tool decorator (verified in Gate A live smoke test).
+from agent_framework import tool
 
 _FIX = Path(__file__).resolve().parents[3] / "enterprise" / "supply-chain" / "fixtures" / "bom_where_used.json"
 

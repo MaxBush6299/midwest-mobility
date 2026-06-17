@@ -2,7 +2,7 @@
 from __future__ import annotations
 from pathlib import Path
 from mmc_agents.tools.fixtures_loader import load_fixture, _read
-from agent_framework import tool  # TODO(verify)
+from agent_framework import tool
 
 _FIX_SUP = Path(__file__).resolve().parents[3] / "enterprise" / "supply-chain" / "fixtures" / "supplier_master.json"
 _FIX_BOM = Path(__file__).resolve().parents[3] / "enterprise" / "supply-chain" / "fixtures" / "bom_where_used.json"
