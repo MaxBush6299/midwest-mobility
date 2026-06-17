@@ -6,10 +6,18 @@ kb:
   sources:
     supply_chain:
       node: supply-chain
-      paths: ["enterprise/supply-chain/data", "enterprise/supply-chain/kb"]
+      # Procedures only — supplier_master row data is in supplier_data SQL source.
+      paths: ["enterprise/supply-chain/kb"]
+    supplier_data:
+      sql_table: dbo.supplier_master
+      description: "Supplier master (tier, lead time, disruption flags, risk score)."
     procurement:
       node: procurement
-      paths: ["enterprise/procurement/data", "enterprise/procurement/kb"]
+      # Procedures only — po_spend row data is in po_data SQL source.
+      paths: ["enterprise/procurement/kb"]
+    po_data:
+      sql_table: dbo.po_spend
+      description: "Open + recent purchase orders with status flags + extended value."
     engineering_plm:
       node: engineering-plm
       paths: ["enterprise/engineering-plm/data", "enterprise/engineering-plm/kb"]
@@ -25,7 +33,7 @@ agents:
     name: ent-supply-chain
     display_name: Supply Chain
     description: Enterprise supply-chain agent for supplier health, BOM where-used, alternate-source lookup, and inbound-logistics ETA.
-    kb_sources: [supply_chain]
+    kb_sources: [supply_chain, supplier_data]
     tools: [erp, supplier, tms]
     skills:
       - id: supplier_health
@@ -39,7 +47,7 @@ agents:
     name: ent-procurement
     display_name: Procurement & Cost
     description: Enterprise procurement and cost agent for should-cost, PO impact, contract terms, expedite options, and spend rollups.
-    kb_sources: [procurement]
+    kb_sources: [procurement, po_data]
     tools: [procurement]
     skills:
       - id: should_cost_analysis

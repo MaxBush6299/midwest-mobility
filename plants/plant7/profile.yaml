@@ -21,12 +21,23 @@ kb:
     maintenance:
       paths: ["plants/plant7/kb/03_Maintenance", "shared/kb/oem-manuals"]
     quality_ops:
-      paths: ["plants/plant7/kb/04_Quality", "plants/plant7/kb/05_Ops_Shift", "plants/plant7/kb/08_Logs_Data"]
+      # Procedures / SOPs only — the row data in 08_Logs_Data now lives in
+      # the SQL knowledge sources below (training_data / pm_data / incident_data).
+      paths: ["plants/plant7/kb/04_Quality", "plants/plant7/kb/05_Ops_Shift"]
+    training_data:
+      sql_table: dbo.training_log
+      description: "Plant 7 training records (employees, courses, expirations)."
+    pm_data:
+      sql_table: dbo.pm_schedule
+      description: "Plant 7 preventive maintenance schedule + completion log."
+    incident_data:
+      sql_table: dbo.incident_log
+      description: "Plant 7 EHS incident log (near-misses, injuries, CAPAs)."
 
 agents:
   - role: ehs
     display_name: Plant 7 EHS / Safety
-    kb_sources: [ehs]
+    kb_sources: [ehs, incident_data]
     tools: [capa]
     skills:
       - id: hazard_loto_lookup
@@ -37,7 +48,7 @@ agents:
         description: OSHA / ISO 45001 compliance check
   - role: maintenance
     display_name: Plant 7 Maintenance & Reliability
-    kb_sources: [maintenance]
+    kb_sources: [maintenance, pm_data]
     tools: [cmms, scada]
     skills:
       - id: pm_status
@@ -48,7 +59,7 @@ agents:
         description: Spare-part lookup & OEE / downtime
   - role: quality
     display_name: Plant 7 Quality
-    kb_sources: [quality_ops]
+    kb_sources: [quality_ops, incident_data]
     tools: [qms]
     skills:
       - id: ncr_capa_status
@@ -59,7 +70,7 @@ agents:
         description: First-piece / changeover inspection
   - role: shiftops
     display_name: Plant 7 Shift Ops
-    kb_sources: [quality_ops]
+    kb_sources: [quality_ops, pm_data, incident_data]
     tools: [mes]
     skills:
       - id: handover_summary
@@ -70,7 +81,7 @@ agents:
         description: Line-stop decision support
   - role: training
     display_name: Plant 7 Training / Competency
-    kb_sources: [quality_ops]
+    kb_sources: [quality_ops, training_data, incident_data]
     tools: [lms]
     skills:
       - id: cert_status

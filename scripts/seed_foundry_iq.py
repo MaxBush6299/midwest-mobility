@@ -21,8 +21,9 @@ from azure.identity import DefaultAzureCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
+    IndexedSqlKnowledgeSource,
+    IndexedSqlKnowledgeSourceParameters,
     KnowledgeBase,
-    KnowledgeRetrievalMinimalReasoningEffort,
     KnowledgeSourceReference,
     SearchableField,
     SearchFieldDataType,
@@ -47,8 +48,52 @@ def _doc_id(path: Path) -> str:
     return hashlib.sha1(str(path).encode("utf-8")).hexdigest()
 
 
-def _index_name(scope: str, source: str) -> str:
+def _ks_name(scope: str, source: str) -> str:
     return f"ks-{scope}-{source}".lower().replace("_", "-")
+
+
+def _index_name(scope: str, source: str) -> str:
+    return _ks_name(scope, source)
+
+
+def _sql_connection_string() -> str:
+    """Build a connection string for Azure Search to talk to Azure SQL using
+    the search service's system-assigned managed identity.
+
+    Per https://learn.microsoft.com/azure/search/search-howto-managed-identities-sql,
+    MI-based connection strings use the Database/ResourceId form (NOT the standard
+    Server=tcp:...,1433 form used by client tools), so the indexer authenticates
+    via the search service's identity rather than embedded credentials."""
+    sub = os.environ["AZURE_SUBSCRIPTION_ID"]
+    rg = os.environ["AZURE_RESOURCE_GROUP"]
+    server = os.environ["SQL_SERVER_NAME"]
+    db = os.environ["SQL_DATABASE_NAME"]
+    resource_id = (
+        f"/subscriptions/{sub}/resourceGroups/{rg}"
+        f"/providers/Microsoft.Sql/servers/{server}"
+    )
+    return f"Database={db};ResourceId={resource_id};Connection Timeout=30;"
+
+
+def _build_sql_knowledge_source(
+    scope: str, source_key: str, table_or_view: str, description: str
+) -> IndexedSqlKnowledgeSource:
+    """Build a Foundry IQ indexed Azure SQL knowledge source.
+
+    Auto-maps every SQL column to an Edm.String content field; SQL integrated
+    change tracking handles incremental updates (we enabled CT in provision_sql.py).
+    No embedding columns for v1 — semantic + keyword over text is sufficient
+    for the small ops datasets; revisit if recall is weak.
+    """
+    return IndexedSqlKnowledgeSource(
+        name=_ks_name(scope, source_key),
+        description=description,
+        indexed_sql_parameters=IndexedSqlKnowledgeSourceParameters(
+            connection_string=_sql_connection_string(),
+            table_or_view=table_or_view,
+            ingestion_parameters={"contentExtractionMode": "minimal"},
+        ),
+    )
 
 
 def _build_index(name: str) -> SearchIndex:
@@ -109,6 +154,20 @@ def _seed(search_endpoint: str, scope: str, sources: dict[str, dict], kb_name: s
 
     ks_refs: list[KnowledgeSourceReference] = []
     for source_key, src in sources.items():
+        # Branch: SQL-backed sources skip the file walk + push-API upload entirely.
+        if "sql_table" in src:
+            ks_name = _ks_name(scope, source_key)
+            print(f"  [{source_key}] registering SQL knowledge source '{ks_name}' -> {src['sql_table']}")
+            sql_ks = _build_sql_knowledge_source(
+                scope=scope,
+                source_key=source_key,
+                table_or_view=src["sql_table"],
+                description=src.get("description", f"MMC {scope} / {source_key} (SQL)"),
+            )
+            idx_client.create_or_update_knowledge_source(sql_ks)
+            ks_refs.append(KnowledgeSourceReference(name=ks_name))
+            continue
+
         idx_name = _index_name(scope, source_key)
 
         print(f"  [{source_key}] creating index '{idx_name}'...")
@@ -140,7 +199,7 @@ def _seed(search_endpoint: str, scope: str, sources: dict[str, dict], kb_name: s
         name=kb_name,
         description=f"MMC {scope} grounding KB (auto-seeded)",
         knowledge_sources=ks_refs,
-        retrieval_reasoning_effort=KnowledgeRetrievalMinimalReasoningEffort(),
+        retrieval_reasoning_effort={"kind": "minimal"},
     )
     idx_client.create_or_update_knowledge_base(kb)
     print(f"  done. KB '{kb_name}' is ready.")
@@ -173,7 +232,7 @@ def seed_enterprise(only_source: str | None = None) -> None:
     sources = {
         k: v
         for k, v in sources.items()
-        if any((ROOT / p).exists() for p in v["paths"])
+        if "sql_table" in v or any((ROOT / p).exists() for p in v.get("paths", []))
     }
     if not sources:
         print("No enterprise source paths found on disk; nothing to seed.")
