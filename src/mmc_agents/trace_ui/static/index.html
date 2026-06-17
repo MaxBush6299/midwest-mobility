@@ -315,15 +315,19 @@
         for (const a of list) {
           const row = document.createElement('div');
           row.className = `agent ${tier}`;
+          const label = a.display_name || a.name;
           row.innerHTML = `
             <span class="badge"></span>
             <span class="name">
-              ${escapeHtml(a.name)}
+              ${escapeHtml(label)}
               ${a.foundry_project ? `<span class="proj">${escapeHtml(a.foundry_project)}</span>` : ''}
             </span>
             <span class="hops" data-hops="0">—</span>
           `;
+          row.title = a.name;  // catalog id, for debugging
           wrap.appendChild(row);
+          // Key by catalog name — that's what the orchestrator emits as
+          // executor_id, so markAgent() can match exactly.
           agentState.set(a.name, { tier, project: a.foundry_project, hops: 0, el: row });
         }
         agentsEl.appendChild(wrap);
@@ -338,11 +342,15 @@
 
     function findAgentByExecutorId(execId) {
       if (!execId) return null;
-      // Try exact match (display_name), then fuzzy on tail.
+      // Catalog name (e.g. "plant7-ehs") is the same string the orchestrator
+      // emits as executor_id, so exact match is the common path.
       if (agentState.has(execId)) return execId;
+      // Fallback: tolerate suffix/prefix variants (e.g. "p7-ehs" vs "plant7-ehs").
+      const e = execId.toLowerCase();
       for (const name of agentState.keys()) {
-        if (name.toLowerCase().includes(execId.toLowerCase()) ||
-            execId.toLowerCase().includes(name.toLowerCase().replace(/\s+/g, '-'))) {
+        const n = name.toLowerCase();
+        if (n === e || n.endsWith('-' + e) || e.endsWith('-' + n) ||
+            n.includes(e) || e.includes(n)) {
           return name;
         }
       }

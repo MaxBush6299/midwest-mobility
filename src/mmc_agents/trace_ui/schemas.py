@@ -33,6 +33,7 @@ class CreateRunResponse(BaseModel):
 
 class AgentInfo(BaseModel):
     name: str
+    display_name: str | None = None
     tier: Tier
     description: str
     foundry_project: str | None = None

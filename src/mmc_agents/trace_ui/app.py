@@ -57,11 +57,16 @@ def _load_agents() -> list[AgentInfo]:
         # Catalog only persists project for plant agents today; the enterprise
         # tier is single-tenant on mmc-enterprise, so infer when absent.
         project = meta.get("project") or ("mmc-enterprise" if tier == "enterprise" else None)
+        # ``name`` is the catalog id (e.g. ``plant7-ehs``) — same string the
+        # orchestrator emits as executor_id, so the UI can match exactly.
+        # ``display_name`` is the human label shown in the left rail.
+        catalog_name = entry.get("name") or "(unnamed)"
         out.append(
             AgentInfo(
-                name=entry.get("display_name") or entry.get("name", "(unnamed)"),
+                name=catalog_name,
+                display_name=entry.get("display_name") or catalog_name,
                 tier=tier,
-                description=entry.get("description") or entry.get("name", ""),
+                description=entry.get("description") or catalog_name,
                 foundry_project=project,
             )
         )
