@@ -157,17 +157,30 @@ def seed_plant(plant_id: str) -> None:
     print(f"  FOUNDRY_IQ_KB_PLANT7_ID={kb_name}")
 
 
-def seed_enterprise() -> None:
-    search_ep = os.environ["SEARCH_ENTERPRISE_ENDPOINT"]
-    nodes = {
-        "supply_chain": {"paths": ["enterprise/supply-chain/data"]},
+def seed_enterprise(only_source: str | None = None) -> None:
+    profile_path = ROOT / "enterprise" / "profile.yaml"
+    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
+    all_sources: dict[str, dict] = profile["kb"]["sources"]
+    if only_source:
+        if only_source not in all_sources:
+            raise SystemExit(
+                f"--source '{only_source}' not in profile; known sources: "
+                f"{sorted(all_sources)}"
+            )
+        sources = {only_source: all_sources[only_source]}
+    else:
+        sources = all_sources
+    sources = {
+        k: v
+        for k, v in sources.items()
+        if any((ROOT / p).exists() for p in v["paths"])
     }
-    nodes = {k: v for k, v in nodes.items() if (ROOT / v["paths"][0]).exists()}
-    if not nodes:
-        print("No enterprise data found yet (Gate B populates remaining nodes).")
+    if not sources:
+        print("No enterprise source paths found on disk; nothing to seed.")
         return
-    print(f"Seeding enterprise -> {search_ep}")
-    _seed(search_ep, "enterprise", nodes, "kb-enterprise")
+    search_ep = os.environ["SEARCH_ENTERPRISE_ENDPOINT"]
+    print(f"Seeding enterprise -> {search_ep} ({len(sources)} sources)")
+    _seed(search_ep, "enterprise", sources, "kb-enterprise")
     print("  FOUNDRY_IQ_KB_ENTERPRISE_ID=kb-enterprise")
 
 
@@ -175,13 +188,19 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plant")
     ap.add_argument("--enterprise", action="store_true")
+    ap.add_argument(
+        "--source",
+        help="With --enterprise, only refresh the named source (e.g. supply_chain).",
+    )
     args = ap.parse_args()
     if not args.plant and not args.enterprise:
         ap.error("specify --plant <id> or --enterprise")
+    if args.source and not args.enterprise:
+        ap.error("--source only applies with --enterprise")
     if args.plant:
         seed_plant(args.plant)
     if args.enterprise:
-        seed_enterprise()
+        seed_enterprise(only_source=args.source)
     return 0
 
 

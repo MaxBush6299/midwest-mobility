@@ -1,4 +1,9 @@
-"""Live smoke test for the brake-caliper Magentic scenario (Task 28).
+"""Live smoke test for the brake-caliper Magentic scenario.
+
+Gate A (Task 28) established baseline composition; Gate B (Task 31) tightened
+the assertions to use ``run_and_capture`` so we can verify that NO_DIRECT_ALT
+evidence shows up in the manager's progress ledger or the final synthesis
+(i.e., the manager actually backtracked rather than fabricating an answer).
 
 Skipped unless MMC_LIVE=1. Requires deployed Foundry project + KBs + agents.
 """
@@ -18,31 +23,40 @@ pytestmark = pytest.mark.skipif(not LIVE, reason="set MMC_LIVE=1 to run")
 
 
 def test_brake_caliper_composes_multi_agent_flow():
-    from mmc_agents.orchestrator.manager import run_plant_scenario
+    from azure.identity import AzureCliCredential
+    from agent_framework.orchestrations import MagenticBuilder
+
+    from mmc_agents.agent_factory import build_foundry_agents
+    from mmc_agents.orchestrator.manager import _build_manager, run_and_capture
     from mmc_agents.orchestrator.scenarios.brake_caliper import (
         EXPECTED_BOUNDS,
         PROBLEM_STATEMENT,
     )
 
-    async def _drive() -> list[dict]:
-        out: list[dict] = []
-        async for ev in run_plant_scenario("plant7", PROBLEM_STATEMENT):
-            out.append(ev)
-        return out
+    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    participants = build_foundry_agents("plant7", endpoint, AzureCliCredential())
+    workflow = MagenticBuilder(
+        participants=participants, manager=_build_manager()
+    ).build()
 
-    events = asyncio.run(_drive())
-    assert events, "no events emitted"
+    run = asyncio.run(run_and_capture(workflow, PROBLEM_STATEMENT))
+    distinct = set(run.hops)
 
-    agents_seen: set[str] = set()
-    for ev in events:
-        name = ev.get("agent")
-        if name:
-            agents_seen.add(name)
+    print(f"\nHops: {run.hops}")
+    print(f"Backtracks: {run.backtracks}; terminated_by_max_rounds={run.terminated_by_max_rounds}")
 
-    print(f"\n{len(events)} events; agents seen: {agents_seen}")
-    assert len(agents_seen) >= EXPECTED_BOUNDS["min_distinct_agents"], (
-        f"Only {len(agents_seen)} agents seen: {agents_seen}"
+    assert len(distinct) >= EXPECTED_BOUNDS["min_distinct_agents"], (
+        f"Only {len(distinct)} distinct agents in trace: {distinct}"
     )
     must = EXPECTED_BOUNDS["must_include_agents"]
-    missing = must - agents_seen
+    missing = must - distinct
     assert not missing, f"Required agents missing from trace: {missing}"
+    assert run.backtracks >= EXPECTED_BOUNDS["min_backtracks"], (
+        f"Expected >= {EXPECTED_BOUNDS['min_backtracks']} backtracks, got {run.backtracks}"
+    )
+    haystack = (run.last_progress_ledger + " " + run.answer).upper()
+    for term in EXPECTED_BOUNDS.get("must_observe_terms", set()):
+        assert term.upper() in haystack, (
+            f"Required term '{term}' missing from ledger and final answer"
+        )
+
