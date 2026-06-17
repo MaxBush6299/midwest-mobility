@@ -21,7 +21,7 @@ from agent_framework.orchestrations import (
 )
 from azure.identity import AzureCliCredential
 
-from mmc_agents.agent_factory import build_foundry_agents
+from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
 from mmc_agents.observability import setup_tracing
 from mmc_agents.orchestrator.model_config import manager_chat_client
 
@@ -140,11 +140,20 @@ def summarize_scenario_run(run: ScenarioRun) -> str:
 
 
 async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
-    """Stream Magentic events for a plant scenario. Yields {kind, agent, text|data}."""
+    """Stream Magentic events for a plant scenario. Yields {kind, agent, text|data}.
+
+    Participants always include the named plant's agents plus all 5 enterprise
+    agents (when ``FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT`` is set), so backtrack
+    flows like brake-caliper / LOTO can route into enterprise procurement, PLM,
+    quality, and demand.
+    """
     setup_tracing()
     cred = AzureCliCredential()
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     participants = build_foundry_agents(plant_id, endpoint, cred)
+    ent_endpoint = os.environ.get("FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT")
+    if ent_endpoint:
+        participants = participants + build_enterprise_agents(ent_endpoint, cred)
 
     workflow = (
         MagenticBuilder(
@@ -166,7 +175,9 @@ async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
             data = getattr(ev, "data", None)
 
             agent_name: str | None = None
-            if executor_id and executor_id.startswith(f"{plant_id}-"):
+            if executor_id and (
+                executor_id.startswith(f"{plant_id}-") or executor_id.startswith("ent-")
+            ):
                 agent_name = executor_id
             elif hasattr(data, "participant_name"):
                 agent_name = getattr(data, "participant_name", None)

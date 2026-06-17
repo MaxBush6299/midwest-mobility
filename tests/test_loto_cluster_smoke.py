@@ -25,7 +25,7 @@ def test_loto_cluster_composes_distinct_flow():
     from azure.identity import AzureCliCredential
     from agent_framework.orchestrations import MagenticBuilder
 
-    from mmc_agents.agent_factory import build_foundry_agents
+    from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
     from mmc_agents.orchestrator.manager import _build_manager, run_and_capture
     from mmc_agents.orchestrator.scenarios.loto_cluster import (
         EXPECTED_BOUNDS,
@@ -33,7 +33,11 @@ def test_loto_cluster_composes_distinct_flow():
     )
 
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
-    participants = build_foundry_agents("plant7", endpoint, AzureCliCredential())
+    ent_endpoint = os.environ["FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT"]
+    cred = AzureCliCredential()
+    participants = build_foundry_agents("plant7", endpoint, cred) + build_enterprise_agents(
+        ent_endpoint, cred
+    )
     workflow = MagenticBuilder(
         participants=participants, manager=_build_manager()
     ).build()

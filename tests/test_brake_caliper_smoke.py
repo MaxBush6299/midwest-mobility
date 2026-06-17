@@ -1,9 +1,12 @@
 """Live smoke test for the brake-caliper Magentic scenario.
 
 Gate A (Task 28) established baseline composition; Gate B (Task 31) tightened
-the assertions to use ``run_and_capture`` so we can verify that NO_DIRECT_ALT
-evidence shows up in the manager's progress ledger or the final synthesis
-(i.e., the manager actually backtracked rather than fabricating an answer).
+the assertions to use ``run_and_capture`` so we can verify that the full
+10-agent pool composes a real cross-tier answer to BRK-CAL-XYZ.
+
+Backtracks are now expected to be 0 — with the enterprise pool present the
+manager plans correctly upfront. See ``scenarios/brake_caliper.py`` for the
+full rationale.
 
 Skipped unless MMC_LIVE=1. Requires deployed Foundry project + KBs + agents.
 """
@@ -26,7 +29,7 @@ def test_brake_caliper_composes_multi_agent_flow():
     from azure.identity import AzureCliCredential
     from agent_framework.orchestrations import MagenticBuilder
 
-    from mmc_agents.agent_factory import build_foundry_agents
+    from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
     from mmc_agents.orchestrator.manager import _build_manager, run_and_capture
     from mmc_agents.orchestrator.scenarios.brake_caliper import (
         EXPECTED_BOUNDS,
@@ -34,7 +37,11 @@ def test_brake_caliper_composes_multi_agent_flow():
     )
 
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
-    participants = build_foundry_agents("plant7", endpoint, AzureCliCredential())
+    ent_endpoint = os.environ["FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT"]
+    cred = AzureCliCredential()
+    participants = build_foundry_agents("plant7", endpoint, cred) + build_enterprise_agents(
+        ent_endpoint, cred
+    )
     workflow = MagenticBuilder(
         participants=participants, manager=_build_manager()
     ).build()

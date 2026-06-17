@@ -119,6 +119,11 @@ def _load_profile(plant_id: str) -> dict:
         return yaml.safe_load(fh)
 
 
+def _load_enterprise_profile() -> dict:
+    with open(ROOT / "enterprise" / "profile.yaml") as fh:
+        return yaml.safe_load(fh)
+
+
 def _instructions(plant_id: str, plant_display: str, agent_def: dict) -> str:
     role = agent_def["role"]
     display = agent_def["display_name"]
@@ -146,11 +151,13 @@ def _upsert_version(
     name: str,
     description: str,
     instructions: str,
+    kb_tool: MCPTool | None = None,
 ) -> AgentVersionDetails:
     tools = []
-    kb = _kb_tool()
-    if kb is not None:
-        tools.append(kb)
+    if kb_tool is None:
+        kb_tool = _kb_tool()
+    if kb_tool is not None:
+        tools.append(kb_tool)
     definition = PromptAgentDefinition(
         model=_model(),
         instructions=instructions,
@@ -219,3 +226,87 @@ def upsert_plant_agents(
             )
         )
     return refs
+
+
+def _enterprise_instructions(enterprise_display: str, agent_def: dict) -> str:
+    role = agent_def["role"]
+    display = agent_def["display_name"]
+    skills = "\n".join(
+        f"  - {s['id']}: {s['description']}" for s in agent_def.get("skills", [])
+    )
+    kb_sources = ", ".join(agent_def.get("kb_sources", [])) or "(none assigned)"
+    return f"""You are the {display} enterprise agent for {enterprise_display} (role: {role}).
+
+Your responsibilities:
+{skills}
+
+You have access to a Foundry IQ knowledge base covering: {kb_sources}.
+ALWAYS ground your answers in the knowledge base when available. When you cite
+information, include the source document name. If retrieval returns nothing
+relevant, say "I could not find that in my knowledge base" rather than guessing.
+
+You are participating in a multi-agent workflow orchestrated by a Magentic
+manager alongside plant-level agents. Stay focused on your enterprise role;
+defer plant-specific operational questions back to the manager so it can route
+them to the appropriate plant agent."""
+
+
+def upsert_enterprise_agents(
+    project_endpoint: str,
+    credential: TokenCredential,
+) -> list[PlantAgentRef]:
+    """Provision the 5 enterprise prompt agents on the enterprise Foundry project.
+
+    Mirrors :func:`upsert_plant_agents` but reads ``enterprise/profile.yaml``
+    and attaches the enterprise KB MCP tool (when ``ENTERPRISE_KB_CONNECTION_ID``
+    / ``ENTERPRISE_KB_MCP_URL`` are set) instead of the plant tool.
+    """
+    profile = _load_enterprise_profile()
+    enterprise_display = profile.get("display_name", "Enterprise")
+
+    client = AIProjectClient(endpoint=project_endpoint, credential=credential)
+    kb = _enterprise_kb_tool()
+    refs: list[PlantAgentRef] = []
+    for agent_def in profile["agents"]:
+        name = agent_def["name"]
+        description = agent_def["display_name"]
+        instructions = _enterprise_instructions(enterprise_display, agent_def)
+
+        version = _upsert_version(client, name, description, instructions, kb_tool=kb)
+        refs.append(
+            PlantAgentRef(
+                name=name,
+                description=description,
+                version=getattr(version, "version", "?"),
+                project_endpoint=project_endpoint,
+            )
+        )
+    return refs
+
+
+def build_enterprise_agents(
+    project_endpoint: str,
+    credential: TokenCredential,
+) -> list["FoundryAgent"]:
+    """Construct FoundryAgent participants for the 5 enterprise prompt agents.
+
+    Does not provision — assumes :func:`upsert_enterprise_agents` has already
+    created the portal agents on the enterprise Foundry project. Each returned
+    FoundryAgent is bound to the latest version of its named portal agent.
+    """
+    if FoundryAgent is None:
+        raise RuntimeError("agent_framework.foundry not installed")
+    profile = _load_enterprise_profile()
+    agents: list[FoundryAgent] = []
+    for agent_def in profile["agents"]:
+        name = agent_def["name"]
+        agents.append(
+            FoundryAgent(
+                project_endpoint=project_endpoint,
+                agent_name=name,
+                credential=credential,
+                name=name,
+                description=agent_def["display_name"],
+            )
+        )
+    return agents
