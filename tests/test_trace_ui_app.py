@@ -147,3 +147,14 @@ async def test_hot_add_placeholder_response():
     body = resp.json()
     assert body["accepted"] is False
     assert "Task 10" in body["detail"]
+
+
+async def test_static_index_is_served():
+    client, _ = await _async_client()
+    async with client:
+        resp = await client.get("/")
+    assert resp.status_code == 200
+    assert resp.headers["content-type"].startswith("text/html")
+    body = resp.text
+    assert "MMC Demo" in body
+    assert "EventSource" in body  # confirms the SSE client wiring is present

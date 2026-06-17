@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MMC Demo · Magentic Trace</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-elev: #131a30;
+      --bg-elev-2: #1a2240;
+      --border: #243056;
+      --text: #e8ecf6;
+      --text-muted: #8c9ab9;
+      --text-dim: #5f6e91;
+      --accent: #4f8cff;
+      --accent-soft: rgba(79, 140, 255, 0.15);
+      --plant: #5bd1c2;
+      --enterprise: #c79bff;
+      --warn: #f4b740;
+      --danger: #ef6b6b;
+      --success: #4ad991;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --mono: 'Cascadia Mono', 'Consolas', 'SF Mono', ui-monospace, monospace;
+      --sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); }
+    body { display: flex; flex-direction: column; }
+
+    /* Header ------------------------------------------------------- */
+    header.topbar {
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #131a30 0%, #1a2240 100%);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-weight: 600; font-size: 16px; letter-spacing: 0.3px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .brand .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 12px var(--accent);
+    }
+    .brand .sub { color: var(--text-muted); font-weight: 400; font-size: 13px; }
+    .controls { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    select, button {
+      font-family: inherit; font-size: 13px;
+      background: var(--bg-elev-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 12px; cursor: pointer;
+    }
+    select:hover, button:hover { border-color: var(--accent); }
+    button.primary {
+      background: var(--accent); border-color: var(--accent); color: white; font-weight: 600;
+    }
+    button.primary:hover { filter: brightness(1.1); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .stat { font-size: 12px; color: var(--text-muted); padding: 8px 12px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; }
+    .stat strong { color: var(--text); font-variant-numeric: tabular-nums; }
+
+    /* Main grid ---------------------------------------------------- */
+    main {
+      flex: 1; min-height: 0;
+      display: grid;
+      grid-template-columns: 280px 1fr 380px;
+      gap: 0;
+    }
+    .pane { padding: 16px; overflow-y: auto; min-height: 0; }
+    .pane.left { border-right: 1px solid var(--border); background: var(--bg-elev); }
+    .pane.right { border-left: 1px solid var(--border); background: var(--bg-elev); }
+    .pane h2 {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--text-muted); margin: 0 0 12px; font-weight: 600;
+    }
+
+    /* Agents pane -------------------------------------------------- */
+    .tier-group + .tier-group { margin-top: 18px; }
+    .agent {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; border-radius: 8px;
+      border: 1px solid transparent;
+      font-size: 13px; line-height: 1.3;
+      transition: background 120ms, border-color 120ms;
+      cursor: default;
+    }
+    .agent .badge {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--text-dim);
+      flex-shrink: 0;
+    }
+    .agent.plant .badge { background: var(--plant); }
+    .agent.enterprise .badge { background: var(--enterprise); }
+    .agent.active {
+      background: var(--accent-soft); border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+    .agent.used { background: rgba(74, 217, 145, 0.08); }
+    .agent .hops { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .agent.active .hops, .agent.used .hops { color: var(--text); }
+    .agent .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .agent .proj { font-size: 10px; color: var(--text-dim); margin-top: 2px; display: block; }
+
+    /* Trace pane --------------------------------------------------- */
+    .pane.center { background: var(--bg); }
+    .empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; color: var(--text-muted); gap: 12px; text-align: center;
+    }
+    .empty .big { font-size: 18px; color: var(--text); font-weight: 600; }
+    .empty .small { font-size: 13px; max-width: 320px; line-height: 1.5; }
+
+    .trace { display: flex; flex-direction: column; gap: 10px; }
+    .event {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--text-dim);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      animation: pop 220ms ease-out;
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .event .row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); }
+    .event .row .type {
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;
+      font-size: 10px; padding: 2px 8px; border-radius: 4px;
+      background: var(--bg-elev-2); color: var(--text);
+    }
+    .event .row .seq { color: var(--text-dim); font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 11px; }
+    .event .row .hop { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+    .event .row .agent { color: var(--text); font-weight: 500; }
+    .event .row .ts { margin-left: auto; color: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+    .event .msg { margin-top: 6px; font-size: 13px; color: var(--text); }
+    .event .content {
+      margin-top: 8px; padding: 10px 12px;
+      background: var(--bg); border-radius: 6px; border: 1px solid var(--border);
+      font-size: 13px; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word;
+    }
+    .event details { margin-top: 8px; font-size: 12px; }
+    .event details summary { cursor: pointer; color: var(--text-muted); user-select: none; }
+    .event details summary:hover { color: var(--text); }
+    .event details pre {
+      margin: 8px 0 0; padding: 10px 12px;
+      background: var(--bg); border-radius: 6px; border: 1px solid var(--border);
+      font-family: var(--mono); font-size: 12px; line-height: 1.5;
+      white-space: pre-wrap; word-wrap: break-word; max-height: 240px; overflow-y: auto;
+      color: var(--text-muted);
+    }
+
+    .event.start { border-left-color: var(--text-muted); }
+    .event.agent_call { border-left-color: var(--accent); }
+    .event.agent_call .type { background: var(--accent); }
+    .event.agent_response { border-left-color: var(--success); }
+    .event.agent_response .type { background: var(--success); color: #0b1020; }
+    .event.ledger_update { border-left-color: var(--warn); }
+    .event.ledger_update .type { background: var(--warn); color: #0b1020; }
+    .event.backtrack { border-left-color: var(--danger); background: rgba(239, 107, 107, 0.06); }
+    .event.backtrack .type { background: var(--danger); }
+    .event.complete { border-left-color: var(--success); background: rgba(74, 217, 145, 0.06); }
+    .event.complete .type { background: var(--success); color: #0b1020; }
+    .event.error { border-left-color: var(--danger); background: rgba(239, 107, 107, 0.1); }
+    .event.error .type { background: var(--danger); }
+
+    /* Synthesis pane ---------------------------------------------- */
+    .pane.right .synthesis {
+      background: linear-gradient(180deg, rgba(74, 217, 145, 0.08), transparent 40%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      min-height: 200px;
+      color: var(--text);
+    }
+    .pane.right .synthesis.empty-syn {
+      color: var(--text-dim); font-style: italic;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .scenario-card {
+      margin-top: 20px;
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      font-size: 12.5px; line-height: 1.5; color: var(--text-muted);
+    }
+    .scenario-card h3 {
+      margin: 0 0 8px; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--text); font-weight: 600;
+    }
+    .scenario-card code { font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
+
+    /* Toast / errors ---------------------------------------------- */
+    .toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--danger); color: white;
+      padding: 12px 16px; border-radius: 8px;
+      font-size: 13px; box-shadow: var(--shadow);
+      max-width: 360px;
+    }
+
+    /* Responsive --------------------------------------------------- */
+    @media (max-width: 1100px) {
+      main { grid-template-columns: 240px 1fr; }
+      .pane.right { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>MMC Demo</span>
+      <span class="sub">· Magentic orchestration trace</span>
+    </div>
+    <div class="controls">
+      <select id="scenario" aria-label="Scenario">
+        <option value="brake_caliper">Brake caliper · NO_DIRECT_ALT</option>
+        <option value="loto_cluster">LOTO cluster · L1 Press near-misses</option>
+      </select>
+      <button id="run-btn" class="primary">Run scenario</button>
+      <span class="stat">Hops: <strong id="stat-hops">0</strong></span>
+      <span class="stat">Agents: <strong id="stat-agents">0</strong></span>
+      <span class="stat">Elapsed: <strong id="stat-elapsed">0.0s</strong></span>
+    </div>
+  </header>
+
+  <main>
+    <aside class="pane left">
+      <h2>Agents</h2>
+      <div id="agents"></div>
+    </aside>
+
+    <section class="pane center">
+      <div id="trace" class="trace"></div>
+      <div id="empty" class="empty">
+        <div class="big">Ready when you are.</div>
+        <div class="small">Pick a scenario above and click <strong>Run scenario</strong>. The manager's plan, every agent dispatch, and every reply will stream in below.</div>
+      </div>
+    </section>
+
+    <aside class="pane right">
+      <h2>Final synthesis</h2>
+      <div id="synthesis" class="synthesis empty-syn">Synthesis will appear here when the run completes.</div>
+      <div class="scenario-card">
+        <h3>About this scenario</h3>
+        <div id="scenario-blurb"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const SCENARIO_BLURBS = {
+      brake_caliper: 'A Plant 7 line stop on <code>BRK-CAL-XYZ</code>. The plant supplier-quality agent observes <code>NO_DIRECT_ALT</code>, prompting the manager to fan out to enterprise procurement, PLM, and demand to find a mitigation.',
+      loto_cluster: 'Three L1 Press near-misses in 60 days (<code>INC-062/063/064</code>) with open CAPAs. EHS, maintenance, training, and quality collaborate; enterprise quality verifies the CAPA cluster.',
+    };
+
+    const agentsEl = document.getElementById('agents');
+    const traceEl = document.getElementById('trace');
+    const emptyEl = document.getElementById('empty');
+    const synthesisEl = document.getElementById('synthesis');
+    const runBtn = document.getElementById('run-btn');
+    const scenarioSel = document.getElementById('scenario');
+    const statHops = document.getElementById('stat-hops');
+    const statAgents = document.getElementById('stat-agents');
+    const statElapsed = document.getElementById('stat-elapsed');
+    const blurbEl = document.getElementById('scenario-blurb');
+
+    let agentState = new Map(); // name -> { tier, project, hops, el }
+    let currentSource = null;
+    let startedAt = 0;
+    let elapsedTimer = null;
+    let hopCount = 0;
+    let usedAgents = new Set();
+
+    function updateBlurb() {
+      blurbEl.innerHTML = SCENARIO_BLURBS[scenarioSel.value] || '';
+    }
+    scenarioSel.addEventListener('change', updateBlurb);
+    updateBlurb();
+
+    async function loadAgents() {
+      try {
+        const resp = await fetch('/agents');
+        const body = await resp.json();
+        renderAgents(body.agents);
+      } catch (err) {
+        toast('Failed to load agents: ' + err);
+      }
+    }
+
+    function renderAgents(agents) {
+      agentState.clear();
+      agentsEl.innerHTML = '';
+      const groups = { plant: [], enterprise: [] };
+      for (const a of agents) (groups[a.tier] || groups.plant).push(a);
+
+      for (const [tier, list] of [['plant', groups.plant], ['enterprise', groups.enterprise]]) {
+        if (!list.length) continue;
+        const wrap = document.createElement('div');
+        wrap.className = 'tier-group';
+        const h = document.createElement('h2');
+        h.textContent = tier === 'plant' ? 'Plant 7' : 'Enterprise';
+        wrap.appendChild(h);
+        for (const a of list) {
+          const row = document.createElement('div');
+          row.className = `agent ${tier}`;
+          row.innerHTML = `
+            <span class="badge"></span>
+            <span class="name">
+              ${escapeHtml(a.name)}
+              ${a.foundry_project ? `<span class="proj">${escapeHtml(a.foundry_project)}</span>` : ''}
+            </span>
+            <span class="hops" data-hops="0">—</span>
+          `;
+          wrap.appendChild(row);
+          agentState.set(a.name, { tier, project: a.foundry_project, hops: 0, el: row });
+        }
+        agentsEl.appendChild(wrap);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? '').replace(/[&<>"']/g, c => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+      })[c]);
+    }
+
+    function findAgentByExecutorId(execId) {
+      if (!execId) return null;
+      // Try exact match (display_name), then fuzzy on tail.
+      if (agentState.has(execId)) return execId;
+      for (const name of agentState.keys()) {
+        if (name.toLowerCase().includes(execId.toLowerCase()) ||
+            execId.toLowerCase().includes(name.toLowerCase().replace(/\s+/g, '-'))) {
+          return name;
+        }
+      }
+      return null;
+    }
+
+    function markAgent(execId, state) {
+      const key = findAgentByExecutorId(execId);
+      if (!key) return;
+      const entry = agentState.get(key);
+      if (!entry) return;
+      if (state === 'active') {
+        for (const v of agentState.values()) v.el.classList.remove('active');
+        entry.el.classList.add('active');
+      } else if (state === 'used') {
+        entry.el.classList.remove('active');
+        entry.el.classList.add('used');
+        entry.hops += 1;
+        const h = entry.el.querySelector('.hops');
+        h.textContent = `×${entry.hops}`;
+        h.dataset.hops = entry.hops;
+      }
+    }
+
+    function fmtTime(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toISOString().slice(11, 19);
+      } catch { return ''; }
+    }
+
+    function renderEvent(ev) {
+      emptyEl.style.display = 'none';
+      const card = document.createElement('div');
+      card.className = `event ${ev.type}`;
+
+      const headerBits = [
+        `<span class="type">${escapeHtml(ev.type)}</span>`,
+        `<span class="seq">#${ev.sequence}</span>`,
+      ];
+      if (ev.agent_name) headerBits.push(`<span class="agent">${escapeHtml(ev.agent_name)}</span>`);
+      if (ev.hop_index) headerBits.push(`<span class="hop">hop ${ev.hop_index}</span>`);
+      headerBits.push(`<span class="ts">${fmtTime(ev.timestamp)}</span>`);
+
+      let inner = `<div class="row">${headerBits.join('')}</div>`;
+      inner += `<div class="msg">${escapeHtml(ev.message)}</div>`;
+
+      if (ev.content) {
+        inner += `<div class="content">${escapeHtml(ev.content)}</div>`;
+      }
+      if (ev.progress_ledger) {
+        inner += `<details><summary>progress ledger</summary><pre>${escapeHtml(ev.progress_ledger)}</pre></details>`;
+      }
+      if (ev.task_ledger) {
+        inner += `<details><summary>task ledger</summary><pre>${escapeHtml(JSON.stringify(ev.task_ledger, null, 2))}</pre></details>`;
+      }
+      if (ev.metadata && Object.keys(ev.metadata).length) {
+        inner += `<details><summary>metadata</summary><pre>${escapeHtml(JSON.stringify(ev.metadata, null, 2))}</pre></details>`;
+      }
+      card.innerHTML = inner;
+      traceEl.appendChild(card);
+      card.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+      // Side-effects on the agent list.
+      if (ev.type === 'agent_call') {
+        markAgent(ev.agent_name, 'active');
+      } else if (ev.type === 'agent_response') {
+        markAgent(ev.agent_name, 'used');
+        hopCount += 1;
+        usedAgents.add(ev.agent_name);
+        statHops.textContent = hopCount;
+        statAgents.textContent = usedAgents.size;
+      } else if (ev.type === 'complete') {
+        synthesisEl.className = 'synthesis';
+        synthesisEl.textContent = ev.content || '(empty synthesis)';
+        for (const v of agentState.values()) v.el.classList.remove('active');
+        stopTimer();
+      } else if (ev.type === 'error') {
+        toast(ev.message);
+        stopTimer();
+      }
+    }
+
+    function startTimer() {
+      startedAt = performance.now();
+      stopTimer();
+      elapsedTimer = setInterval(() => {
+        const s = (performance.now() - startedAt) / 1000;
+        statElapsed.textContent = s.toFixed(1) + 's';
+      }, 100);
+    }
+    function stopTimer() {
+      if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
+    }
+
+    function resetUi() {
+      traceEl.innerHTML = '';
+      emptyEl.style.display = 'flex';
+      synthesisEl.className = 'synthesis empty-syn';
+      synthesisEl.textContent = 'Synthesis will appear here when the run completes.';
+      hopCount = 0;
+      usedAgents = new Set();
+      statHops.textContent = '0';
+      statAgents.textContent = '0';
+      statElapsed.textContent = '0.0s';
+      for (const v of agentState.values()) {
+        v.el.classList.remove('active', 'used');
+        v.hops = 0;
+        const h = v.el.querySelector('.hops');
+        h.textContent = '—';
+        h.dataset.hops = 0;
+      }
+    }
+
+    async function runScenario() {
+      if (currentSource) { currentSource.close(); currentSource = null; }
+      resetUi();
+      runBtn.disabled = true;
+      try {
+        const resp = await fetch('/runs', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ scenario: scenarioSel.value }),
+        });
+        if (!resp.ok) throw new Error(await resp.text());
+        const body = await resp.json();
+        startTimer();
+        const source = new EventSource(body.events_url);
+        currentSource = source;
+        source.onmessage = (e) => {
+          try { renderEvent(JSON.parse(e.data)); }
+          catch (err) { console.error(err, e.data); }
+        };
+        source.onerror = () => {
+          // EventSource closes itself when the server signals end; only toast if no events arrived.
+          source.close();
+          currentSource = null;
+          runBtn.disabled = false;
+          stopTimer();
+        };
+        // Re-enable the Run button when we see a terminal event.
+        source.addEventListener('complete', () => { runBtn.disabled = false; source.close(); currentSource = null; });
+        source.addEventListener('error', () => { runBtn.disabled = false; source.close(); currentSource = null; });
+      } catch (err) {
+        runBtn.disabled = false;
+        toast('Failed to start run: ' + err.message);
+        stopTimer();
+      }
+    }
+
+    function toast(msg) {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 6000);
+    }
+
+    runBtn.addEventListener('click', runScenario);
+    loadAgents();
+  </script>
+</body>
+</html>

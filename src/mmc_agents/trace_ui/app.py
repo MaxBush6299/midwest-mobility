@@ -53,12 +53,16 @@ def _load_agents() -> list[AgentInfo]:
     out: list[AgentInfo] = []
     for entry in raw.get("agents", []):
         meta = entry.get("metadata", {}) or {}
+        tier = entry.get("tier", "plant")
+        # Catalog only persists project for plant agents today; the enterprise
+        # tier is single-tenant on mmc-enterprise, so infer when absent.
+        project = meta.get("project") or ("mmc-enterprise" if tier == "enterprise" else None)
         out.append(
             AgentInfo(
                 name=entry.get("display_name") or entry.get("name", "(unnamed)"),
-                tier=entry.get("tier", "plant"),
+                tier=tier,
                 description=entry.get("description") or entry.get("name", ""),
-                foundry_project=meta.get("project"),
+                foundry_project=project,
             )
         )
     return out
@@ -76,8 +80,8 @@ async def _live_scenario_runner(
 
     from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
     from mmc_agents.orchestrator.manager import _build_manager, run_stream
-    from mmc_agents.orchestrator.scenarios.brake_caliper import TASK as BRAKE_TASK
-    from mmc_agents.orchestrator.scenarios.loto_cluster import TASK as LOTO_TASK
+    from mmc_agents.orchestrator.scenarios.brake_caliper import PROBLEM_STATEMENT as BRAKE_TASK
+    from mmc_agents.orchestrator.scenarios.loto_cluster import PROBLEM_STATEMENT as LOTO_TASK
     from agent_framework.orchestrations import MagenticBuilder
     import os
 
