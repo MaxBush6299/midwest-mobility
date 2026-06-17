@@ -1,0 +1,67 @@
+{
+  "NCR-BRK-001": {
+    "Date_Opened": "2026-06-05",
+    "Defect_Type": "Bore diameter out of tolerance",
+    "Disposition": "Rework",
+    "Line_ID": "L1",
+    "NCR_ID": "NCR-BRK-001",
+    "Owner": "J. Williams",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Quantity": "12",
+    "Root_Cause": "Tool wear on station 2",
+    "Severity": "High",
+    "Status": "Open"
+  },
+  "NCR-BRK-002": {
+    "Date_Opened": "2026-06-07",
+    "Defect_Type": "Torque under-spec",
+    "Disposition": "Use-as-is pending engineering",
+    "Line_ID": "L1",
+    "NCR_ID": "NCR-BRK-002",
+    "Owner": "R. Chen",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Quantity": "8",
+    "Root_Cause": "Operator technique",
+    "Severity": "Medium",
+    "Status": "In Review"
+  },
+  "NCR-BRK-003": {
+    "Date_Opened": "2026-06-09",
+    "Defect_Type": "Surface finish blemish",
+    "Disposition": "Scrap",
+    "Line_ID": "L1",
+    "NCR_ID": "NCR-BRK-003",
+    "Owner": "M. Torres",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Quantity": "5",
+    "Root_Cause": "Coolant contamination",
+    "Severity": "Low",
+    "Status": "Closed"
+  },
+  "NCR-L2-001": {
+    "Date_Opened": "2026-06-04",
+    "Defect_Type": "Robot positioning drift",
+    "Disposition": "Engineering review",
+    "Line_ID": "L2",
+    "NCR_ID": "NCR-L2-001",
+    "Owner": "R. Chen",
+    "Part_ID": "RBT-ARM-001",
+    "Quantity": "3",
+    "Root_Cause": "Encoder calibration",
+    "Severity": "Medium",
+    "Status": "In Review"
+  },
+  "NCR-L3-001": {
+    "Date_Opened": "2026-06-06",
+    "Defect_Type": "Belt tracking off-center",
+    "Disposition": "Adjust",
+    "Line_ID": "L3",
+    "NCR_ID": "NCR-L3-001",
+    "Owner": "M. Torres",
+    "Part_ID": "CNV-BLT-001",
+    "Quantity": "1",
+    "Root_Cause": "Tension drift",
+    "Severity": "Low",
+    "Status": "Closed"
+  }
+}

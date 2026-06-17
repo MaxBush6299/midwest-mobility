@@ -1,0 +1,7 @@
+Training_ID,Employee_ID,Employee_Name,Department,Line_ID,Course_Code,Course_Title,Status,Completed_Date,Expiration_Date,Score_Percent
+TRN-2026-001,EMP-001,Marcus Chen,Maintenance,L1,LOTO-L1,L1 LOTO Authorized Person,Completed,2026-03-15,2027-03-15,94
+TRN-2026-002,EMP-002,David Kowalski,Maintenance,L1,LOTO-L1,L1 LOTO Authorized Person,Completed,2026-03-15,2027-03-15,90
+TRN-2026-003,EMP-003,Angela Torres,Production,L1,JAM-CLR-L1,L1 Jam Clearing Work Instruction,Completed,2026-04-02,2027-04-02,92
+TRN-2026-004,EMP-004,Brian Mitchell,Production,L2,LOTO-L2,L2 LOTO Authorized Person,Completed,2026-04-08,2027-04-08,88
+TRN-2026-005,EMP-005,Sarah Park,Quality,L1,QA-BRK-L1,L1 Brake Caliper QA Specification,Completed,2026-04-12,2027-04-12,96
+TRN-2026-006,EMP-006,Carlos Rivera,Maintenance,L1,LOTO-L1,L1 LOTO Authorized Person,Scheduled,,,

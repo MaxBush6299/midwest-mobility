@@ -1,0 +1,62 @@
+{
+  "SCH-L1-001": {
+    "Actual_Qty": "460",
+    "End_Time": "2026-06-15T14:00:00",
+    "Line_ID": "L1",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Planned_Qty": "480",
+    "Program_Code": "EV-BRK-26",
+    "Schedule_ID": "SCH-L1-001",
+    "Shift": "1st",
+    "Start_Time": "2026-06-15T06:00:00",
+    "Status": "On Track"
+  },
+  "SCH-L1-002": {
+    "Actual_Qty": "0",
+    "End_Time": "2026-06-15T22:00:00",
+    "Line_ID": "L1",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Planned_Qty": "480",
+    "Program_Code": "EV-BRK-26",
+    "Schedule_ID": "SCH-L1-002",
+    "Shift": "2nd",
+    "Start_Time": "2026-06-15T14:00:00",
+    "Status": "Scheduled"
+  },
+  "SCH-L1-003": {
+    "Actual_Qty": "0",
+    "End_Time": "2026-06-16T06:00:00",
+    "Line_ID": "L1",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Planned_Qty": "360",
+    "Program_Code": "EV-BRK-26",
+    "Schedule_ID": "SCH-L1-003",
+    "Shift": "3rd",
+    "Start_Time": "2026-06-15T22:00:00",
+    "Status": "Scheduled"
+  },
+  "SCH-L2-001": {
+    "Actual_Qty": "235",
+    "End_Time": "2026-06-15T14:00:00",
+    "Line_ID": "L2",
+    "Part_ID": "RBT-ARM-001",
+    "Planned_Qty": "240",
+    "Program_Code": "EV-RBT-26",
+    "Schedule_ID": "SCH-L2-001",
+    "Shift": "1st",
+    "Start_Time": "2026-06-15T06:00:00",
+    "Status": "On Track"
+  },
+  "SCH-L3-001": {
+    "Actual_Qty": "720",
+    "End_Time": "2026-06-15T14:00:00",
+    "Line_ID": "L3",
+    "Part_ID": "CNV-BLT-001",
+    "Planned_Qty": "800",
+    "Program_Code": "LEG-CNV-26",
+    "Schedule_ID": "SCH-L3-001",
+    "Shift": "1st",
+    "Start_Time": "2026-06-15T06:00:00",
+    "Status": "Behind"
+  }
+}

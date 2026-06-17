@@ -1,0 +1,6 @@
+CAPA_ID,Incident_ID,Title,Owner,Status,Open_Date,Due_Date,Closed_Date,Root_Cause,Corrective_Action,Preventive_Action,Verification_Method
+CAPA-061,INC-061,LOTO bypass on L1 Press during jam clear,S. Johnson,Open,2026-06-01,2026-07-15,,Failure to follow LOTO,Refresher training for L1 maintenance team,Add LOTO compliance audit to weekly shift kickoff,Audit log review
+CAPA-062,INC-062,Light curtain interlock defeated on L2 Robot Cell B,R. Chen,In Progress,2026-06-03,2026-07-20,,Safety device bypassed for productivity,Replace bypass switch with sealed cover,Add interlock integrity check to monthly PM,PM record sign-off
+CAPA-063,INC-063,Forklift near-miss at Dock 2 due to faded markings,K. Brown,Closed,2026-05-12,2026-06-01,2026-05-28,Faded floor markings,Repaint pedestrian zones,Quarterly floor-marking inspection added,Visual inspection by EHS
+CAPA-064,INC-064,Brake caliper torque excursion on L1,M. Torres,Open,2026-06-10,2026-07-25,,Torque tool drift,Recalibrate torque tools weekly,Add torque verification gauge to L1 station,Calibration log review
+CAPA-065,INC-065,L1 conveyor jam-clear procedure not followed,A. Martinez,In Progress,2026-06-08,2026-07-22,,Inadequate training reinforcement,Re-run Jam Clearing WI training for L1 crew,Add quarterly WI refresh,Training log audit

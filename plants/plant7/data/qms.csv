@@ -1,0 +1,6 @@
+NCR_ID,Part_ID,Line_ID,Date_Opened,Defect_Type,Quantity,Severity,Status,Disposition,Owner,Root_Cause
+NCR-BRK-001,BRK-CAL-XYZ,L1,2026-06-05,Bore diameter out of tolerance,12,High,Open,Rework,J. Williams,Tool wear on station 2
+NCR-BRK-002,BRK-CAL-XYZ,L1,2026-06-07,Torque under-spec,8,Medium,In Review,Use-as-is pending engineering,R. Chen,Operator technique
+NCR-BRK-003,BRK-CAL-XYZ,L1,2026-06-09,Surface finish blemish,5,Low,Closed,Scrap,M. Torres,Coolant contamination
+NCR-L2-001,RBT-ARM-001,L2,2026-06-04,Robot positioning drift,3,Medium,In Review,Engineering review,R. Chen,Encoder calibration
+NCR-L3-001,CNV-BLT-001,L3,2026-06-06,Belt tracking off-center,1,Low,Closed,Adjust,M. Torres,Tension drift

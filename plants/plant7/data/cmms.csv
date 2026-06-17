@@ -1,0 +1,7 @@
+PM_ID,Asset_ID,Equipment_Name,Line_ID,PM_Type,Frequency,Scheduled_Date,Completed_Date,Status,Technician,Duration_Hours,LOTO_Required,Findings
+PM-2026-001,L1-PRS-001,600-Ton Press #1,L1,Hydraulic System Inspection,Monthly,2026-06-01,2026-06-01,Completed,D. Anderson,2.5,Y,Hydraulic hose wear on cylinder 3
+PM-2026-002,L1-PRS-001,600-Ton Press #1,L1,LOTO Lock Inspection,Quarterly,2026-06-03,2026-06-03,Completed,D. Anderson,1.0,Y,All locks present and serviceable
+PM-2026-003,L1-CNV-001,L1 Brake Caliper Conveyor,L1,Belt Tension and Alignment,Weekly,2026-06-02,2026-06-02,Completed,M. Torres,1.0,N,Minor debris noted
+PM-2026-004,L1-TRQ-001,L1 Torque Station,L1,Torque Verification,Weekly,2026-06-04,2026-06-04,Completed,M. Torres,0.5,N,Torque drift within tolerance
+PM-2026-005,L2-SAF-001,L2 Light Curtains,L2,Safety Device Function Test,Monthly,2026-06-01,2026-06-02,Completed,T. Wilson,1.5,Y,All devices passed
+PM-2026-006,L3-CNV-001,L3 Main Conveyor,L3,Belt Tension Inspection,Weekly,2026-06-02,2026-06-02,Completed,M. Torres,1.0,N,Normal

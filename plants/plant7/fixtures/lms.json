@@ -1,0 +1,80 @@
+{
+  "TRN-2026-001": {
+    "Completed_Date": "2026-03-15",
+    "Course_Code": "LOTO-L1",
+    "Course_Title": "L1 LOTO Authorized Person",
+    "Department": "Maintenance",
+    "Employee_ID": "EMP-001",
+    "Employee_Name": "Marcus Chen",
+    "Expiration_Date": "2027-03-15",
+    "Line_ID": "L1",
+    "Score_Percent": "94",
+    "Status": "Completed",
+    "Training_ID": "TRN-2026-001"
+  },
+  "TRN-2026-002": {
+    "Completed_Date": "2026-03-15",
+    "Course_Code": "LOTO-L1",
+    "Course_Title": "L1 LOTO Authorized Person",
+    "Department": "Maintenance",
+    "Employee_ID": "EMP-002",
+    "Employee_Name": "David Kowalski",
+    "Expiration_Date": "2027-03-15",
+    "Line_ID": "L1",
+    "Score_Percent": "90",
+    "Status": "Completed",
+    "Training_ID": "TRN-2026-002"
+  },
+  "TRN-2026-003": {
+    "Completed_Date": "2026-04-02",
+    "Course_Code": "JAM-CLR-L1",
+    "Course_Title": "L1 Jam Clearing Work Instruction",
+    "Department": "Production",
+    "Employee_ID": "EMP-003",
+    "Employee_Name": "Angela Torres",
+    "Expiration_Date": "2027-04-02",
+    "Line_ID": "L1",
+    "Score_Percent": "92",
+    "Status": "Completed",
+    "Training_ID": "TRN-2026-003"
+  },
+  "TRN-2026-004": {
+    "Completed_Date": "2026-04-08",
+    "Course_Code": "LOTO-L2",
+    "Course_Title": "L2 LOTO Authorized Person",
+    "Department": "Production",
+    "Employee_ID": "EMP-004",
+    "Employee_Name": "Brian Mitchell",
+    "Expiration_Date": "2027-04-08",
+    "Line_ID": "L2",
+    "Score_Percent": "88",
+    "Status": "Completed",
+    "Training_ID": "TRN-2026-004"
+  },
+  "TRN-2026-005": {
+    "Completed_Date": "2026-04-12",
+    "Course_Code": "QA-BRK-L1",
+    "Course_Title": "L1 Brake Caliper QA Specification",
+    "Department": "Quality",
+    "Employee_ID": "EMP-005",
+    "Employee_Name": "Sarah Park",
+    "Expiration_Date": "2027-04-12",
+    "Line_ID": "L1",
+    "Score_Percent": "96",
+    "Status": "Completed",
+    "Training_ID": "TRN-2026-005"
+  },
+  "TRN-2026-006": {
+    "Completed_Date": "",
+    "Course_Code": "LOTO-L1",
+    "Course_Title": "L1 LOTO Authorized Person",
+    "Department": "Maintenance",
+    "Employee_ID": "EMP-006",
+    "Employee_Name": "Carlos Rivera",
+    "Expiration_Date": "",
+    "Line_ID": "L1",
+    "Score_Percent": "",
+    "Status": "Scheduled",
+    "Training_ID": "TRN-2026-006"
+  }
+}

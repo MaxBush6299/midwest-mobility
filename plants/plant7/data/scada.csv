@@ -1,0 +1,6 @@
+Asset_ID,Line_ID,Timestamp,Status,Cycle_Time_Sec,OEE_Percent,Alarm_Code,Alarm_Description,Last_Stop_Reason
+L1-PRS-001,L1,2026-06-15T08:00:00,Running,42,87.5,,,
+L1-CNV-001,L1,2026-06-15T08:00:00,Running,,92.1,,,
+L1-TRQ-001,L1,2026-06-15T08:00:00,Running,18,89.4,,,
+L2-RBT-001,L2,2026-06-15T08:00:00,Running,28,85.0,,,
+L3-CNV-001,L3,2026-06-15T08:00:00,Idle,,78.2,A-201,Material starve,Upstream supply gap

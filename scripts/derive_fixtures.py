@@ -84,6 +84,23 @@ MAPPINGS: dict[str, list[tuple[str, str, str, bool]]] = {
     ],
 }
 
+PLANT_MAPPINGS: dict[str, list[tuple[str, str, str, bool]]] = {
+    "plant7": [
+        ("plants/plant7/data/capa.csv",
+         "plants/plant7/fixtures/capa.json", "CAPA_ID", ONE),
+        ("plants/plant7/data/cmms.csv",
+         "plants/plant7/fixtures/cmms.json", "PM_ID", ONE),
+        ("plants/plant7/data/qms.csv",
+         "plants/plant7/fixtures/qms.json", "NCR_ID", ONE),
+        ("plants/plant7/data/scada.csv",
+         "plants/plant7/fixtures/scada.json", "Asset_ID", ONE),
+        ("plants/plant7/data/mes.csv",
+         "plants/plant7/fixtures/mes.json", "Schedule_ID", ONE),
+        ("plants/plant7/data/lms.csv",
+         "plants/plant7/fixtures/lms.json", "Training_ID", ONE),
+    ],
+}
+
 
 def derive(csv_path: Path, fixture_path: Path, key: str, multi: bool) -> None:
     rows = list(csv.DictReader(csv_path.open(encoding="utf-8")))
@@ -103,15 +120,24 @@ def derive(csv_path: Path, fixture_path: Path, key: str, multi: bool) -> None:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--node", action="append", default=None,
-                        help="Node name (repeatable). Defaults to all.")
+                        help="Enterprise node name (repeatable). Defaults to all.")
+    parser.add_argument("--plant", action="append", default=None,
+                        help="Plant name (repeatable). e.g. plant7")
     args = parser.parse_args(argv)
-    nodes = args.node or list(MAPPINGS)
+    do_enterprise = args.node is not None or args.plant is None
+    nodes = args.node if args.node else (list(MAPPINGS) if do_enterprise else [])
+    plants = args.plant or ([] if args.node else list(PLANT_MAPPINGS))
     total = 0
     for node in nodes:
         for csv_rel, fix_rel, key, multi in MAPPINGS[node]:
             derive(ROOT / csv_rel, ROOT / fix_rel, key, multi)
             total += 1
         print(f"derived {node} -> {len(MAPPINGS[node])} fixtures")
+    for plant in plants:
+        for csv_rel, fix_rel, key, multi in PLANT_MAPPINGS[plant]:
+            derive(ROOT / csv_rel, ROOT / fix_rel, key, multi)
+            total += 1
+        print(f"derived {plant} -> {len(PLANT_MAPPINGS[plant])} fixtures")
     print(f"Derived {total} fixtures total.")
     return 0
 

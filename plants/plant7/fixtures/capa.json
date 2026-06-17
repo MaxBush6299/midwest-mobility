@@ -1,0 +1,72 @@
+{
+  "CAPA-061": {
+    "CAPA_ID": "CAPA-061",
+    "Closed_Date": "",
+    "Corrective_Action": "Refresher training for L1 maintenance team",
+    "Due_Date": "2026-07-15",
+    "Incident_ID": "INC-061",
+    "Open_Date": "2026-06-01",
+    "Owner": "S. Johnson",
+    "Preventive_Action": "Add LOTO compliance audit to weekly shift kickoff",
+    "Root_Cause": "Failure to follow LOTO",
+    "Status": "Open",
+    "Title": "LOTO bypass on L1 Press during jam clear",
+    "Verification_Method": "Audit log review"
+  },
+  "CAPA-062": {
+    "CAPA_ID": "CAPA-062",
+    "Closed_Date": "",
+    "Corrective_Action": "Replace bypass switch with sealed cover",
+    "Due_Date": "2026-07-20",
+    "Incident_ID": "INC-062",
+    "Open_Date": "2026-06-03",
+    "Owner": "R. Chen",
+    "Preventive_Action": "Add interlock integrity check to monthly PM",
+    "Root_Cause": "Safety device bypassed for productivity",
+    "Status": "In Progress",
+    "Title": "Light curtain interlock defeated on L2 Robot Cell B",
+    "Verification_Method": "PM record sign-off"
+  },
+  "CAPA-063": {
+    "CAPA_ID": "CAPA-063",
+    "Closed_Date": "2026-05-28",
+    "Corrective_Action": "Repaint pedestrian zones",
+    "Due_Date": "2026-06-01",
+    "Incident_ID": "INC-063",
+    "Open_Date": "2026-05-12",
+    "Owner": "K. Brown",
+    "Preventive_Action": "Quarterly floor-marking inspection added",
+    "Root_Cause": "Faded floor markings",
+    "Status": "Closed",
+    "Title": "Forklift near-miss at Dock 2 due to faded markings",
+    "Verification_Method": "Visual inspection by EHS"
+  },
+  "CAPA-064": {
+    "CAPA_ID": "CAPA-064",
+    "Closed_Date": "",
+    "Corrective_Action": "Recalibrate torque tools weekly",
+    "Due_Date": "2026-07-25",
+    "Incident_ID": "INC-064",
+    "Open_Date": "2026-06-10",
+    "Owner": "M. Torres",
+    "Preventive_Action": "Add torque verification gauge to L1 station",
+    "Root_Cause": "Torque tool drift",
+    "Status": "Open",
+    "Title": "Brake caliper torque excursion on L1",
+    "Verification_Method": "Calibration log review"
+  },
+  "CAPA-065": {
+    "CAPA_ID": "CAPA-065",
+    "Closed_Date": "",
+    "Corrective_Action": "Re-run Jam Clearing WI training for L1 crew",
+    "Due_Date": "2026-07-22",
+    "Incident_ID": "INC-065",
+    "Open_Date": "2026-06-08",
+    "Owner": "A. Martinez",
+    "Preventive_Action": "Add quarterly WI refresh",
+    "Root_Cause": "Inadequate training reinforcement",
+    "Status": "In Progress",
+    "Title": "L1 conveyor jam-clear procedure not followed",
+    "Verification_Method": "Training log audit"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "L1-CNV-001": {
+    "Alarm_Code": "",
+    "Alarm_Description": "",
+    "Asset_ID": "L1-CNV-001",
+    "Cycle_Time_Sec": "",
+    "Last_Stop_Reason": "",
+    "Line_ID": "L1",
+    "OEE_Percent": "92.1",
+    "Status": "Running",
+    "Timestamp": "2026-06-15T08:00:00"
+  },
+  "L1-PRS-001": {
+    "Alarm_Code": "",
+    "Alarm_Description": "",
+    "Asset_ID": "L1-PRS-001",
+    "Cycle_Time_Sec": "42",
+    "Last_Stop_Reason": "",
+    "Line_ID": "L1",
+    "OEE_Percent": "87.5",
+    "Status": "Running",
+    "Timestamp": "2026-06-15T08:00:00"
+  },
+  "L1-TRQ-001": {
+    "Alarm_Code": "",
+    "Alarm_Description": "",
+    "Asset_ID": "L1-TRQ-001",
+    "Cycle_Time_Sec": "18",
+    "Last_Stop_Reason": "",
+    "Line_ID": "L1",
+    "OEE_Percent": "89.4",
+    "Status": "Running",
+    "Timestamp": "2026-06-15T08:00:00"
+  },
+  "L2-RBT-001": {
+    "Alarm_Code": "",
+    "Alarm_Description": "",
+    "Asset_ID": "L2-RBT-001",
+    "Cycle_Time_Sec": "28",
+    "Last_Stop_Reason": "",
+    "Line_ID": "L2",
+    "OEE_Percent": "85.0",
+    "Status": "Running",
+    "Timestamp": "2026-06-15T08:00:00"
+  },
+  "L3-CNV-001": {
+    "Alarm_Code": "A-201",
+    "Alarm_Description": "Material starve",
+    "Asset_ID": "L3-CNV-001",
+    "Cycle_Time_Sec": "",
+    "Last_Stop_Reason": "Upstream supply gap",
+    "Line_ID": "L3",
+    "OEE_Percent": "78.2",
+    "Status": "Idle",
+    "Timestamp": "2026-06-15T08:00:00"
+  }
+}
