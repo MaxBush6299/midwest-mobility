@@ -1,0 +1,13 @@
+{
+  "name": "ent-engineering-plm",
+  "display_name": "Engineering / PLM",
+  "description": "Enterprise engineering and PLM agent for ECO/ECN status, part revisions, effectivity, and where-installed impact.",
+  "endpoint": "http://localhost:8080/ent-engineering-plm/.well-known/agent-card.json",
+  "skills": [
+    {"id": "eco_status", "description": "ECO / ECN status and impact"},
+    {"id": "part_revision_lookup", "description": "Part revision and effectivity lookup"},
+    {"id": "where_installed", "description": "Cross-plant where-installed lookup"}
+  ],
+  "tier": "enterprise",
+  "metadata": {"kb_sources": ["engineering_plm"], "tools": ["plm"]}
+}
