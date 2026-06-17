@@ -24,6 +24,7 @@ agents:
   - role: supply-chain
     name: ent-supply-chain
     display_name: Supply Chain
+    description: Enterprise supply-chain agent for supplier health, BOM where-used, alternate-source lookup, and inbound-logistics ETA.
     kb_sources: [supply_chain]
     tools: [erp, supplier, tms]
     skills:
@@ -37,6 +38,7 @@ agents:
   - role: procurement
     name: ent-procurement
     display_name: Procurement & Cost
+    description: Enterprise procurement and cost agent for should-cost, PO impact, contract terms, expedite options, and spend rollups.
     kb_sources: [procurement]
     tools: [procurement]
     skills:
@@ -50,6 +52,7 @@ agents:
   - role: engineering-plm
     name: ent-engineering-plm
     display_name: Engineering / PLM
+    description: Enterprise engineering and PLM agent for ECO/ECN status, part revisions, effectivity, and where-installed impact.
     kb_sources: [engineering_plm]
     tools: [plm]
     skills:
@@ -63,6 +66,7 @@ agents:
   - role: enterprise-quality
     name: ent-quality
     display_name: Enterprise Quality
+    description: Enterprise quality agent for warranty clustering, cross-plant defect trends, recall thresholds, and safety escalation.
     kb_sources: [enterprise_quality]
     tools: [warranty]
     skills:
@@ -76,6 +80,7 @@ agents:
   - role: demand-program
     name: ent-demand-program
     display_name: Demand / Program
+    description: Enterprise demand and program agent for OEM order signals, launch readiness, and plant allocation decisions.
     kb_sources: [demand_program]
     tools: [demand]
     skills:

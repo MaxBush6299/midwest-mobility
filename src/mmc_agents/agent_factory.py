@@ -82,10 +82,11 @@ def emit_enterprise_agent_card(
     agent_def = next(a for a in profile["agents"] if a["role"] == role)
     name = agent_def["name"]
     display = agent_def["display_name"]
+    description = agent_def.get("description") or f"{display} enterprise agent."
     card = {
         "name": name,
         "display_name": display,
-        "description": f"{display} enterprise agent.",
+        "description": description,
         "endpoint": f"{endpoint_base.rstrip('/')}/{name}/.well-known/agent-card.json",
         "skills": agent_def["skills"],
         "tier": "enterprise",
