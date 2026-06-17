@@ -17,8 +17,38 @@ from mmc_agents.orchestrator.manager import (
     NO_DIRECT_ALT_RULE,
     ScenarioRun,
     run_and_capture,
+    summarize_scenario_run,
 )
 from mmc_agents.tools.supplier import alternates
+
+
+def test_scenario_run_detects_max_round_termination():
+    """Task 28 — framework signals max_round_count by emitting a normal output
+    event whose text contains 'maximum round count'; ScenarioRun must surface
+    that as a boolean flag instead of swallowing it as a real answer."""
+    text = "Workflow terminated due to reaching maximum round count."
+    run = ScenarioRun(answer=text)
+    run.terminated_by_max_rounds = "maximum round count" in run.answer.lower()
+    assert run.terminated_by_max_rounds is True
+
+
+def test_summarize_scenario_run_appends_partial_state_on_max_rounds():
+    run = ScenarioRun(
+        answer="Workflow terminated due to reaching maximum round count.",
+        hops=["plant7-quality", "ent-procurement"],
+        last_progress_ledger="Step 3: still waiting on enterprise procurement.",
+        terminated_by_max_rounds=True,
+    )
+    rendered = summarize_scenario_run(run)
+    assert "max_round_count" in rendered
+    assert "plant7-quality" in rendered
+    assert "ent-procurement" in rendered
+    assert "still waiting on enterprise procurement" in rendered
+
+
+def test_summarize_scenario_run_passes_through_normal_answers():
+    run = ScenarioRun(answer="Final answer: route to SUP-002.")
+    assert summarize_scenario_run(run) == "Final answer: route to SUP-002."
 
 
 def test_scenario_run_records_backtracks_and_hops():

@@ -126,6 +126,19 @@ async def run_and_capture(workflow, task: str) -> ScenarioRun:
     return out
 
 
+def summarize_scenario_run(run: ScenarioRun) -> str:
+    """Render a ScenarioRun for demo/UI consumers, exposing partial state
+    when the manager hit ``max_round_count`` before converging (Task 28)."""
+    body = run.answer or "(no answer captured)"
+    if run.terminated_by_max_rounds:
+        body += (
+            "\n\n[Manager hit max_round_count before converging. "
+            f"Hops so far: {run.hops}. "
+            f"Last progress ledger: {run.last_progress_ledger[:300]}]"
+        )
+    return body
+
+
 async def run_plant_scenario(plant_id: str, task: str) -> AsyncIterator[dict]:
     """Stream Magentic events for a plant scenario. Yields {kind, agent, text|data}."""
     setup_tracing()
