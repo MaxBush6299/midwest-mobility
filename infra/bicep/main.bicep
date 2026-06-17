@@ -10,6 +10,13 @@ param enterpriseProjectName string = 'mmc-enterprise'
 param plant7KbName string = 'kb-plant7'
 param enterpriseKbName string = 'kb-enterprise'
 
+// Azure SQL (Pattern A — Foundry IQ indexed Azure SQL knowledge source).
+param sqlServerName string = 'sql-mmc-demo'
+param sqlDatabaseName string = 'mmcops'
+param sqlAadAdminObjectId string
+param sqlAadAdminLogin string
+param sqlAadAdminPrincipalType string = 'User'
+
 var storageName = '${storageNamePrefix}${uniqueString(resourceGroup().id)}'
 
 module storage 'modules/storage.bicep' = {
@@ -78,6 +85,18 @@ module kbEnterprise 'modules/foundry-iq-kb.bicep' = {
   }
 }
 
+module sql 'modules/sql.bicep' = {
+  name: 'sql'
+  params: {
+    location: location
+    sqlServerName: sqlServerName
+    sqlDatabaseName: sqlDatabaseName
+    aadAdminObjectId: sqlAadAdminObjectId
+    aadAdminLogin: sqlAadAdminLogin
+    aadAdminPrincipalType: sqlAadAdminPrincipalType
+  }
+}
+
 output foundryAccountEndpoint string = foundry.outputs.accountEndpoint
 output foundryAccountName string = foundry.outputs.accountName
 output foundryModelDeploymentName string = foundry.outputs.modelDeploymentName
@@ -87,3 +106,5 @@ output searchPlantId string = searchPlant.outputs.searchId
 output searchEnterpriseId string = searchEnt.outputs.searchId
 output plantSearchConnectionName string = plantSearchConn.outputs.connectionName
 output enterpriseSearchConnectionName string = enterpriseSearchConn.outputs.connectionName
+output sqlServerFqdn string = sql.outputs.sqlServerFqdn
+output sqlDatabaseName string = sql.outputs.sqlDatabaseName
