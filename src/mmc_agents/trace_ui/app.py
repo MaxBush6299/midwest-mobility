@@ -91,13 +91,21 @@ async def _live_scenario_runner(
     from agent_framework.orchestrations import MagenticBuilder
     import os
 
-    scenario_task = task or get_scenario(scenario).problem_statement
+    spec = get_scenario(scenario)
+    scenario_task = task or spec.problem_statement
     cred = AzureCliCredential()
     plant_endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     participants = build_foundry_agents("plant7", plant_endpoint, cred)
     ent_endpoint = os.environ.get("FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT")
     if ent_endpoint:
         participants = participants + build_enterprise_agents(ent_endpoint, cred)
+
+    # Narrow scenarios scope the participant pool so the manager doesn't
+    # plan against irrelevant agents. spec.participants is None for the
+    # full 10-agent demos (brake_caliper / loto_cluster).
+    if spec.participants:
+        allowed = set(spec.participants)
+        participants = [p for p in participants if getattr(p, "name", None) in allowed]
 
     workflow = MagenticBuilder(participants=participants, manager=_build_manager()).build()
     async for event in run_stream(workflow, run_id=run_id, task=scenario_task):

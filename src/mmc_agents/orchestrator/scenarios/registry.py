@@ -21,6 +21,10 @@ class ScenarioSpec:
     label: str
     blurb: str  # HTML-safe, may contain <code> tags
     problem_statement: str
+    # When None, the manager sees the full 10-agent roster. When a tuple,
+    # only those agents are wired into MagenticBuilder participants — keeps
+    # narrow scenarios tightly scoped and the plan focused.
+    participants: tuple[str, ...] | None = None
 
 
 SCENARIOS: dict[str, ScenarioSpec] = {
@@ -51,10 +55,11 @@ SCENARIOS: dict[str, ScenarioSpec] = {
         label="Training gap · LOTO refresher",
         blurb=(
             "Quick plant-only check: who's due for a LOTO refresher this "
-            "quarter, and are they on shift? <em>~4-6 hops, 2 agents "
-            "(training + EHS).</em>"
+            "quarter, and are they on shift? <em>~5-7 hops, 3 agents "
+            "(training + EHS + shift-ops).</em>"
         ),
         problem_statement=training_gap.PROBLEM_STATEMENT,
+        participants=("plant7-training", "plant7-ehs", "plant7-shiftops"),
     ),
     "po_status": ScenarioSpec(
         id="po_status",
@@ -65,6 +70,7 @@ SCENARIOS: dict[str, ScenarioSpec] = {
             "(procurement + supply-chain).</em>"
         ),
         problem_statement=po_status.PROBLEM_STATEMENT,
+        participants=("ent-procurement", "ent-supply-chain"),
     ),
     "pm_check": ScenarioSpec(
         id="pm_check",
@@ -75,6 +81,7 @@ SCENARIOS: dict[str, ScenarioSpec] = {
             "(maintenance + shift-ops).</em>"
         ),
         problem_statement=pm_check.PROBLEM_STATEMENT,
+        participants=("plant7-maintenance", "plant7-shiftops"),
     ),
 }
 
