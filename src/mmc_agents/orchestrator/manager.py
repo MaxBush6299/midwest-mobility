@@ -95,26 +95,52 @@ def _is_agent_executor(executor_id: str | None) -> bool:
 def _extract_text(data: Any) -> str:
     """Best-effort text extraction from agent_framework event payloads.
 
-    Handles the same shapes the previous ``run_and_capture`` accepted on
-    ``output`` events: ``data.messages[-1].text``,
-    ``data.messages[-1].contents[*].text``, and ``data.contents[*].text``.
+    Handles the shapes the orchestrator emits across event types:
+    - ``AgentResponse``: ``.text`` property, or ``.messages[-1].text``.
+    - ``Message``: ``.text`` property, or concatenated ``.contents[*].text``.
+    - Lists (executor_completed packs ``sent_messages + yielded_outputs`` as
+      a list) — recurse into each item and join non-empty results.
+    - ``AgentResponseUpdate`` and similar single objects with ``.text`` or
+      ``.contents``.
+
     Returns ``""`` when nothing is extractable.
     """
     if data is None:
         return ""
+
+    # Lists / tuples — executor_completed bundles outputs this way.
+    if isinstance(data, (list, tuple)):
+        parts = [_extract_text(item) for item in data]
+        parts = [p for p in parts if p]
+        # De-duplicate adjacent repeats (agent_response often appears in both
+        # sent_messages and yielded_outputs).
+        deduped: list[str] = []
+        for p in parts:
+            if not deduped or deduped[-1] != p:
+                deduped.append(p)
+        return "\n\n".join(deduped)
+
+    # Single object — try the most informative attribute first.
+    t = getattr(data, "text", None)
+    if isinstance(t, str) and t:
+        return t
+
     msgs = getattr(data, "messages", None)
     if msgs:
         last = msgs[-1]
         t = getattr(last, "text", None)
-        if t:
+        if isinstance(t, str) and t:
             return t
         cs = getattr(last, "contents", None) or []
-        return "".join(getattr(c, "text", str(c)) for c in cs)
+        joined = "".join(getattr(c, "text", "") or "" for c in cs)
+        if joined:
+            return joined
+
     cs = getattr(data, "contents", None) or []
     if cs:
-        return "".join(getattr(c, "text", str(c)) for c in cs)
-    t = getattr(data, "text", None)
-    return t or ""
+        return "".join(getattr(c, "text", "") or "" for c in cs)
+
+    return ""
 
 
 async def run_stream(
