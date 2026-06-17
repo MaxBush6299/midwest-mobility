@@ -1,0 +1,42 @@
+ECO_ID,Part_ID,Revision_From,Revision_To,Status,Reason,Opened_Date,Approved_Date,Safety_Review_Required
+ECO-2026-0014,BRK-CAL-XYZ,A,C,Released,Material change for cost reduction,2025-12-15,2026-01-10,Y
+ECO-2026-0015,STM-PNL-A1,A,B,Released,Tolerance tightening,2025-12-15,2026-01-10,N
+ECO-2026-0016,ROB-ARM-G3,A,B,In Review,Supplier casting process update,2025-12-15,,N
+ECO-2026-0017,FST-M8-100,A,B,Closed,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0018,CST-HSG-04,A,B,Released,Wall thickness optimization,2025-12-15,2026-01-10,N
+ECO-2026-0019,BRK-PAD-STD,A,B,Released,Process refinement,2025-12-15,2026-01-10,Y
+ECO-2026-0020,BRK-ROT-090,A,B,Released,Material change for cost reduction,2025-12-15,2026-01-10,Y
+ECO-2026-0021,BRK-FLD-DOT4,A,B,In Review,Tolerance tightening,2025-12-15,,Y
+ECO-2026-0022,STM-PNL-B2,A,B,Closed,Supplier casting process update,2025-12-15,2026-01-10,N
+ECO-2026-0023,STM-PNL-C3,A,B,Released,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0024,FRG-LNK-077,A,B,Released,Wall thickness optimization,2025-12-15,2026-01-10,N
+ECO-2026-0025,ROB-ARM-G4,A,B,Released,Process refinement,2025-12-15,2026-01-10,N
+ECO-2026-0026,ELC-HRN-12V,A,B,In Review,Material change for cost reduction,2025-12-15,,N
+ECO-2026-0027,ELC-PCB-MAIN,A,B,Closed,Tolerance tightening,2025-12-15,2026-01-10,N
+ECO-2026-0028,ELC-MEM-08G,A,B,Released,Supplier casting process update,2025-12-15,2026-01-10,N
+ECO-2026-0029,ELC-FW-LOAD,A,B,Released,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0030,SNS-PRX-001,A,B,Released,Wall thickness optimization,2025-12-15,2026-01-10,N
+ECO-2026-0031,SNS-PRX-002,A,B,In Review,Process refinement,2025-12-15,,N
+ECO-2026-0032,OPT-LNS-002,A,B,Closed,Material change for cost reduction,2025-12-15,2026-01-10,N
+ECO-2026-0033,OPT-FLT-002,A,B,Released,Tolerance tightening,2025-12-15,2026-01-10,N
+ECO-2026-0034,CST-HSG-05,A,B,Released,Supplier casting process update,2025-12-15,2026-01-10,N
+ECO-2026-0035,CST-HSG-06,A,B,Released,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0036,BRG-RAD-090,A,B,In Review,Wall thickness optimization,2025-12-15,,N
+ECO-2026-0037,LUB-OIL-MULTI,A,B,Closed,Process refinement,2025-12-15,2026-01-10,N
+ECO-2026-0038,ADH-CYAN-50ML,A,B,Released,Material change for cost reduction,2025-12-15,2026-01-10,N
+ECO-2026-0039,SPR-COIL-022,A,B,Released,Tolerance tightening,2025-12-15,2026-01-10,N
+ECO-2026-0040,SPR-LEAF-118,A,B,Released,Supplier casting process update,2025-12-15,2026-01-10,N
+ECO-2026-0041,GEAR-PIN-018,A,B,In Review,Cable routing update,2025-12-15,,N
+ECO-2026-0042,GEAR-SPR-024,A,B,Closed,Wall thickness optimization,2025-12-15,2026-01-10,N
+ECO-2026-0043,CMP-TRIM-A,A,B,Released,Process refinement,2025-12-15,2026-01-10,N
+ECO-2026-0044,CMP-TRIM-B,A,B,Released,Material change for cost reduction,2025-12-15,2026-01-10,N
+ECO-2026-0045,CTG-PAINT-WHT,A,B,Released,Tolerance tightening,2025-12-15,2026-01-10,N
+ECO-2026-0046,CTG-PAINT-BLK,A,B,In Review,Supplier casting process update,2025-12-15,,N
+ECO-2026-0047,SRV-MOTOR-220,A,B,Closed,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0048,SRV-MOTOR-330,A,B,Released,Wall thickness optimization,2025-12-15,2026-01-10,N
+ECO-2026-0049,HYD-PUMP-A,A,B,Released,Process refinement,2025-12-15,2026-01-10,N
+ECO-2026-0050,HYD-PUMP-B,A,B,Released,Material change for cost reduction,2025-12-15,2026-01-10,N
+ECO-2026-0051,PLA-CLIP-A,A,B,In Review,Tolerance tightening,2025-12-15,,N
+ECO-2026-0052,PLA-CLIP-B,A,B,Closed,Supplier casting process update,2025-12-15,2026-01-10,N
+ECO-2026-0053,TRIM-INT-001,A,B,Released,Cable routing update,2025-12-15,2026-01-10,N
+ECO-2026-0054,TRIM-INT-002,A,B,Released,Wall thickness optimization,2025-12-15,2026-01-10,N

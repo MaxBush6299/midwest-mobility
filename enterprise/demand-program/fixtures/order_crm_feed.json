@@ -1,0 +1,524 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0029",
+      "Order_Qty": "350",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W30",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0027",
+      "Order_Qty": "790",
+      "Part_ID": "BRG-RAD-090",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W28",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0001",
+      "Order_Qty": "250",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Priority": "High",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W06",
+      "Signal_Type": "Pull-ahead"
+    },
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0002",
+      "Order_Qty": "275",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Priority": "High",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W07",
+      "Signal_Type": "Firm"
+    },
+    {
+      "Customer": "Great Lakes Fleet",
+      "Order_ID": "CRM-ORD-0003",
+      "Order_Qty": "180",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Priority": "High",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W08",
+      "Signal_Type": "Firm"
+    },
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0004",
+      "Order_Qty": "300",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Priority": "Normal",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W09",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0012",
+      "Order_Qty": "540",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Priority": "Normal",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W13",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0010",
+      "Order_Qty": "420",
+      "Part_ID": "BRK-PAD-STD",
+      "Priority": "Normal",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W11",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0011",
+      "Order_Qty": "420",
+      "Part_ID": "BRK-ROT-090",
+      "Priority": "Normal",
+      "Program_Code": "EV-BRK-26",
+      "Requested_Week": "2026-W12",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0034",
+      "Order_Qty": "150",
+      "Part_ID": "CMP-TRIM-A",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W35",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0035",
+      "Order_Qty": "600",
+      "Part_ID": "CMP-TRIM-B",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W36",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Customer": "Heavy Inc",
+      "Order_ID": "CRM-ORD-0009",
+      "Order_Qty": "770",
+      "Part_ID": "CST-HSG-04",
+      "Priority": "Normal",
+      "Program_Code": "MMC-CAST-25",
+      "Requested_Week": "2026-W10",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Customer": "Heavy Inc",
+      "Order_ID": "CRM-ORD-0025",
+      "Order_Qty": "220",
+      "Part_ID": "CST-HSG-05",
+      "Priority": "Normal",
+      "Program_Code": "MMC-CAST-25",
+      "Requested_Week": "2026-W26",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Customer": "Heavy Inc",
+      "Order_ID": "CRM-ORD-0026",
+      "Order_Qty": "320",
+      "Part_ID": "CST-HSG-06",
+      "Priority": "Normal",
+      "Program_Code": "MMC-CAST-25",
+      "Requested_Week": "2026-W27",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0037",
+      "Order_Qty": "800",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W38",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0036",
+      "Order_Qty": "920",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W37",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0020",
+      "Order_Qty": "750",
+      "Part_ID": "ELC-FW-LOAD",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W21",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0017",
+      "Order_Qty": "420",
+      "Part_ID": "ELC-HRN-12V",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W18",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0019",
+      "Order_Qty": "590",
+      "Part_ID": "ELC-MEM-08G",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W20",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0018",
+      "Order_Qty": "630",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W19",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0015",
+      "Order_Qty": "700",
+      "Part_ID": "FRG-LNK-077",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W16",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0008",
+      "Order_Qty": "570",
+      "Part_ID": "FST-M8-100",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W09",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0032",
+      "Order_Qty": "170",
+      "Part_ID": "GEAR-PIN-018",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W33",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0033",
+      "Order_Qty": "290",
+      "Part_ID": "GEAR-SPR-024",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W34",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0040",
+      "Order_Qty": "530",
+      "Part_ID": "HYD-PUMP-A",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W41",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0041",
+      "Order_Qty": "390",
+      "Part_ID": "HYD-PUMP-B",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W42",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0028",
+      "Order_Qty": "500",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W29",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0024",
+      "Order_Qty": "670",
+      "Part_ID": "OPT-FLT-002",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W25",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0023",
+      "Order_Qty": "680",
+      "Part_ID": "OPT-LNS-002",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W24",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0042",
+      "Order_Qty": "470",
+      "Part_ID": "PLA-CLIP-A",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W43",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0043",
+      "Order_Qty": "460",
+      "Part_ID": "PLA-CLIP-B",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W44",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0007",
+      "Order_Qty": "660",
+      "Part_ID": "ROB-ARM-G3",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W08",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0016",
+      "Order_Qty": "540",
+      "Part_ID": "ROB-ARM-G4",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W17",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0021",
+      "Order_Qty": "320",
+      "Part_ID": "SNS-PRX-001",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W22",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Customer": "MidOEM",
+      "Order_ID": "CRM-ORD-0022",
+      "Order_Qty": "730",
+      "Part_ID": "SNS-PRX-002",
+      "Priority": "Normal",
+      "Program_Code": "MMC-AUTO-24",
+      "Requested_Week": "2026-W23",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0030",
+      "Order_Qty": "900",
+      "Part_ID": "SPR-COIL-022",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W31",
+      "Signal_Type": "Pull-ahead"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0031",
+      "Order_Qty": "580",
+      "Part_ID": "SPR-LEAF-118",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W32",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0038",
+      "Order_Qty": "490",
+      "Part_ID": "SRV-MOTOR-220",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W39",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0039",
+      "Order_Qty": "860",
+      "Part_ID": "SRV-MOTOR-330",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W40",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0006",
+      "Order_Qty": "510",
+      "Part_ID": "STM-PNL-A1",
+      "Priority": "Normal",
+      "Program_Code": "MMC-BODY-25",
+      "Requested_Week": "2026-W07",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0013",
+      "Order_Qty": "670",
+      "Part_ID": "STM-PNL-B2",
+      "Priority": "Normal",
+      "Program_Code": "MMC-BODY-25",
+      "Requested_Week": "2026-W14",
+      "Signal_Type": "Forecast"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Customer": "Northstar EV",
+      "Order_ID": "CRM-ORD-0014",
+      "Order_Qty": "600",
+      "Part_ID": "STM-PNL-C3",
+      "Priority": "Normal",
+      "Program_Code": "MMC-BODY-25",
+      "Requested_Week": "2026-W15",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0044",
+      "Order_Qty": "530",
+      "Part_ID": "TRIM-INT-001",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W45",
+      "Signal_Type": "Firm"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Customer": "Internal",
+      "Order_ID": "CRM-ORD-0045",
+      "Order_Qty": "490",
+      "Part_ID": "TRIM-INT-002",
+      "Priority": "Normal",
+      "Program_Code": "MMC-GEN",
+      "Requested_Week": "2026-W46",
+      "Signal_Type": "Pull-ahead"
+    }
+  ]
+}

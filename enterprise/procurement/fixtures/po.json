@@ -1,0 +1,576 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Extended_Value": "26957.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "350",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00025",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-014",
+      "Unit_Price": "77.02"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Extended_Value": "42541.5",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "790",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00023",
+      "Part_ID": "BRG-RAD-090",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-022",
+      "Unit_Price": "53.85"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Extended_Value": "68160.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "480",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00001",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Status": "At Risk",
+      "Supplier_ID": "SUP-001",
+      "Unit_Price": "142.0"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Extended_Value": "76334.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "540",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00008",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-011",
+      "Unit_Price": "141.36"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Extended_Value": "44171.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "420",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00006",
+      "Part_ID": "BRK-PAD-STD",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-001",
+      "Unit_Price": "105.17"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Extended_Value": "54238.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "420",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00007",
+      "Part_ID": "BRK-ROT-090",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-007",
+      "Unit_Price": "129.14"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Extended_Value": "21723.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "150",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00030",
+      "Part_ID": "CMP-TRIM-A",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-013",
+      "Unit_Price": "144.82"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Extended_Value": "78024.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "600",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00031",
+      "Part_ID": "CMP-TRIM-B",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-013",
+      "Unit_Price": "130.04"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Extended_Value": "10271.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "770",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00005",
+      "Part_ID": "CST-HSG-04",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-005",
+      "Unit_Price": "13.34"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Extended_Value": "29022.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "220",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00021",
+      "Part_ID": "CST-HSG-05",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-005",
+      "Unit_Price": "131.92"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Extended_Value": "23590.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "320",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00022",
+      "Part_ID": "CST-HSG-06",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-023",
+      "Unit_Price": "73.72"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Extended_Value": "112992.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "800",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00033",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-015",
+      "Unit_Price": "141.24"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Extended_Value": "26735.2",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "920",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00032",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-015",
+      "Unit_Price": "29.06"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Extended_Value": "137902.5",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "750",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00016",
+      "Part_ID": "ELC-FW-LOAD",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-026",
+      "Unit_Price": "183.87"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Extended_Value": "30996.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "420",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00013",
+      "Part_ID": "ELC-HRN-12V",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-008",
+      "Unit_Price": "73.8"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Extended_Value": "104011.1",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "590",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00015",
+      "Part_ID": "ELC-MEM-08G",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-027",
+      "Unit_Price": "176.29"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Extended_Value": "4825.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "630",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00014",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-025",
+      "Unit_Price": "7.66"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Extended_Value": "15323.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "700",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00011",
+      "Part_ID": "FRG-LNK-077",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-012",
+      "Unit_Price": "21.89"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Extended_Value": "6834.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "570",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00004",
+      "Part_ID": "FST-M8-100",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-004",
+      "Unit_Price": "11.99"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Extended_Value": "13217.5",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "170",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00028",
+      "Part_ID": "GEAR-PIN-018",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-021",
+      "Unit_Price": "77.75"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Extended_Value": "24699.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "290",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00029",
+      "Part_ID": "GEAR-SPR-024",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-021",
+      "Unit_Price": "85.17"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Extended_Value": "42267.5",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "530",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00036",
+      "Part_ID": "HYD-PUMP-A",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-019",
+      "Unit_Price": "79.75"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Extended_Value": "63421.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "390",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00037",
+      "Part_ID": "HYD-PUMP-B",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-019",
+      "Unit_Price": "162.62"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Extended_Value": "86815.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "500",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00024",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-018",
+      "Unit_Price": "173.63"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Extended_Value": "94161.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "670",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00020",
+      "Part_ID": "OPT-FLT-002",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-010",
+      "Unit_Price": "140.54"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Extended_Value": "45743.6",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "680",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00019",
+      "Part_ID": "OPT-LNS-002",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-010",
+      "Unit_Price": "67.27"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Extended_Value": "4319.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "470",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00038",
+      "Part_ID": "PLA-CLIP-A",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-017",
+      "Unit_Price": "9.19"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Extended_Value": "69335.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "460",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00039",
+      "Part_ID": "PLA-CLIP-B",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-017",
+      "Unit_Price": "150.73"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Extended_Value": "12724.8",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "660",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00003",
+      "Part_ID": "ROB-ARM-G3",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-003",
+      "Unit_Price": "19.28"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Extended_Value": "5772.6",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "540",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00012",
+      "Part_ID": "ROB-ARM-G4",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-003",
+      "Unit_Price": "10.69"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Extended_Value": "8233.6",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "320",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00017",
+      "Part_ID": "SNS-PRX-001",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-009",
+      "Unit_Price": "25.73"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Extended_Value": "6285.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "730",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00018",
+      "Part_ID": "SNS-PRX-002",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-009",
+      "Unit_Price": "8.61"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Extended_Value": "149364.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "900",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00026",
+      "Part_ID": "SPR-COIL-022",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-020",
+      "Unit_Price": "165.96"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Extended_Value": "39312.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "580",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00027",
+      "Part_ID": "SPR-LEAF-118",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-020",
+      "Unit_Price": "67.78"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Extended_Value": "34628.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "490",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00034",
+      "Part_ID": "SRV-MOTOR-220",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-024",
+      "Unit_Price": "70.67"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Extended_Value": "130307.2",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "860",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00035",
+      "Part_ID": "SRV-MOTOR-330",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-024",
+      "Unit_Price": "151.52"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Extended_Value": "11393.4",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "510",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00002",
+      "Part_ID": "STM-PNL-A1",
+      "Plant_ID": "plant7",
+      "Status": "Watch",
+      "Supplier_ID": "SUP-002",
+      "Unit_Price": "22.34"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Extended_Value": "29124.9",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "670",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00009",
+      "Part_ID": "STM-PNL-B2",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-002",
+      "Unit_Price": "43.47"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Extended_Value": "45750.0",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "600",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00010",
+      "Part_ID": "STM-PNL-C3",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-006",
+      "Unit_Price": "76.25"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Extended_Value": "33236.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "530",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00040",
+      "Part_ID": "TRIM-INT-001",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-028",
+      "Unit_Price": "62.71"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Extended_Value": "42174.3",
+      "Need_Date": "2026-02-04",
+      "Open_Qty": "490",
+      "Order_Date": "2026-01-05",
+      "PO_ID": "PO-00041",
+      "Part_ID": "TRIM-INT-002",
+      "Plant_ID": "plant7",
+      "Status": "Open",
+      "Supplier_ID": "SUP-028",
+      "Unit_Price": "86.07"
+    }
+  ]
+}

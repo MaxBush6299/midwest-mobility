@@ -1,0 +1,51 @@
+Claim_ID,Part_ID,Plant_ID,Line_ID,Customer,Failure_Mode,Severity,Claim_Date,Status
+WCL-2026-0001,BRK-CAL-XYZ,plant7,L1,Northstar EV,Brake drag,High,2026-01-05,Open
+WCL-2026-0002,BRK-CAL-XYZ,plant7,L1,Northstar EV,Caliper seal leak,High,2026-01-08,Open
+WCL-2026-0003,BRK-CAL-XYZ,plant7,L1,Great Lakes Fleet,Brake noise,Medium,2026-01-11,Open
+WCL-2026-0004,BRK-CAL-XYZ,plant7,L1,Northstar EV,Caliper binding,High,2026-01-14,Open
+WCL-2026-0005,BRK-CAL-XYZ,plant7,L1,Northstar EV,Brake drag,High,2026-01-17,Open
+WCL-2026-0006,BRK-CAL-XYZ,plant7,L1,Northstar EV,Brake drag,Medium,2026-01-20,Open
+WCL-2026-0007,BRK-CAL-XYZ,plant7,L1,Northstar EV,Caliper seal leak,High,2026-01-23,Open
+WCL-2026-0008,BRK-CAL-XYZ,plant7,L1,Great Lakes Fleet,Brake noise,High,2026-01-26,Open
+WCL-2026-0009,BRK-CAL-XYZ,plant7,L1,Northstar EV,Caliper binding,Medium,2026-01-29,Open
+WCL-2026-0010,BRK-CAL-XYZ,plant7,L1,Northstar EV,Brake drag,High,2026-01-32,Open
+WCL-2026-0012,STM-PNL-A1,plant7,L1,Great Lakes Fleet,Wear,Low,2026-02-13,Open
+WCL-2026-0013,ROB-ARM-G3,plant7,L2,Northstar EV,Fit issue,Medium,2026-02-14,Open
+WCL-2026-0014,FST-M8-100,plant7,L1,Northstar EV,Vibration,Low,2026-02-15,Open
+WCL-2026-0015,CST-HSG-04,plant7,L3,Northstar EV,Cosmetic,Low,2026-02-16,Open
+WCL-2026-0016,BRK-PAD-STD,plant7,L1,Northstar EV,Sensor fault,Medium,2026-02-17,Open
+WCL-2026-0017,BRK-ROT-090,plant7,L1,Great Lakes Fleet,Wear,Low,2026-02-18,Open
+WCL-2026-0018,BRK-FLD-DOT4,plant7,L1,Northstar EV,Fit issue,Low,2026-02-19,Open
+WCL-2026-0019,STM-PNL-B2,plant7,L1,Northstar EV,Vibration,Medium,2026-02-20,Open
+WCL-2026-0020,STM-PNL-C3,plant7,L1,Northstar EV,Cosmetic,Low,2026-02-21,Open
+WCL-2026-0021,FRG-LNK-077,plant7,L1,Northstar EV,Sensor fault,Low,2026-02-22,Open
+WCL-2026-0022,ROB-ARM-G4,plant7,L2,Great Lakes Fleet,Wear,Medium,2026-02-23,Open
+WCL-2026-0023,ELC-HRN-12V,plant7,L2,Northstar EV,Fit issue,Low,2026-02-24,Open
+WCL-2026-0024,ELC-PCB-MAIN,plant7,L2,Northstar EV,Vibration,Low,2026-02-25,Open
+WCL-2026-0025,ELC-MEM-08G,plant7,L2,Northstar EV,Cosmetic,Medium,2026-02-26,Open
+WCL-2026-0026,ELC-FW-LOAD,plant7,L2,Northstar EV,Sensor fault,Low,2026-02-27,Open
+WCL-2026-0027,SNS-PRX-001,plant7,L2,Great Lakes Fleet,Wear,Low,2026-02-01,Open
+WCL-2026-0028,SNS-PRX-002,plant7,L2,Northstar EV,Fit issue,Medium,2026-02-02,Open
+WCL-2026-0029,OPT-LNS-002,plant7,L3,Northstar EV,Vibration,Low,2026-02-03,Open
+WCL-2026-0030,OPT-FLT-002,plant7,L3,Northstar EV,Cosmetic,Low,2026-02-04,Open
+WCL-2026-0031,CST-HSG-05,plant7,L3,Northstar EV,Sensor fault,Medium,2026-02-05,Open
+WCL-2026-0032,CST-HSG-06,plant7,L3,Great Lakes Fleet,Wear,Low,2026-02-06,Open
+WCL-2026-0033,BRG-RAD-090,plant7,L3,Northstar EV,Fit issue,Low,2026-02-07,Open
+WCL-2026-0034,LUB-OIL-MULTI,plant7,L3,Northstar EV,Vibration,Medium,2026-02-08,Open
+WCL-2026-0035,ADH-CYAN-50ML,plant7,L3,Northstar EV,Cosmetic,Low,2026-02-09,Open
+WCL-2026-0036,SPR-COIL-022,plant7,L1,Northstar EV,Sensor fault,Low,2026-02-10,Open
+WCL-2026-0037,SPR-LEAF-118,plant7,L1,Great Lakes Fleet,Wear,Medium,2026-02-11,Open
+WCL-2026-0038,GEAR-PIN-018,plant7,L2,Northstar EV,Fit issue,Low,2026-02-12,Open
+WCL-2026-0039,GEAR-SPR-024,plant7,L2,Northstar EV,Vibration,Low,2026-02-13,Open
+WCL-2026-0040,CMP-TRIM-A,plant7,L3,Northstar EV,Cosmetic,Medium,2026-02-14,Open
+WCL-2026-0041,CMP-TRIM-B,plant7,L3,Northstar EV,Sensor fault,Low,2026-02-15,Open
+WCL-2026-0042,CTG-PAINT-WHT,plant7,L3,Great Lakes Fleet,Wear,Low,2026-02-16,Open
+WCL-2026-0043,CTG-PAINT-BLK,plant7,L3,Northstar EV,Fit issue,Medium,2026-02-17,Open
+WCL-2026-0044,SRV-MOTOR-220,plant7,L2,Northstar EV,Vibration,Low,2026-02-18,Open
+WCL-2026-0045,SRV-MOTOR-330,plant7,L2,Northstar EV,Cosmetic,Low,2026-02-19,Open
+WCL-2026-0046,HYD-PUMP-A,plant7,L1,Northstar EV,Sensor fault,Medium,2026-02-20,Open
+WCL-2026-0047,HYD-PUMP-B,plant7,L1,Great Lakes Fleet,Wear,Low,2026-02-21,Open
+WCL-2026-0048,PLA-CLIP-A,plant7,L3,Northstar EV,Fit issue,Low,2026-02-22,Open
+WCL-2026-0049,PLA-CLIP-B,plant7,L3,Northstar EV,Vibration,Medium,2026-02-23,Open
+WCL-2026-0050,TRIM-INT-001,plant7,L3,Northstar EV,Cosmetic,Low,2026-02-24,Open
+WCL-2026-0051,TRIM-INT-002,plant7,L3,Northstar EV,Sensor fault,Low,2026-02-25,Open

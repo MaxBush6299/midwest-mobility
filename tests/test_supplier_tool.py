@@ -4,7 +4,7 @@ from mmc_agents.tools.supplier import lookup, alternates
 def test_lookup_acme():
     s = lookup("SUP-001")
     assert s is not None
-    assert s["Name"] == "Acme Brakes"
+    assert s["Supplier_Name"] == "Acme Brakes"
     assert s["Disruption_Flag"] == "Y"
     assert int(s["Disruption_Days"]) == 21
 

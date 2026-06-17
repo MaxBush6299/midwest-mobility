@@ -1,6 +1,29 @@
-Supplier_ID,Name,Tier,Country,Lead_Time_Days,Disruption_Flag,Disruption_Days,Risk_Score
-SUP-001,Acme Brakes,1,US,14,Y,21,High
-SUP-002,Midwest Stampings,2,US,7,N,0,Low
-SUP-003,Globex Robotics,1,DE,28,N,0,Medium
-SUP-004,Initech Fasteners,2,US,5,N,0,Low
-SUP-005,Hooli Castings,1,MX,21,N,0,Medium
+Supplier_ID,Supplier_Name,Tier,Country,Primary_Commodity,Qualification_Status,Lead_Time_Days,Disruption_Flag,Disruption_Days,Risk_Score,Preferred_Alt_Supplier_ID,Notes
+SUP-001,Acme Brakes,1,US,Brake Systems,Critical,14,Y,21,High,,No direct alternate source for BRK-CAL-XYZ; requires manager backtrack
+SUP-002,Midwest Stampings,2,US,Stamped Components,Approved,10,N,0,Low,SUP-006,Approved backup for L1 stampings
+SUP-003,Globex Robotics,1,DE,Robotics,Approved,28,N,0,Medium,SUP-008,L2 robot-cell components
+SUP-004,Initech Fasteners,2,US,Fasteners,Approved,7,N,0,Low,SUP-009,Common M8/M10 packs
+SUP-005,Hooli Castings,1,MX,Castings,Approved,21,N,0,Medium,SUP-010,General cast housings
+SUP-006,Pied Piper Polymers,2,US,Polymer Components,Approved,12,N,0,Low,SUP-002,Alternate stamping/polymer
+SUP-007,Soylent Steel,1,US,Brake Components,Approved,18,N,0,Medium,,Brake rotor alternate (qualification pending for caliper)
+SUP-008,Massive Dynamic Wire,2,JP,Electrical Components,Approved,35,N,0,Medium,SUP-016,Wiring and connectors
+SUP-009,Cyberdyne Sensors,1,US,Sensors,Approved,12,N,0,Low,,Sensor primary
+SUP-010,Tyrell Optics,2,US,Optics,Approved,22,N,0,Medium,,Optical sensor backup
+SUP-011,Aperture Fluids,2,US,Brake Fluids,Approved,8,N,0,Low,,Brake fluid supply
+SUP-012,Wayne Forgings,1,US,Forgings,Approved,19,N,0,Medium,,Forged components
+SUP-013,Stark Composites,1,US,Composites,Approved,25,N,0,Medium,,Composite trim
+SUP-014,Oscorp Adhesives,2,US,Adhesives,Approved,11,N,0,Low,,Adhesive supply
+SUP-015,Umbrella Coatings,2,DE,Coatings,Approved,30,N,0,Medium,,Coating services
+SUP-016,Nakatomi Electronics,1,JP,Electronics,Approved,32,N,0,Medium,SUP-008,Electronics alternate
+SUP-017,Vandelay Plastics,2,US,Plastics,Approved,9,N,0,Low,,Plastic components
+SUP-018,Wonka Lubricants,2,US,Lubricants,Approved,6,N,0,Low,,Lubricants
+SUP-019,Hanso Hydraulics,1,KR,Hydraulics,Approved,27,N,0,Medium,,Hydraulic systems
+SUP-020,Spacely Springs,2,US,Springs,Approved,8,N,0,Low,,Springs
+SUP-021,Cogswell Cogs,2,US,Gears,Approved,9,N,0,Low,,Gear assemblies
+SUP-022,Tessier-Ashpool Bearings,1,JP,Bearings,Approved,30,N,0,Medium,,Bearing supply
+SUP-023,Yutani Castings,1,MX,Castings,Approved,20,N,0,Medium,SUP-005,Casting alternate
+SUP-024,MomCorp Servos,1,US,Servos,Approved,15,N,0,Medium,,Servo motors
+SUP-025,Buy n Large Boards,2,CN,PCBs,Approved,40,N,0,High,,PCB assemblies
+SUP-026,Encom Firmware,2,US,Firmware Services,Approved,14,N,0,Low,,Firmware programming
+SUP-027,Rekall Memory,1,US,Memory Modules,Approved,16,N,0,Medium,,Memory modules
+SUP-028,Veridian Dynamics Trim,2,US,Interior Trim,Approved,7,N,0,Low,,Interior trim

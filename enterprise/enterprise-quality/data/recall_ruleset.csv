@@ -1,0 +1,6 @@
+Rule_ID,Part_Family,Metric,Threshold_Count,Window_Days,Action,Applies_To_Safety_Critical
+REC-001,Brake,High severity claims,5,60,Open safety review,Y
+REC-002,Brake,Potential safety field failures,3,60,Escalate to recall council,Y
+REC-003,General,Repeat cosmetic claims,20,90,Quality trend review,N
+REC-004,Robot,Unexpected motion reports,2,30,EHS engineering review,Y
+REC-005,Conveyor,Jam-related injuries,3,90,Containment review,Y

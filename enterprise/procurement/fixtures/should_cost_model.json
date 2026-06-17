@@ -1,0 +1,412 @@
+{
+  "ADH-CYAN-50ML": {
+    "Current_Unit_Price": "91.27",
+    "Freight_Cost": "2.82",
+    "Labor_Cost": "5.63",
+    "Material_Cost": "56.34",
+    "Overhead_Cost": "11.27",
+    "Part_ID": "ADH-CYAN-50ML",
+    "Should_Cost": "76.06",
+    "Variance_Percent": "20.0"
+  },
+  "BRG-RAD-090": {
+    "Current_Unit_Price": "20.64",
+    "Freight_Cost": "0.64",
+    "Labor_Cost": "1.27",
+    "Material_Cost": "12.74",
+    "Overhead_Cost": "2.55",
+    "Part_ID": "BRG-RAD-090",
+    "Should_Cost": "17.2",
+    "Variance_Percent": "20.0"
+  },
+  "BRK-CAL-XYZ": {
+    "Current_Unit_Price": "142.0",
+    "Freight_Cost": "6.0",
+    "Labor_Cost": "12.0",
+    "Material_Cost": "82.0",
+    "Overhead_Cost": "18.0",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Should_Cost": "118.0",
+    "Variance_Percent": "20.34"
+  },
+  "BRK-FLD-DOT4": {
+    "Current_Unit_Price": "53.18",
+    "Freight_Cost": "1.64",
+    "Labor_Cost": "3.28",
+    "Material_Cost": "32.83",
+    "Overhead_Cost": "6.57",
+    "Part_ID": "BRK-FLD-DOT4",
+    "Should_Cost": "44.32",
+    "Variance_Percent": "19.99"
+  },
+  "BRK-PAD-STD": {
+    "Current_Unit_Price": "133.72",
+    "Freight_Cost": "4.13",
+    "Labor_Cost": "8.25",
+    "Material_Cost": "82.54",
+    "Overhead_Cost": "16.51",
+    "Part_ID": "BRK-PAD-STD",
+    "Should_Cost": "111.43",
+    "Variance_Percent": "20.0"
+  },
+  "BRK-ROT-090": {
+    "Current_Unit_Price": "99.8",
+    "Freight_Cost": "3.08",
+    "Labor_Cost": "6.16",
+    "Material_Cost": "61.61",
+    "Overhead_Cost": "12.32",
+    "Part_ID": "BRK-ROT-090",
+    "Should_Cost": "83.17",
+    "Variance_Percent": "20.0"
+  },
+  "CMP-TRIM-A": {
+    "Current_Unit_Price": "139.92",
+    "Freight_Cost": "4.32",
+    "Labor_Cost": "8.64",
+    "Material_Cost": "86.37",
+    "Overhead_Cost": "17.27",
+    "Part_ID": "CMP-TRIM-A",
+    "Should_Cost": "116.6",
+    "Variance_Percent": "20.0"
+  },
+  "CMP-TRIM-B": {
+    "Current_Unit_Price": "108.02",
+    "Freight_Cost": "3.33",
+    "Labor_Cost": "6.67",
+    "Material_Cost": "66.68",
+    "Overhead_Cost": "13.34",
+    "Part_ID": "CMP-TRIM-B",
+    "Should_Cost": "90.02",
+    "Variance_Percent": "20.0"
+  },
+  "CST-HSG-04": {
+    "Current_Unit_Price": "9.9",
+    "Freight_Cost": "0.31",
+    "Labor_Cost": "0.61",
+    "Material_Cost": "6.11",
+    "Overhead_Cost": "1.22",
+    "Part_ID": "CST-HSG-04",
+    "Should_Cost": "8.25",
+    "Variance_Percent": "20.0"
+  },
+  "CST-HSG-05": {
+    "Current_Unit_Price": "192.19",
+    "Freight_Cost": "5.93",
+    "Labor_Cost": "11.86",
+    "Material_Cost": "118.64",
+    "Overhead_Cost": "23.73",
+    "Part_ID": "CST-HSG-05",
+    "Should_Cost": "160.16",
+    "Variance_Percent": "20.0"
+  },
+  "CST-HSG-06": {
+    "Current_Unit_Price": "74.17",
+    "Freight_Cost": "2.29",
+    "Labor_Cost": "4.58",
+    "Material_Cost": "45.78",
+    "Overhead_Cost": "9.16",
+    "Part_ID": "CST-HSG-06",
+    "Should_Cost": "61.81",
+    "Variance_Percent": "20.0"
+  },
+  "CTG-PAINT-BLK": {
+    "Current_Unit_Price": "148.99",
+    "Freight_Cost": "4.6",
+    "Labor_Cost": "9.2",
+    "Material_Cost": "91.97",
+    "Overhead_Cost": "18.39",
+    "Part_ID": "CTG-PAINT-BLK",
+    "Should_Cost": "124.16",
+    "Variance_Percent": "20.0"
+  },
+  "CTG-PAINT-WHT": {
+    "Current_Unit_Price": "117.98",
+    "Freight_Cost": "3.64",
+    "Labor_Cost": "7.28",
+    "Material_Cost": "72.83",
+    "Overhead_Cost": "14.57",
+    "Part_ID": "CTG-PAINT-WHT",
+    "Should_Cost": "98.32",
+    "Variance_Percent": "20.0"
+  },
+  "ELC-FW-LOAD": {
+    "Current_Unit_Price": "98.59",
+    "Freight_Cost": "3.04",
+    "Labor_Cost": "6.09",
+    "Material_Cost": "60.86",
+    "Overhead_Cost": "12.17",
+    "Part_ID": "ELC-FW-LOAD",
+    "Should_Cost": "82.16",
+    "Variance_Percent": "20.0"
+  },
+  "ELC-HRN-12V": {
+    "Current_Unit_Price": "3.86",
+    "Freight_Cost": "0.12",
+    "Labor_Cost": "0.24",
+    "Material_Cost": "2.38",
+    "Overhead_Cost": "0.48",
+    "Part_ID": "ELC-HRN-12V",
+    "Should_Cost": "3.22",
+    "Variance_Percent": "19.88"
+  },
+  "ELC-MEM-08G": {
+    "Current_Unit_Price": "60.91",
+    "Freight_Cost": "1.88",
+    "Labor_Cost": "3.76",
+    "Material_Cost": "37.6",
+    "Overhead_Cost": "7.52",
+    "Part_ID": "ELC-MEM-08G",
+    "Should_Cost": "50.76",
+    "Variance_Percent": "20.0"
+  },
+  "ELC-PCB-MAIN": {
+    "Current_Unit_Price": "71.68",
+    "Freight_Cost": "2.21",
+    "Labor_Cost": "4.42",
+    "Material_Cost": "44.25",
+    "Overhead_Cost": "8.85",
+    "Part_ID": "ELC-PCB-MAIN",
+    "Should_Cost": "59.73",
+    "Variance_Percent": "20.01"
+  },
+  "FRG-LNK-077": {
+    "Current_Unit_Price": "137.72",
+    "Freight_Cost": "4.25",
+    "Labor_Cost": "8.5",
+    "Material_Cost": "85.02",
+    "Overhead_Cost": "17.0",
+    "Part_ID": "FRG-LNK-077",
+    "Should_Cost": "114.77",
+    "Variance_Percent": "20.0"
+  },
+  "FST-M8-100": {
+    "Current_Unit_Price": "76.8",
+    "Freight_Cost": "2.37",
+    "Labor_Cost": "4.74",
+    "Material_Cost": "47.41",
+    "Overhead_Cost": "9.48",
+    "Part_ID": "FST-M8-100",
+    "Should_Cost": "64.0",
+    "Variance_Percent": "20.0"
+  },
+  "GEAR-PIN-018": {
+    "Current_Unit_Price": "137.63",
+    "Freight_Cost": "4.25",
+    "Labor_Cost": "8.5",
+    "Material_Cost": "84.95",
+    "Overhead_Cost": "16.99",
+    "Part_ID": "GEAR-PIN-018",
+    "Should_Cost": "114.69",
+    "Variance_Percent": "20.0"
+  },
+  "GEAR-SPR-024": {
+    "Current_Unit_Price": "117.78",
+    "Freight_Cost": "3.64",
+    "Labor_Cost": "7.27",
+    "Material_Cost": "72.7",
+    "Overhead_Cost": "14.54",
+    "Part_ID": "GEAR-SPR-024",
+    "Should_Cost": "98.15",
+    "Variance_Percent": "20.0"
+  },
+  "HYD-PUMP-A": {
+    "Current_Unit_Price": "103.12",
+    "Freight_Cost": "3.18",
+    "Labor_Cost": "6.37",
+    "Material_Cost": "63.65",
+    "Overhead_Cost": "12.73",
+    "Part_ID": "HYD-PUMP-A",
+    "Should_Cost": "85.93",
+    "Variance_Percent": "20.0"
+  },
+  "HYD-PUMP-B": {
+    "Current_Unit_Price": "126.74",
+    "Freight_Cost": "3.91",
+    "Labor_Cost": "7.82",
+    "Material_Cost": "78.24",
+    "Overhead_Cost": "15.65",
+    "Part_ID": "HYD-PUMP-B",
+    "Should_Cost": "105.62",
+    "Variance_Percent": "20.0"
+  },
+  "LUB-OIL-MULTI": {
+    "Current_Unit_Price": "171.73",
+    "Freight_Cost": "5.3",
+    "Labor_Cost": "10.6",
+    "Material_Cost": "106.01",
+    "Overhead_Cost": "21.2",
+    "Part_ID": "LUB-OIL-MULTI",
+    "Should_Cost": "143.11",
+    "Variance_Percent": "20.0"
+  },
+  "OPT-FLT-002": {
+    "Current_Unit_Price": "201.5",
+    "Freight_Cost": "6.22",
+    "Labor_Cost": "12.44",
+    "Material_Cost": "124.38",
+    "Overhead_Cost": "24.88",
+    "Part_ID": "OPT-FLT-002",
+    "Should_Cost": "167.92",
+    "Variance_Percent": "20.0"
+  },
+  "OPT-LNS-002": {
+    "Current_Unit_Price": "56.8",
+    "Freight_Cost": "1.75",
+    "Labor_Cost": "3.51",
+    "Material_Cost": "35.06",
+    "Overhead_Cost": "7.01",
+    "Part_ID": "OPT-LNS-002",
+    "Should_Cost": "47.33",
+    "Variance_Percent": "20.01"
+  },
+  "PLA-CLIP-A": {
+    "Current_Unit_Price": "57.3",
+    "Freight_Cost": "1.77",
+    "Labor_Cost": "3.54",
+    "Material_Cost": "35.37",
+    "Overhead_Cost": "7.07",
+    "Part_ID": "PLA-CLIP-A",
+    "Should_Cost": "47.75",
+    "Variance_Percent": "20.0"
+  },
+  "PLA-CLIP-B": {
+    "Current_Unit_Price": "73.64",
+    "Freight_Cost": "2.27",
+    "Labor_Cost": "4.55",
+    "Material_Cost": "45.46",
+    "Overhead_Cost": "9.09",
+    "Part_ID": "PLA-CLIP-B",
+    "Should_Cost": "61.37",
+    "Variance_Percent": "19.99"
+  },
+  "ROB-ARM-G3": {
+    "Current_Unit_Price": "92.62",
+    "Freight_Cost": "2.86",
+    "Labor_Cost": "5.72",
+    "Material_Cost": "57.17",
+    "Overhead_Cost": "11.43",
+    "Part_ID": "ROB-ARM-G3",
+    "Should_Cost": "77.18",
+    "Variance_Percent": "20.01"
+  },
+  "ROB-ARM-G4": {
+    "Current_Unit_Price": "135.49",
+    "Freight_Cost": "4.18",
+    "Labor_Cost": "8.36",
+    "Material_Cost": "83.64",
+    "Overhead_Cost": "16.73",
+    "Part_ID": "ROB-ARM-G4",
+    "Should_Cost": "112.91",
+    "Variance_Percent": "20.0"
+  },
+  "SNS-PRX-001": {
+    "Current_Unit_Price": "113.17",
+    "Freight_Cost": "3.49",
+    "Labor_Cost": "6.99",
+    "Material_Cost": "69.86",
+    "Overhead_Cost": "13.97",
+    "Part_ID": "SNS-PRX-001",
+    "Should_Cost": "94.31",
+    "Variance_Percent": "20.0"
+  },
+  "SNS-PRX-002": {
+    "Current_Unit_Price": "125.05",
+    "Freight_Cost": "3.86",
+    "Labor_Cost": "7.72",
+    "Material_Cost": "77.19",
+    "Overhead_Cost": "15.44",
+    "Part_ID": "SNS-PRX-002",
+    "Should_Cost": "104.21",
+    "Variance_Percent": "20.0"
+  },
+  "SPR-COIL-022": {
+    "Current_Unit_Price": "190.6",
+    "Freight_Cost": "5.88",
+    "Labor_Cost": "11.77",
+    "Material_Cost": "117.65",
+    "Overhead_Cost": "23.53",
+    "Part_ID": "SPR-COIL-022",
+    "Should_Cost": "158.83",
+    "Variance_Percent": "20.0"
+  },
+  "SPR-LEAF-118": {
+    "Current_Unit_Price": "187.73",
+    "Freight_Cost": "5.79",
+    "Labor_Cost": "11.59",
+    "Material_Cost": "115.88",
+    "Overhead_Cost": "23.18",
+    "Part_ID": "SPR-LEAF-118",
+    "Should_Cost": "156.44",
+    "Variance_Percent": "20.0"
+  },
+  "SRV-MOTOR-220": {
+    "Current_Unit_Price": "174.62",
+    "Freight_Cost": "5.39",
+    "Labor_Cost": "10.78",
+    "Material_Cost": "107.79",
+    "Overhead_Cost": "21.56",
+    "Part_ID": "SRV-MOTOR-220",
+    "Should_Cost": "145.52",
+    "Variance_Percent": "20.0"
+  },
+  "SRV-MOTOR-330": {
+    "Current_Unit_Price": "61.34",
+    "Freight_Cost": "1.89",
+    "Labor_Cost": "3.79",
+    "Material_Cost": "37.87",
+    "Overhead_Cost": "7.57",
+    "Part_ID": "SRV-MOTOR-330",
+    "Should_Cost": "51.12",
+    "Variance_Percent": "19.99"
+  },
+  "STM-PNL-A1": {
+    "Current_Unit_Price": "88.24",
+    "Freight_Cost": "2.72",
+    "Labor_Cost": "5.45",
+    "Material_Cost": "54.47",
+    "Overhead_Cost": "10.89",
+    "Part_ID": "STM-PNL-A1",
+    "Should_Cost": "73.53",
+    "Variance_Percent": "20.01"
+  },
+  "STM-PNL-B2": {
+    "Current_Unit_Price": "113.78",
+    "Freight_Cost": "3.51",
+    "Labor_Cost": "7.02",
+    "Material_Cost": "70.24",
+    "Overhead_Cost": "14.05",
+    "Part_ID": "STM-PNL-B2",
+    "Should_Cost": "94.82",
+    "Variance_Percent": "20.0"
+  },
+  "STM-PNL-C3": {
+    "Current_Unit_Price": "171.18",
+    "Freight_Cost": "5.28",
+    "Labor_Cost": "10.57",
+    "Material_Cost": "105.67",
+    "Overhead_Cost": "21.13",
+    "Part_ID": "STM-PNL-C3",
+    "Should_Cost": "142.65",
+    "Variance_Percent": "20.0"
+  },
+  "TRIM-INT-001": {
+    "Current_Unit_Price": "16.2",
+    "Freight_Cost": "0.5",
+    "Labor_Cost": "1.0",
+    "Material_Cost": "10.0",
+    "Overhead_Cost": "2.0",
+    "Part_ID": "TRIM-INT-001",
+    "Should_Cost": "13.5",
+    "Variance_Percent": "20.0"
+  },
+  "TRIM-INT-002": {
+    "Current_Unit_Price": "41.8",
+    "Freight_Cost": "1.29",
+    "Labor_Cost": "2.58",
+    "Material_Cost": "25.8",
+    "Overhead_Cost": "5.16",
+    "Part_ID": "TRIM-INT-002",
+    "Should_Cost": "34.83",
+    "Variance_Percent": "20.01"
+  }
+}

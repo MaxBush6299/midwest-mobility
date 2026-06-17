@@ -1,0 +1,60 @@
+{
+  "EV-BRK-26": [
+    {
+      "Due_Date": "2026-03-01",
+      "Milestone": "Brake system launch readiness",
+      "Owner": "Program Mgmt",
+      "Program_Code": "EV-BRK-26",
+      "Risk": "Supplier disruption affects L1 brake caliper build",
+      "Status": "At Risk"
+    },
+    {
+      "Due_Date": "2026-02-20",
+      "Milestone": "Customer PPAP confirmation",
+      "Owner": "Quality",
+      "Program_Code": "EV-BRK-26",
+      "Risk": "Warranty claims under review",
+      "Status": "At Risk"
+    }
+  ],
+  "MMC-AUTO-24": [
+    {
+      "Due_Date": "2026-03-30",
+      "Milestone": "Robot cell sustaining",
+      "Owner": "Ops",
+      "Program_Code": "MMC-AUTO-24",
+      "Risk": "No material risk",
+      "Status": "Green"
+    }
+  ],
+  "MMC-BODY-25": [
+    {
+      "Due_Date": "2026-04-15",
+      "Milestone": "Panel refresh launch",
+      "Owner": "Engineering",
+      "Program_Code": "MMC-BODY-25",
+      "Risk": "No material risk",
+      "Status": "Green"
+    }
+  ],
+  "MMC-CAST-25": [
+    {
+      "Due_Date": "2026-05-15",
+      "Milestone": "Cast housing program review",
+      "Owner": "Engineering",
+      "Program_Code": "MMC-CAST-25",
+      "Risk": "No material risk",
+      "Status": "Green"
+    }
+  ],
+  "MMC-GEN": [
+    {
+      "Due_Date": "2026-02-28",
+      "Milestone": "General service parts",
+      "Owner": "Supply Chain",
+      "Program_Code": "MMC-GEN",
+      "Risk": "No material risk",
+      "Status": "Green"
+    }
+  ]
+}

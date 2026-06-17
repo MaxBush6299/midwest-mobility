@@ -1,0 +1,634 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Claim_Date": "2026-02-09",
+      "Claim_ID": "WCL-2026-0035",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L3",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Claim_Date": "2026-02-07",
+      "Claim_ID": "WCL-2026-0033",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L3",
+      "Part_ID": "BRG-RAD-090",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Claim_Date": "2026-01-05",
+      "Claim_ID": "WCL-2026-0001",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Brake drag",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-08",
+      "Claim_ID": "WCL-2026-0002",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Caliper seal leak",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-11",
+      "Claim_ID": "WCL-2026-0003",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Brake noise",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-14",
+      "Claim_ID": "WCL-2026-0004",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Caliper binding",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-17",
+      "Claim_ID": "WCL-2026-0005",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Brake drag",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-20",
+      "Claim_ID": "WCL-2026-0006",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Brake drag",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-23",
+      "Claim_ID": "WCL-2026-0007",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Caliper seal leak",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-26",
+      "Claim_ID": "WCL-2026-0008",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Brake noise",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-29",
+      "Claim_ID": "WCL-2026-0009",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Caliper binding",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    },
+    {
+      "Claim_Date": "2026-01-32",
+      "Claim_ID": "WCL-2026-0010",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Brake drag",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Severity": "High",
+      "Status": "Open"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Claim_Date": "2026-02-19",
+      "Claim_ID": "WCL-2026-0018",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Claim_Date": "2026-02-17",
+      "Claim_ID": "WCL-2026-0016",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-PAD-STD",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Claim_Date": "2026-02-18",
+      "Claim_ID": "WCL-2026-0017",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-ROT-090",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Claim_Date": "2026-02-14",
+      "Claim_ID": "WCL-2026-0040",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-A",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Claim_Date": "2026-02-15",
+      "Claim_ID": "WCL-2026-0041",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-B",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Claim_Date": "2026-02-16",
+      "Claim_ID": "WCL-2026-0015",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-04",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Claim_Date": "2026-02-05",
+      "Claim_ID": "WCL-2026-0031",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-05",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Claim_Date": "2026-02-06",
+      "Claim_ID": "WCL-2026-0032",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-06",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Claim_Date": "2026-02-17",
+      "Claim_ID": "WCL-2026-0043",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Claim_Date": "2026-02-16",
+      "Claim_ID": "WCL-2026-0042",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Claim_Date": "2026-02-27",
+      "Claim_ID": "WCL-2026-0026",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-FW-LOAD",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Claim_Date": "2026-02-24",
+      "Claim_ID": "WCL-2026-0023",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-HRN-12V",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Claim_Date": "2026-02-26",
+      "Claim_ID": "WCL-2026-0025",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-MEM-08G",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Claim_Date": "2026-02-25",
+      "Claim_ID": "WCL-2026-0024",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Claim_Date": "2026-02-22",
+      "Claim_ID": "WCL-2026-0021",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L1",
+      "Part_ID": "FRG-LNK-077",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Claim_Date": "2026-02-15",
+      "Claim_ID": "WCL-2026-0014",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L1",
+      "Part_ID": "FST-M8-100",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Claim_Date": "2026-02-12",
+      "Claim_ID": "WCL-2026-0038",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-PIN-018",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Claim_Date": "2026-02-13",
+      "Claim_ID": "WCL-2026-0039",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-SPR-024",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Claim_Date": "2026-02-20",
+      "Claim_ID": "WCL-2026-0046",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-A",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Claim_Date": "2026-02-21",
+      "Claim_ID": "WCL-2026-0047",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-B",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Claim_Date": "2026-02-08",
+      "Claim_ID": "WCL-2026-0034",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L3",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Claim_Date": "2026-02-04",
+      "Claim_ID": "WCL-2026-0030",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-FLT-002",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Claim_Date": "2026-02-03",
+      "Claim_ID": "WCL-2026-0029",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-LNS-002",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Claim_Date": "2026-02-22",
+      "Claim_ID": "WCL-2026-0048",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-A",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Claim_Date": "2026-02-23",
+      "Claim_ID": "WCL-2026-0049",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-B",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Claim_Date": "2026-02-14",
+      "Claim_ID": "WCL-2026-0013",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G3",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Claim_Date": "2026-02-23",
+      "Claim_ID": "WCL-2026-0022",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G4",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Claim_Date": "2026-02-01",
+      "Claim_ID": "WCL-2026-0027",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-001",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Claim_Date": "2026-02-02",
+      "Claim_ID": "WCL-2026-0028",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Fit issue",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-002",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Claim_Date": "2026-02-10",
+      "Claim_ID": "WCL-2026-0036",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-COIL-022",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Claim_Date": "2026-02-11",
+      "Claim_ID": "WCL-2026-0037",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-LEAF-118",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Claim_Date": "2026-02-18",
+      "Claim_ID": "WCL-2026-0044",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-220",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Claim_Date": "2026-02-19",
+      "Claim_ID": "WCL-2026-0045",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-330",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Claim_Date": "2026-02-13",
+      "Claim_ID": "WCL-2026-0012",
+      "Customer": "Great Lakes Fleet",
+      "Failure_Mode": "Wear",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-A1",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Claim_Date": "2026-02-20",
+      "Claim_ID": "WCL-2026-0019",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Vibration",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-B2",
+      "Plant_ID": "plant7",
+      "Severity": "Medium",
+      "Status": "Open"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Claim_Date": "2026-02-21",
+      "Claim_ID": "WCL-2026-0020",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-C3",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Claim_Date": "2026-02-24",
+      "Claim_ID": "WCL-2026-0050",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Cosmetic",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-001",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Claim_Date": "2026-02-25",
+      "Claim_ID": "WCL-2026-0051",
+      "Customer": "Northstar EV",
+      "Failure_Mode": "Sensor fault",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-002",
+      "Plant_ID": "plant7",
+      "Severity": "Low",
+      "Status": "Open"
+    }
+  ]
+}

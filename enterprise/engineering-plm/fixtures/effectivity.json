@@ -1,0 +1,494 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0025",
+      "Line_ID": "L3",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0023",
+      "Line_ID": "L3",
+      "Part_ID": "BRG-RAD-090",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0001",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26",
+      "Revision": "C"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0008",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26",
+      "Revision": "A"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0006",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-PAD-STD",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26",
+      "Revision": "A"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0007",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-ROT-090",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26",
+      "Revision": "A"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0030",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0031",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0005",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-04",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25",
+      "Revision": "A"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0021",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-05",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25",
+      "Revision": "A"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0022",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-06",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25",
+      "Revision": "A"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0033",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0032",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0016",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-FW-LOAD",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0013",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-HRN-12V",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0015",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-MEM-08G",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0014",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0011",
+      "Line_ID": "L1",
+      "Part_ID": "FRG-LNK-077",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0004",
+      "Line_ID": "L1",
+      "Part_ID": "FST-M8-100",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0028",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-PIN-018",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0029",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-SPR-024",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0036",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0037",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0024",
+      "Line_ID": "L3",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0020",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-FLT-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0019",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-LNS-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0038",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0039",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0003",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G3",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0012",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G4",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0017",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-001",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0018",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24",
+      "Revision": "A"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0026",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-COIL-022",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0027",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-LEAF-118",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0034",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-220",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0035",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-330",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0002",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-A1",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25",
+      "Revision": "A"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0009",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-B2",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25",
+      "Revision": "A"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0010",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-C3",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25",
+      "Revision": "A"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0040",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-001",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Effective_From": "2026-01-15",
+      "Effective_To": "",
+      "Effectivity_ID": "EFF-0041",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN",
+      "Revision": "A"
+    }
+  ]
+}

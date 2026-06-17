@@ -38,7 +38,7 @@ def test_supply_chain_contains_brake_cross_link(tmp_path: Path):
     generate_node("supply-chain", tmp_path, _seed())
     suppliers = _rows(tmp_path / "supplier_master.csv")
     assert len(suppliers) >= 25
-    assert any(s["Supplier_ID"] == "SUP-001" and s["Name"] == "Acme Brakes" for s in suppliers)
+    assert any(s["Supplier_ID"] == "SUP-001" and s["Supplier_Name"] == "Acme Brakes" for s in suppliers)
 
     bom = _rows(tmp_path / "bom_where_used.csv")
     assert any(

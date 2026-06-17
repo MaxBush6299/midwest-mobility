@@ -1,0 +1,412 @@
+{
+  "ADH-CYAN-50ML": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "ADH-CYAN-50ML",
+    "Part_Name": "Cyanoacrylate 50ml",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "BRG-RAD-090": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "BRG-RAD-090",
+    "Part_Name": "Radial Bearing 090",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "BRK-CAL-XYZ": {
+    "Lifecycle_State": "Released",
+    "Material": "Ductile Iron",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Part_Name": "Brake Caliper Assembly",
+    "Program_Code": "EV-BRK-26",
+    "Revision": "C",
+    "Safety_Critical": "Y"
+  },
+  "BRK-FLD-DOT4": {
+    "Lifecycle_State": "Released",
+    "Material": "Ductile Iron",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "BRK-FLD-DOT4",
+    "Part_Name": "Brake Fluid DOT4",
+    "Program_Code": "EV-BRK-26",
+    "Revision": "B",
+    "Safety_Critical": "Y"
+  },
+  "BRK-PAD-STD": {
+    "Lifecycle_State": "Released",
+    "Material": "Ductile Iron",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "BRK-PAD-STD",
+    "Part_Name": "Brake Pad Standard",
+    "Program_Code": "EV-BRK-26",
+    "Revision": "B",
+    "Safety_Critical": "Y"
+  },
+  "BRK-ROT-090": {
+    "Lifecycle_State": "Released",
+    "Material": "Ductile Iron",
+    "Owning_Engineer": "Casey Park",
+    "Part_ID": "BRK-ROT-090",
+    "Part_Name": "Brake Rotor 090mm",
+    "Program_Code": "EV-BRK-26",
+    "Revision": "A",
+    "Safety_Critical": "Y"
+  },
+  "CMP-TRIM-A": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "CMP-TRIM-A",
+    "Part_Name": "Composite Trim A",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "CMP-TRIM-B": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "CMP-TRIM-B",
+    "Part_Name": "Composite Trim B",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "CST-HSG-04": {
+    "Lifecycle_State": "Released",
+    "Material": "Aluminum",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "CST-HSG-04",
+    "Part_Name": "Cast Housing 04",
+    "Program_Code": "MMC-CAST-25",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "CST-HSG-05": {
+    "Lifecycle_State": "Released",
+    "Material": "Aluminum",
+    "Owning_Engineer": "Casey Park",
+    "Part_ID": "CST-HSG-05",
+    "Part_Name": "Cast Housing 05",
+    "Program_Code": "MMC-CAST-25",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "CST-HSG-06": {
+    "Lifecycle_State": "Released",
+    "Material": "Aluminum",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "CST-HSG-06",
+    "Part_Name": "Cast Housing 06",
+    "Program_Code": "MMC-CAST-25",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "CTG-PAINT-BLK": {
+    "Lifecycle_State": "Released",
+    "Material": "Coating",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "CTG-PAINT-BLK",
+    "Part_Name": "Black Paint Coating",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "CTG-PAINT-WHT": {
+    "Lifecycle_State": "Released",
+    "Material": "Coating",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "CTG-PAINT-WHT",
+    "Part_Name": "White Paint Coating",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "ELC-FW-LOAD": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "ELC-FW-LOAD",
+    "Part_Name": "Firmware Programming",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "ELC-HRN-12V": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "ELC-HRN-12V",
+    "Part_Name": "12V Wiring Harness",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "ELC-MEM-08G": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "ELC-MEM-08G",
+    "Part_Name": "Memory Module 8G",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "ELC-PCB-MAIN": {
+    "Lifecycle_State": "Released",
+    "Material": "Composite",
+    "Owning_Engineer": "Casey Park",
+    "Part_ID": "ELC-PCB-MAIN",
+    "Part_Name": "Main PCB Assembly",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "FRG-LNK-077": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "FRG-LNK-077",
+    "Part_Name": "Forged Link 077",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "FST-M8-100": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "FST-M8-100",
+    "Part_Name": "M8 Fastener Pack",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "GEAR-PIN-018": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Casey Park",
+    "Part_ID": "GEAR-PIN-018",
+    "Part_Name": "Pinion Gear 018",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "GEAR-SPR-024": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "GEAR-SPR-024",
+    "Part_Name": "Spur Gear 024",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "HYD-PUMP-A": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Dana Patel",
+    "Part_ID": "HYD-PUMP-A",
+    "Part_Name": "Hydraulic Pump A",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "HYD-PUMP-B": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "HYD-PUMP-B",
+    "Part_Name": "Hydraulic Pump B",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "LUB-OIL-MULTI": {
+    "Lifecycle_State": "Released",
+    "Material": "Synthetic",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "LUB-OIL-MULTI",
+    "Part_Name": "Multi-purpose Oil",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "OPT-FLT-002": {
+    "Lifecycle_State": "Released",
+    "Material": "Glass",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "OPT-FLT-002",
+    "Part_Name": "Optical Filter 002",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "OPT-LNS-002": {
+    "Lifecycle_State": "Released",
+    "Material": "Glass",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "OPT-LNS-002",
+    "Part_Name": "Optical Lens 002",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "PLA-CLIP-A": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "PLA-CLIP-A",
+    "Part_Name": "Plastic Clip A",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "PLA-CLIP-B": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "PLA-CLIP-B",
+    "Part_Name": "Plastic Clip B",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "ROB-ARM-G3": {
+    "Lifecycle_State": "Released",
+    "Material": "Aluminum",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "ROB-ARM-G3",
+    "Part_Name": "Robot Arm Gen3",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "ROB-ARM-G4": {
+    "Lifecycle_State": "Released",
+    "Material": "Aluminum",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "ROB-ARM-G4",
+    "Part_Name": "Robot Arm Gen4",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "SNS-PRX-001": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "SNS-PRX-001",
+    "Part_Name": "Proximity Sensor 001",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "SNS-PRX-002": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Sam Rivera",
+    "Part_ID": "SNS-PRX-002",
+    "Part_Name": "Proximity Sensor 002",
+    "Program_Code": "MMC-AUTO-24",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "SPR-COIL-022": {
+    "Lifecycle_State": "Released",
+    "Material": "Spring Steel",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "SPR-COIL-022",
+    "Part_Name": "Coil Spring 022",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "SPR-LEAF-118": {
+    "Lifecycle_State": "Released",
+    "Material": "Spring Steel",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "SPR-LEAF-118",
+    "Part_Name": "Leaf Spring 118",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "SRV-MOTOR-220": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "SRV-MOTOR-220",
+    "Part_Name": "Servo Motor 220",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "SRV-MOTOR-330": {
+    "Lifecycle_State": "Released",
+    "Material": "Steel",
+    "Owning_Engineer": "Casey Park",
+    "Part_ID": "SRV-MOTOR-330",
+    "Part_Name": "Servo Motor 330",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "STM-PNL-A1": {
+    "Lifecycle_State": "Released",
+    "Material": "HSLA Steel",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "STM-PNL-A1",
+    "Part_Name": "Stamped Panel A1",
+    "Program_Code": "MMC-BODY-25",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "STM-PNL-B2": {
+    "Lifecycle_State": "Released",
+    "Material": "HSLA Steel",
+    "Owning_Engineer": "Riley Chen",
+    "Part_ID": "STM-PNL-B2",
+    "Part_Name": "Stamped Panel B2",
+    "Program_Code": "MMC-BODY-25",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  },
+  "STM-PNL-C3": {
+    "Lifecycle_State": "Released",
+    "Material": "HSLA Steel",
+    "Owning_Engineer": "Jordan Lee",
+    "Part_ID": "STM-PNL-C3",
+    "Part_Name": "Stamped Panel C3",
+    "Program_Code": "MMC-BODY-25",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "TRIM-INT-001": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Avery Kim",
+    "Part_ID": "TRIM-INT-001",
+    "Part_Name": "Interior Trim 001",
+    "Program_Code": "MMC-GEN",
+    "Revision": "B",
+    "Safety_Critical": "N"
+  },
+  "TRIM-INT-002": {
+    "Lifecycle_State": "Released",
+    "Material": "Polymer",
+    "Owning_Engineer": "Morgan Brooks",
+    "Part_ID": "TRIM-INT-002",
+    "Part_Name": "Interior Trim 002",
+    "Program_Code": "MMC-GEN",
+    "Revision": "A",
+    "Safety_Critical": "N"
+  }
+}

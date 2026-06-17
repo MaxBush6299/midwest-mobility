@@ -1,0 +1,471 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Allocated_Qty": "350",
+      "Allocation_ID": "ALLOC-0027",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Allocated_Qty": "790",
+      "Allocation_ID": "ALLOC-0025",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "BRG-RAD-090",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Allocated_Qty": "250",
+      "Allocation_ID": "ALLOC-0001",
+      "Capacity_Status": "Constrained",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    },
+    {
+      "Allocated_Qty": "275",
+      "Allocation_ID": "ALLOC-0002",
+      "Capacity_Status": "Constrained",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    },
+    {
+      "Allocated_Qty": "180",
+      "Allocation_ID": "ALLOC-0003",
+      "Capacity_Status": "Constrained",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Allocated_Qty": "540",
+      "Allocation_ID": "ALLOC-0010",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Allocated_Qty": "420",
+      "Allocation_ID": "ALLOC-0008",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-PAD-STD",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Allocated_Qty": "420",
+      "Allocation_ID": "ALLOC-0009",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "BRK-ROT-090",
+      "Plant_ID": "plant7",
+      "Program_Code": "EV-BRK-26"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Allocated_Qty": "150",
+      "Allocation_ID": "ALLOC-0032",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Allocated_Qty": "600",
+      "Allocation_ID": "ALLOC-0033",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CMP-TRIM-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Allocated_Qty": "770",
+      "Allocation_ID": "ALLOC-0007",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-04",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Allocated_Qty": "220",
+      "Allocation_ID": "ALLOC-0023",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-05",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Allocated_Qty": "320",
+      "Allocation_ID": "ALLOC-0024",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CST-HSG-06",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-CAST-25"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Allocated_Qty": "800",
+      "Allocation_ID": "ALLOC-0035",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Allocated_Qty": "920",
+      "Allocation_ID": "ALLOC-0034",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Allocated_Qty": "750",
+      "Allocation_ID": "ALLOC-0018",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-FW-LOAD",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Allocated_Qty": "420",
+      "Allocation_ID": "ALLOC-0015",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-HRN-12V",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Allocated_Qty": "590",
+      "Allocation_ID": "ALLOC-0017",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-MEM-08G",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Allocated_Qty": "630",
+      "Allocation_ID": "ALLOC-0016",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Allocated_Qty": "700",
+      "Allocation_ID": "ALLOC-0013",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "FRG-LNK-077",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Allocated_Qty": "570",
+      "Allocation_ID": "ALLOC-0006",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "FST-M8-100",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Allocated_Qty": "170",
+      "Allocation_ID": "ALLOC-0030",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-PIN-018",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Allocated_Qty": "290",
+      "Allocation_ID": "ALLOC-0031",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "GEAR-SPR-024",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Allocated_Qty": "530",
+      "Allocation_ID": "ALLOC-0038",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Allocated_Qty": "390",
+      "Allocation_ID": "ALLOC-0039",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "HYD-PUMP-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Allocated_Qty": "500",
+      "Allocation_ID": "ALLOC-0026",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Allocated_Qty": "670",
+      "Allocation_ID": "ALLOC-0022",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-FLT-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Allocated_Qty": "680",
+      "Allocation_ID": "ALLOC-0021",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "OPT-LNS-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Allocated_Qty": "470",
+      "Allocation_ID": "ALLOC-0040",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-A",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Allocated_Qty": "460",
+      "Allocation_ID": "ALLOC-0041",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "PLA-CLIP-B",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Allocated_Qty": "660",
+      "Allocation_ID": "ALLOC-0005",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G3",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Allocated_Qty": "540",
+      "Allocation_ID": "ALLOC-0014",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "ROB-ARM-G4",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Allocated_Qty": "320",
+      "Allocation_ID": "ALLOC-0019",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-001",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Allocated_Qty": "730",
+      "Allocation_ID": "ALLOC-0020",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "SNS-PRX-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-AUTO-24"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Allocated_Qty": "900",
+      "Allocation_ID": "ALLOC-0028",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-COIL-022",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Allocated_Qty": "580",
+      "Allocation_ID": "ALLOC-0029",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "SPR-LEAF-118",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Allocated_Qty": "490",
+      "Allocation_ID": "ALLOC-0036",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-220",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Allocated_Qty": "860",
+      "Allocation_ID": "ALLOC-0037",
+      "Capacity_Status": "Available",
+      "Line_ID": "L2",
+      "Part_ID": "SRV-MOTOR-330",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Allocated_Qty": "510",
+      "Allocation_ID": "ALLOC-0004",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-A1",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Allocated_Qty": "670",
+      "Allocation_ID": "ALLOC-0011",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-B2",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Allocated_Qty": "600",
+      "Allocation_ID": "ALLOC-0012",
+      "Capacity_Status": "Available",
+      "Line_ID": "L1",
+      "Part_ID": "STM-PNL-C3",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-BODY-25"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Allocated_Qty": "530",
+      "Allocation_ID": "ALLOC-0042",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-001",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Allocated_Qty": "490",
+      "Allocation_ID": "ALLOC-0043",
+      "Capacity_Status": "Available",
+      "Line_ID": "L3",
+      "Part_ID": "TRIM-INT-002",
+      "Plant_ID": "plant7",
+      "Program_Code": "MMC-GEN"
+    }
+  ]
+}

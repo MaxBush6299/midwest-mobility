@@ -1,0 +1,51 @@
+Feed_ID,Part_ID,Source,Signal_Date,Symptom_Text,Potential_Safety,Linked_Claim_ID
+FFF-0001,BRK-CAL-XYZ,OEM Portal,2026-01-05,Brake drag after cold start,Y,WCL-2026-0001
+FFF-0002,BRK-CAL-XYZ,Dealer Report,2026-01-08,Fluid at caliper seal,Y,WCL-2026-0002
+FFF-0003,BRK-CAL-XYZ,OEM Portal,2026-01-11,Audible brake noise,N,WCL-2026-0003
+FFF-0004,BRK-CAL-XYZ,Fleet Telematics,2026-01-14,Right front brake drag,Y,WCL-2026-0004
+FFF-0005,BRK-CAL-XYZ,Dealer Report,2026-01-17,Caliper binding during inspection,Y,WCL-2026-0005
+FFF-0006,BRK-CAL-XYZ,OEM Portal,2026-01-20,Brake drag after cold start,N,WCL-2026-0006
+FFF-0007,BRK-CAL-XYZ,Dealer Report,2026-01-23,Fluid at caliper seal,Y,WCL-2026-0007
+FFF-0008,BRK-CAL-XYZ,OEM Portal,2026-01-26,Audible brake noise,Y,WCL-2026-0008
+FFF-0009,BRK-CAL-XYZ,Fleet Telematics,2026-01-29,Right front brake drag,N,WCL-2026-0009
+FFF-0010,BRK-CAL-XYZ,Dealer Report,2026-01-32,Caliper binding during inspection,Y,WCL-2026-0010
+FFF-0012,STM-PNL-A1,OEM Portal,2026-02-13,Stamped Panel A1 observation,N,WCL-2026-0012
+FFF-0013,ROB-ARM-G3,Fleet Telematics,2026-02-14,Robot Arm Gen3 observation,N,WCL-2026-0013
+FFF-0014,FST-M8-100,Dealer Report,2026-02-15,M8 Fastener Pack observation,N,WCL-2026-0014
+FFF-0015,CST-HSG-04,OEM Portal,2026-02-16,Cast Housing 04 observation,N,WCL-2026-0015
+FFF-0016,BRK-PAD-STD,Dealer Report,2026-02-17,Brake Pad Standard observation,N,WCL-2026-0016
+FFF-0017,BRK-ROT-090,OEM Portal,2026-02-18,Brake Rotor 090mm observation,N,WCL-2026-0017
+FFF-0018,BRK-FLD-DOT4,Fleet Telematics,2026-02-19,Brake Fluid DOT4 observation,N,WCL-2026-0018
+FFF-0019,STM-PNL-B2,Dealer Report,2026-02-20,Stamped Panel B2 observation,N,WCL-2026-0019
+FFF-0020,STM-PNL-C3,OEM Portal,2026-02-21,Stamped Panel C3 observation,N,WCL-2026-0020
+FFF-0021,FRG-LNK-077,Dealer Report,2026-02-22,Forged Link 077 observation,N,WCL-2026-0021
+FFF-0022,ROB-ARM-G4,OEM Portal,2026-02-23,Robot Arm Gen4 observation,N,WCL-2026-0022
+FFF-0023,ELC-HRN-12V,Fleet Telematics,2026-02-24,12V Wiring Harness observation,N,WCL-2026-0023
+FFF-0024,ELC-PCB-MAIN,Dealer Report,2026-02-25,Main PCB Assembly observation,N,WCL-2026-0024
+FFF-0025,ELC-MEM-08G,OEM Portal,2026-02-26,Memory Module 8G observation,N,WCL-2026-0025
+FFF-0026,ELC-FW-LOAD,Dealer Report,2026-02-27,Firmware Programming observation,N,WCL-2026-0026
+FFF-0027,SNS-PRX-001,OEM Portal,2026-02-01,Proximity Sensor 001 observation,N,WCL-2026-0027
+FFF-0028,SNS-PRX-002,Fleet Telematics,2026-02-02,Proximity Sensor 002 observation,N,WCL-2026-0028
+FFF-0029,OPT-LNS-002,Dealer Report,2026-02-03,Optical Lens 002 observation,N,WCL-2026-0029
+FFF-0030,OPT-FLT-002,OEM Portal,2026-02-04,Optical Filter 002 observation,N,WCL-2026-0030
+FFF-0031,CST-HSG-05,Dealer Report,2026-02-05,Cast Housing 05 observation,N,WCL-2026-0031
+FFF-0032,CST-HSG-06,OEM Portal,2026-02-06,Cast Housing 06 observation,N,WCL-2026-0032
+FFF-0033,BRG-RAD-090,Fleet Telematics,2026-02-07,Radial Bearing 090 observation,N,WCL-2026-0033
+FFF-0034,LUB-OIL-MULTI,Dealer Report,2026-02-08,Multi-purpose Oil observation,N,WCL-2026-0034
+FFF-0035,ADH-CYAN-50ML,OEM Portal,2026-02-09,Cyanoacrylate 50ml observation,N,WCL-2026-0035
+FFF-0036,SPR-COIL-022,Dealer Report,2026-02-10,Coil Spring 022 observation,N,WCL-2026-0036
+FFF-0037,SPR-LEAF-118,OEM Portal,2026-02-11,Leaf Spring 118 observation,N,WCL-2026-0037
+FFF-0038,GEAR-PIN-018,Fleet Telematics,2026-02-12,Pinion Gear 018 observation,N,WCL-2026-0038
+FFF-0039,GEAR-SPR-024,Dealer Report,2026-02-13,Spur Gear 024 observation,N,WCL-2026-0039
+FFF-0040,CMP-TRIM-A,OEM Portal,2026-02-14,Composite Trim A observation,N,WCL-2026-0040
+FFF-0041,CMP-TRIM-B,Dealer Report,2026-02-15,Composite Trim B observation,N,WCL-2026-0041
+FFF-0042,CTG-PAINT-WHT,OEM Portal,2026-02-16,White Paint Coating observation,N,WCL-2026-0042
+FFF-0043,CTG-PAINT-BLK,Fleet Telematics,2026-02-17,Black Paint Coating observation,N,WCL-2026-0043
+FFF-0044,SRV-MOTOR-220,Dealer Report,2026-02-18,Servo Motor 220 observation,N,WCL-2026-0044
+FFF-0045,SRV-MOTOR-330,OEM Portal,2026-02-19,Servo Motor 330 observation,N,WCL-2026-0045
+FFF-0046,HYD-PUMP-A,Dealer Report,2026-02-20,Hydraulic Pump A observation,N,WCL-2026-0046
+FFF-0047,HYD-PUMP-B,OEM Portal,2026-02-21,Hydraulic Pump B observation,N,WCL-2026-0047
+FFF-0048,PLA-CLIP-A,Fleet Telematics,2026-02-22,Plastic Clip A observation,N,WCL-2026-0048
+FFF-0049,PLA-CLIP-B,Dealer Report,2026-02-23,Plastic Clip B observation,N,WCL-2026-0049
+FFF-0050,TRIM-INT-001,OEM Portal,2026-02-24,Interior Trim 001 observation,N,WCL-2026-0050
+FFF-0051,TRIM-INT-002,Dealer Report,2026-02-25,Interior Trim 002 observation,N,WCL-2026-0051

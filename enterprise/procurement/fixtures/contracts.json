@@ -1,0 +1,617 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Contract_ID": "CON-0025",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "3.39",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-014"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Contract_ID": "CON-0023",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "2.96",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "BRG-RAD-090",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-022"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Contract_ID": "CON-0001",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "18.5",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-001"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Contract_ID": "CON-0008",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-011"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Contract_ID": "CON-0006",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "BRK-PAD-STD",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-001"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Contract_ID": "CON-0007",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "16.94",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "BRK-ROT-090",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-007"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Contract_ID": "CON-0030",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "CMP-TRIM-A",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-013"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Contract_ID": "CON-0031",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "20.65",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "CMP-TRIM-B",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-013"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Contract_ID": "CON-0005",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "0.83",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "CST-HSG-04",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-005"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Contract_ID": "CON-0021",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "5.13",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "CST-HSG-05",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-005"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Contract_ID": "CON-0022",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "CST-HSG-06",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-023"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Contract_ID": "CON-0033",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "20.32",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-015"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Contract_ID": "CON-0032",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-015"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Contract_ID": "CON-0016",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "ELC-FW-LOAD",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-026"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Contract_ID": "CON-0013",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "5.2",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "ELC-HRN-12V",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-008"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Contract_ID": "CON-0015",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "8.18",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "ELC-MEM-08G",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-027"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Contract_ID": "CON-0014",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-025"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Contract_ID": "CON-0011",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "5.56",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "FRG-LNK-077",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-012"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Contract_ID": "CON-0004",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "FST-M8-100",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-004"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Contract_ID": "CON-0028",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "GEAR-PIN-018",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-021"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Contract_ID": "CON-0029",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "6.83",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "GEAR-SPR-024",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-021"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Contract_ID": "CON-0036",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "HYD-PUMP-A",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-019"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Contract_ID": "CON-0037",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "14.39",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "HYD-PUMP-B",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-019"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Contract_ID": "CON-0024",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-018"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Contract_ID": "CON-0020",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "OPT-FLT-002",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-010"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Contract_ID": "CON-0019",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "6.48",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "OPT-LNS-002",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-010"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Contract_ID": "CON-0038",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "PLA-CLIP-A",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-017"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Contract_ID": "CON-0039",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "11.62",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "PLA-CLIP-B",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-017"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Contract_ID": "CON-0003",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "7.1",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "ROB-ARM-G3",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-003"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Contract_ID": "CON-0012",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "ROB-ARM-G4",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-003"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Contract_ID": "CON-0017",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "6.42",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "SNS-PRX-001",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-009"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Contract_ID": "CON-0018",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "SNS-PRX-002",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-009"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Contract_ID": "CON-0026",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "SPR-COIL-022",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-020"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Contract_ID": "CON-0027",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "11.39",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "SPR-LEAF-118",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-020"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Contract_ID": "CON-0034",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "SRV-MOTOR-220",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-024"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Contract_ID": "CON-0035",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "10.42",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "SRV-MOTOR-330",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-024"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Contract_ID": "CON-0002",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "STM-PNL-A1",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-002"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Contract_ID": "CON-0009",
+      "Contract_Type": "Blanket",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "2.22",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "DAP",
+      "Part_ID": "STM-PNL-B2",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-002"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Contract_ID": "CON-0010",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "STM-PNL-C3",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-006"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Contract_ID": "CON-0040",
+      "Contract_Type": "Spot",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "N",
+      "Expedite_Cost_Per_Unit": "0.0",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "TRIM-INT-001",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-028"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Contract_ID": "CON-0041",
+      "Contract_Type": "LTA",
+      "Currency": "USD",
+      "Effective_Date": "2025-01-01",
+      "Expedite_Allowed": "Y",
+      "Expedite_Cost_Per_Unit": "19.58",
+      "Expiration_Date": "2026-12-31",
+      "Incoterms": "FCA",
+      "Part_ID": "TRIM-INT-002",
+      "Payment_Terms": "Net 45",
+      "Supplier_ID": "SUP-028"
+    }
+  ]
+}

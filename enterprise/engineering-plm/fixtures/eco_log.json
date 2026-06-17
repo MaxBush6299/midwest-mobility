@@ -1,0 +1,535 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0038",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0036",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "BRG-RAD-090",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0014",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "C",
+      "Safety_Review_Required": "Y",
+      "Status": "Released"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0021",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "Y",
+      "Status": "In Review"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0019",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "BRK-PAD-STD",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "Y",
+      "Status": "Released"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0020",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "BRK-ROT-090",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "Y",
+      "Status": "Released"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0043",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CMP-TRIM-A",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0044",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CMP-TRIM-B",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0018",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CST-HSG-04",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0034",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CST-HSG-05",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0035",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CST-HSG-06",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0046",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0045",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0029",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ELC-FW-LOAD",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0026",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ELC-HRN-12V",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0028",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ELC-MEM-08G",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0027",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0024",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "FRG-LNK-077",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0017",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "FST-M8-100",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0041",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "GEAR-PIN-018",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0042",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "GEAR-SPR-024",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0049",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "HYD-PUMP-A",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0050",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "HYD-PUMP-B",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0037",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0033",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "OPT-FLT-002",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0032",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "OPT-LNS-002",
+      "Reason": "Material change for cost reduction",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0051",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "PLA-CLIP-A",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0052",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "PLA-CLIP-B",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0016",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ROB-ARM-G3",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0025",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "ROB-ARM-G4",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0030",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SNS-PRX-001",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Approved_Date": "",
+      "ECO_ID": "ECO-2026-0031",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SNS-PRX-002",
+      "Reason": "Process refinement",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "In Review"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0039",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SPR-COIL-022",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0040",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SPR-LEAF-118",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0047",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SRV-MOTOR-220",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0048",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "SRV-MOTOR-330",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0015",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "STM-PNL-A1",
+      "Reason": "Tolerance tightening",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0022",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "STM-PNL-B2",
+      "Reason": "Supplier casting process update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Closed"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0023",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "STM-PNL-C3",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0053",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "TRIM-INT-001",
+      "Reason": "Cable routing update",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Approved_Date": "2026-01-10",
+      "ECO_ID": "ECO-2026-0054",
+      "Opened_Date": "2025-12-15",
+      "Part_ID": "TRIM-INT-002",
+      "Reason": "Wall thickness optimization",
+      "Revision_From": "A",
+      "Revision_To": "B",
+      "Safety_Review_Required": "N",
+      "Status": "Released"
+    }
+  ]
+}

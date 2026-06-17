@@ -1,0 +1,534 @@
+{
+  "ADH-CYAN-50ML": [
+    {
+      "Feed_ID": "FFF-0035",
+      "Linked_Claim_ID": "WCL-2026-0035",
+      "Part_ID": "ADH-CYAN-50ML",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-09",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Cyanoacrylate 50ml observation"
+    }
+  ],
+  "BRG-RAD-090": [
+    {
+      "Feed_ID": "FFF-0033",
+      "Linked_Claim_ID": "WCL-2026-0033",
+      "Part_ID": "BRG-RAD-090",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-07",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Radial Bearing 090 observation"
+    }
+  ],
+  "BRK-CAL-XYZ": [
+    {
+      "Feed_ID": "FFF-0001",
+      "Linked_Claim_ID": "WCL-2026-0001",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-05",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Brake drag after cold start"
+    },
+    {
+      "Feed_ID": "FFF-0002",
+      "Linked_Claim_ID": "WCL-2026-0002",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-08",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Fluid at caliper seal"
+    },
+    {
+      "Feed_ID": "FFF-0003",
+      "Linked_Claim_ID": "WCL-2026-0003",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-01-11",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Audible brake noise"
+    },
+    {
+      "Feed_ID": "FFF-0004",
+      "Linked_Claim_ID": "WCL-2026-0004",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-14",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Right front brake drag"
+    },
+    {
+      "Feed_ID": "FFF-0005",
+      "Linked_Claim_ID": "WCL-2026-0005",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-17",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Caliper binding during inspection"
+    },
+    {
+      "Feed_ID": "FFF-0006",
+      "Linked_Claim_ID": "WCL-2026-0006",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-01-20",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Brake drag after cold start"
+    },
+    {
+      "Feed_ID": "FFF-0007",
+      "Linked_Claim_ID": "WCL-2026-0007",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-23",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Fluid at caliper seal"
+    },
+    {
+      "Feed_ID": "FFF-0008",
+      "Linked_Claim_ID": "WCL-2026-0008",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-26",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Audible brake noise"
+    },
+    {
+      "Feed_ID": "FFF-0009",
+      "Linked_Claim_ID": "WCL-2026-0009",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-01-29",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Right front brake drag"
+    },
+    {
+      "Feed_ID": "FFF-0010",
+      "Linked_Claim_ID": "WCL-2026-0010",
+      "Part_ID": "BRK-CAL-XYZ",
+      "Potential_Safety": "Y",
+      "Signal_Date": "2026-01-32",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Caliper binding during inspection"
+    }
+  ],
+  "BRK-FLD-DOT4": [
+    {
+      "Feed_ID": "FFF-0018",
+      "Linked_Claim_ID": "WCL-2026-0018",
+      "Part_ID": "BRK-FLD-DOT4",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-19",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Brake Fluid DOT4 observation"
+    }
+  ],
+  "BRK-PAD-STD": [
+    {
+      "Feed_ID": "FFF-0016",
+      "Linked_Claim_ID": "WCL-2026-0016",
+      "Part_ID": "BRK-PAD-STD",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-17",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Brake Pad Standard observation"
+    }
+  ],
+  "BRK-ROT-090": [
+    {
+      "Feed_ID": "FFF-0017",
+      "Linked_Claim_ID": "WCL-2026-0017",
+      "Part_ID": "BRK-ROT-090",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-18",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Brake Rotor 090mm observation"
+    }
+  ],
+  "CMP-TRIM-A": [
+    {
+      "Feed_ID": "FFF-0040",
+      "Linked_Claim_ID": "WCL-2026-0040",
+      "Part_ID": "CMP-TRIM-A",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-14",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Composite Trim A observation"
+    }
+  ],
+  "CMP-TRIM-B": [
+    {
+      "Feed_ID": "FFF-0041",
+      "Linked_Claim_ID": "WCL-2026-0041",
+      "Part_ID": "CMP-TRIM-B",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-15",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Composite Trim B observation"
+    }
+  ],
+  "CST-HSG-04": [
+    {
+      "Feed_ID": "FFF-0015",
+      "Linked_Claim_ID": "WCL-2026-0015",
+      "Part_ID": "CST-HSG-04",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-16",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Cast Housing 04 observation"
+    }
+  ],
+  "CST-HSG-05": [
+    {
+      "Feed_ID": "FFF-0031",
+      "Linked_Claim_ID": "WCL-2026-0031",
+      "Part_ID": "CST-HSG-05",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-05",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Cast Housing 05 observation"
+    }
+  ],
+  "CST-HSG-06": [
+    {
+      "Feed_ID": "FFF-0032",
+      "Linked_Claim_ID": "WCL-2026-0032",
+      "Part_ID": "CST-HSG-06",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-06",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Cast Housing 06 observation"
+    }
+  ],
+  "CTG-PAINT-BLK": [
+    {
+      "Feed_ID": "FFF-0043",
+      "Linked_Claim_ID": "WCL-2026-0043",
+      "Part_ID": "CTG-PAINT-BLK",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-17",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Black Paint Coating observation"
+    }
+  ],
+  "CTG-PAINT-WHT": [
+    {
+      "Feed_ID": "FFF-0042",
+      "Linked_Claim_ID": "WCL-2026-0042",
+      "Part_ID": "CTG-PAINT-WHT",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-16",
+      "Source": "OEM Portal",
+      "Symptom_Text": "White Paint Coating observation"
+    }
+  ],
+  "ELC-FW-LOAD": [
+    {
+      "Feed_ID": "FFF-0026",
+      "Linked_Claim_ID": "WCL-2026-0026",
+      "Part_ID": "ELC-FW-LOAD",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-27",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Firmware Programming observation"
+    }
+  ],
+  "ELC-HRN-12V": [
+    {
+      "Feed_ID": "FFF-0023",
+      "Linked_Claim_ID": "WCL-2026-0023",
+      "Part_ID": "ELC-HRN-12V",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-24",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "12V Wiring Harness observation"
+    }
+  ],
+  "ELC-MEM-08G": [
+    {
+      "Feed_ID": "FFF-0025",
+      "Linked_Claim_ID": "WCL-2026-0025",
+      "Part_ID": "ELC-MEM-08G",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-26",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Memory Module 8G observation"
+    }
+  ],
+  "ELC-PCB-MAIN": [
+    {
+      "Feed_ID": "FFF-0024",
+      "Linked_Claim_ID": "WCL-2026-0024",
+      "Part_ID": "ELC-PCB-MAIN",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-25",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Main PCB Assembly observation"
+    }
+  ],
+  "FRG-LNK-077": [
+    {
+      "Feed_ID": "FFF-0021",
+      "Linked_Claim_ID": "WCL-2026-0021",
+      "Part_ID": "FRG-LNK-077",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-22",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Forged Link 077 observation"
+    }
+  ],
+  "FST-M8-100": [
+    {
+      "Feed_ID": "FFF-0014",
+      "Linked_Claim_ID": "WCL-2026-0014",
+      "Part_ID": "FST-M8-100",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-15",
+      "Source": "Dealer Report",
+      "Symptom_Text": "M8 Fastener Pack observation"
+    }
+  ],
+  "GEAR-PIN-018": [
+    {
+      "Feed_ID": "FFF-0038",
+      "Linked_Claim_ID": "WCL-2026-0038",
+      "Part_ID": "GEAR-PIN-018",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-12",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Pinion Gear 018 observation"
+    }
+  ],
+  "GEAR-SPR-024": [
+    {
+      "Feed_ID": "FFF-0039",
+      "Linked_Claim_ID": "WCL-2026-0039",
+      "Part_ID": "GEAR-SPR-024",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-13",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Spur Gear 024 observation"
+    }
+  ],
+  "HYD-PUMP-A": [
+    {
+      "Feed_ID": "FFF-0046",
+      "Linked_Claim_ID": "WCL-2026-0046",
+      "Part_ID": "HYD-PUMP-A",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-20",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Hydraulic Pump A observation"
+    }
+  ],
+  "HYD-PUMP-B": [
+    {
+      "Feed_ID": "FFF-0047",
+      "Linked_Claim_ID": "WCL-2026-0047",
+      "Part_ID": "HYD-PUMP-B",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-21",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Hydraulic Pump B observation"
+    }
+  ],
+  "LUB-OIL-MULTI": [
+    {
+      "Feed_ID": "FFF-0034",
+      "Linked_Claim_ID": "WCL-2026-0034",
+      "Part_ID": "LUB-OIL-MULTI",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-08",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Multi-purpose Oil observation"
+    }
+  ],
+  "OPT-FLT-002": [
+    {
+      "Feed_ID": "FFF-0030",
+      "Linked_Claim_ID": "WCL-2026-0030",
+      "Part_ID": "OPT-FLT-002",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-04",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Optical Filter 002 observation"
+    }
+  ],
+  "OPT-LNS-002": [
+    {
+      "Feed_ID": "FFF-0029",
+      "Linked_Claim_ID": "WCL-2026-0029",
+      "Part_ID": "OPT-LNS-002",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-03",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Optical Lens 002 observation"
+    }
+  ],
+  "PLA-CLIP-A": [
+    {
+      "Feed_ID": "FFF-0048",
+      "Linked_Claim_ID": "WCL-2026-0048",
+      "Part_ID": "PLA-CLIP-A",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-22",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Plastic Clip A observation"
+    }
+  ],
+  "PLA-CLIP-B": [
+    {
+      "Feed_ID": "FFF-0049",
+      "Linked_Claim_ID": "WCL-2026-0049",
+      "Part_ID": "PLA-CLIP-B",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-23",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Plastic Clip B observation"
+    }
+  ],
+  "ROB-ARM-G3": [
+    {
+      "Feed_ID": "FFF-0013",
+      "Linked_Claim_ID": "WCL-2026-0013",
+      "Part_ID": "ROB-ARM-G3",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-14",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Robot Arm Gen3 observation"
+    }
+  ],
+  "ROB-ARM-G4": [
+    {
+      "Feed_ID": "FFF-0022",
+      "Linked_Claim_ID": "WCL-2026-0022",
+      "Part_ID": "ROB-ARM-G4",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-23",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Robot Arm Gen4 observation"
+    }
+  ],
+  "SNS-PRX-001": [
+    {
+      "Feed_ID": "FFF-0027",
+      "Linked_Claim_ID": "WCL-2026-0027",
+      "Part_ID": "SNS-PRX-001",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-01",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Proximity Sensor 001 observation"
+    }
+  ],
+  "SNS-PRX-002": [
+    {
+      "Feed_ID": "FFF-0028",
+      "Linked_Claim_ID": "WCL-2026-0028",
+      "Part_ID": "SNS-PRX-002",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-02",
+      "Source": "Fleet Telematics",
+      "Symptom_Text": "Proximity Sensor 002 observation"
+    }
+  ],
+  "SPR-COIL-022": [
+    {
+      "Feed_ID": "FFF-0036",
+      "Linked_Claim_ID": "WCL-2026-0036",
+      "Part_ID": "SPR-COIL-022",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-10",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Coil Spring 022 observation"
+    }
+  ],
+  "SPR-LEAF-118": [
+    {
+      "Feed_ID": "FFF-0037",
+      "Linked_Claim_ID": "WCL-2026-0037",
+      "Part_ID": "SPR-LEAF-118",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-11",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Leaf Spring 118 observation"
+    }
+  ],
+  "SRV-MOTOR-220": [
+    {
+      "Feed_ID": "FFF-0044",
+      "Linked_Claim_ID": "WCL-2026-0044",
+      "Part_ID": "SRV-MOTOR-220",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-18",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Servo Motor 220 observation"
+    }
+  ],
+  "SRV-MOTOR-330": [
+    {
+      "Feed_ID": "FFF-0045",
+      "Linked_Claim_ID": "WCL-2026-0045",
+      "Part_ID": "SRV-MOTOR-330",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-19",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Servo Motor 330 observation"
+    }
+  ],
+  "STM-PNL-A1": [
+    {
+      "Feed_ID": "FFF-0012",
+      "Linked_Claim_ID": "WCL-2026-0012",
+      "Part_ID": "STM-PNL-A1",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-13",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Stamped Panel A1 observation"
+    }
+  ],
+  "STM-PNL-B2": [
+    {
+      "Feed_ID": "FFF-0019",
+      "Linked_Claim_ID": "WCL-2026-0019",
+      "Part_ID": "STM-PNL-B2",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-20",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Stamped Panel B2 observation"
+    }
+  ],
+  "STM-PNL-C3": [
+    {
+      "Feed_ID": "FFF-0020",
+      "Linked_Claim_ID": "WCL-2026-0020",
+      "Part_ID": "STM-PNL-C3",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-21",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Stamped Panel C3 observation"
+    }
+  ],
+  "TRIM-INT-001": [
+    {
+      "Feed_ID": "FFF-0050",
+      "Linked_Claim_ID": "WCL-2026-0050",
+      "Part_ID": "TRIM-INT-001",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-24",
+      "Source": "OEM Portal",
+      "Symptom_Text": "Interior Trim 001 observation"
+    }
+  ],
+  "TRIM-INT-002": [
+    {
+      "Feed_ID": "FFF-0051",
+      "Linked_Claim_ID": "WCL-2026-0051",
+      "Part_ID": "TRIM-INT-002",
+      "Potential_Safety": "N",
+      "Signal_Date": "2026-02-25",
+      "Source": "Dealer Report",
+      "Symptom_Text": "Interior Trim 002 observation"
+    }
+  ]
+}

@@ -1,0 +1,371 @@
+{
+  "ADH-CYAN-50ML": {
+    "Allocated_Qty": "128",
+    "Days_Of_Supply": "28",
+    "On_Hand_Qty": "195",
+    "Part_ID": "ADH-CYAN-50ML",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "60",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "BRG-RAD-090": {
+    "Allocated_Qty": "84",
+    "Days_Of_Supply": "25",
+    "On_Hand_Qty": "159",
+    "Part_ID": "BRG-RAD-090",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "BRK-CAL-XYZ": {
+    "Allocated_Qty": "28",
+    "Days_Of_Supply": "4",
+    "On_Hand_Qty": "32",
+    "Part_ID": "BRK-CAL-XYZ",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "50",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "BRK-FLD-DOT4": {
+    "Allocated_Qty": "178",
+    "Days_Of_Supply": "52",
+    "On_Hand_Qty": "204",
+    "Part_ID": "BRK-FLD-DOT4",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "BRK-PAD-STD": {
+    "Allocated_Qty": "385",
+    "Days_Of_Supply": "21",
+    "On_Hand_Qty": "402",
+    "Part_ID": "BRK-PAD-STD",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "60",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "BRK-ROT-090": {
+    "Allocated_Qty": "343",
+    "Days_Of_Supply": "41",
+    "On_Hand_Qty": "352",
+    "Part_ID": "BRK-ROT-090",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CMP-TRIM-A": {
+    "Allocated_Qty": "117",
+    "Days_Of_Supply": "21",
+    "On_Hand_Qty": "195",
+    "Part_ID": "CMP-TRIM-A",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CMP-TRIM-B": {
+    "Allocated_Qty": "83",
+    "Days_Of_Supply": "17",
+    "On_Hand_Qty": "140",
+    "Part_ID": "CMP-TRIM-B",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CST-HSG-04": {
+    "Allocated_Qty": "264",
+    "Days_Of_Supply": "4",
+    "On_Hand_Qty": "327",
+    "Part_ID": "CST-HSG-04",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CST-HSG-05": {
+    "Allocated_Qty": "206",
+    "Days_Of_Supply": "59",
+    "On_Hand_Qty": "272",
+    "Part_ID": "CST-HSG-05",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CST-HSG-06": {
+    "Allocated_Qty": "349",
+    "Days_Of_Supply": "48",
+    "On_Hand_Qty": "422",
+    "Part_ID": "CST-HSG-06",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CTG-PAINT-BLK": {
+    "Allocated_Qty": "351",
+    "Days_Of_Supply": "16",
+    "On_Hand_Qty": "400",
+    "Part_ID": "CTG-PAINT-BLK",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "CTG-PAINT-WHT": {
+    "Allocated_Qty": "272",
+    "Days_Of_Supply": "8",
+    "On_Hand_Qty": "282",
+    "Part_ID": "CTG-PAINT-WHT",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ELC-FW-LOAD": {
+    "Allocated_Qty": "166",
+    "Days_Of_Supply": "6",
+    "On_Hand_Qty": "185",
+    "Part_ID": "ELC-FW-LOAD",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ELC-HRN-12V": {
+    "Allocated_Qty": "255",
+    "Days_Of_Supply": "44",
+    "On_Hand_Qty": "302",
+    "Part_ID": "ELC-HRN-12V",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ELC-MEM-08G": {
+    "Allocated_Qty": "269",
+    "Days_Of_Supply": "47",
+    "On_Hand_Qty": "339",
+    "Part_ID": "ELC-MEM-08G",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ELC-PCB-MAIN": {
+    "Allocated_Qty": "114",
+    "Days_Of_Supply": "60",
+    "On_Hand_Qty": "123",
+    "Part_ID": "ELC-PCB-MAIN",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "FRG-LNK-077": {
+    "Allocated_Qty": "65",
+    "Days_Of_Supply": "32",
+    "On_Hand_Qty": "90",
+    "Part_ID": "FRG-LNK-077",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "FST-M8-100": {
+    "Allocated_Qty": "442",
+    "Days_Of_Supply": "43",
+    "On_Hand_Qty": "447",
+    "Part_ID": "FST-M8-100",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "520",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "GEAR-PIN-018": {
+    "Allocated_Qty": "264",
+    "Days_Of_Supply": "32",
+    "On_Hand_Qty": "357",
+    "Part_ID": "GEAR-PIN-018",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "GEAR-SPR-024": {
+    "Allocated_Qty": "242",
+    "Days_Of_Supply": "51",
+    "On_Hand_Qty": "299",
+    "Part_ID": "GEAR-SPR-024",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "HYD-PUMP-A": {
+    "Allocated_Qty": "78",
+    "Days_Of_Supply": "29",
+    "On_Hand_Qty": "173",
+    "Part_ID": "HYD-PUMP-A",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "HYD-PUMP-B": {
+    "Allocated_Qty": "90",
+    "Days_Of_Supply": "35",
+    "On_Hand_Qty": "139",
+    "Part_ID": "HYD-PUMP-B",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "LUB-OIL-MULTI": {
+    "Allocated_Qty": "96",
+    "Days_Of_Supply": "62",
+    "On_Hand_Qty": "100",
+    "Part_ID": "LUB-OIL-MULTI",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "OPT-FLT-002": {
+    "Allocated_Qty": "356",
+    "Days_Of_Supply": "32",
+    "On_Hand_Qty": "407",
+    "Part_ID": "OPT-FLT-002",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "OPT-LNS-002": {
+    "Allocated_Qty": "170",
+    "Days_Of_Supply": "38",
+    "On_Hand_Qty": "188",
+    "Part_ID": "OPT-LNS-002",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "PLA-CLIP-A": {
+    "Allocated_Qty": "91",
+    "Days_Of_Supply": "52",
+    "On_Hand_Qty": "167",
+    "Part_ID": "PLA-CLIP-A",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "120",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "PLA-CLIP-B": {
+    "Allocated_Qty": "105",
+    "Days_Of_Supply": "32",
+    "On_Hand_Qty": "106",
+    "Part_ID": "PLA-CLIP-B",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "120",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ROB-ARM-G3": {
+    "Allocated_Qty": "342",
+    "Days_Of_Supply": "22",
+    "On_Hand_Qty": "426",
+    "Part_ID": "ROB-ARM-G3",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "ROB-ARM-G4": {
+    "Allocated_Qty": "284",
+    "Days_Of_Supply": "12",
+    "On_Hand_Qty": "344",
+    "Part_ID": "ROB-ARM-G4",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SNS-PRX-001": {
+    "Allocated_Qty": "29",
+    "Days_Of_Supply": "57",
+    "On_Hand_Qty": "112",
+    "Part_ID": "SNS-PRX-001",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SNS-PRX-002": {
+    "Allocated_Qty": "86",
+    "Days_Of_Supply": "23",
+    "On_Hand_Qty": "133",
+    "Part_ID": "SNS-PRX-002",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SPR-COIL-022": {
+    "Allocated_Qty": "51",
+    "Days_Of_Supply": "53",
+    "On_Hand_Qty": "100",
+    "Part_ID": "SPR-COIL-022",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "60",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SPR-LEAF-118": {
+    "Allocated_Qty": "83",
+    "Days_Of_Supply": "5",
+    "On_Hand_Qty": "128",
+    "Part_ID": "SPR-LEAF-118",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SRV-MOTOR-220": {
+    "Allocated_Qty": "363",
+    "Days_Of_Supply": "40",
+    "On_Hand_Qty": "389",
+    "Part_ID": "SRV-MOTOR-220",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "SRV-MOTOR-330": {
+    "Allocated_Qty": "321",
+    "Days_Of_Supply": "17",
+    "On_Hand_Qty": "336",
+    "Part_ID": "SRV-MOTOR-330",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "STM-PNL-A1": {
+    "Allocated_Qty": "0",
+    "Days_Of_Supply": "37",
+    "On_Hand_Qty": "61",
+    "Part_ID": "STM-PNL-A1",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "STM-PNL-B2": {
+    "Allocated_Qty": "143",
+    "Days_Of_Supply": "27",
+    "On_Hand_Qty": "187",
+    "Part_ID": "STM-PNL-B2",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "STM-PNL-C3": {
+    "Allocated_Qty": "66",
+    "Days_Of_Supply": "54",
+    "On_Hand_Qty": "80",
+    "Part_ID": "STM-PNL-C3",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "30",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "TRIM-INT-001": {
+    "Allocated_Qty": "226",
+    "Days_Of_Supply": "5",
+    "On_Hand_Qty": "303",
+    "Part_ID": "TRIM-INT-001",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  },
+  "TRIM-INT-002": {
+    "Allocated_Qty": "104",
+    "Days_Of_Supply": "36",
+    "On_Hand_Qty": "129",
+    "Part_ID": "TRIM-INT-002",
+    "Plant_ID": "plant7",
+    "Reorder_Point": "40",
+    "Stocking_Location": "MMC_P7-CRIB"
+  }
+}

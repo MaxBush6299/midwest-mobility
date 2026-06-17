@@ -1,0 +1,42 @@
+Part_ID,Part_Name,Revision,Lifecycle_State,Material,Safety_Critical,Program_Code,Owning_Engineer
+BRK-CAL-XYZ,Brake Caliper Assembly,C,Released,Ductile Iron,Y,EV-BRK-26,Dana Patel
+STM-PNL-A1,Stamped Panel A1,B,Released,HSLA Steel,N,MMC-BODY-25,Riley Chen
+ROB-ARM-G3,Robot Arm Gen3,A,Released,Aluminum,N,MMC-AUTO-24,Jordan Lee
+FST-M8-100,M8 Fastener Pack,B,Released,Steel,N,MMC-GEN,Sam Rivera
+CST-HSG-04,Cast Housing 04,A,Released,Aluminum,N,MMC-CAST-25,Avery Kim
+BRK-PAD-STD,Brake Pad Standard,B,Released,Ductile Iron,Y,EV-BRK-26,Morgan Brooks
+BRK-ROT-090,Brake Rotor 090mm,A,Released,Ductile Iron,Y,EV-BRK-26,Casey Park
+BRK-FLD-DOT4,Brake Fluid DOT4,B,Released,Ductile Iron,Y,EV-BRK-26,Dana Patel
+STM-PNL-B2,Stamped Panel B2,A,Released,HSLA Steel,N,MMC-BODY-25,Riley Chen
+STM-PNL-C3,Stamped Panel C3,B,Released,HSLA Steel,N,MMC-BODY-25,Jordan Lee
+FRG-LNK-077,Forged Link 077,A,Released,Steel,N,MMC-GEN,Sam Rivera
+ROB-ARM-G4,Robot Arm Gen4,B,Released,Aluminum,N,MMC-AUTO-24,Avery Kim
+ELC-HRN-12V,12V Wiring Harness,A,Released,Composite,N,MMC-AUTO-24,Morgan Brooks
+ELC-PCB-MAIN,Main PCB Assembly,B,Released,Composite,N,MMC-AUTO-24,Casey Park
+ELC-MEM-08G,Memory Module 8G,A,Released,Composite,N,MMC-AUTO-24,Dana Patel
+ELC-FW-LOAD,Firmware Programming,B,Released,Composite,N,MMC-AUTO-24,Riley Chen
+SNS-PRX-001,Proximity Sensor 001,A,Released,Polymer,N,MMC-AUTO-24,Jordan Lee
+SNS-PRX-002,Proximity Sensor 002,B,Released,Polymer,N,MMC-AUTO-24,Sam Rivera
+OPT-LNS-002,Optical Lens 002,A,Released,Glass,N,MMC-AUTO-24,Avery Kim
+OPT-FLT-002,Optical Filter 002,B,Released,Glass,N,MMC-AUTO-24,Morgan Brooks
+CST-HSG-05,Cast Housing 05,A,Released,Aluminum,N,MMC-CAST-25,Casey Park
+CST-HSG-06,Cast Housing 06,B,Released,Aluminum,N,MMC-CAST-25,Dana Patel
+BRG-RAD-090,Radial Bearing 090,A,Released,Steel,N,MMC-GEN,Riley Chen
+LUB-OIL-MULTI,Multi-purpose Oil,B,Released,Synthetic,N,MMC-GEN,Jordan Lee
+ADH-CYAN-50ML,Cyanoacrylate 50ml,A,Released,Polymer,N,MMC-GEN,Sam Rivera
+SPR-COIL-022,Coil Spring 022,B,Released,Spring Steel,N,MMC-GEN,Avery Kim
+SPR-LEAF-118,Leaf Spring 118,A,Released,Spring Steel,N,MMC-GEN,Morgan Brooks
+GEAR-PIN-018,Pinion Gear 018,B,Released,Steel,N,MMC-GEN,Casey Park
+GEAR-SPR-024,Spur Gear 024,A,Released,Steel,N,MMC-GEN,Dana Patel
+CMP-TRIM-A,Composite Trim A,B,Released,Composite,N,MMC-GEN,Riley Chen
+CMP-TRIM-B,Composite Trim B,A,Released,Composite,N,MMC-GEN,Jordan Lee
+CTG-PAINT-WHT,White Paint Coating,B,Released,Coating,N,MMC-GEN,Sam Rivera
+CTG-PAINT-BLK,Black Paint Coating,A,Released,Coating,N,MMC-GEN,Avery Kim
+SRV-MOTOR-220,Servo Motor 220,B,Released,Steel,N,MMC-GEN,Morgan Brooks
+SRV-MOTOR-330,Servo Motor 330,A,Released,Steel,N,MMC-GEN,Casey Park
+HYD-PUMP-A,Hydraulic Pump A,B,Released,Steel,N,MMC-GEN,Dana Patel
+HYD-PUMP-B,Hydraulic Pump B,A,Released,Steel,N,MMC-GEN,Riley Chen
+PLA-CLIP-A,Plastic Clip A,B,Released,Polymer,N,MMC-GEN,Jordan Lee
+PLA-CLIP-B,Plastic Clip B,A,Released,Polymer,N,MMC-GEN,Sam Rivera
+TRIM-INT-001,Interior Trim 001,B,Released,Polymer,N,MMC-GEN,Avery Kim
+TRIM-INT-002,Interior Trim 002,A,Released,Polymer,N,MMC-GEN,Morgan Brooks

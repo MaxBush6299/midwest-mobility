@@ -1,0 +1,42 @@
+Shipment_ID,Supplier_ID,Part_ID,Carrier,Origin,Destination,ETA_Date,Status,Delay_Days
+TMS-0001,SUP-001,BRK-CAL-XYZ,NorthStar Logistics,Indianapolis IN,MMC_P7 Receiving,2026-02-01,Delayed,21
+TMS-0002,SUP-002,STM-PNL-A1,Lake Freight,Indianapolis IN,MMC_P7 Receiving,2026-03-02,Watch,2
+TMS-0003,SUP-003,ROB-ARM-G3,EuroLink Air,Hamburg DE,MMC_P7 Receiving,2026-04-03,Delayed,0
+TMS-0004,SUP-004,FST-M8-100,Midwest LTL,Indianapolis IN,MMC_P7 Receiving,2026-02-04,On Time,0
+TMS-0005,SUP-005,CST-HSG-04,Borderline Freight,Monterrey MX,MMC_P7 Receiving,2026-03-05,On Time,0
+TMS-0006,SUP-001,BRK-PAD-STD,Pacific Cargo,Indianapolis IN,MMC_P7 Receiving,2026-04-06,On Time,0
+TMS-0007,SUP-007,BRK-ROT-090,Atlas Rail,Indianapolis IN,MMC_P7 Receiving,2026-02-07,Watch,2
+TMS-0008,SUP-011,BRK-FLD-DOT4,NorthStar Logistics,Indianapolis IN,MMC_P7 Receiving,2026-03-08,Delayed,0
+TMS-0009,SUP-002,STM-PNL-B2,Lake Freight,Indianapolis IN,MMC_P7 Receiving,2026-04-09,On Time,0
+TMS-0010,SUP-006,STM-PNL-C3,EuroLink Air,Indianapolis IN,MMC_P7 Receiving,2026-02-10,On Time,0
+TMS-0011,SUP-012,FRG-LNK-077,Midwest LTL,Indianapolis IN,MMC_P7 Receiving,2026-03-11,On Time,0
+TMS-0012,SUP-003,ROB-ARM-G4,Borderline Freight,Hamburg DE,MMC_P7 Receiving,2026-04-12,Watch,2
+TMS-0013,SUP-008,ELC-HRN-12V,Pacific Cargo,Yokohama JP,MMC_P7 Receiving,2026-02-13,Delayed,0
+TMS-0014,SUP-025,ELC-PCB-MAIN,Atlas Rail,Shenzhen CN,MMC_P7 Receiving,2026-03-14,On Time,0
+TMS-0015,SUP-027,ELC-MEM-08G,NorthStar Logistics,Indianapolis IN,MMC_P7 Receiving,2026-04-15,On Time,0
+TMS-0016,SUP-026,ELC-FW-LOAD,Lake Freight,Indianapolis IN,MMC_P7 Receiving,2026-02-16,On Time,0
+TMS-0017,SUP-009,SNS-PRX-001,EuroLink Air,Indianapolis IN,MMC_P7 Receiving,2026-03-17,Watch,2
+TMS-0018,SUP-009,SNS-PRX-002,Midwest LTL,Indianapolis IN,MMC_P7 Receiving,2026-04-18,Delayed,0
+TMS-0019,SUP-010,OPT-LNS-002,Borderline Freight,Indianapolis IN,MMC_P7 Receiving,2026-02-19,On Time,0
+TMS-0020,SUP-010,OPT-FLT-002,Pacific Cargo,Indianapolis IN,MMC_P7 Receiving,2026-03-20,On Time,0
+TMS-0021,SUP-005,CST-HSG-05,Atlas Rail,Monterrey MX,MMC_P7 Receiving,2026-04-21,On Time,0
+TMS-0022,SUP-023,CST-HSG-06,NorthStar Logistics,Monterrey MX,MMC_P7 Receiving,2026-02-22,Watch,2
+TMS-0023,SUP-022,BRG-RAD-090,Lake Freight,Yokohama JP,MMC_P7 Receiving,2026-03-23,Delayed,0
+TMS-0024,SUP-018,LUB-OIL-MULTI,EuroLink Air,Indianapolis IN,MMC_P7 Receiving,2026-04-24,On Time,0
+TMS-0025,SUP-014,ADH-CYAN-50ML,Midwest LTL,Indianapolis IN,MMC_P7 Receiving,2026-02-25,On Time,0
+TMS-0026,SUP-020,SPR-COIL-022,Borderline Freight,Indianapolis IN,MMC_P7 Receiving,2026-03-26,On Time,0
+TMS-0027,SUP-020,SPR-LEAF-118,Pacific Cargo,Indianapolis IN,MMC_P7 Receiving,2026-04-27,Watch,2
+TMS-0028,SUP-021,GEAR-PIN-018,Atlas Rail,Indianapolis IN,MMC_P7 Receiving,2026-02-01,Delayed,0
+TMS-0029,SUP-021,GEAR-SPR-024,NorthStar Logistics,Indianapolis IN,MMC_P7 Receiving,2026-03-02,On Time,0
+TMS-0030,SUP-013,CMP-TRIM-A,Lake Freight,Indianapolis IN,MMC_P7 Receiving,2026-04-03,On Time,0
+TMS-0031,SUP-013,CMP-TRIM-B,EuroLink Air,Indianapolis IN,MMC_P7 Receiving,2026-02-04,On Time,0
+TMS-0032,SUP-015,CTG-PAINT-WHT,Midwest LTL,Hamburg DE,MMC_P7 Receiving,2026-03-05,Watch,2
+TMS-0033,SUP-015,CTG-PAINT-BLK,Borderline Freight,Hamburg DE,MMC_P7 Receiving,2026-04-06,Delayed,0
+TMS-0034,SUP-024,SRV-MOTOR-220,Pacific Cargo,Indianapolis IN,MMC_P7 Receiving,2026-02-07,On Time,0
+TMS-0035,SUP-024,SRV-MOTOR-330,Atlas Rail,Indianapolis IN,MMC_P7 Receiving,2026-03-08,On Time,0
+TMS-0036,SUP-019,HYD-PUMP-A,NorthStar Logistics,Busan KR,MMC_P7 Receiving,2026-04-09,On Time,0
+TMS-0037,SUP-019,HYD-PUMP-B,Lake Freight,Busan KR,MMC_P7 Receiving,2026-02-10,Watch,2
+TMS-0038,SUP-017,PLA-CLIP-A,EuroLink Air,Indianapolis IN,MMC_P7 Receiving,2026-03-11,Delayed,0
+TMS-0039,SUP-017,PLA-CLIP-B,Midwest LTL,Indianapolis IN,MMC_P7 Receiving,2026-04-12,On Time,0
+TMS-0040,SUP-028,TRIM-INT-001,Borderline Freight,Indianapolis IN,MMC_P7 Receiving,2026-02-13,On Time,0
+TMS-0041,SUP-028,TRIM-INT-002,Pacific Cargo,Indianapolis IN,MMC_P7 Receiving,2026-03-14,On Time,0

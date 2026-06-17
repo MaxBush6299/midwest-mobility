@@ -1,0 +1,47 @@
+{
+  "REC-001": {
+    "Action": "Open safety review",
+    "Applies_To_Safety_Critical": "Y",
+    "Metric": "High severity claims",
+    "Part_Family": "Brake",
+    "Rule_ID": "REC-001",
+    "Threshold_Count": "5",
+    "Window_Days": "60"
+  },
+  "REC-002": {
+    "Action": "Escalate to recall council",
+    "Applies_To_Safety_Critical": "Y",
+    "Metric": "Potential safety field failures",
+    "Part_Family": "Brake",
+    "Rule_ID": "REC-002",
+    "Threshold_Count": "3",
+    "Window_Days": "60"
+  },
+  "REC-003": {
+    "Action": "Quality trend review",
+    "Applies_To_Safety_Critical": "N",
+    "Metric": "Repeat cosmetic claims",
+    "Part_Family": "General",
+    "Rule_ID": "REC-003",
+    "Threshold_Count": "20",
+    "Window_Days": "90"
+  },
+  "REC-004": {
+    "Action": "EHS engineering review",
+    "Applies_To_Safety_Critical": "Y",
+    "Metric": "Unexpected motion reports",
+    "Part_Family": "Robot",
+    "Rule_ID": "REC-004",
+    "Threshold_Count": "2",
+    "Window_Days": "30"
+  },
+  "REC-005": {
+    "Action": "Containment review",
+    "Applies_To_Safety_Critical": "Y",
+    "Metric": "Jam-related injuries",
+    "Part_Family": "Conveyor",
+    "Rule_ID": "REC-005",
+    "Threshold_Count": "3",
+    "Window_Days": "90"
+  }
+}

@@ -1,0 +1,7 @@
+Program_Code,Milestone,Owner,Due_Date,Status,Risk
+EV-BRK-26,Brake system launch readiness,Program Mgmt,2026-03-01,At Risk,Supplier disruption affects L1 brake caliper build
+EV-BRK-26,Customer PPAP confirmation,Quality,2026-02-20,At Risk,Warranty claims under review
+MMC-BODY-25,Panel refresh launch,Engineering,2026-04-15,Green,No material risk
+MMC-AUTO-24,Robot cell sustaining,Ops,2026-03-30,Green,No material risk
+MMC-GEN,General service parts,Supply Chain,2026-02-28,Green,No material risk
+MMC-CAST-25,Cast housing program review,Engineering,2026-05-15,Green,No material risk
