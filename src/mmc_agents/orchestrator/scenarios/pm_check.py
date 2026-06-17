@@ -2,6 +2,11 @@
 
 Grounded in MMC_P7_PM_Schedule.csv (Location='Line 1',
 Follow_Up_WO column, Findings column).
+
+The quality agent owns the ``quality_ops`` KB source which contains
+``08_Logs_Data/MMC_P7_PM_Schedule.csv`` — see plants/plant7/profile.yaml.
+The maintenance agent has the PM procedures (PM_Program_Overview.md) but
+NOT the actual schedule/log data.
 """
 
 PROBLEM_STATEMENT = (

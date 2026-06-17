@@ -2,6 +2,9 @@
 
 Grounded in MMC_P7_Training_Log.csv (Course_Category=Safety,
 Training_Course='LOTO Authorized Person', Expiration_Date column).
+
+The training agent owns the ``quality_ops`` KB source which contains
+``08_Logs_Data/MMC_P7_Training_Log.csv`` — see plants/plant7/profile.yaml.
 """
 
 PROBLEM_STATEMENT = (

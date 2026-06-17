@@ -60,10 +60,10 @@ SCENARIOS: dict[str, ScenarioSpec] = {
             "Plant-only check grounded in <code>MMC_P7_Training_Log.csv</code>: "
             "list every Plant 7 employee whose <em>LOTO Authorized Person</em> "
             "training expires before 2026-12-31. <em>~3-5 hops, 1 agent "
-            "(EHS).</em>"
+            "(training).</em>"
         ),
         problem_statement=training_gap.PROBLEM_STATEMENT,
-        participants=("plant7-ehs",),
+        participants=("plant7-training",),
         max_rounds=5,
     ),
     "po_status": ScenarioSpec(
@@ -84,10 +84,10 @@ SCENARIOS: dict[str, ScenarioSpec] = {
         blurb=(
             "Plant-only check grounded in <code>MMC_P7_PM_Schedule.csv</code>: "
             "Line 1 PM tasks that generated follow-up work orders this quarter. "
-            "<em>~3-5 hops, 1 agent (maintenance).</em>"
+            "<em>~3-5 hops, 1 agent (quality — owns the logs KB).</em>"
         ),
         problem_statement=pm_check.PROBLEM_STATEMENT,
-        participants=("plant7-maintenance",),
+        participants=("plant7-quality",),
         max_rounds=5,
     ),
 }
