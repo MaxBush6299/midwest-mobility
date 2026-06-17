@@ -14,13 +14,27 @@ def lookup(supplier_id: str) -> dict:
         return {"status": "not_found", "supplier_id": supplier_id}
     return hit
 
-@tool(description="Find alternate suppliers for a given part. Returns list (possibly empty).")
+@tool(description="Find alternate suppliers for a given part. Returns list (possibly empty); a single-element list with status='NO_DIRECT_ALT' signals a supplier dead-end requiring manager backtrack.")
 def alternates(part_id: str) -> list[dict]:
     bom = load_fixture(_FIX_BOM, part_id)
     if bom is None:
         return []
     incumbent = bom["Supplier_ID"]
-    plant = bom["Plant_ID"]; line = bom["Line_ID"]
+    plant = bom["Plant_ID"]
+    line = bom["Line_ID"]
+    if bom.get("Alt_Source_Status") == "NO_DIRECT_ALT":
+        return [{
+            "status": "NO_DIRECT_ALT",
+            "part_id": part_id,
+            "incumbent_supplier_id": incumbent,
+            "plant_id": plant,
+            "line_id": line,
+            "note": (
+                "No qualified alternate supplier exists for this part on this "
+                "line; manager should backtrack to procurement, PLM, or demand "
+                "for a different mitigation dimension."
+            ),
+        }]
     all_bom = _read(str(_FIX_BOM))
     all_sup = _read(str(_FIX_SUP))
     other_sup_ids = {r["Supplier_ID"] for r in all_bom.values()

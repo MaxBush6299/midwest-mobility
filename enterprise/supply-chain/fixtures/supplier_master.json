@@ -4,7 +4,7 @@
     "Disruption_Days": "21",
     "Disruption_Flag": "Y",
     "Lead_Time_Days": "14",
-    "Notes": "No direct alternate source for BRK-CAL-XYZ; requires manager backtrack",
+    "Notes": "NO_DIRECT_ALT for BRK-CAL-XYZ; manager must backtrack to procurement/PLM/demand",
     "Preferred_Alt_Supplier_ID": "",
     "Primary_Commodity": "Brake Systems",
     "Qualification_Status": "Critical",

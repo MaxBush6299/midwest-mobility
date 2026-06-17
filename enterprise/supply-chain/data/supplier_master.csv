@@ -1,5 +1,5 @@
 Supplier_ID,Supplier_Name,Tier,Country,Primary_Commodity,Qualification_Status,Lead_Time_Days,Disruption_Flag,Disruption_Days,Risk_Score,Preferred_Alt_Supplier_ID,Notes
-SUP-001,Acme Brakes,1,US,Brake Systems,Critical,14,Y,21,High,,No direct alternate source for BRK-CAL-XYZ; requires manager backtrack
+SUP-001,Acme Brakes,1,US,Brake Systems,Critical,14,Y,21,High,,NO_DIRECT_ALT for BRK-CAL-XYZ; manager must backtrack to procurement/PLM/demand
 SUP-002,Midwest Stampings,2,US,Stamped Components,Approved,10,N,0,Low,SUP-006,Approved backup for L1 stampings
 SUP-003,Globex Robotics,1,DE,Robotics,Approved,28,N,0,Medium,SUP-008,L2 robot-cell components
 SUP-004,Initech Fasteners,2,US,Fasteners,Approved,7,N,0,Low,SUP-009,Common M8/M10 packs

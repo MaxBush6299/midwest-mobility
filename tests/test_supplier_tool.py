@@ -11,9 +11,17 @@ def test_lookup_acme():
 def test_lookup_unknown():
     assert lookup("SUP-999") == {"status": "not_found", "supplier_id": "SUP-999"}
 
-def test_alternates_returns_other_supplier_when_part_known():
-    # For the thin slice, alternates is keyed by part_id; returns ALL other suppliers
-    # of parts at the same plant/line as a deterministic placeholder.
+def test_alternates_returns_no_direct_alt_for_brake_caliper():
+    """Gate B Task 27 — BRK-CAL-XYZ is the demo NO_DIRECT_ALT trigger so the
+    Magentic manager must backtrack to procurement/PLM/demand."""
     alts = alternates("BRK-CAL-XYZ")
+    assert isinstance(alts, list) and len(alts) == 1
+    assert alts[0]["status"] == "NO_DIRECT_ALT"
+    assert alts[0]["incumbent_supplier_id"] == "SUP-001"
+
+
+def test_alternates_returns_other_suppliers_when_part_has_approved_alts():
+    alts = alternates("STM-PNL-A1")
     assert isinstance(alts, list)
-    assert all(a["Supplier_ID"] != "SUP-001" for a in alts)
+    assert all(a.get("status") != "NO_DIRECT_ALT" for a in alts)
+    assert all(a["Supplier_ID"] != "SUP-002" for a in alts)
