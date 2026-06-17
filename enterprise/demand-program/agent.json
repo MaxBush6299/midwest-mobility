@@ -1,0 +1,13 @@
+{
+  "name": "ent-demand-program",
+  "display_name": "Demand / Program",
+  "description": "Enterprise demand and program agent for OEM order signals, launch readiness, and plant allocation decisions.",
+  "endpoint": "http://localhost:8080/ent-demand-program/.well-known/agent-card.json",
+  "skills": [
+    {"id": "order_signal", "description": "OEM order signal and build-mix lookup"},
+    {"id": "launch_readiness", "description": "Launch-program readiness"},
+    {"id": "demand_allocation", "description": "Demand to plant allocation"}
+  ],
+  "tier": "enterprise",
+  "metadata": {"kb_sources": ["demand_program"], "tools": ["demand"]}
+}
