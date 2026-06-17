@@ -1,16 +1,23 @@
 """Magentic orchestration over portal-managed Foundry agents (Task 26).
 
-Gate B Task 27 additions:
+Gate B additions (Task 27 / 28):
 - ScenarioRun dataclass + run_and_capture() helper for testable capture of
   hops, backtracks, plan text, progress ledger, and final synthesis.
 - NO_DIRECT_ALT_RULE appended to the manager's instructions so it backtracks
   on supply-chain dead-ends instead of looping.
+
+Gate C additions (Task 3):
+- ``run_stream`` is the canonical event stream: it consumes
+  ``workflow.run(task, stream=True)`` and emits typed ``TraceEvent`` objects
+  for the FastAPI SSE relay, the demo UI, and tests.
+- ``run_and_capture`` is now a thin collector that folds ``run_stream`` events
+  into the existing ``ScenarioRun`` shape so Gate B tests are unchanged.
 """
 from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
-from typing import AsyncIterator
+from typing import Any, AsyncIterator
 
 from agent_framework import Agent, AgentResponseUpdate
 from agent_framework.orchestrations import (
@@ -24,6 +31,9 @@ from azure.identity import AzureCliCredential
 from mmc_agents.agent_factory import build_enterprise_agents, build_foundry_agents
 from mmc_agents.observability import setup_tracing
 from mmc_agents.orchestrator.model_config import manager_chat_client
+from mmc_agents.orchestrator.trace import TraceEvent
+
+_AGENT_ID_PREFIXES = ("plant", "p7-", "ent-")
 
 
 NO_DIRECT_ALT_RULE = (
@@ -78,49 +88,136 @@ class ScenarioRun:
     terminated_by_max_rounds: bool = False
 
 
-async def run_and_capture(workflow, task: str) -> ScenarioRun:
-    """Drive ``workflow.run(task, stream=True)`` and aggregate a ScenarioRun.
+def _is_agent_executor(executor_id: str | None) -> bool:
+    return bool(executor_id) and executor_id.startswith(_AGENT_ID_PREFIXES)
 
-    Hops are recorded on ``executor_completed`` events whose ``executor_id``
-    starts with ``plant`` or ``ent-``. Backtracks are counted from
-    ``MagenticOrchestratorEvent`` with event_type=REPLANNED. The final
-    synthesis is harvested from WorkflowEvent type=='output'.
+
+def _extract_text(data: Any) -> str:
+    """Best-effort text extraction from agent_framework event payloads.
+
+    Handles the same shapes the previous ``run_and_capture`` accepted on
+    ``output`` events: ``data.messages[-1].text``,
+    ``data.messages[-1].contents[*].text``, and ``data.contents[*].text``.
+    Returns ``""`` when nothing is extractable.
     """
-    out = ScenarioRun()
+    if data is None:
+        return ""
+    msgs = getattr(data, "messages", None)
+    if msgs:
+        last = msgs[-1]
+        t = getattr(last, "text", None)
+        if t:
+            return t
+        cs = getattr(last, "contents", None) or []
+        return "".join(getattr(c, "text", str(c)) for c in cs)
+    cs = getattr(data, "contents", None) or []
+    if cs:
+        return "".join(getattr(c, "text", str(c)) for c in cs)
+    t = getattr(data, "text", None)
+    return t or ""
+
+
+async def run_stream(
+    workflow,
+    *,
+    run_id: str,
+    task: str,
+) -> AsyncIterator[TraceEvent]:
+    """Drive ``workflow.run(task, stream=True)`` and yield typed TraceEvents.
+
+    Event mapping:
+    - ``start`` is emitted once with the problem statement.
+    - ``executor_invoked`` for plant/enterprise agent IDs -> ``agent_call``.
+    - ``executor_completed`` for plant/enterprise agent IDs -> ``agent_response``
+      carrying the reply text.
+    - ``MagenticOrchestratorEvent`` with PLAN_CREATED or PROGRESS_LEDGER_UPDATED
+      -> ``ledger_update``; REPLANNED -> ``backtrack``.
+    - ``output`` -> ``complete`` carrying the final synthesis.
+    """
+    seq = 0
+
+    def _next(**kwargs: Any) -> TraceEvent:
+        nonlocal seq
+        ev = TraceEvent(run_id=run_id, sequence=seq, **kwargs)
+        seq += 1
+        return ev
+
+    yield _next(type="start", message=task)
+
+    hop_index = 0
+    final_text = ""
+
     async for ev in workflow.run(task, stream=True):
         evtype = str(getattr(ev, "type", ""))
         data = getattr(ev, "data", None)
         executor_id = getattr(ev, "executor_id", None)
 
-        if (
-            evtype == "executor_completed"
-            and executor_id
-            and (executor_id.startswith("plant") or executor_id.startswith("ent-"))
-        ):
-            out.hops.append(executor_id)
-
         if isinstance(data, MagenticOrchestratorEvent):
             text = getattr(getattr(data, "content", None), "text", "") or ""
-            if data.event_type == MagenticOrchestratorEventType.PLAN_CREATED:
-                out.plan_text = text
-            elif data.event_type == MagenticOrchestratorEventType.REPLANNED:
-                out.backtracks += 1
-            elif data.event_type == MagenticOrchestratorEventType.PROGRESS_LEDGER_UPDATED:
-                out.last_progress_ledger = text
+            etype = data.event_type
+            if etype == MagenticOrchestratorEventType.PLAN_CREATED:
+                yield _next(
+                    type="ledger_update",
+                    message="plan created",
+                    task_ledger={"plan": text},
+                )
+            elif etype == MagenticOrchestratorEventType.REPLANNED:
+                yield _next(
+                    type="backtrack",
+                    message="manager replanned",
+                    metadata={"replan_text": text[:500]},
+                )
+            elif etype == MagenticOrchestratorEventType.PROGRESS_LEDGER_UPDATED:
+                yield _next(
+                    type="ledger_update",
+                    message="progress ledger updated",
+                    progress_ledger=text,
+                )
 
-        if evtype == "output":
-            msgs = getattr(data, "messages", None)
-            if msgs:
-                last = msgs[-1]
-                t = getattr(last, "text", None)
-                if t:
-                    out.answer += t
-                else:
-                    cs = getattr(last, "contents", None) or []
-                    out.answer += "".join(getattr(c, "text", str(c)) for c in cs)
-            else:
-                cs = getattr(data, "contents", None) or []
-                out.answer += "".join(getattr(c, "text", str(c)) for c in cs)
+        if evtype == "executor_invoked" and _is_agent_executor(executor_id):
+            hop_index += 1
+            yield _next(
+                type="agent_call",
+                message=f"dispatching {executor_id}",
+                agent_name=executor_id,
+                hop_index=hop_index,
+            )
+        elif evtype == "executor_completed" and _is_agent_executor(executor_id):
+            yield _next(
+                type="agent_response",
+                message=f"{executor_id} responded",
+                agent_name=executor_id,
+                hop_index=hop_index,
+                content=_extract_text(data),
+            )
+        elif evtype == "output":
+            final_text = _extract_text(data)
+
+    yield _next(type="complete", message="run finished", content=final_text)
+
+
+async def run_and_capture(workflow, task: str) -> ScenarioRun:
+    """Collector over ``run_stream`` that produces a Gate B ``ScenarioRun``.
+
+    Hops are recorded from ``agent_response`` events; backtracks from
+    ``backtrack`` events; plan/progress ledger from ``ledger_update`` events;
+    final synthesis from the terminal ``complete`` event. ``run_id`` is a
+    stable per-call value because the tests only care about field aggregation,
+    not run identity.
+    """
+    out = ScenarioRun()
+    async for event in run_stream(workflow, run_id="capture", task=task):
+        if event.type == "agent_response" and event.agent_name:
+            out.hops.append(event.agent_name)
+        elif event.type == "backtrack":
+            out.backtracks += 1
+        elif event.type == "ledger_update":
+            if event.task_ledger and "plan" in event.task_ledger:
+                out.plan_text = event.task_ledger["plan"]
+            if event.progress_ledger:
+                out.last_progress_ledger = event.progress_ledger
+        elif event.type == "complete":
+            out.answer = event.content or ""
 
     out.terminated_by_max_rounds = "maximum round count" in out.answer.lower()
     return out
