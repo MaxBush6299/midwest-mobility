@@ -25,6 +25,9 @@ class ScenarioSpec:
     # only those agents are wired into MagenticBuilder participants — keeps
     # narrow scenarios tightly scoped and the plan focused.
     participants: tuple[str, ...] | None = None
+    # Per-scenario manager cap. Narrow scenarios should converge in 2-3
+    # rounds; the full brake-caliper run needs the default 15.
+    max_rounds: int = 15
 
 
 SCENARIOS: dict[str, ScenarioSpec] = {
@@ -52,36 +55,40 @@ SCENARIOS: dict[str, ScenarioSpec] = {
     ),
     "training_gap": ScenarioSpec(
         id="training_gap",
-        label="Training gap · LOTO refresher",
+        label="LOTO refresher · expirations",
         blurb=(
-            "Quick plant-only check: who's due for a LOTO refresher this "
-            "quarter, and are they on shift? <em>~5-7 hops, 3 agents "
-            "(training + EHS + shift-ops).</em>"
+            "Plant-only check grounded in <code>MMC_P7_Training_Log.csv</code>: "
+            "list every Plant 7 employee whose <em>LOTO Authorized Person</em> "
+            "training expires before 2026-12-31. <em>~3-5 hops, 1 agent "
+            "(EHS).</em>"
         ),
         problem_statement=training_gap.PROBLEM_STATEMENT,
-        participants=("plant7-training", "plant7-ehs", "plant7-shiftops"),
+        participants=("plant7-ehs",),
+        max_rounds=5,
     ),
     "po_status": ScenarioSpec(
         id="po_status",
-        label="PO status · SUP-001 inbound",
+        label="At-risk POs · SUP-001",
         blurb=(
-            "Enterprise-only: open POs with Acme Brakes and inbound "
-            "shipment status. <em>~4-6 hops, 2 agents "
-            "(procurement + supply-chain).</em>"
+            "Enterprise-only check grounded in <code>po_spend.csv</code>: open "
+            "POs with Acme Brakes flagged <em>At Risk</em> or <em>Watch</em>. "
+            "<em>~3-5 hops, 1 agent (procurement).</em>"
         ),
         problem_statement=po_status.PROBLEM_STATEMENT,
-        participants=("ent-procurement", "ent-supply-chain"),
+        participants=("ent-procurement",),
+        max_rounds=5,
     ),
     "pm_check": ScenarioSpec(
         id="pm_check",
-        label="PM check · L1 Press window",
+        label="Line 1 PM · follow-up WOs",
         blurb=(
-            "Smallest scenario: is L1 Press due for PM in 7 days, and "
-            "which shift can take the downtime? <em>~4 hops, 2 agents "
-            "(maintenance + shift-ops).</em>"
+            "Plant-only check grounded in <code>MMC_P7_PM_Schedule.csv</code>: "
+            "Line 1 PM tasks that generated follow-up work orders this quarter. "
+            "<em>~3-5 hops, 1 agent (maintenance).</em>"
         ),
         problem_statement=pm_check.PROBLEM_STATEMENT,
-        participants=("plant7-maintenance", "plant7-shiftops"),
+        participants=("plant7-maintenance",),
+        max_rounds=5,
     ),
 }
 

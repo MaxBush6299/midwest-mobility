@@ -1,21 +1,18 @@
-"""Narrow enterprise-only scenario: 2-agent PO/inbound status check.
+"""Narrow enterprise-only scenario: at-risk POs with SUP-001.
 
-Exercises the enterprise tier in isolation (procurement + supply-chain) so
-plant agents stay quiet — useful for verifying the trace UI's tier
-grouping and per-project labels.
+Grounded in po_spend.csv (Status in {'At Risk','Watch','Open'},
+Supplier_ID='SUP-001' is Acme Brakes).
 """
 
 PROBLEM_STATEMENT = (
-    "What's the current status of our open POs with SUP-001 (Acme Brakes), "
-    "and which inbound shipments are tracking late this week?"
+    "Which of our open POs with supplier SUP-001 are currently flagged "
+    "'At Risk' or 'Watch'? List PO_ID, Part_ID, Open_Qty, and "
+    "Extended_Value, and cite po_spend.csv."
 )
 
 EXPECTED_BOUNDS = {
-    "min_distinct_agents": 2,
+    "min_distinct_agents": 1,
     "min_backtracks": 0,
-    "must_include_agents": {
-        "ent-procurement",
-        "ent-supply-chain",
-    },
+    "must_include_agents": {"ent-procurement"},
     "must_observe_terms": {"SUP-001"},
 }

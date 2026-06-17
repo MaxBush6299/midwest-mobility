@@ -105,9 +105,22 @@ async def _live_scenario_runner(
     # full 10-agent demos (brake_caliper / loto_cluster).
     if spec.participants:
         allowed = set(spec.participants)
+        before = [getattr(p, "name", "?") for p in participants]
         participants = [p for p in participants if getattr(p, "name", None) in allowed]
+        logger.info(
+            "scenario %s scoped pool: %s -> %s (allowed=%s)",
+            scenario, before, [getattr(p, "name", "?") for p in participants], sorted(allowed),
+        )
+        if not participants:
+            raise RuntimeError(
+                f"scenario {scenario!r} requested participants {sorted(allowed)} "
+                f"but none matched available agent names {before}"
+            )
 
-    workflow = MagenticBuilder(participants=participants, manager=_build_manager()).build()
+    workflow = MagenticBuilder(
+        participants=participants,
+        manager=_build_manager(max_round_count=spec.max_rounds),
+    ).build()
     async for event in run_stream(workflow, run_id=run_id, task=scenario_task):
         yield event
 

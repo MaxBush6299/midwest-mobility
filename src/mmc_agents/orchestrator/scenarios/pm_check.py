@@ -1,20 +1,18 @@
-"""Narrow plant-only scenario: 2-agent preventive-maintenance check.
+"""Narrow plant-only scenario: PM follow-up work orders on Line 1.
 
-Smallest possible exercise — single plant, two related agents — for fast
-smoke tests of the trace UI streaming pipeline.
+Grounded in MMC_P7_PM_Schedule.csv (Location='Line 1',
+Follow_Up_WO column, Findings column).
 """
 
 PROBLEM_STATEMENT = (
-    "Is the L1 Press due for preventive maintenance in the next 7 days, "
-    "and if so, which shift can take it down without disrupting active runs?"
+    "Which preventive-maintenance tasks on Line 1 generated follow-up "
+    "work orders this quarter, what were the findings, and which "
+    "asset is each tied to? Cite PM_Schedule entries."
 )
 
 EXPECTED_BOUNDS = {
-    "min_distinct_agents": 2,
+    "min_distinct_agents": 1,
     "min_backtracks": 0,
-    "must_include_agents": {
-        "plant7-maintenance",
-        "plant7-shiftops",
-    },
-    "must_observe_terms": {"L1"},
+    "must_include_agents": {"plant7-maintenance"},
+    "must_observe_terms": {"Line 1"},
 }

@@ -44,7 +44,11 @@ NO_DIRECT_ALT_RULE = (
 )
 
 
-def _build_manager() -> StandardMagenticManager:
+def _build_manager(
+    max_round_count: int = 15,
+    max_stall_count: int = 3,
+    max_reset_count: int = 2,
+) -> StandardMagenticManager:
     base_instructions = (
         "You are the Magentic manager coordinating MMC plant and enterprise "
         "specialist agents. Pick the smallest set of agents needed, ground "
@@ -52,7 +56,11 @@ def _build_manager() -> StandardMagenticManager:
         "Converge quickly — once you have enough KB-grounded answers across "
         "the relevant agents (typically 4-6 rounds), STOP and emit the final "
         "answer. Do not request additional refinement once the answer is "
-        "supported by the KB."
+        "supported by the KB. "
+        "If an agent replies that it cannot assist or that the data is not in "
+        "its KB, ACCEPT that answer — do NOT keep redispatching to other "
+        "agents in search of a different answer. Note the gap in the final "
+        "synthesis and stop."
     )
     planner = Agent(
         client=manager_chat_client(),
@@ -61,9 +69,9 @@ def _build_manager() -> StandardMagenticManager:
     )
     return StandardMagenticManager(
         agent=planner,
-        max_round_count=15,
-        max_stall_count=3,
-        max_reset_count=2,
+        max_round_count=max_round_count,
+        max_stall_count=max_stall_count,
+        max_reset_count=max_reset_count,
         final_answer_prompt=(
             "Produce the final answer for the user. Synthesize the plant and "
             "enterprise agents' KB-grounded responses into a single concise "
