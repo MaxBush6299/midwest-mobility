@@ -1,0 +1,22 @@
+version: 1
+company: Midwest Mobility Components
+brake_caliper:
+  supplier_id: SUP-001
+  supplier_name: Acme Brakes
+  part_id: BRK-CAL-XYZ
+  part_name: Brake Caliper Assembly
+  plant_id: plant7
+  plant_code: MMC_P7
+  line_id: L1
+  primary_equipment_id: L1-PRS-001
+  disruption_days: 21
+  no_alt_path_key: BRK-CAL-XYZ:NO_ALT_DIRECT
+loto_cluster:
+  plant_id: plant7
+  plant_code: MMC_P7
+  line_id: L1
+  equipment_ids: [L1-PRS-001, L1-PRS-002]
+  loto_procedure_ids: [LOTO-L1-001, LOTO-L1-002]
+  hazard_ids: [HAZ_011, HAZ_014, HAZ_019]
+  min_incidents_last_60_days: 3
+allowed_standards: [OSHA 29 CFR 1910, ISO 45001, ISO 9001, ANSI/RIA R15.06, NFPA 70E]
