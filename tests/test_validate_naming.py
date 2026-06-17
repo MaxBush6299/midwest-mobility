@@ -12,6 +12,7 @@ from scripts.validate_naming import (  # noqa: E402
     validate_part_id,
     validate_text,
 )
+from scripts.generate_narrative_docs import DOCS, render_doc  # noqa: E402
 
 
 def test_validate_text_accepts_plant7_terms():
@@ -42,3 +43,17 @@ def test_equipment_id_accepts_l1_press():
 
 def test_equipment_id_rejects_unknown_kind():
     assert validate_equipment_id("L1-XYZ-001") == ["L1-XYZ-001"]
+
+
+def test_render_doc_includes_plant7_and_seed_part():
+    text = render_doc("supply-chain", "supplier_qualification_policy.md")
+    assert "MMC_P7" in text
+    assert "BRK-CAL-XYZ" in text
+    assert validate_text(text) == []
+
+
+def test_render_doc_all_nodes_pass_naming_validator():
+    for node, files in DOCS.items():
+        for filename in files:
+            text = render_doc(node, filename)
+            assert validate_text(text) == [], f"{node}/{filename} fails naming validation"
