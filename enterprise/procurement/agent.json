@@ -1,0 +1,13 @@
+{
+  "name": "ent-procurement",
+  "display_name": "Procurement & Cost",
+  "description": "Enterprise procurement and cost agent for should-cost, PO impact, contract terms, expedite options, and spend rollups.",
+  "endpoint": "http://localhost:8080/ent-procurement/.well-known/agent-card.json",
+  "skills": [
+    {"id": "should_cost_analysis", "description": "Should-cost and PO-impact analysis"},
+    {"id": "contract_terms", "description": "Contract terms and expedite-cost lookup"},
+    {"id": "spend_rollup", "description": "Spend and supplier-tier rollup"}
+  ],
+  "tier": "enterprise",
+  "metadata": {"kb_sources": ["procurement"], "tools": ["procurement"]}
+}
