@@ -1,9 +1,14 @@
 {
-  "schema_version": "1",
-  "name": "supply-chain",
-  "description": "Enterprise supply-chain operations (BOM, supplier risk)",
-  "endpoint": "stub://supply-chain",
-  "agent_id": "stub-supply-chain",
-  "skills": ["erp.bom_where_used", "supplier.lookup", "supplier.alternates"],
-  "metadata": {"project": "mmc-enterprise", "stub": true}
+  "name": "ent-supply-chain",
+  "display_name": "Supply Chain",
+  "description": "Enterprise supply-chain agent for supplier health, BOM where-used, alternate-source lookup, and inbound-logistics ETA.",
+  "endpoint": "http://localhost:8080/ent-supply-chain/.well-known/agent-card.json",
+  "skills": [
+    {"id": "supplier_health", "description": "Supplier health & disruption impact"},
+    {"id": "bom_where_used", "description": "BOM explode & where-used"},
+    {"id": "alt_source_lookup", "description": "Alternate-source and inbound-logistics ETA"}
+  ],
+  "tier": "enterprise",
+  "metadata": {"kb_sources": ["supply_chain"], "tools": ["erp", "supplier", "tms"]}
 }
+

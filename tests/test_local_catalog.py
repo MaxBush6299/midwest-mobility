@@ -31,3 +31,17 @@ def test_watched_picks_up_new_card(tmp_path: Path):
     second = {**CARD, "name": "y-agent"}
     write_catalog(cat, [CARD, second])
     assert {a.name for a in src.list_agents()} == {"x-agent", "y-agent"}
+
+
+def test_gate_b_catalog_has_all_10_agents_after_refresh():
+    """After scripts/refresh_catalog.py runs, the catalog must contain all
+    5 plant agents + 5 enterprise agents (Gate B Task 24)."""
+    agents = LocalCatalogSource(Path("agents/catalog.json")).list_agents()
+    names = {a.name for a in agents}
+    assert len(names) == 10, names
+    assert {
+        "plant7-ehs", "plant7-maintenance", "plant7-quality",
+        "plant7-shiftops", "plant7-training",
+        "ent-supply-chain", "ent-procurement", "ent-engineering-plm",
+        "ent-quality", "ent-demand-program",
+    } == names
