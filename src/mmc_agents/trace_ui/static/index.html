@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MMC Demo · Magentic Trace</title>
   <link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'&gt;&lt;circle cx='16' cy='16' r='10' fill='%234f8cff'/&gt;&lt;/svg&gt;" />
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <style>
     :root {
       --bg: #0b1020;
@@ -174,18 +175,84 @@
       background: linear-gradient(180deg, rgba(74, 217, 145, 0.08), transparent 40%);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 18px 20px;
       font-size: 13.5px;
       line-height: 1.6;
-      white-space: pre-wrap;
       word-wrap: break-word;
       min-height: 200px;
       color: var(--text);
     }
     .pane.right .synthesis.empty-syn {
       color: var(--text-dim); font-style: italic;
+      white-space: pre-wrap;
       display: flex; align-items: center; justify-content: center; text-align: center;
     }
+    .pane.right .synthesis h1,
+    .pane.right .synthesis h2,
+    .pane.right .synthesis h3,
+    .pane.right .synthesis h4 {
+      margin: 18px 0 8px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .pane.right .synthesis h1 { font-size: 17px; }
+    .pane.right .synthesis h2 { font-size: 15.5px; color: var(--accent); }
+    .pane.right .synthesis h3 { font-size: 14px; color: var(--accent); }
+    .pane.right .synthesis h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+    .pane.right .synthesis > *:first-child { margin-top: 0; }
+    .pane.right .synthesis > *:last-child { margin-bottom: 0; }
+    .pane.right .synthesis p { margin: 0 0 10px; }
+    .pane.right .synthesis strong { color: #ffffff; font-weight: 600; }
+    .pane.right .synthesis em { color: var(--text); }
+    .pane.right .synthesis ul,
+    .pane.right .synthesis ol { margin: 0 0 12px; padding-left: 22px; }
+    .pane.right .synthesis li { margin: 4px 0; }
+    .pane.right .synthesis li > p { margin: 0 0 4px; }
+    .pane.right .synthesis code {
+      background: rgba(79, 140, 255, 0.12);
+      border: 1px solid rgba(79, 140, 255, 0.25);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: ui-monospace, "Cascadia Code", "Fira Code", Menlo, monospace;
+      font-size: 12px;
+      color: #cfe0ff;
+    }
+    .pane.right .synthesis pre {
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      margin: 0 0 12px;
+    }
+    .pane.right .synthesis pre code {
+      background: none; border: none; padding: 0; color: var(--text);
+    }
+    .pane.right .synthesis blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 0 0 12px;
+      padding: 2px 12px;
+      color: var(--text-muted);
+      background: rgba(79, 140, 255, 0.05);
+    }
+    .pane.right .synthesis table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0 0 12px;
+      font-size: 12.5px;
+    }
+    .pane.right .synthesis th,
+    .pane.right .synthesis td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+    }
+    .pane.right .synthesis th { background: var(--bg-elev-2); color: var(--text); }
+    .pane.right .synthesis hr {
+      border: none; border-top: 1px solid var(--border); margin: 14px 0;
+    }
+    .pane.right .synthesis a { color: var(--accent); text-decoration: none; }
+    .pane.right .synthesis a:hover { text-decoration: underline; }
     .scenario-card {
       margin-top: 20px;
       background: var(--bg-elev-2);
@@ -440,7 +507,7 @@
         statAgents.textContent = usedAgents.size;
       } else if (ev.type === 'complete') {
         synthesisEl.className = 'synthesis';
-        synthesisEl.textContent = ev.content || '(empty synthesis)';
+        renderSynthesis(ev.content || '(empty synthesis)');
         for (const v of agentState.values()) v.el.classList.remove('active');
         stopTimer();
       } else if (ev.type === 'error') {
@@ -459,6 +526,20 @@
     }
     function stopTimer() {
       if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
+    }
+
+    function renderSynthesis(content) {
+      // Strip the OpenAI/Foundry citation markers like 【5:0†source】 — they
+      // render as noise in the final answer and the per-agent transcript still
+      // carries them for traceability.
+      const cleaned = String(content).replace(/【[^】]*】/g, '');
+      if (window.marked && typeof window.marked.parse === 'function') {
+        window.marked.setOptions({ breaks: true, gfm: true });
+        synthesisEl.innerHTML = window.marked.parse(cleaned);
+      } else {
+        // Graceful fallback if the CDN failed to load (e.g. offline demo).
+        synthesisEl.textContent = cleaned;
+      }
     }
 
     function resetUi() {
