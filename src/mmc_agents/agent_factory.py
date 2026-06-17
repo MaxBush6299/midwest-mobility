@@ -51,6 +51,54 @@ def _kb_tool() -> MCPTool | None:
     )
 
 
+def _enterprise_kb_tool() -> MCPTool | None:
+    """Construct the enterprise Foundry IQ MCP tool from env, or None."""
+    conn_id = os.environ.get("ENTERPRISE_KB_CONNECTION_ID")
+    url = os.environ.get("ENTERPRISE_KB_MCP_URL")
+    if not (conn_id and url):
+        return None
+    return MCPTool(
+        server_label=conn_id,
+        server_url=url,
+        require_approval="never",
+        project_connection_id=conn_id,
+    )
+
+
+def emit_enterprise_agent_card(
+    profile: dict,
+    role: str,
+    endpoint_base: str,
+    out_path: Path,
+) -> dict:
+    """Emit a single AgentCard JSON for an enterprise role from profile.yaml.
+
+    Writes the card to ``out_path`` (parents created) and returns the dict.
+    Matches the schema of hand-authored ``enterprise/<node>/agent.json`` files
+    so snapshots can verify parity (Gate B Task 25/26).
+    """
+    import json
+
+    agent_def = next(a for a in profile["agents"] if a["role"] == role)
+    name = agent_def["name"]
+    display = agent_def["display_name"]
+    card = {
+        "name": name,
+        "display_name": display,
+        "description": f"{display} enterprise agent.",
+        "endpoint": f"{endpoint_base.rstrip('/')}/{name}/.well-known/agent-card.json",
+        "skills": agent_def["skills"],
+        "tier": "enterprise",
+        "metadata": {
+            "kb_sources": agent_def["kb_sources"],
+            "tools": agent_def["tools"],
+        },
+    }
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")
+    return card
+
+
 @dataclass
 class PlantAgentRef:
     """Reference to a portal-managed prompt agent (returned by the factory)."""
