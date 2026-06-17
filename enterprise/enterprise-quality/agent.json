@@ -1,0 +1,13 @@
+{
+  "name": "ent-quality",
+  "display_name": "Enterprise Quality",
+  "description": "Enterprise quality agent for warranty clustering, cross-plant defect trends, recall thresholds, and safety escalation.",
+  "endpoint": "http://localhost:8080/ent-quality/.well-known/agent-card.json",
+  "skills": [
+    {"id": "warranty_clustering", "description": "Warranty-claim clustering"},
+    {"id": "cross_plant_defect_trends", "description": "Cross-plant defect trends"},
+    {"id": "recall_threshold", "description": "Recall-threshold and safety call"}
+  ],
+  "tier": "enterprise",
+  "metadata": {"kb_sources": ["enterprise_quality"], "tools": ["warranty"]}
+}
