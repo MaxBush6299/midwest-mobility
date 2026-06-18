@@ -1,0 +1,51 @@
+# MMC Plant 4 — Confidential Incident Brief
+
+**Sensitivity:** RESTRICTED — Internal EHS Leadership + Plant Manager only.
+**Document ID:** P4-INC-CONF-2026-001
+**Author:** Plant 4 EHS Director
+**Classification:** Restricted — NOT for external auditors, contractors, or
+non-EHS staff.
+
+---
+
+## Incident summary (high-sensitivity excerpt)
+
+On 2026-04-12 at 03:14 local time, a near-miss event involving the L2-ROB-007
+robot cell on Line 2 was reported by the C-shift maintenance lead. The
+preliminary investigation identified a **fault-tolerance gap in the safety
+interlock** that has **not yet been publicly disclosed** to MMC's
+ISO-45001 certifying body. Containment actions and root-cause analysis are
+ongoing.
+
+The full record (employee statements, medical disposition, regulator
+notification timeline) is held in this document because it contains
+personally-identifying information about two named C-shift technicians and
+references mitigation actions that the legal team has explicitly asked to
+keep confidential until disclosure obligations are resolved.
+
+This document **must not** be retrieved by:
+
+- External auditors performing periodic surveillance audits.
+- Contractors / vendors with read access to general EHS guidance.
+- Any agent whose role does not include `ehs_restricted` in its
+  `kb_sources` profile mapping.
+
+It is intentionally seeded into the demo to validate that the per-agent
+readable-source mapping in `governance/kb_metadata.json` actually prevents
+unauthorised retrieval — revoke this source from `plant4-ehs`'s mapping in
+that file and the demo will show that even the internal EHS agent loses
+access to this document without any code change.
+
+---
+
+## Restricted facts (referenced in the demo's blast-radius overlay)
+
+1. Two C-shift technicians were within the L2-ROB-007 work envelope at the
+   time of the near-miss.
+2. The Category-3 safety interlock returned a "stale" state for 4.2 seconds
+   before reasserting the stop condition; no production stop logged in the
+   MES.
+3. Legal hold #2026-PRIV-0012 covers all communications related to this
+   incident pending external counsel review.
+
+End of restricted brief.

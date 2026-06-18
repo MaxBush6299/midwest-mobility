@@ -1,0 +1,31 @@
+# MMC Plant 4 — Quality Spec: Brake Caliper Castings
+
+**Document owner:** Plant 4 Quality
+**Applies to:** BRK-CAL-XYZ (primary), BRK-CAL-XYZ-ALT (alternate)
+**Reference standards:** ISO 9001, PPAP Level 3 on file for both castings
+
+## Incoming inspection requirements
+
+| Check | Frequency | Acceptance |
+|---|---|---|
+| Dimensional (bore Ø, mounting pad flatness) | First piece + 1/lot | per drawing BRK-CAL-XYZ-DWG rev D |
+| Hardness (Brinell) | 1/lot | 180–220 HBW |
+| Surface finish (Ra) | 1/lot | ≤ 6.3 µm on machined faces |
+| CoC review | Every lot | Required from supplier |
+
+## Substitution control (BRK-CAL-XYZ → BRK-CAL-XYZ-ALT)
+
+When the alternate casting is run, Quality must:
+1. Confirm the lot's PPAP Level 3 record is current (≤12 months old).
+2. Pull an additional first-article on L1-PRS-03 after die-shim install.
+3. Open a deviation record (DR) — not an NCR — for traceability; close at end of run.
+
+## Recent NCR / supplier notes
+
+- 2026-04-12: NCR-2026-0098 — Acme Brakes lot AB-2604 — 3 of 30 sampled castings outside flatness tolerance. Disposition: sort 100%. **Open recurrence-prevention CAPA: CAPA-2026-0099.**
+- 2026-05-30: Bravo Castings PPAP renewal complete; alternate is currently approved for use.
+
+## Cross-references
+
+- BOM: `MMC_P4_BOM_L1_Brake_Caliper_Assy.md`
+- Build schedule: `MMC_P4_L1_Build_Schedule.md`

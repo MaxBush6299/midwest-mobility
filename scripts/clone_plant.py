@@ -73,6 +73,31 @@ def build_context(profile: dict) -> dict:
     )
     kb = profile.get("kb") or {}
     ctx.setdefault("kb_id_env", kb.get("kb_id_env", ""))
+
+    # Derived placeholders required by templates/plant_template/profile.yaml.j2
+    # (Gate D per-plant Foundry / Search / SQL topology — see
+    # docs/specs/gate-d-pre-review.md for the locked decisions).
+    upper = ctx["plant_code"].upper()
+    # Plant 7 keeps un-suffixed legacy SQL tables; all other plants get _<suffix>.
+    ctx.setdefault(
+        "plant_sql_suffix",
+        "" if plant_id == "plant7" else f"_{suffix.lower()}",
+    )
+    ctx.setdefault("foundry_project", f"mmc-{plant_id}")
+    ctx.setdefault("search_service", f"srch-mmc-{plant_id}")
+    ctx.setdefault("kb_connection_env", f"{upper}_KB_CONNECTION_ID")
+    ctx.setdefault("kb_mcp_url_env", f"{upper}_KB_MCP_URL")
+
+    # Pick a regulatory-reference path by jurisdiction.
+    country = (profile.get("location") or {}).get("country", "")
+    ctx.setdefault(
+        "regulatory_reference_path",
+        {
+            "MX": "shared/kb/regulatory-reference/MEX",
+            "US": "shared/kb/regulatory-reference/OSHA",
+        }.get(country, "shared/kb/regulatory-reference/OSHA"),
+    )
+    ctx.setdefault("language", profile.get("language", "en"))
     return ctx
 
 

@@ -1,0 +1,719 @@
+# MMC Plant 4 — Machine Guarding Standard Operating Procedure
+**Document ID:** MMC_P4_Machine_Guarding_SOP  
+**Document Owner:** EHS Manager, Plant 4  
+**Version:** v1.0  
+**Effective Date:** 2026-01-26  
+**Review Cycle:** Annual  
+**Applies To:** All employees, contractors, and service providers at MMC Plant 4
+
+---
+
+## 1. Purpose
+
+This procedure establishes requirements for the installation, inspection, maintenance, and integrity of machine guarding at MMC Plant 4. Proper machine guarding prevents employee exposure to hazardous machine motions, pinch points, rotating parts, flying debris, and other point-of-operation hazards.
+
+---
+
+## 2. Scope
+
+This procedure applies to:
+- All machinery and equipment with moving parts that could cause injury
+- All production equipment on Lines 1, 2, and 3
+- All auxiliary equipment (conveyors, feeders, transfer systems, packaging equipment)
+- All support equipment in shared areas
+- All employees who operate, maintain, or work near guarded equipment
+- All contractors and service providers working on Plant 4 equipment
+
+**Equipment Categories Covered:**
+
+| Category | Examples |
+|----------|----------|
+| Point-of-operation guards | Press dies, punch tooling, shear blades, robot end effectors |
+| Power transmission guards | Belts, pulleys, chains, sprockets, gears, shafts, couplings |
+| Perimeter guards | Robot cell fencing, conveyor barriers, machine enclosures |
+| Interlocked guards | Access doors, hinged panels, removable covers with safety switches |
+| Presence-sensing devices | Light curtains, safety mats, laser scanners |
+| Two-hand controls | Press activation, robot teach pendant dead-man switches |
+
+---
+
+## 3. Regulatory Reference
+
+This procedure complies with:
+- **OSHA 29 CFR 1910.212** — General Requirements for All Machines
+- **OSHA 29 CFR 1910.217** — Mechanical Power Presses
+- **OSHA 29 CFR 1910.219** — Mechanical Power-Transmission Apparatus
+- **ANSI B11.19** — Performance Requirements for Safeguarding
+- **ANSI/RIA R15.06** — Industrial Robots and Robot Systems — Safety Requirements
+- **ISO 13857** — Safety Distances to Prevent Hazard Zones Being Reached
+- **NFPA 79** — Electrical Standard for Industrial Machinery
+
+---
+
+## 4. Definitions
+
+| Term | Definition |
+|------|------------|
+| **Barrier Guard** | A physical barrier that prevents access to a hazard zone; may be fixed or interlocked |
+| **Bypass** | Intentional defeat or circumvention of a safety device or guard; prohibited without documented approval |
+| **Fixed Guard** | A permanent enclosure attached to the machine frame; requires tools for removal |
+| **Guard** | A barrier or device that prevents contact with hazardous machine parts |
+| **Hazard Zone** | The area where a hazard exists; includes point of operation and power transmission |
+| **Interlock** | A device that stops machine motion or prevents startup when a guard is open or removed |
+| **Light Curtain** | A presence-sensing device using infrared beams to detect intrusion into hazard zone |
+| **Nip Point** | The point where two rotating parts meet or where a rotating part meets a fixed surface |
+| **Point of Operation** | The area where work is performed on material (cutting, shaping, forming, assembling) |
+| **Presence-Sensing Device** | A device that detects the presence of a person or body part in a hazard zone |
+| **Safety Distance** | The minimum distance from a hazard at which a safeguarding device must be located |
+| **Two-Hand Control** | A device requiring simultaneous use of both hands to activate machine motion |
+
+---
+
+## 5. Guarding Requirements by Area
+
+### 5.1 Line 1 — Stamping & Forming
+
+| Equipment | Hazard Type | Required Guarding | Interlock Type |
+|-----------|-------------|-------------------|----------------|
+| Stamping presses (P1-001 through P1-004) | Point of operation, ejected material | Fixed barrier + light curtains | Category 3 safety PLC |
+| Coil cradle and straightener | Nip points, coil tension | Perimeter fence + interlocked gates | Key-locked interlock |
+| Scrap conveyor | Pinch points, rotating parts | Fixed covers + emergency stops | Direct-wired |
+| Die storage racks | Falling dies, crush hazard | Physical barriers + crane interlocks | Crane limit switches |
+| Hydraulic power units | High pressure, stored energy | Fixed enclosure + LOTO points | N/A (LOTO only) |
+
+**Line 1 Specific Requirements:**
+- All press point-of-operation guards must comply with OSHA 1910.217
+- Light curtains must be positioned per OSHA Table O-10 safety distance calculations
+- Two-hand controls required on all presses; anti-tie-down and anti-repeat features mandatory
+- Die setter mode requires key-controlled bypass with reduced speed and inch capability only
+- Press brake tools require point-of-operation guarding or presence-sensing device
+
+**Critical Guard Points — Line 1:**
+1. Press point-of-operation (dies)
+2. Coil feed nip point (straightener rolls)
+3. Scrap conveyor inlet and discharge
+4. Flywheel and clutch housing
+5. Back of press (ejector area)
+
+---
+
+### 5.2 Line 2 — Assembly & Robot Cells
+
+| Equipment | Hazard Type | Required Guarding | Interlock Type |
+|-----------|-------------|-------------------|----------------|
+| Robot cells (RC2-001 through RC2-006) | Unexpected motion, crush, impact | Perimeter fencing + interlocked gates | Category 3 safety PLC |
+| Collaborative robots (cobot stations) | Contact, pinch | Force/speed limiting + safety-rated monitored stop | Integrated safety controller |
+| Servo torque stations | Rotating spindle, entanglement | Fixed enclosure + two-hand activation | Category 2 interlock |
+| Vision inspection stations | Pinch points (indexing) | Light curtains + fixed barriers | Category 3 safety PLC |
+| Parts feeders (bowl/linear) | Pinch, entanglement | Fixed covers + emergency stops | Direct-wired |
+
+**Line 2 Specific Requirements:**
+- All robot cells must comply with ANSI/RIA R15.06
+- Perimeter fencing minimum 6 feet high with no gaps greater than safety distance calculation
+- All access gates must be interlocked; gate opening triggers Category 1 stop (controlled stop)
+- Collaborative robot operations must comply with ISO 10218-2 and ISO/TS 15066
+- Teach pendant operation requires three-position enabling device (dead-man switch)
+- Safety-rated monitored stop required for all robot cell entry during troubleshooting
+
+**Critical Guard Points — Line 2:**
+1. Robot cell perimeter access gates
+2. Robot end-of-arm tooling (grippers, welders)
+3. Servo torque tool spindles
+4. Indexing fixture pinch points
+5. Parts feeder tracks and bowls
+
+---
+
+### 5.3 Line 3 — Conveyor & Pack-Out
+
+| Equipment | Hazard Type | Required Guarding | Interlock Type |
+|-----------|-------------|-------------------|----------------|
+| Powered roller conveyors | Nip points, entanglement | Fixed guards at drive/tail + emergency stops | Pull-cord E-stop |
+| Transfer conveyors | Pinch at transitions | Fixed covers + interlocked access panels | Category 2 interlock |
+| Stretch wrap machine | Rotating turntable, film head | Perimeter barrier + light curtain | Category 3 safety PLC |
+| Labeling system | Pinch, label applicator | Fixed enclosure + interlocked door | Category 2 interlock |
+| Palletizer | Crush, impact, pinch | Perimeter fencing + interlocked gates | Category 3 safety PLC |
+| Banding machine | Pinch, strap tension | Fixed guard + two-hand control | Direct-wired |
+
+**Line 3 Specific Requirements:**
+- All conveyor nip points within 7 feet of walking surface must be guarded
+- Emergency stop pull-cords required along entire conveyor length; spacing max 10 feet
+- Stretch wrap machine requires presence-sensing at all entry points
+- Palletizer cell treated as robot cell; same requirements as Line 2 robot cells
+- All guards must allow visual observation of product flow where practical
+
+**Critical Guard Points — Line 3:**
+1. Conveyor drive and tail pulleys
+2. Conveyor transitions and merge points
+3. Stretch wrap turntable perimeter
+4. Palletizer cell access gates
+5. Labeler applicator head
+
+---
+
+### 5.4 Shared Areas
+
+| Area | Equipment | Hazard Type | Required Guarding |
+|------|-----------|-------------|-------------------|
+| Receiving/Shipping | Dock levelers | Pinch, fall | Toe guards + wheel chocks + dock locks |
+| Receiving/Shipping | Powered pallet jacks | Pinch, struck-by | Operator presence control |
+| Maintenance Crib | Bench grinders | Rotating wheel, debris | Fixed wheel guards + tool rests + eye shields |
+| Maintenance Crib | Drill press | Rotating spindle, entanglement | Fixed chuck guard + emergency stop |
+| Maintenance Crib | Band saw | Blade, pinch | Fixed blade guard + throat guard |
+| Chemical Storage | Transfer pumps | Rotating shaft | Coupling guards |
+| Battery Handling | Battery handling equipment | Electrical, crush | Physical barriers + interlocked access |
+
+---
+
+## 6. Guard Design and Installation Requirements
+
+### 6.1 General Requirements
+
+All guards must meet the following criteria:
+
+| Requirement | Specification |
+|-------------|---------------|
+| Prevent contact | Guard must prevent hands, fingers, and body parts from reaching hazard zone |
+| Secure attachment | Guards must be attached so they cannot be easily removed or displaced |
+| No new hazards | Guards must not create additional hazards (sharp edges, pinch points, snag points) |
+| No interference | Guards must allow normal operation, lubrication, and routine adjustments |
+| Durable construction | Guards must withstand the environment (oil, coolant, temperature, vibration) |
+| Visibility | Transparent materials preferred where operator visibility is required |
+| Proper openings | Any openings must comply with OSHA Table O-10 reach-through distances |
+
+### 6.2 Safety Distance Calculations
+
+Guards and presence-sensing devices must be positioned at a minimum safety distance from the hazard:
+
+| Opening Size (inches) | Maximum Permissible Distance from Hazard (inches) |
+|-----------------------|---------------------------------------------------|
+| 0.25 or less | 1.5 |
+| 0.25 to 0.5 | 2.5 |
+| 0.5 to 1.0 | 3.5 |
+| 1.0 to 2.0 | 5.5 |
+| 2.0 to 4.0 | 10.5 |
+| Over 4.0 | Not permitted |
+
+**Light Curtain Safety Distance Formula:**
+```
+Ds = K × (Ts + Tc + Tr + Tbm) + Dpf
+```
+Where:
+- Ds = Minimum safety distance (mm)
+- K = Hand speed constant (typically 1600-2000 mm/s)
+- Ts = Stop time of machine (s)
+- Tc = Response time of safeguarding device (s)
+- Tr = Response time of safety control system (s)
+- Tbm = Brake monitor response time (s)
+- Dpf = Depth penetration factor based on beam resolution
+
+**Documentation:** Safety distance calculations must be documented and retained for each presence-sensing device installation.
+
+### 6.3 Interlock Requirements
+
+| Interlock Category | Application | Requirements |
+|--------------------|-------------|--------------|
+| Category 2 (Control Reliable) | Low-risk applications; auxiliary equipment | Single-channel with monitoring |
+| Category 3 (Safety Rated) | Robot cells, presses, palletizers | Dual-channel with cross-monitoring |
+| Category 4 (Safety Rated, High) | High-risk; severe injury potential | Dual-channel with diagnostics and fault detection |
+
+**All interlocks must:**
+- Fail to a safe state upon component failure
+- Prevent restart with guard open
+- Require deliberate action to reset after guard closure
+- Be tested per Section 10 inspection requirements
+
+---
+
+## 7. Guard Removal and Reinstallation Procedure
+
+### 7.1 Authorization
+
+| Activity | Operator | Setup Tech | Maintenance Tech | Supervisor | EHS Manager |
+|----------|:--------:|:----------:|:----------------:|:----------:|:-----------:|
+| Report guard damage | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Remove fixed guard | — | — | ✓ | — | — |
+| Remove interlocked guard | — | ✓ | ✓ | — | — |
+| Bypass interlock (emergency) | — | — | ✓ | Approve | Approve |
+| Reinstall guard | — | ✓ | ✓ | Verify | — |
+| Verify guard function | — | ✓ | ✓ | ✓ | Audit |
+
+### 7.2 Guard Removal Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Notify Supervisor of need to remove guard and reason | Authorized Person |
+| 2 | Complete Lockout/Tagout per MMC_P4_LOTO_SOP | Authorized Person |
+| 3 | Verify zero energy state | Authorized Person |
+| 4 | Remove guard using appropriate tools | Authorized Person |
+| 5 | Store guard securely to prevent damage | Authorized Person |
+| 6 | If guard cannot be reinstalled same shift, install temporary barrier and notify Supervisor | Authorized Person |
+| 7 | Complete maintenance/repair activity | Authorized Person |
+| 8 | Proceed to reinstallation procedure (Section 7.3) | Authorized Person |
+
+### 7.3 Guard Reinstallation Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Inspect guard for damage before reinstallation | Authorized Person |
+| 2 | If guard is damaged, tag "OUT OF SERVICE" and obtain replacement | Authorized Person |
+| 3 | Position guard correctly with all mounting points aligned | Authorized Person |
+| 4 | Install all fasteners; hand-tighten, then torque to specification | Authorized Person |
+| 5 | Verify no gaps or openings exceed safety distance requirements | Authorized Person |
+| 6 | For interlocked guards: test interlock function (Section 7.4) | Authorized Person |
+| 7 | Remove LOTO and restore equipment to service per LOTO SOP | Authorized Person |
+| 8 | Document guard removal/reinstallation on work order | Authorized Person |
+| 9 | Notify Supervisor that guard is reinstalled and functional | Authorized Person |
+
+### 7.4 Interlock Function Test Procedure
+
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Close interlocked guard completely | Guard seated, latch engaged |
+| 2 | Attempt to start machine using normal controls | Machine starts normally |
+| 3 | While machine is running, open interlocked guard | Machine stops immediately (Category 0 or 1 stop) |
+| 4 | With guard open, attempt to start machine | Machine does not start |
+| 5 | Close guard and reset safety system if required | Machine ready for restart |
+| 6 | Start machine and verify normal operation | Machine operates normally |
+| 7 | Document test results on guard inspection log | Test complete |
+
+**If interlock test fails at any step:** Tag equipment "OUT OF SERVICE" and notify Maintenance Supervisor immediately. Do not operate equipment until interlock is repaired and verified.
+
+---
+
+## 8. Interlock Bypass Procedure
+
+### 8.1 General Policy
+
+**Interlock bypasses are prohibited** except in the following circumstances:
+- Troubleshooting requires observation of machine motion with guard open
+- Setup or adjustment cannot be performed with guard closed
+- Temporary bypass approved by EHS Manager and documented
+
+**Permanent bypasses are never permitted.** Any permanent modification to safety systems requires engineering review and EHS approval.
+
+### 8.2 Emergency Bypass Authorization
+
+| Role | Authority |
+|------|-----------|
+| Operator | None — report need for bypass to Supervisor |
+| Setup Technician | Request bypass; implement with approval |
+| Maintenance Technician | Request bypass; implement with approval |
+| Supervisor | Approve bypass request; verify alternative safeguards |
+| EHS Manager | Final approval required; document risk assessment |
+| Plant Manager | Notification for any bypass exceeding 24 hours |
+
+### 8.3 Bypass Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Identify specific reason bypass is required | Requester |
+| 2 | Complete Interlock Bypass Request Form (Appendix A) | Requester |
+| 3 | Supervisor reviews request and identifies alternative safeguards | Supervisor |
+| 4 | EHS Manager reviews and approves request | EHS Manager |
+| 5 | Implement bypass using approved method (key switch, jumper, software) | Maintenance Tech |
+| 6 | Install warning sign: "INTERLOCK BYPASSED — AUTHORIZED PERSONNEL ONLY" | Maintenance Tech |
+| 7 | Implement alternative safeguards (safety observer, reduced speed, barriers) | Requester + Supervisor |
+| 8 | Complete required work with minimum personnel in area | Authorized Personnel |
+| 9 | Remove bypass immediately upon completion | Maintenance Tech |
+| 10 | Verify interlock function per Section 7.4 | Maintenance Tech |
+| 11 | Document bypass duration and findings on request form | Maintenance Tech |
+| 12 | Return completed form to EHS Manager | Maintenance Tech |
+
+### 8.4 Bypass Limitations
+
+| Condition | Maximum Bypass Duration |
+|-----------|-------------------------|
+| Troubleshooting (active work) | 4 hours |
+| Setup or adjustment | 4 hours |
+| Awaiting parts for repair | 24 hours (equipment tagged out) |
+| Extended bypass | Requires Plant Manager approval and daily review |
+
+### 8.5 Alternative Safeguards During Bypass
+
+When an interlock is bypassed, the following alternative safeguards must be implemented:
+
+| Alternative Safeguard | Application |
+|-----------------------|-------------|
+| Safety observer | Trained person monitors hazard zone; authority to stop work |
+| Reduced speed operation | Machine operated at reduced speed (≤10% of normal) |
+| Inch/jog mode only | Full-speed continuous operation prohibited |
+| Physical barriers | Temporary barriers to restrict access |
+| Restricted personnel | Only essential personnel in area |
+| Two-hand controls | Operator hands occupied during hazardous motion |
+| Hold-to-run controls | Motion stops immediately upon release |
+
+---
+
+## 9. Prohibited Actions
+
+The following actions are strictly prohibited and subject to disciplinary action:
+
+| Prohibited Action | Hazard Created |
+|-------------------|----------------|
+| Operating equipment with guard removed or open | Exposure to point of operation hazards |
+| Reaching around, under, over, or through guards | Exposure to hazard zone |
+| Defeating, bypassing, or disabling interlocks without authorization | Machine may operate with guard open |
+| Removing interlock keys or jumpers | Prevents proper interlock function |
+| Tying down two-hand controls | Defeats two-hand protection |
+| Adjusting guards while machine is running | Exposure to moving parts |
+| Removing "OUT OF SERVICE" tags without authorization | Unsafe equipment may be operated |
+| Failing to report guard damage or malfunction | Continued operation with inadequate protection |
+
+---
+
+## 10. Inspection Requirements
+
+### 10.1 Pre-Shift Inspection (Operator)
+
+Operators must inspect machine guards before each shift:
+
+| Inspection Point | Check For |
+|------------------|-----------|
+| Fixed guards | Secure attachment, no loose fasteners, no damage, no gaps |
+| Interlocked guards | Proper closure, latch engagement, no damage |
+| Light curtains | LEDs functional, lenses clean, no obstructions |
+| Emergency stops | Accessible, not blocked, properly labeled |
+| Two-hand controls | Both buttons functional, no tie-downs |
+| Warning signs | Present, legible, not obscured |
+
+**If deficiency found:** Do not operate equipment. Notify Supervisor immediately.
+
+### 10.2 Weekly Inspection (Supervisor)
+
+Supervisors conduct documented weekly inspections:
+
+| Area | Inspection Items |
+|------|------------------|
+| All machines in area | Guard presence, attachment, condition |
+| Interlocked guards | Function test per Section 7.4 |
+| Light curtains | Beam test using test rod |
+| Emergency stops | Function test (each E-stop in area) |
+| Two-hand controls | Anti-tie-down test |
+| Floor markings | Visible, not worn |
+| Warning signs | Present, condition |
+
+**Documentation:** Complete weekly inspection checklist and submit to EHS.
+
+### 10.3 Monthly Inspection (Maintenance)
+
+Maintenance conducts detailed monthly inspections:
+
+| Inspection Item | Verification Method |
+|-----------------|---------------------|
+| Guard structural integrity | Visual and physical inspection |
+| Fastener torque | Spot-check with torque wrench |
+| Interlock switch condition | Visual inspection; function test |
+| Interlock wiring | Visual inspection for damage, chafing |
+| Safety PLC diagnostics | Review fault logs; clear non-critical faults |
+| Light curtain alignment | Alignment indicator check; manufacturer test |
+| Safety mat condition | Visual inspection; zone test |
+| Two-hand control timing | Timing test per OSHA requirements |
+
+**Documentation:** Document findings on PM work order; corrective actions tracked to completion.
+
+### 10.4 Annual Audit (EHS)
+
+EHS Manager conducts comprehensive annual audit:
+
+| Audit Element | Scope |
+|---------------|-------|
+| Guard inventory | Verify all guards documented and accounted for |
+| Safety distance verification | Re-verify calculations for presence-sensing devices |
+| Interlock category validation | Confirm appropriate category for application |
+| Procedure compliance | Review guard removal/bypass records |
+| Training compliance | Verify personnel training current |
+| Incident review | Review guard-related incidents and corrective actions |
+| Regulatory updates | Verify compliance with current standards |
+
+**Documentation:** Annual audit report submitted to Plant Manager with corrective action plan.
+
+---
+
+## 11. New Equipment and Modifications
+
+### 11.1 New Equipment Requirements
+
+All new equipment must meet the following requirements before production use:
+
+| Requirement | Verification |
+|-------------|--------------|
+| Guarding complies with applicable standards | EHS review of equipment documentation |
+| Safety distance calculations documented | Engineering provides calculations |
+| Interlock category appropriate for hazard | EHS review and approval |
+| Interlocks tested and functional | Maintenance verifies during installation |
+| Operator training completed | Training records documented |
+| Guards added to inspection schedule | Supervisor adds to weekly checklist |
+
+### 11.2 Equipment Modification Requirements
+
+Any modification to existing equipment guarding requires:
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Submit Engineering Change Request (ECR) describing modification | Requester |
+| 2 | EHS reviews modification for safety impact | EHS Manager |
+| 3 | Engineering reviews modification for technical adequacy | Engineering |
+| 4 | If modification affects guarding, update safety distance calculations | Engineering |
+| 5 | Implement modification | Maintenance |
+| 6 | Verify guard function and interlock performance | Maintenance + EHS |
+| 7 | Update equipment documentation | Engineering |
+| 8 | Retrain affected personnel | Supervisor |
+
+---
+
+## 12. Training Requirements
+
+### 12.1 Training Matrix
+
+| Role | Initial Training | Annual Refresher | Additional Requirements |
+|------|------------------|------------------|------------------------|
+| Operator | Machine Guarding Awareness | ✓ | Equipment-specific training |
+| Setup Technician | Machine Guarding Awareness + Authorized Guard Removal | ✓ | LOTO Authorized Person |
+| Maintenance Technician | Machine Guarding Awareness + Authorized Guard Removal + Interlock Systems | ✓ | LOTO Authorized Person |
+| Supervisor | Machine Guarding Awareness + Inspection Procedures | ✓ | Audit techniques |
+| Quality Engineer | Machine Guarding Awareness | ✓ | — |
+| Contractor | Machine Guarding Orientation | Per project | Site-specific requirements |
+
+### 12.2 Training Content
+
+**Machine Guarding Awareness (All Employees):**
+- Types of machine hazards and guarding methods
+- Recognition of properly functioning guards
+- Pre-shift inspection requirements
+- Reporting guard deficiencies
+- Prohibited actions
+- Consequences of guard defeat
+
+**Authorized Guard Removal (Setup and Maintenance):**
+- Guard removal and reinstallation procedures
+- LOTO requirements before guard removal
+- Interlock function testing
+- Temporary guarding requirements
+- Documentation requirements
+
+**Interlock Systems (Maintenance):**
+- Interlock categories and applications
+- Interlock component identification and function
+- Troubleshooting interlocked safety systems
+- Bypass procedures and limitations
+- Safety PLC diagnostics
+
+---
+
+## 13. Roles and Responsibilities
+
+| Role | Responsibilities |
+|------|------------------|
+| **Plant Manager** | Provide resources for guarding program; approve extended bypasses; review annual audit |
+| **EHS Manager** | Maintain guarding program; approve bypasses; conduct annual audit; investigate incidents; maintain training records |
+| **Maintenance Supervisor** | Ensure guards repaired promptly; oversee interlock testing; verify guard reinstallation; approve guard removal |
+| **Line Supervisor** | Conduct weekly inspections; enforce guarding requirements; verify pre-shift inspections; report deficiencies |
+| **Maintenance Technician** | Remove/reinstall guards per procedure; repair/replace damaged guards; test interlocks; implement bypasses |
+| **Setup Technician** | Remove/reinstall guards for setup; verify guard function after changeover; report deficiencies |
+| **Operator** | Conduct pre-shift inspections; report deficiencies immediately; do not operate with guard removed |
+| **Quality Engineer** | Report guard deficiencies observed; ensure guarding does not interfere with quality inspections |
+| **Contractor** | Comply with MMC guarding requirements; coordinate guard removal with Maintenance Supervisor |
+
+---
+
+## 14. Incident Reporting and Investigation
+
+### 14.1 Reportable Events
+
+The following events must be reported immediately:
+
+| Event Type | Examples |
+|------------|----------|
+| Injury involving guarding | Employee contacts unguarded hazard; injury from guard failure |
+| Guard failure | Interlock does not stop machine; guard falls from machine |
+| Near-miss | Employee nearly contacts hazard due to guard issue |
+| Unauthorized bypass | Discovered bypass without documentation |
+| Repeat deficiency | Same guard deficiency identified multiple times |
+
+### 14.2 Reporting Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Stop equipment immediately | Discoverer |
+| 2 | Render first aid if injury occurred | Trained responder |
+| 3 | Notify Supervisor immediately | Discoverer |
+| 4 | Tag equipment "OUT OF SERVICE" | Supervisor |
+| 5 | Complete incident report within 24 hours | Supervisor + EHS |
+| 6 | Investigate root cause | EHS + Maintenance |
+| 7 | Implement corrective actions | Assigned personnel |
+| 8 | Verify effectiveness | EHS |
+
+---
+
+## 15. Documentation and Records
+
+| Record Type | Retention Period | Maintained By |
+|-------------|------------------|---------------|
+| Pre-shift inspection records | 1 year | Supervisor |
+| Weekly inspection checklists | 3 years | EHS |
+| Monthly inspection records | 3 years | Maintenance |
+| Annual audit reports | 5 years | EHS |
+| Interlock bypass requests | 5 years | EHS |
+| Guard modification documentation | Life of equipment | Engineering |
+| Training records | Duration of employment + 3 years | EHS |
+| Incident investigation reports | 5 years | EHS |
+| Safety distance calculations | Life of equipment | Engineering |
+
+---
+
+## 16. Related Documents
+
+| Document ID | Title |
+|-------------|-------|
+| MMC_P4_Safety_Program_Overview | Safety Program Overview |
+| MMC_P4_LOTO_SOP | Lockout/Tagout Standard Operating Procedure |
+| MMC_P4_PPE_Matrix | Personal Protective Equipment Matrix |
+| MMC_P4_Jam_Clearing_WI | Jam Clearing Work Instruction |
+| MMC_P4_Incident_Reporting | Incident Reporting Procedure |
+
+---
+
+## 17. Document Control
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0 | 2026-01-26 | EHS Manager | Initial release |
+
+---
+
+## Appendix A: Interlock Bypass Request Form
+
+**INTERLOCK BYPASS REQUEST**
+
+| Field | Entry |
+|-------|-------|
+| Date | _________________ |
+| Equipment ID | _________________ |
+| Equipment Name | _________________ |
+| Location/Line | _________________ |
+| Interlock Being Bypassed | _________________ |
+
+**Reason for Bypass:**
+☐ Troubleshooting  ☐ Setup/Adjustment  ☐ Awaiting Parts  ☐ Other: _____________
+
+**Description of Need:**
+_____________________________________________________________________________
+_____________________________________________________________________________
+
+**Alternative Safeguards Implemented:**
+☐ Safety Observer (Name: _______________)
+☐ Reduced Speed (Specify: ___%)
+☐ Inch/Jog Mode Only
+☐ Physical Barriers
+☐ Restricted Personnel (List: _______________)
+☐ Hold-to-Run Controls
+☐ Other: _______________
+
+**Estimated Duration:** _____________ hours
+
+| Approval | Name | Signature | Date/Time |
+|----------|------|-----------|-----------|
+| Supervisor | | | |
+| EHS Manager | | | |
+
+**Bypass Implemented By:** _______________ Date/Time: _______________
+
+**Bypass Removed By:** _______________ Date/Time: _______________
+
+**Interlock Function Verified:** ☐ Yes  Verified By: _______________ Date/Time: _______________
+
+---
+
+## Appendix B: Weekly Guard Inspection Checklist
+
+**Area/Line:** _______________  **Inspector:** _______________  **Date:** _______________
+
+| Machine ID | Guard Type | Secure | Intact | Interlock Test | E-Stop Test | Deficiency Found | Action Taken |
+|------------|------------|:------:|:------:|:--------------:|:-----------:|------------------|--------------|
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+| | | ☐ | ☐ | ☐ Pass ☐ Fail | ☐ Pass ☐ Fail | | |
+
+**Comments/Follow-up Required:**
+_____________________________________________________________________________
+
+**Supervisor Signature:** _______________ **Date:** _______________
+
+---
+
+## Appendix C: Guard Inventory — Line 1 (Stamping & Forming)
+
+| Equipment ID | Equipment Name | Guard Location | Guard Type | Interlock Category |
+|--------------|----------------|----------------|------------|-------------------|
+| P1-001 | 400-Ton Press | Front point-of-operation | Light curtain | Category 3 |
+| P1-001 | 400-Ton Press | Rear ejector | Fixed barrier | N/A |
+| P1-001 | 400-Ton Press | Left side access | Interlocked door | Category 3 |
+| P1-001 | 400-Ton Press | Right side access | Interlocked door | Category 3 |
+| P1-001 | 400-Ton Press | Flywheel housing | Fixed enclosure | N/A |
+| P1-002 | 250-Ton Press | Front point-of-operation | Light curtain | Category 3 |
+| P1-002 | 250-Ton Press | Side access panels | Interlocked doors | Category 3 |
+| P1-003 | 150-Ton Press | Front point-of-operation | Two-hand control + barrier | Category 2 |
+| P1-004 | 100-Ton Press | Front point-of-operation | Two-hand control + barrier | Category 2 |
+| CF-001 | Coil Cradle | Perimeter | Fixed fence + gate | Key interlock |
+| CF-002 | Straightener | Feed rolls | Fixed barrier | N/A |
+| SC-001 | Scrap Conveyor | Drive/tail | Fixed covers | N/A |
+| SC-001 | Scrap Conveyor | Length | Pull-cord E-stop | Direct-wired |
+
+---
+
+## Appendix D: Guard Inventory — Line 2 (Assembly & Robot Cells)
+
+| Equipment ID | Equipment Name | Guard Location | Guard Type | Interlock Category |
+|--------------|----------------|----------------|------------|-------------------|
+| RC2-001 | Robot Cell 1 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-001 | Robot Cell 1 | Access gate (operator) | Interlocked gate | Category 3 |
+| RC2-001 | Robot Cell 1 | Access gate (maintenance) | Interlocked gate | Category 3 |
+| RC2-002 | Robot Cell 2 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-002 | Robot Cell 2 | Access gate | Interlocked gate | Category 3 |
+| RC2-003 | Robot Cell 3 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-003 | Robot Cell 3 | Access gate | Interlocked gate | Category 3 |
+| RC2-004 | Robot Cell 4 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-004 | Robot Cell 4 | Access gate | Interlocked gate | Category 3 |
+| RC2-005 | Robot Cell 5 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-005 | Robot Cell 5 | Access gate | Interlocked gate | Category 3 |
+| RC2-006 | Robot Cell 6 | Perimeter | Fixed fence 6 ft | N/A |
+| RC2-006 | Robot Cell 6 | Access gate | Interlocked gate | Category 3 |
+| CB-001 | Collaborative Robot Station | Area | Safety-rated monitored stop | Integrated |
+| TS-001 | Torque Station 1 | Spindle | Fixed enclosure | Category 2 |
+| TS-002 | Torque Station 2 | Spindle | Fixed enclosure | Category 2 |
+| VI-001 | Vision Inspection | Indexing fixture | Light curtain | Category 3 |
+| BF-001 | Bowl Feeder 1 | Bowl/track | Fixed cover | N/A |
+| BF-002 | Bowl Feeder 2 | Bowl/track | Fixed cover | N/A |
+
+---
+
+## Appendix E: Guard Inventory — Line 3 (Conveyor & Pack-Out)
+
+| Equipment ID | Equipment Name | Guard Location | Guard Type | Interlock Category |
+|--------------|----------------|----------------|------------|-------------------|
+| CV3-001 | Main Conveyor Section 1 | Drive pulley | Fixed guard | N/A |
+| CV3-001 | Main Conveyor Section 1 | Tail pulley | Fixed guard | N/A |
+| CV3-001 | Main Conveyor Section 1 | Length | Pull-cord E-stop | Direct-wired |
+| CV3-002 | Main Conveyor Section 2 | Drive pulley | Fixed guard | N/A |
+| CV3-002 | Main Conveyor Section 2 | Length | Pull-cord E-stop | Direct-wired |
+| CV3-003 | Transfer Conveyor | Transition | Fixed cover | N/A |
+| CV3-003 | Transfer Conveyor | Access panel | Interlocked panel | Category 2 |
+| SW-001 | Stretch Wrap Machine | Turntable perimeter | Light curtain | Category 3 |
+| SW-001 | Stretch Wrap Machine | Film head | Fixed barrier | N/A |
+| LB-001 | Labeler | Applicator head | Fixed enclosure | N/A |
+| LB-001 | Labeler | Access door | Interlocked door | Category 2 |
+| PZ-001 | Palletizer | Perimeter | Fixed fence 6 ft | N/A |
+| PZ-001 | Palletizer | Operator access gate | Interlocked gate | Category 3 |
+| PZ-001 | Palletizer | Maintenance access gate | Interlocked gate | Category 3 |
+| PZ-001 | Palletizer | Pallet infeed | Light curtain | Category 3 |
+| BD-001 | Banding Machine | Strap area | Fixed guard + two-hand | Direct-wired |
+
+---
+
+**End of Document**
