@@ -7,6 +7,7 @@ resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
   name: searchName
   location: location
   sku: { name: sku }
+  identity: { type: 'SystemAssigned' }
   properties: {
     replicaCount: 1
     partitionCount: 1
@@ -18,3 +19,4 @@ resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
 
 output searchId string = search.id
 output searchName string = search.name
+output searchPrincipalId string = search.identity.principalId

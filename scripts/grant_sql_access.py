@@ -28,6 +28,7 @@ SQL_DB = os.environ["SQL_DATABASE_NAME"]
 # (display_name_in_sql, MI object id) — Search service MIs that need read access.
 PRINCIPALS = [
     ("srch-mmc-plant", "<search-plant-mi-object-id>"),
+    ("srch-mmc-plant4", "<search-plant4-mi-object-id>"),
     ("srch-mmc-enterprise", "<search-enterprise-mi-object-id>"),
 ]
 
@@ -35,7 +36,7 @@ SQL_COPT_SS_ACCESS_TOKEN = 1256
 
 
 def connect() -> pyodbc.Connection:
-    token = AzureCliCredential().get_token("https://database.windows.net/.default").token
+    token = AzureCliCredential(process_timeout=60).get_token("https://database.windows.net/.default").token
     tb = token.encode("utf-16-le")
     packed = struct.pack(f"<I{len(tb)}s", len(tb), tb)
     conn_str = (

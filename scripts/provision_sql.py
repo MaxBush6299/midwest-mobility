@@ -45,13 +45,17 @@ class TableSpec:
     csv_path: Path     # source CSV (relative to repo root)
 
 
-# Five tables (matches CSV files identified for SQL migration).
+# Five core tables + per-plant suffix tables (Gate D).
 SPECS: list[TableSpec] = [
     TableSpec("training_log",   "Training_ID", REPO_ROOT / "plants/plant7/kb/08_Logs_Data/MMC_P7_Training_Log.csv"),
     TableSpec("pm_schedule",    "PM_ID",       REPO_ROOT / "plants/plant7/kb/08_Logs_Data/MMC_P7_PM_Schedule.csv"),
     TableSpec("incident_log",   "Incident_ID", REPO_ROOT / "plants/plant7/kb/08_Logs_Data/MMC_P7_Incident_Log.csv"),
     TableSpec("po_spend",       "PO_ID",       REPO_ROOT / "enterprise/procurement/data/po_spend.csv"),
     TableSpec("supplier_master","Supplier_ID", REPO_ROOT / "enterprise/supply-chain/data/supplier_master.csv"),
+    # Plant 4 per-plant suffix tables.
+    TableSpec("training_log_p4","Training_ID", REPO_ROOT / "plants/plant4/kb/08_Logs_Data/MMC_P4_Training_Log.csv"),
+    TableSpec("pm_schedule_p4", "PM_ID",       REPO_ROOT / "plants/plant4/kb/08_Logs_Data/MMC_P4_PM_Schedule.csv"),
+    TableSpec("incident_log_p4","Incident_ID", REPO_ROOT / "plants/plant4/kb/08_Logs_Data/MMC_P4_Incident_Log.csv"),
 ]
 
 
@@ -61,7 +65,8 @@ SQL_COPT_SS_ACCESS_TOKEN = 1256  # mssql-specific connection attribute
 
 def connect() -> pyodbc.Connection:
     """Open a pyodbc connection to Azure SQL using an AAD bearer token."""
-    credential = AzureCliCredential()
+    # Windows az.cmd can take >10s on cold start — bump from default 10s.
+    credential = AzureCliCredential(process_timeout=60)
     token = credential.get_token("https://database.windows.net/.default").token
     token_bytes = token.encode("utf-16-le")
     packed = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)

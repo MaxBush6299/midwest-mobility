@@ -15,6 +15,7 @@ param enterpriseKbName string = 'kb-enterprise'
 
 // Azure SQL (Pattern A — Foundry IQ indexed Azure SQL knowledge source).
 param sqlServerName string = 'sql-mmc-demo'
+param sqlLocation string = 'centralus'
 param sqlDatabaseName string = 'mmcops'
 param sqlAadAdminObjectId string
 param sqlAadAdminLogin string
@@ -117,7 +118,7 @@ module kbEnterprise 'modules/foundry-iq-kb.bicep' = {
 module sql 'modules/sql.bicep' = {
   name: 'sql'
   params: {
-    location: location
+    location: sqlLocation
     sqlServerName: sqlServerName
     sqlDatabaseName: sqlDatabaseName
     aadAdminObjectId: sqlAadAdminObjectId

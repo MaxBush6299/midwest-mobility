@@ -209,11 +209,14 @@ def seed_plant(plant_id: str) -> None:
     profile = yaml.safe_load(
         (ROOT / "plants" / plant_id / "profile.yaml").read_text(encoding="utf-8")
     )
-    search_ep = os.environ["SEARCH_PLANT_ENDPOINT"]
+    # Per-plant search endpoint takes precedence (Gate D per-plant topology);
+    # falls back to shared SEARCH_PLANT_ENDPOINT for Plant 7 compatibility.
+    plant_env = f"SEARCH_{plant_id.upper()}_ENDPOINT"
+    search_ep = os.environ.get(plant_env) or os.environ["SEARCH_PLANT_ENDPOINT"]
     kb_name = f"kb-{plant_id}"
     print(f"Seeding plant '{plant_id}' -> {search_ep}")
     _seed(search_ep, plant_id, profile["kb"]["sources"], kb_name)
-    print(f"  FOUNDRY_IQ_KB_PLANT7_ID={kb_name}")
+    print(f"  FOUNDRY_IQ_KB_{plant_id.upper()}_ID={kb_name}")
 
 
 def seed_enterprise(only_source: str | None = None) -> None:
