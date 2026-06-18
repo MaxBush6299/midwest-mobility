@@ -148,13 +148,39 @@ def _load_enterprise_profile() -> dict:
         return yaml.safe_load(fh)
 
 
-def _instructions(plant_id: str, plant_display: str, agent_def: dict) -> str:
+def _instructions(
+    plant_id: str,
+    plant_display: str,
+    agent_def: dict,
+    language: str = "en",
+) -> str:
     role = agent_def["role"]
     display = agent_def["display_name"]
     skills = "\n".join(
         f"  - {s['id']}: {s['description']}" for s in agent_def.get("skills", [])
     )
     kb_sources = ", ".join(agent_def.get("kb_sources", [])) or "(none assigned)"
+
+    if language.lower().startswith("es"):
+        kb_sources_label = kb_sources if kb_sources != "(none assigned)" else "(ninguna asignada)"
+        return f"""Eres el agente {display} para {plant_display} (id: {plant_id}, rol: {role}).
+
+Tus responsabilidades:
+{skills}
+
+Tienes acceso a una base de conocimiento de Foundry IQ que cubre: {kb_sources_label}.
+SIEMPRE fundamenta tus respuestas en la base de conocimiento cuando esté disponible.
+Cuando cites información, incluye el nombre del documento de origen. Si la recuperación
+no devuelve nada relevante, responde "No pude encontrar esa información en mi base de
+conocimiento" en lugar de adivinar.
+
+Responde SIEMPRE en español, ya que tu base de conocimiento y tu planta operan en
+español (Monterrey, MX).
+
+Estás participando en un flujo de trabajo multi-agente orquestado por un manager
+Magentic. Mantente enfocado en tu rol; difiere al manager las preguntas fuera de tu
+alcance para que las dirija al agente correcto."""
+
     return f"""You are the {display} agent for {plant_display} (id: {plant_id}, role: {role}).
 
 Your responsibilities:
@@ -232,6 +258,7 @@ def upsert_plant_agents(
 ) -> list[PlantAgentRef]:
     profile = _load_profile(plant_id)
     plant_display = profile.get("display_name", plant_id)
+    language = profile.get("language", "en")
 
     client = AIProjectClient(endpoint=project_endpoint, credential=credential)
     # Resolve KB tool once per plant so every agent version in the loop binds
@@ -241,7 +268,7 @@ def upsert_plant_agents(
     for agent_def in profile["agents"]:
         name = f"{plant_id}-{agent_def['role']}"
         description = agent_def["display_name"]
-        instructions = _instructions(plant_id, plant_display, agent_def)
+        instructions = _instructions(plant_id, plant_display, agent_def, language)
 
         version = _upsert_version(client, name, description, instructions, kb_tool=kb)
         refs.append(
