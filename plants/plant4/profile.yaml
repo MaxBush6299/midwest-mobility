@@ -1,0 +1,96 @@
+plant_id: plant4
+plant_code: P4
+display_name: MMC Plant 4 (Monterrey, MX)
+language: es
+location:
+  city: Monterrey
+  state: Nuevo Leon
+  country: MX
+employees: 190
+operating_model: 2-shift 24/5 with Saturday maintenance window
+shifts:
+  - { id: A, hours: "06:00-14:00" }
+  - { id: B, hours: "14:00-22:00" }
+lines:
+  - { id: L1, name: Brake-Caliper Assembly, equipment_prefix: L1-CMM-, primary_products: [BRK-CAL-XYZ] }
+  - { id: L2, name: Paint and Final Finish, equipment_prefix: L2-PNT-, primary_products: [painted caliper brackets] }
+# Standards: keep the Plant 7 baseline (ISO + ANSI + NFPA references appear
+# in shared SOPs and skill IDs) and add NOM-STPS / NOM-001-STPS for the
+# Mexican regulatory jurisdiction.
+standards: [NOM-STPS, NOM-001-STPS-2008, ISO-45001, ISO-9001, ANSI-RIA-R15.06, NFPA-70E]
+
+kb:
+  kb_id_env: FOUNDRY_IQ_KB_PLANT4_ID
+  sources:
+    ehs:
+      paths: ["plants/plant4/kb/02_EHS_Internal", "shared/kb/regulatory-reference/OSHA", "shared/kb/regulatory-reference/MEX"]
+    maintenance:
+      paths: ["plants/plant4/kb/03_Maintenance", "shared/kb/oem-manuals"]
+    quality_ops:
+      paths: ["plants/plant4/kb/04_Quality", "plants/plant4/kb/05_Ops_Shift"]
+    training_data:
+      sql_table: dbo.training_log_p4
+      description: "Plant 4 training records (employees, courses, expirations)."
+    pm_data:
+      sql_table: dbo.pm_schedule_p4
+      description: "Plant 4 preventive maintenance schedule + completion log."
+    incident_data:
+      sql_table: dbo.incident_log_p4
+      description: "Plant 4 EHS incident log (near-misses, injuries, CAPAs)."
+
+agents:
+  - role: ehs
+    display_name: Plant 4 EHS / Safety
+    kb_sources: [ehs, incident_data]
+    tools: [capa]
+    skills:
+      - id: hazard_loto_lookup
+        description: Hazard & LOTO requirement lookup
+      - id: incident_clustering
+        description: Incident clustering & repeat-cause analysis
+      - id: osha_iso_compliance_check
+        description: NOM / ISO 45001 compliance check
+  - role: maintenance
+    display_name: Plant 4 Maintenance & Reliability
+    kb_sources: [maintenance, pm_data]
+    tools: [cmms, scada]
+    skills:
+      - id: pm_status
+        description: PM status & overdue work-order lookup
+      - id: asset_history
+        description: Asset history & jam-clear procedure
+      - id: spare_part_lookup
+        description: Spare-part lookup & OEE / downtime
+  - role: quality
+    display_name: Plant 4 Quality
+    kb_sources: [quality_ops, incident_data]
+    tools: [qms]
+    skills:
+      - id: ncr_capa_status
+        description: NCR / CAPA status & 8D containment
+      - id: defect_safety_linkage
+        description: Defect → safety-issue linkage
+      - id: first_piece_inspection
+        description: First-piece / changeover inspection
+  - role: shiftops
+    display_name: Plant 4 Shift Ops
+    kb_sources: [quality_ops, pm_data, incident_data]
+    tools: [mes]
+    skills:
+      - id: handover_summary
+        description: Shift-handover summary & open items
+      - id: changeover_guidance
+        description: Changeover / SMED step guidance
+      - id: line_stop_support
+        description: Line-stop decision support
+  - role: training
+    display_name: Plant 4 Training / Competency
+    kb_sources: [quality_ops, training_data, incident_data]
+    tools: [lms]
+    skills:
+      - id: cert_status
+        description: Certification status & expiration lookup
+      - id: qualified_for_task
+        description: "Who is qualified for this task?"
+      - id: training_gap_link
+        description: Training-gap vs. incident linkage
