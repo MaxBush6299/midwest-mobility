@@ -302,6 +302,102 @@ def _default_chat_client() -> object:
     return manager_chat_client()
 
 
+# ---------------------------------------------------------------------------
+# Cross-plant BOM link (Task 10)
+# ---------------------------------------------------------------------------
+
+# Parts that are deliberately shared across plants (cross-plant scenario IDs).
+# Expand this set as more shared scenarios land.
+SHARED_BOM_PART_IDS: frozenset[str] = frozenset({"BRK-CAL-XYZ"})
+
+_P7_EQUIP_PREFIX_RE = re.compile(r"^P7-")
+
+
+def ensure_cross_plant_bom_link(
+    bom_path: Path, plant_id: str, plant_code: str
+) -> int:
+    """Add target-plant rows for each shared scenario Part_ID found in source.
+
+    Idempotent: if a row for (Part_ID, target plant_id) already exists, it is
+    not duplicated. Returns the number of new rows appended.
+
+    Equipment_ID values prefixed with ``P7-`` are rewritten to use the target
+    plant_code's letter+digit prefix (e.g. ``P7-L1-CMM-04`` -> ``P4-L1-CMM-04``).
+    Equipment IDs without that prefix are copied verbatim. If an
+    ``Annual_Volume`` column exists, the target row's value is scaled by 0.6
+    (rounded to int) to reflect a smaller secondary-source allocation; if no
+    such column exists, this is a no-op.
+    """
+    import csv as _csv
+
+    text = bom_path.read_text(encoding="utf-8")
+    if not text:
+        return 0
+    reader = _csv.reader(text.splitlines())
+    rows = list(reader)
+    if not rows:
+        return 0
+    header = rows[0]
+    body = [r for r in rows[1:] if r]
+
+    try:
+        col_part = header.index("Part_ID")
+        col_plant = header.index("Plant_ID")
+        col_plant_code = header.index("Plant_Code")
+        col_equip = header.index("Equipment_ID")
+    except ValueError as exc:
+        raise ValueError(f"bom CSV missing required column: {exc}") from None
+    col_volume = header.index("Annual_Volume") if "Annual_Volume" in header else -1
+
+    m = re.search(r"P([A-Z0-9]+)$", plant_code)
+    equip_prefix = f"P{m.group(1)}-" if m else None
+
+    existing_target_keys = {
+        (r[col_part], r[col_plant]) for r in body if len(r) > col_plant
+    }
+
+    added_rows: list[list[str]] = []
+    for r in body:
+        if len(r) <= max(col_part, col_plant, col_plant_code, col_equip):
+            continue
+        part_id = r[col_part]
+        if part_id not in SHARED_BOM_PART_IDS:
+            continue
+        if r[col_plant] == plant_id:
+            continue
+        if (part_id, plant_id) in existing_target_keys:
+            continue
+        new_row = list(r)
+        new_row[col_plant] = plant_id
+        new_row[col_plant_code] = plant_code
+        if equip_prefix is not None:
+            new_row[col_equip] = _P7_EQUIP_PREFIX_RE.sub(equip_prefix, new_row[col_equip])
+        if col_volume >= 0 and len(new_row) > col_volume:
+            try:
+                base = int(float(new_row[col_volume]))
+                new_row[col_volume] = str(int(base * 0.6))
+            except (TypeError, ValueError):
+                pass
+        added_rows.append(new_row)
+        existing_target_keys.add((part_id, plant_id))
+
+    if not added_rows:
+        return 0
+
+    trailing = "\n" if text.endswith("\n") else ""
+    buf = io.StringIO()
+    writer = _csv.writer(buf, lineterminator="\n")
+    for row in added_rows:
+        writer.writerow(row)
+    appended = buf.getvalue()
+
+    body_text = text.rstrip("\n")
+    bom_path.write_text(
+        body_text + "\n" + appended.rstrip("\n") + trailing, encoding="utf-8"
+    )
+    return len(added_rows)
+
+
 def run_narrative_phase(
     plant_dir: Path,
     source_plant_dir: Path,
@@ -385,6 +481,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     plant_code = derive_plant_code(profile, args.plant)
     n = run_mechanical_phase(plant_dir, args.plant, plant_code)
     print(f"mechanical: processed {n} CSV file(s) for {args.plant} ({plant_code})")
+
+    bom_path = args.enterprise_root / "supply-chain" / "data" / "bom_where_used.csv"
+    if bom_path.is_file():
+        added = ensure_cross_plant_bom_link(bom_path, args.plant, plant_code)
+        print(f"bom: added {added} cross-plant row(s) to {bom_path}")
 
     if args.mechanical_only:
         return 0

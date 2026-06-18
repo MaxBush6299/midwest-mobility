@@ -273,3 +273,101 @@ def test_narrative_supports_invoke_fallback(tmp_path: Path) -> None:
 
     assert len(client.prompts) == 1
     assert dest.read_text(encoding="utf-8") == client.response_text
+
+
+# ---------------------------------------------------------------------------
+# Task 10: cross-plant BOM link
+# ---------------------------------------------------------------------------
+
+
+BOM_HEADER = (
+    "Part_ID,Part_Name,Supplier_ID,Plant_ID,Plant_Code,Line_ID,Equipment_ID,"
+    "Qty_Per_Assy,Effective_Date,Safety_Critical,Alt_Source_Status\n"
+)
+BOM_P7_BRK = (
+    "BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant7,MMC_P7,L1,L1-PRS-001,"
+    "1,2025-01-01,Y,NO_DIRECT_ALT\n"
+)
+
+
+def _write_bom(path: Path, rows: list[str]) -> None:
+    path.write_text(BOM_HEADER + "".join(rows), encoding="utf-8")
+
+
+def _read_bom(path: Path) -> tuple[str, list[list[str]]]:
+    import csv as _csv
+
+    text = path.read_text(encoding="utf-8")
+    reader = _csv.reader(text.splitlines())
+    header = next(reader)
+    body = [row for row in reader if row]
+    return ",".join(header), body
+
+
+def test_bom_link_adds_plant4_row_for_shared_part(tmp_path: Path) -> None:
+    """ensure_cross_plant_bom_link adds a Plant 4 row for BRK-CAL-XYZ."""
+    from scripts.generate_plant_content import ensure_cross_plant_bom_link
+
+    bom = tmp_path / "bom_where_used.csv"
+    _write_bom(bom, [BOM_P7_BRK])
+
+    added = ensure_cross_plant_bom_link(bom, "plant4", "MMC_P4")
+
+    assert added == 1, "should add exactly one Plant 4 row"
+    _, body = _read_bom(bom)
+    by_plant = {row[3]: row for row in body if row[0] == "BRK-CAL-XYZ"}
+    assert "plant7" in by_plant, "original Plant 7 row preserved"
+    assert "plant4" in by_plant, "Plant 4 row added"
+
+    p4 = by_plant["plant4"]
+    assert p4[0] == "BRK-CAL-XYZ", "shared Part_ID preserved"
+    assert p4[1] == "Brake Caliper Assembly", "shared Part_Name preserved"
+    assert p4[4] == "MMC_P4", "Plant_Code rewritten"
+
+
+def test_bom_link_is_idempotent(tmp_path: Path) -> None:
+    """Second call must NOT duplicate the Plant 4 row."""
+    from scripts.generate_plant_content import ensure_cross_plant_bom_link
+
+    bom = tmp_path / "bom_where_used.csv"
+    _write_bom(bom, [BOM_P7_BRK])
+
+    first = ensure_cross_plant_bom_link(bom, "plant4", "MMC_P4")
+    bytes_after_first = bom.read_bytes()
+    second = ensure_cross_plant_bom_link(bom, "plant4", "MMC_P4")
+
+    assert first == 1
+    assert second == 0, "second call must be a no-op"
+    assert bom.read_bytes() == bytes_after_first, "bytes must be byte-identical on rerun"
+
+
+def test_bom_link_rewrites_p7_prefixed_equipment_id(tmp_path: Path) -> None:
+    """If a shared row has a P7-prefixed Equipment_ID, rewrite to plant_code prefix."""
+    from scripts.generate_plant_content import ensure_cross_plant_bom_link
+
+    bom = tmp_path / "bom_where_used.csv"
+    p7_with_prefix = (
+        "BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant7,MMC_P7,L1,P7-L1-CMM-04,"
+        "1,2025-01-01,Y,NO_DIRECT_ALT\n"
+    )
+    _write_bom(bom, [p7_with_prefix])
+
+    ensure_cross_plant_bom_link(bom, "plant4", "MMC_P4")
+
+    _, body = _read_bom(bom)
+    p4 = next(r for r in body if r[0] == "BRK-CAL-XYZ" and r[3] == "plant4")
+    assert p4[6] == "P4-L1-CMM-04", "P7- prefix rewritten to P4-"
+
+
+def test_bom_link_no_shared_part_is_noop(tmp_path: Path) -> None:
+    """When no source-plant row exists for a shared Part_ID, do nothing."""
+    from scripts.generate_plant_content import ensure_cross_plant_bom_link
+
+    bom = tmp_path / "bom_where_used.csv"
+    _write_bom(bom, [
+        "STM-PNL-A1,Stamped Panel A1,SUP-002,plant7,MMC_P7,L1,L1-PRS-001,"
+        "2,2025-01-01,N,APPROVED_ALT_AVAILABLE\n"
+    ])
+
+    added = ensure_cross_plant_bom_link(bom, "plant4", "MMC_P4")
+    assert added == 0
