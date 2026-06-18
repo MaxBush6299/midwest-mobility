@@ -4,7 +4,8 @@ Uses the *new* Foundry Agents Service (azure-ai-projects >= 2.2.0) at the
 services.ai.azure.com endpoint. Each profile entry maps to a versioned
 PromptAgentDefinition created via AIProjectClient.agents.create_version().
 
-KB attachment: when PLANT_KB_CONNECTION_ID / PLANT_KB_MCP_URL are set, the
+KB attachment: when <PLANT_ID_UPPER>_KB_CONNECTION_ID / <..>_KB_MCP_URL
+(or the global PLANT_KB_CONNECTION_ID / PLANT_KB_MCP_URL) are set, the
 factory attaches the Foundry IQ MCP tool to every agent so every new version
 includes the KB binding (idempotent — no portal step required).
 """
@@ -37,10 +38,33 @@ def _model() -> str:
     return os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o-mini")
 
 
-def _kb_tool() -> MCPTool | None:
-    """Construct the Foundry IQ MCP tool from env, or None if unconfigured."""
-    conn_id = os.environ.get("PLANT_KB_CONNECTION_ID")
-    url = os.environ.get("PLANT_KB_MCP_URL")
+def _kb_tool(plant_id: str | None = None) -> MCPTool | None:
+    """Construct the Foundry IQ MCP tool for a plant, or None if unconfigured.
+
+    Per-plant env vars take precedence over the legacy globals so each plant
+    binds its own KB:
+
+        <PLANT_ID_UPPER>_KB_CONNECTION_ID + <PLANT_ID_UPPER>_KB_MCP_URL
+            e.g. PLANT4_KB_CONNECTION_ID / PLANT4_KB_MCP_URL
+
+    Falls back to the global pair (PLANT_KB_CONNECTION_ID / PLANT_KB_MCP_URL)
+    when either per-plant var is missing — this preserves Plant 7's
+    pre-Gate-D behavior unchanged. Both vars in a pair must be set; a
+    half-configured per-plant deploy falls back to the global pair rather
+    than silently mixing connection ids from one plant with MCP URLs from
+    another.
+    """
+    conn_id: str | None = None
+    url: str | None = None
+    if plant_id:
+        pid = plant_id.upper()
+        conn_id = os.environ.get(f"{pid}_KB_CONNECTION_ID")
+        url = os.environ.get(f"{pid}_KB_MCP_URL")
+        if not (conn_id and url):
+            conn_id = url = None
+    if not (conn_id and url):
+        conn_id = os.environ.get("PLANT_KB_CONNECTION_ID")
+        url = os.environ.get("PLANT_KB_MCP_URL")
     if not (conn_id and url):
         return None
     return MCPTool(
@@ -210,13 +234,16 @@ def upsert_plant_agents(
     plant_display = profile.get("display_name", plant_id)
 
     client = AIProjectClient(endpoint=project_endpoint, credential=credential)
+    # Resolve KB tool once per plant so every agent version in the loop binds
+    # to the same plant-scoped KB (or to the global fallback for Plant 7).
+    kb = _kb_tool(plant_id)
     refs: list[PlantAgentRef] = []
     for agent_def in profile["agents"]:
         name = f"{plant_id}-{agent_def['role']}"
         description = agent_def["display_name"]
         instructions = _instructions(plant_id, plant_display, agent_def)
 
-        version = _upsert_version(client, name, description, instructions)
+        version = _upsert_version(client, name, description, instructions, kb_tool=kb)
         refs.append(
             PlantAgentRef(
                 name=name,
