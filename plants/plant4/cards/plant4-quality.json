@@ -4,7 +4,7 @@
   "description": "Plant 4 Quality",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant4",
   "agent_id": "plant4-quality",
-  "version": "1",
+  "version": "3",
   "skills": [],
   "metadata": {
     "plant_id": "plant4",
