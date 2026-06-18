@@ -129,3 +129,93 @@ Gate D may proceed only after explicit user approval. Specifically requesting:
 
 Reply with explicit approval (e.g. `Approved to start Gate D`) before any
 template, script, or Plant 4 file is created.
+
+---
+
+## Architectural decisions locked at sign-off (2026-06-18)
+
+User approved Gate D and added two architectural decisions beyond the
+original Blocking drift list. Both expand Gate D's Bicep / governance /
+generator scope and are recorded here so every downstream task treats them
+as fixed.
+
+### Decision 1 — Per-plant SQL tables (option a from Blocking drift §2)
+
+Plant 4 gets its own `dbo.*_p4` tables (`dbo.training_log_p4`,
+`dbo.pm_schedule_p4`, `dbo.incident_log_p4`). Existing Plant 7 tables stay
+named `dbo.training_log` / `dbo.pm_schedule` / `dbo.incident_log` (no
+rename — Gate C deployment depends on them). The `profile.yaml.j2` template
+parameterizes the SQL table name; Plant 7's hand-authored profile keeps the
+legacy un-suffixed names verbatim.
+
+### Decision 2 — Per-plant Foundry IQ knowledge base
+
+Plant 4 gets its own KB `kb-plant4` on a new Search service
+`srch-mmc-plant4` (mirrors `srch-mmc-plant`'s shape). Same `kbStack` Bicep
+module, re-invoked with Plant 4 parameters. Manual KB-connection portal
+step persists (deferred per Gate B/C, documented in `run-of-show.md`). New
+env var `PLANT4_KB_MCP_URL` mirrors the existing `PLANT_KB_*` pattern.
+
+### Decision 3 — Per-plant Foundry project
+
+Plant 4 deploys into a new Foundry project `mmc-plant4`. Existing
+`mmc-plant` keeps Plant 7's agents (no rename — Gate C identities and RBAC
+are bound to `mmc-plant`). Post-Gate D project topology:
+
+| Project | Hosts | Existing? |
+|---|---|---|
+| `mmc-plant` | Plant 7's 6 agents | Existing (Gate B/C) |
+| `mmc-plant4` | Plant 4's 6 agents | **New (Gate D)** |
+| `mmc-enterprise` | 5 enterprise agents | Existing (Gate B) |
+
+**Code surfaces touched:**
+
+- `infra/bicep/main.bicep` — new `mmc-plant4` Foundry project module
+  invocation; module itself stays generic.
+- `governance/infra_metadata.json` — adds the third project entry; schema
+  already namespaces identities + KB connections by project (Gate C work),
+  so no schema change, just more data.
+- `scripts/refresh_catalog.py` — iterates over plant projects from the
+  metadata, not a hardcoded `mmc-plant`.
+- `scripts/seed_foundry_iq.py --plant plant4` — looks up the target
+  project via metadata so it targets `mmc-plant4`.
+- `agent_factory.build_plant_agent(...)` — reads `profile.foundry_project`
+  (new field, defaults via the metadata project map).
+- `infra/bicep/modules/agent-identities.bicep` — already accepts
+  `foundryProjectId`; deploy twice (once per plant project) with different
+  parameters.
+- Blast-radius overlay gains a third project boundary; clickable agent
+  rows in the trace UI must show the agent's project alongside its KB.
+- `.env.example` adds `FOUNDRY_PLANT4_PROJECT_ENDPOINT`,
+  `FOUNDRY_IQ_KB_PLANT4_ID`, `PLANT4_KB_CONNECTION_ID`,
+  `PLANT4_KB_MCP_URL`.
+
+### Deliberate naming asymmetry (do not "fix" later by accident)
+
+After Gate D the repo will have a deliberate naming asymmetry we are
+choosing not to fix:
+
+- Foundry project: `mmc-plant` (Plant 7) vs `mmc-plant4` (Plant 4)
+- Search service: `srch-mmc-plant` (Plant 7) vs `srch-mmc-plant4` (Plant 4)
+- KB: `kb-plant7` (Plant 7) vs `kb-plant4` (Plant 4)
+- SQL tables: `dbo.training_log` (Plant 7) vs `dbo.training_log_p4` (Plant 4)
+
+This is intentional: renaming Plant 7 resources touches RBAC bindings,
+deployed identities, the catalog, the blast-radius snapshot, and every
+demo script — risk that does not earn the consistency win for a single
+demo. When Plant 5 lands (post-v1.0), normalize everything to the
+`<resource>-<plant>` shape in one mechanical pass.
+
+### Updated cost estimate
+
+Gate D total scope grew by ~3-4 hours beyond the original plan to
+accommodate per-plant projects (Bicep param work, governance metadata
+expansion, agent_factory project lookup, blast-radius overlay update). The
+Spanish addendum's ~2 hours stacks on top. Same task numbering, expanded
+scope per task.
+
+### Sign-off (recorded)
+
+User approved 2026-06-18 with the message:
+*"lets go with per plant tables, lets also go with per plant foundry IQ
+and foundry projects as well.. Approved to start building gate D"*
