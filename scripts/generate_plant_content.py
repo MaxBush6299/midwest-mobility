@@ -1,12 +1,20 @@
-"""Plant content generator (Gate D Task 8).
+"""Plant content generator (Gate D Tasks 8, 9).
 
-Mechanical phase: scrubs plant-local identifiers from CSVs under
-``plants/<plant>/kb/08_Logs_Data/`` and applies deterministic jitter to
-date and numeric-quantity columns. The narrative LLM regeneration phase
-arrives in Task 9.
+Two-phase generator for cloned plants:
+
+1. **Mechanical phase** (Task 8): scrub plant-local identifiers from
+   CSVs under ``plants/<plant>/kb/08_Logs_Data/`` and apply
+   deterministic jitter to date and numeric-quantity columns.
+
+2. **Narrative phase** (Task 9): regenerate KB markdown narratives by
+   sending each Plant 7 source doc to an LLM with a plant-specific
+   prompt and validating the response has no source-plant remnants.
 
 CLI:
+    # mechanical only (no LLM):
     python scripts/generate_plant_content.py --plant plant4 --mechanical-only
+    # full (mechanical + narrative; requires Foundry chat client):
+    python scripts/generate_plant_content.py --plant plant4
 
 Substitutions (applied globally to each CSV body; header is preserved
 byte-for-byte because none of these patterns appear in the schema row):
@@ -165,6 +173,164 @@ def run_mechanical_phase(plant_dir: Path, plant_id: str, plant_code: str) -> int
     return count
 
 
+# ---------------------------------------------------------------------------
+# Narrative LLM regeneration phase (Task 9)
+# ---------------------------------------------------------------------------
+
+_FORBIDDEN_REMNANT_RE = re.compile(r"MMC_P7|Plant 7|plant7|P7-L")
+
+
+class NarrativeContaminationError(RuntimeError):
+    """Raised when an LLM response retains source-plant identifiers."""
+
+    def __init__(self, path: Path, remnants: list[str]) -> None:
+        self.path = path
+        self.remnants = remnants
+        super().__init__(
+            f"narrative output for {path} contains forbidden source-plant "
+            f"remnants: {sorted(set(remnants))}"
+        )
+
+
+def build_narrative_prompt(source_doc: str, profile: dict) -> str:
+    """Build the LLM prompt for rewriting a Plant 7 narrative as the new plant.
+
+    The prompt includes the full source doc verbatim, the target plant's
+    location/lines/standards from the profile, and an explicit ban on
+    source-plant identifiers so the model doesn't leak them.
+    """
+    plant_id = profile.get("plant_id", "")
+    plant_code = profile.get("plant_code") or (
+        f"P{plant_id[len('plant'):].upper()}" if plant_id.startswith("plant") else ""
+    )
+    display_name = profile.get("display_name", "")
+    location = profile.get("location") or {}
+    city = location.get("city", "")
+    state = location.get("state", "")
+    country = location.get("country", "")
+    lines = profile.get("lines") or []
+    line_lines = "\n".join(
+        f"  - {ln.get('id', '?')}: {ln.get('name', '?')} "
+        f"(equipment prefix {ln.get('equipment_prefix', '?')})"
+        for ln in lines
+    )
+    standards = ", ".join(profile.get("standards") or []) or "(inherit from source)"
+
+    return (
+        f"You are rewriting an MMC plant knowledge-base document as the "
+        f"target plant ({display_name}, plant_id={plant_id}, "
+        f"plant_code={plant_code}).\n\n"
+        f"Target plant context:\n"
+        f"  Location: {city}, {state}, {country}\n"
+        f"  Production lines:\n{line_lines}\n"
+        f"  Regulatory standards: {standards}\n\n"
+        f"Rules:\n"
+        f"  1. Preserve the document's STRUCTURE, sections, and intent.\n"
+        f"  2. Substitute plant-local identifiers: every MMC_P7, Plant 7, "
+        f"plant7, and P7-L<n>-... equipment ID must be rewritten using "
+        f"the target plant's identifiers ({plant_code}, etc.).\n"
+        f"  3. Keep cross-plant shared scenario IDs unchanged "
+        f"(e.g. BRK-CAL-XYZ, Acme Brakes).\n"
+        f"  4. Adapt regulatory references to the target plant's "
+        f"jurisdiction (e.g. NOM-STPS for MX, OSHA for US).\n"
+        f"  5. NEVER emit MMC_P7, Plant 7, plant7, or any P7-L<n>-... "
+        f"identifier in the output.\n\n"
+        f"Source document (rewrite as the target plant):\n"
+        f"---SOURCE---\n"
+        f"{source_doc}\n"
+        f"---END SOURCE---\n"
+    )
+
+
+def _call_chat_client(client: object, prompt: str) -> str:
+    """Invoke chat client via .complete(prompt) or .invoke(prompt) fallback."""
+    method = getattr(client, "complete", None) or getattr(client, "invoke", None)
+    if method is None:
+        raise TypeError(
+            f"chat client {type(client).__name__} has neither .complete() "
+            f"nor .invoke() method"
+        )
+    response = method(prompt)
+    if isinstance(response, str):
+        return response
+    # Tolerate response objects with .content (OpenAI-style) or .text.
+    for attr in ("content", "text", "message"):
+        val = getattr(response, attr, None)
+        if isinstance(val, str):
+            return val
+    raise TypeError(
+        f"chat client returned unsupported response type {type(response).__name__}; "
+        f"expected str or object with .content/.text/.message"
+    )
+
+
+def _scan_for_remnants(text: str) -> list[str]:
+    return _FORBIDDEN_REMNANT_RE.findall(text)
+
+
+def regenerate_narrative_file(
+    source: Path,
+    dest: Path,
+    profile: dict,
+    chat_client: object,
+) -> None:
+    """Rewrite a Plant 7 narrative as the target plant via the chat client.
+
+    Raises ``NarrativeContaminationError`` (and refuses to write dest) if
+    the LLM response retains any source-plant identifiers.
+    """
+    source_doc = source.read_text(encoding="utf-8")
+    prompt = build_narrative_prompt(source_doc, profile)
+    response = _call_chat_client(chat_client, prompt)
+
+    remnants = _scan_for_remnants(response)
+    if remnants:
+        raise NarrativeContaminationError(dest, remnants)
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(response, encoding="utf-8")
+
+
+def _default_chat_client() -> object:
+    """Lazily import the production chat client.
+
+    Kept lazy so tests can import this module without pulling in
+    azure-identity / Foundry SDKs.
+    """
+    from mmc_agents.orchestrator.model_config import manager_chat_client
+
+    return manager_chat_client()
+
+
+def run_narrative_phase(
+    plant_dir: Path,
+    source_plant_dir: Path,
+    profile: dict,
+    chat_client: object,
+) -> int:
+    """Rewrite every cloned KB markdown using the source plant's doc as input.
+
+    Maps ``plants/<plant>/kb/<sub>/MMC_<P?>_<rest>.md`` back to the
+    corresponding ``plants/<source>/kb/<sub>/MMC_P7_<rest>.md`` and
+    overwrites the cloned file with the LLM regenerated version.
+    """
+    plant_code = derive_plant_code(profile, profile.get("plant_id", ""))
+    count = 0
+    for dest_md in sorted((plant_dir / "kb").rglob("*.md")):
+        rel = dest_md.relative_to(plant_dir / "kb")
+        # Find the corresponding Plant 7 source: same subdir, MMC_P7_<rest>.
+        source_name = re.sub(
+            rf"^MMC_{re.escape(plant_code)}_", "MMC_P7_", dest_md.name
+        )
+        source_md = source_plant_dir / "kb" / rel.parent / source_name
+        if not source_md.is_file():
+            # No source counterpart (e.g. plant-specific stub); skip silently.
+            continue
+        regenerate_narrative_file(source_md, dest_md, profile, chat_client)
+        count += 1
+    return count
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="generate_plant_content",
@@ -186,6 +352,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("enterprise"),
         help="root containing enterprise CSVs (default: enterprise)",
+    )
+    p.add_argument(
+        "--source-plant",
+        default="plant7",
+        help="source plant_id whose KB narratives seed the LLM rewrite (default: plant7)",
     )
     p.add_argument(
         "--mechanical-only",
@@ -218,8 +389,31 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.mechanical_only:
         return 0
 
-    # Narrative LLM phase implemented in Task 9.
-    print("(narrative phase will be implemented in Task 9)")
+    source_plant_dir = args.plants_root / args.source_plant
+    if not source_plant_dir.is_dir():
+        print(
+            f"source plant directory not found: {source_plant_dir} "
+            "(needed for narrative rewrite; use --mechanical-only to skip)",
+            file=sys.stderr,
+        )
+        return 1
+
+    try:
+        chat_client = _default_chat_client()
+    except Exception as exc:
+        print(
+            f"failed to initialize chat client ({exc}); "
+            "rerun with --mechanical-only to skip the narrative phase",
+            file=sys.stderr,
+        )
+        return 1
+
+    try:
+        m = run_narrative_phase(plant_dir, source_plant_dir, profile, chat_client)
+    except NarrativeContaminationError as exc:
+        print(f"narrative validation failed: {exc}", file=sys.stderr)
+        return 1
+    print(f"narrative: rewrote {m} markdown file(s) from {args.source_plant}")
     return 0
 
 

@@ -1,16 +1,17 @@
-"""Tests for scripts/generate_plant_content.py (Gate D Task 7).
+"""Tests for scripts/generate_plant_content.py (Gate D Tasks 7, 9).
 
-Defines the contract for the plant content generator before the script
-exists (TDD red phase). The generator has two phases:
+Defines the contract for the plant content generator. The generator has
+two phases:
 
 1. *Mechanical* substitution of plant-local CSV identifiers (P7-Lx-* to
    P4-Lx-*, PM-P7- to PM-P4-, etc.) plus deterministic jitter on dates
    and quantities seeded from sha256(plant_id:filename:row_index).
-2. *Narrative* LLM regeneration of KB markdown — out of scope for Task 7
-   (covered in Task 9).
+2. *Narrative* LLM regeneration of KB markdown (Task 9). Tests use a
+   FakeChatClient stub so no live Azure dependency is required.
 
-These tests use ``--mechanical-only`` to exercise phase 1 in isolation
-without an LLM dependency.
+Mechanical tests use ``--mechanical-only`` via subprocess; narrative
+tests import the script's functions directly and inject the fake
+client.
 """
 from __future__ import annotations
 
@@ -25,6 +26,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "generate_plant_content.py"
+sys.path.insert(0, str(ROOT))
 
 SAMPLE_CSV_HEADER = "PM_ID,Asset_ID,Scheduled_Date,Duration_Hours,Notes\n"
 SAMPLE_CSV_ROW = "PM-P7-001,P7-L1-CMM-04,2026-01-10,2.0,BRK-CAL-XYZ stays shared\n"
@@ -135,3 +137,139 @@ def test_help_lists_mechanical_only_flag() -> None:
     assert result.returncode == 0, f"help failed:\n{result.stderr}"
     for flag in ("--plant", "--plants-root", "--mechanical-only"):
         assert flag in result.stdout, f"missing {flag} in --help output"
+
+
+# ---------------------------------------------------------------------------
+# Task 9: narrative LLM regeneration (in-process, fake chat client)
+# ---------------------------------------------------------------------------
+
+
+class FakeChatClient:
+    """Test double for an LLM chat client supporting .complete(prompt)."""
+
+    def __init__(self, response_text: str = "") -> None:
+        self.response_text = response_text
+        self.prompts: list[str] = []
+
+    def complete(self, prompt: str) -> str:
+        self.prompts.append(prompt)
+        return self.response_text
+
+
+class InvokeOnlyClient:
+    """Test double exposing only .invoke(prompt) — exercises fallback path."""
+
+    def __init__(self, response_text: str = "") -> None:
+        self.response_text = response_text
+        self.prompts: list[str] = []
+
+    def invoke(self, prompt: str) -> str:
+        self.prompts.append(prompt)
+        return self.response_text
+
+
+def _plant4_profile() -> dict:
+    return {
+        "plant_id": "plant4",
+        "plant_code": "P4",
+        "display_name": "MMC Plant 4 (Monterrey)",
+        "location": {"city": "Monterrey", "state": "NL", "country": "MX"},
+        "lines": [
+            {"id": "L1", "name": "Brake-Caliper Assembly", "equipment_prefix": "L1-CMM-"},
+            {"id": "L2", "name": "Paint and Final Finish", "equipment_prefix": "L2-PNT-"},
+        ],
+        "standards": ["NOM-STPS-001", "ISO-45001", "ISO-9001"],
+        "agents": [],
+        "kb": {"kb_id_env": "FOUNDRY_IQ_KB_PLANT4_ID"},
+    }
+
+
+def test_narrative_prompt_includes_source_doc_and_plant_context() -> None:
+    from scripts.generate_plant_content import build_narrative_prompt
+
+    source = (
+        "# MMC Plant 7 LOTO SOP\n\n"
+        "Lines 1-3 hydraulic isolation per OSHA 29 CFR 1910.147.\n"
+        "Equipment: P7-L1-PRS-001.\n"
+    )
+    prompt = build_narrative_prompt(source, _plant4_profile())
+
+    assert source in prompt, "prompt must include the full source doc"
+    assert "Monterrey" in prompt or "MX" in prompt, "prompt must convey plant location"
+    assert "Brake-Caliper Assembly" in prompt, "prompt must convey plant lines"
+    # The model must be told what NOT to emit.
+    assert "MMC_P7" in prompt or "Plant 7" in prompt or "plant7" in prompt, (
+        "prompt must mention the source-plant tokens the model must avoid"
+    )
+
+
+def test_narrative_regeneration_writes_clean_plant4_text(tmp_path: Path) -> None:
+    from scripts.generate_plant_content import regenerate_narrative_file
+
+    source = tmp_path / "plant7" / "MMC_P7_LOTO_SOP.md"
+    source.parent.mkdir(parents=True)
+    source.write_text(
+        "# MMC Plant 7 LOTO SOP\nEquipment: P7-L1-PRS-001\n", encoding="utf-8"
+    )
+    dest = tmp_path / "plant4" / "MMC_P4_LOTO_SOP.md"
+    dest.parent.mkdir(parents=True)
+    dest.write_text("rendered placeholder", encoding="utf-8")
+
+    fake = FakeChatClient(
+        response_text=(
+            "# MMC Plant 4 LOTO SOP\n\n"
+            "Brake-Caliper Assembly hydraulic isolation per NOM-STPS-001.\n"
+            "Equipment: P4-L1-CMM-04. Shared part: BRK-CAL-XYZ.\n"
+        )
+    )
+
+    regenerate_narrative_file(source, dest, _plant4_profile(), fake)
+
+    assert len(fake.prompts) == 1
+    assert "MMC Plant 7 LOTO SOP" in fake.prompts[0]
+    written = dest.read_text(encoding="utf-8")
+    assert "MMC Plant 4" in written
+    assert "P4-L1-CMM-04" in written
+    assert "BRK-CAL-XYZ" in written
+    for forbidden in ("MMC_P7", "Plant 7", "plant7", "P7-L"):
+        assert forbidden not in written, f"forbidden remnant {forbidden!r} in output"
+
+
+def test_narrative_raises_on_plant7_remnant(tmp_path: Path) -> None:
+    from scripts.generate_plant_content import (
+        NarrativeContaminationError,
+        regenerate_narrative_file,
+    )
+
+    source = tmp_path / "src.md"
+    source.write_text("# Source doc", encoding="utf-8")
+    dest = tmp_path / "dst.md"
+
+    # Model "leaks" a P7-L equipment ID — must be rejected and dest NOT written.
+    fake = FakeChatClient(
+        response_text="# Plant 4\nLeaked: P7-L1-PRS-001 still here"
+    )
+    with pytest.raises(NarrativeContaminationError) as exc:
+        regenerate_narrative_file(source, dest, _plant4_profile(), fake)
+
+    msg = str(exc.value)
+    assert dest.name in msg or str(dest) in msg, "error must name the offending file"
+    assert "P7-L" in msg or "plant7" in msg.lower() or "remnant" in msg.lower()
+    assert not dest.exists(), "destination must NOT be written when contamination detected"
+
+
+def test_narrative_supports_invoke_fallback(tmp_path: Path) -> None:
+    """Clients with .invoke() instead of .complete() must also work."""
+    from scripts.generate_plant_content import regenerate_narrative_file
+
+    source = tmp_path / "src.md"
+    source.write_text("# Source", encoding="utf-8")
+    dest = tmp_path / "dst.md"
+
+    client = InvokeOnlyClient(
+        response_text="# Clean Plant 4 text\nBRK-CAL-XYZ stays.\n"
+    )
+    regenerate_narrative_file(source, dest, _plant4_profile(), client)
+
+    assert len(client.prompts) == 1
+    assert dest.read_text(encoding="utf-8") == client.response_text
