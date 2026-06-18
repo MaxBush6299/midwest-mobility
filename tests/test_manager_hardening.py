@@ -67,6 +67,22 @@ def test_manager_instructions_include_no_direct_alt_rule():
     assert NO_DIRECT_ALT_RULE.strip().startswith("When a supply-chain")
 
 
+def test_manager_instructions_accept_no_data_replies_as_terminal():
+    """Manager must treat a broader set of grounded-negative phrases as terminal
+    so a single 'KB does not contain X' reply does not burn rounds re-fanning."""
+    from mmc_agents.orchestrator import manager as mgr_mod
+    import inspect
+
+    src = inspect.getsource(mgr_mod._build_manager)
+    for phrase in (
+        "no records matched",
+        "not available",
+        "could not find",
+        "ACCEPT that answer as terminal",
+    ):
+        assert phrase in src, f"manager prompt missing terminal-gap signal: {phrase!r}"
+
+
 def test_supplier_alternates_signals_no_direct_alt_for_brake_caliper():
     hits = alternates("BRK-CAL-XYZ")
     assert hits and hits[0]["status"] == "NO_DIRECT_ALT"

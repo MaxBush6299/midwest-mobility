@@ -57,10 +57,16 @@ def _build_manager(
         "the relevant agents (typically 4-6 rounds), STOP and emit the final "
         "answer. Do not request additional refinement once the answer is "
         "supported by the KB. "
-        "If an agent replies that it cannot assist or that the data is not in "
-        "its KB, ACCEPT that answer — do NOT keep redispatching to other "
-        "agents in search of a different answer. Note the gap in the final "
-        "synthesis and stop."
+        "If an agent replies that it cannot assist, that the data is not in "
+        "its KB, that no records matched, that the requested entries are not "
+        "available, or anything semantically equivalent (e.g., 'could not find', "
+        "'not available in my KB', 'no matching records', 'KB does not contain'), "
+        "ACCEPT that answer as terminal — do NOT keep redispatching "
+        "to the same agent hoping for a different answer, and do NOT fan out "
+        "to other agents in search of one. A negative-but-grounded answer is "
+        "a valid final answer. Note the gap explicitly in the final synthesis "
+        "and stop. Only re-dispatch when a *different specialist* can plausibly "
+        "answer a *different sub-question*, never to retry the same gap."
     )
     planner = Agent(
         client=manager_chat_client(),
