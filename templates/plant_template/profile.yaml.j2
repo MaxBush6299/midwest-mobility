@@ -1,0 +1,152 @@
+{# ============================================================================
+   templates/plant_template/profile.yaml.j2
+
+   Canonical plant-profile template. Rendered by scripts/clone_plant.py into
+   plants/<plant_id>/profile.yaml as the first step of cloning a plant.
+
+   Required render-context keys (see docs/specs/gate-d-template-map.md §
+   "Templating placeholders" for the full table):
+
+       plant_id                    e.g. "plant4"
+       plant_code                  e.g. "P4"
+       plant_name                  e.g. "Plant 4"
+       plant_display_name          e.g. "MMC Plant 4 (Monterrey)"
+       location.city               e.g. "Monterrey"
+       location.state              e.g. "NL"
+       location.country            e.g. "MX"
+       shifts                      list of {id, hours}
+       lines                       list of {id, name, equipment_prefix}
+       standards                   list[str]
+       language                    e.g. "es"   (default "en")
+       foundry_project             e.g. "mmc-plant4"
+       plant_sql_suffix            e.g. "_p4"  ("" for legacy Plant 7)
+       kb_id_env                   e.g. "FOUNDRY_IQ_KB_PLANT4_ID"
+       kb_connection_env           e.g. "PLANT4_KB_CONNECTION_ID"
+       kb_mcp_url_env              e.g. "PLANT4_KB_MCP_URL"
+       search_service              e.g. "srch-mmc-plant4"
+       regulatory_reference_path   e.g. "shared/kb/regulatory-reference/MEX"
+
+   The template assumes a default 6-role roster mirroring Plant 7
+   (ehs, maintenance, quality, shiftops, training, external-auditor). If a
+   plant ever needs a different roster, hand-author that plant's profile.yaml
+   instead of rendering from this template.
+============================================================================ #}
+plant_id: {{ plant_id }}
+display_name: {{ plant_display_name }}
+language: {{ language | default("en") }}
+foundry_project: {{ foundry_project }}
+plant_sql_suffix: "{{ plant_sql_suffix | default("") }}"
+location:
+  city: {{ location.city }}
+  state: {{ location.state }}
+  country: {{ location.country }}
+shifts:
+{% for shift in shifts -%}
+  - { id: {{ shift.id }}, hours: "{{ shift.hours }}" }
+{% endfor -%}
+lines:
+{% for line in lines -%}
+  - { id: {{ line.id }}, name: {{ line.name }}, equipment_prefix: {{ line.equipment_prefix }} }
+{% endfor -%}
+standards: [{{ standards | join(", ") }}]
+
+kb:
+  kb_id_env: {{ kb_id_env }}
+  connection_env: {{ kb_connection_env }}
+  mcp_url_env: {{ kb_mcp_url_env }}
+  search_service: {{ search_service }}
+  sources:
+    ehs:
+      paths: ["plants/{{ plant_id }}/kb/02_EHS_Internal", "{{ regulatory_reference_path }}"]
+    ehs_restricted:
+      {# Sensitivity-demo source: confidential incident brief. Only the internal
+         <plant>-ehs agent has this in its kb_sources mapping. The external
+         auditor agent has access to the same KB but its profile omits this
+         source, so the per-agent readable-source mapping prevents retrieval. #}
+      paths: ["plants/{{ plant_id }}/kb/02_EHS_Internal_Restricted"]
+    maintenance:
+      paths: ["plants/{{ plant_id }}/kb/03_Maintenance", "shared/kb/oem-manuals"]
+    quality_ops:
+      {# Procedures / SOPs only — row data in 08_Logs_Data lives in the SQL
+         knowledge sources below (training_data / pm_data / incident_data). #}
+      paths: ["plants/{{ plant_id }}/kb/04_Quality", "plants/{{ plant_id }}/kb/05_Ops_Shift"]
+    training_data:
+      sql_table: dbo.training_log{{ plant_sql_suffix | default("") }}
+      description: "{{ plant_name }} training records (employees, courses, expirations)."
+    pm_data:
+      sql_table: dbo.pm_schedule{{ plant_sql_suffix | default("") }}
+      description: "{{ plant_name }} preventive maintenance schedule + completion log."
+    incident_data:
+      sql_table: dbo.incident_log{{ plant_sql_suffix | default("") }}
+      description: "{{ plant_name }} EHS incident log (near-misses, injuries, CAPAs)."
+
+agents:
+  - role: ehs
+    display_name: {{ plant_name }} EHS / Safety
+    kb_sources: [ehs, ehs_restricted, incident_data]
+    tools: [capa]
+    skills:
+      - id: hazard_loto_lookup
+        description: Hazard & LOTO requirement lookup
+      - id: incident_clustering
+        description: Incident clustering & repeat-cause analysis
+      - id: regulatory_compliance_check
+        description: Regulatory compliance check (region-appropriate standards)
+  - role: maintenance
+    display_name: {{ plant_name }} Maintenance & Reliability
+    kb_sources: [maintenance, pm_data]
+    tools: [cmms, scada]
+    skills:
+      - id: pm_status
+        description: PM status & overdue work-order lookup
+      - id: asset_history
+        description: Asset history & jam-clear procedure
+      - id: spare_part_lookup
+        description: Spare-part lookup & OEE / downtime
+  - role: quality
+    display_name: {{ plant_name }} Quality
+    kb_sources: [quality_ops, incident_data]
+    tools: [qms]
+    skills:
+      - id: ncr_capa_status
+        description: NCR / CAPA status & 8D containment
+      - id: defect_safety_linkage
+        description: Defect → safety-issue linkage
+      - id: first_piece_inspection
+        description: First-piece / changeover inspection
+  - role: shiftops
+    display_name: {{ plant_name }} Shift Ops
+    kb_sources: [quality_ops, pm_data, incident_data]
+    tools: [mes]
+    skills:
+      - id: handover_summary
+        description: Shift-handover summary & open items
+      - id: changeover_guidance
+        description: Changeover / SMED step guidance
+      - id: line_stop_support
+        description: Line-stop decision support
+  - role: training
+    display_name: {{ plant_name }} Training / Competency
+    kb_sources: [quality_ops, training_data, incident_data]
+    tools: [lms]
+    skills:
+      - id: cert_status
+        description: Certification status & expiration lookup
+      - id: qualified_for_task
+        description: "Who is qualified for this task?"
+      - id: training_gap_link
+        description: Training-gap vs. incident linkage
+  - role: external-auditor
+    display_name: {{ plant_name }} External Auditor
+    {# Sensitivity-demo agent. Reads the SAME KB as <plant>-ehs but its
+       kb_sources mapping deliberately OMITS `ehs_restricted` and
+       `incident_data` — proves the per-agent readable-source mapping in
+       governance/kb_metadata.json governs what an agent can retrieve even
+       when the underlying KB physically contains the data. #}
+    kb_sources: [ehs]
+    tools: []
+    skills:
+      - id: external_audit_walkdown
+        description: External-auditor compliance walk-down support
+      - id: published_policy_lookup
+        description: Look up only publicly-disclosed EHS policy

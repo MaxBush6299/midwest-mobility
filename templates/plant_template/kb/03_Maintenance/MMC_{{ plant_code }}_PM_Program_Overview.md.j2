@@ -1,0 +1,644 @@
+# MMC {{ plant_name }} — Preventive Maintenance Program Overview
+**Document ID:** MMC_{{ plant_code }}_PM_Program_Overview  
+**Document Owner:** Maintenance Supervisor, {{ plant_name }}  
+**Version:** v1.0  
+**Effective Date:** 2026-01-26  
+**Review Cycle:** Annual  
+**Applies To:** All maintenance personnel and equipment at MMC {{ plant_name }}
+
+---
+
+## 1. Purpose
+
+This document establishes the Preventive Maintenance (PM) program framework for MMC {{ plant_name }}. The program ensures equipment reliability, maximizes uptime, reduces unplanned downtime, and maintains safe operating conditions for all production and support equipment.
+
+---
+
+## 2. Scope
+
+This program applies to:
+- All production equipment on Lines 1, 2, and 3
+- All support and auxiliary equipment
+- All facilities equipment (HVAC, electrical distribution, compressed air, etc.)
+- All material handling equipment
+- All safety-critical systems (guarding, interlocks, emergency systems)
+
+**Operating Context:**
+- 3-shift operation (24/5) with weekend maintenance windows
+- High-mix / medium-volume manufacturing environment
+- Maintenance performed by in-house technicians and authorized contractors
+
+---
+
+## 3. Maintenance Philosophy
+
+MMC {{ plant_name }} employs a balanced maintenance strategy:
+
+| Strategy | Application | Percentage of Program |
+|----------|-------------|----------------------|
+| **Preventive Maintenance (PM)** | Fixed-schedule tasks based on time or cycles | 60% |
+| **Condition-Based Maintenance (CBM)** | Monitoring-driven tasks on critical assets | 20% |
+| **Predictive Maintenance (PdM)** | Vibration, thermal, oil analysis on key equipment | 10% |
+| **Reactive Maintenance** | Unplanned repairs (target: minimize) | 10% (target <15%) |
+
+### 3.1 Maintenance Priorities
+
+| Priority | Definition | Response Time | Examples |
+|----------|------------|---------------|----------|
+| **Emergency (P1)** | Safety hazard or complete production stop | Immediate | Press failure, robot fault, conveyor down |
+| **Urgent (P2)** | Degraded operation or imminent failure | Within 4 hours | Partial system failure, quality impact |
+| **Scheduled (P3)** | Planned PM or non-critical repair | Per schedule | Routine PM, planned repairs |
+| **Deferrable (P4)** | Low impact, can wait for opportunity | Next available window | Cosmetic, minor adjustments |
+
+---
+
+## 4. Equipment Classification
+
+### 4.1 Criticality Classification
+
+Equipment is classified based on impact to safety, production, and quality:
+
+| Class | Criteria | PM Frequency | Examples |
+|-------|----------|--------------|----------|
+| **Class A — Critical** | Safety-critical; single point of failure; no backup | Per OEM + enhanced | Stamping presses, robot controllers, main conveyor drives |
+| **Class B — Essential** | Significant production impact; limited redundancy | Per OEM recommendation | Coil feed systems, servo stations, palletizer |
+| **Class C — Standard** | Moderate impact; some redundancy or workaround | Per OEM or extended | Labelers, stretch wrap, parts feeders |
+| **Class D — Support** | Minimal direct production impact | Extended intervals | Lighting, HVAC (non-critical areas), hand tools |
+
+### 4.2 Equipment Inventory by Area
+
+| Area | Equipment Count | Class A | Class B | Class C | Class D |
+|------|-----------------|---------|---------|---------|---------|
+| Line 1 — Stamping & Forming | 12 | 4 | 5 | 2 | 1 |
+| Line 2 — Assembly & Robot Cells | 18 | 6 | 7 | 4 | 1 |
+| Line 3 — Conveyor & Pack-Out | 14 | 2 | 5 | 5 | 2 |
+| Receiving / Shipping | 8 | 1 | 3 | 2 | 2 |
+| Maintenance Crib | 6 | 0 | 1 | 2 | 3 |
+| Chemical Storage | 3 | 1 | 1 | 1 | 0 |
+| Battery Handling Station | 4 | 2 | 1 | 1 | 0 |
+| Facilities / Utilities | 15 | 3 | 5 | 4 | 3 |
+| **Total** | **80** | **19** | **28** | **21** | **12** |
+
+---
+
+## 5. PM Schedule Framework
+
+### 5.1 PM Frequency Categories
+
+| Code | Frequency | Description | Typical Tasks |
+|------|-----------|-------------|---------------|
+| **D** | Daily | Every operating day | Operator checks, visual inspections, lubrication points |
+| **W** | Weekly | Every 7 days | Filter checks, belt tension, fluid levels |
+| **M** | Monthly | Every 30 days | Detailed inspections, calibration checks, safety system tests |
+| **Q** | Quarterly | Every 90 days | Comprehensive PMs, electrical inspections, major lubrication |
+| **S** | Semi-Annual | Every 180 days | Overhauls, major component replacement, system audits |
+| **A** | Annual | Every 365 days | Complete system inspection, OEM recommended service |
+| **C** | Cycle-Based | Per production cycles | Die maintenance, tool changes, wear part replacement |
+
+### 5.2 Master PM Schedule by Line
+
+#### Line 1 — Stamping & Forming
+
+| Equipment | Asset ID | Daily | Weekly | Monthly | Quarterly | Annual | Cycle-Based |
+|-----------|----------|:-----:|:------:|:-------:|:---------:|:------:|:-----------:|
+| 600-Ton Press #1 | L1-PRS-001 | ✓ | ✓ | ✓ | ✓ | ✓ | Per die change |
+| 600-Ton Press #2 | L1-PRS-002 | ✓ | ✓ | ✓ | ✓ | ✓ | Per die change |
+| Coil Feed System | L1-CFL-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Coil Cradle | L1-CCR-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Scrap Conveyor | L1-SCV-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Die Transfer Cart | L1-DTC-001 | — | ✓ | ✓ | ✓ | ✓ | — |
+| Hydraulic Power Unit | L1-HPU-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Die Storage Rack | L1-DSR-001 | — | — | ✓ | — | ✓ | — |
+
+#### Line 2 — Assembly & Robot Cells
+
+| Equipment | Asset ID | Daily | Weekly | Monthly | Quarterly | Annual | Cycle-Based |
+|-----------|----------|:-----:|:------:|:-------:|:---------:|:------:|:-----------:|
+| Robot Cell A (Fanuc) | L2-RBA-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Robot Cell B (Fanuc) | L2-RBB-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Robot Cell C (Cobot) | L2-RBC-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Servo Torque Station 1 | L2-STS-001 | ✓ | ✓ | ✓ | ✓ | ✓ | Socket change |
+| Servo Torque Station 2 | L2-STS-002 | ✓ | ✓ | ✓ | ✓ | ✓ | Socket change |
+| Vision Inspection System | L2-VIS-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Bowl Feeder System | L2-BWF-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Pneumatic Distribution | L2-PNU-001 | — | ✓ | ✓ | ✓ | ✓ | — |
+| Light Curtains / Interlocks | L2-SAF-001 | ✓ | — | ✓ | — | ✓ | — |
+
+#### Line 3 — Conveyor & Pack-Out
+
+| Equipment | Asset ID | Daily | Weekly | Monthly | Quarterly | Annual | Cycle-Based |
+|-----------|----------|:-----:|:------:|:-------:|:---------:|:------:|:-----------:|
+| Main Conveyor (Zone 1-4) | L3-CNV-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Accumulation Conveyor | L3-ACC-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Stretch Wrap Machine | L3-SWM-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Labeling System | L3-LBL-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Palletizer | L3-PAL-001 | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| Print & Apply System | L3-PNA-001 | ✓ | ✓ | ✓ | — | ✓ | — |
+| Case Sealer | L3-CSL-001 | — | ✓ | ✓ | — | ✓ | — |
+
+#### Shared / Support Equipment
+
+| Equipment | Asset ID | Daily | Weekly | Monthly | Quarterly | Annual |
+|-----------|----------|:-----:|:------:|:-------:|:---------:|:------:|
+| Air Compressor #1 | UT-CMP-001 | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Air Compressor #2 | UT-CMP-002 | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Air Dryer | UT-DRY-001 | — | ✓ | ✓ | ✓ | ✓ |
+| Main Electrical Panels | UT-ELC-001 | — | — | ✓ | ✓ | ✓ |
+| Emergency Generators | UT-GEN-001 | — | ✓ | ✓ | — | ✓ |
+| HVAC Units | UT-HVC-001 | — | ✓ | ✓ | ✓ | ✓ |
+| Dock Levelers (4 units) | SH-DCK-001-004 | — | — | ✓ | — | ✓ |
+| Forklifts (6 units) | MH-FLT-001-006 | ✓ | ✓ | ✓ | — | ✓ |
+| Battery Chargers | MH-CHG-001-006 | — | ✓ | ✓ | — | ✓ |
+| Parts Washer | MC-PWS-001 | — | ✓ | ✓ | ✓ | ✓ |
+| Maintenance Press | MC-PRS-001 | — | ✓ | ✓ | — | ✓ |
+
+---
+
+## 6. PM Task Procedures
+
+### 6.1 PM Work Order Process
+
+| Step | Action | Responsibility | System |
+|------|--------|----------------|--------|
+| 1 | PM work order auto-generated based on schedule | CMMS | Automated |
+| 2 | Work order assigned to technician | Maintenance Supervisor | CMMS |
+| 3 | Technician reviews work order and gathers parts/tools | Maintenance Technician | CMMS / Crib |
+| 4 | Technician coordinates with Production for equipment access | Maintenance Technician | Radio / Supervisor |
+| 5 | Apply LOTO if required per PM task | Maintenance Technician | LOTO procedure |
+| 6 | Perform PM tasks per checklist | Maintenance Technician | PM checklist |
+| 7 | Document findings, readings, and completed tasks | Maintenance Technician | CMMS |
+| 8 | Note any deficiencies or follow-up work required | Maintenance Technician | CMMS |
+| 9 | Remove LOTO and return equipment to Production | Maintenance Technician | LOTO procedure |
+| 10 | Close work order with labor hours and parts used | Maintenance Technician | CMMS |
+| 11 | Review completed PMs for trends and issues | Maintenance Supervisor | Weekly review |
+
+### 6.2 PM Execution Requirements
+
+| Requirement | Standard |
+|-------------|----------|
+| PM Compliance Rate | ≥95% completed within scheduled window |
+| PM Window | ±3 days for weekly; ±7 days for monthly; ±14 days for quarterly |
+| LOTO Required | Per equipment-specific LOTO procedure |
+| Documentation | All tasks documented; readings recorded; deficiencies noted |
+| Parts Usage | Record all parts consumed; update inventory |
+| Follow-up Work | Generate separate work order for repairs discovered during PM |
+
+### 6.3 PM Deferral Procedure
+
+PM deferral is permitted only under specific conditions:
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Technician identifies inability to complete PM on schedule | Maintenance Technician |
+| 2 | Technician notifies Maintenance Supervisor with reason | Maintenance Technician |
+| 3 | Supervisor evaluates risk of deferral | Maintenance Supervisor |
+| 4 | If Class A equipment, Plant Manager approval required | Plant Manager |
+| 5 | Deferral approved and new date assigned (max 7 days for Class A/B) | Maintenance Supervisor |
+| 6 | Deferral documented in CMMS with reason and approval | Maintenance Supervisor |
+| 7 | Deferred PM tracked to completion | Maintenance Supervisor |
+
+**Deferral Limits:**
+- Class A: Maximum 7-day deferral; Plant Manager approval
+- Class B: Maximum 14-day deferral; Maintenance Supervisor approval
+- Class C/D: Maximum 30-day deferral; Maintenance Supervisor approval
+- Safety-critical systems: No deferral permitted
+
+---
+
+## 7. Condition-Based Maintenance (CBM)
+
+### 7.1 CBM Monitoring Points
+
+| Equipment | Monitoring Method | Parameter | Alert Threshold | Action |
+|-----------|------------------|-----------|-----------------|--------|
+| Stamping Presses | Vibration monitoring | Velocity (mm/s) | >4.5 mm/s | Inspect bearings |
+| Hydraulic Systems | Oil analysis | Particulate count, viscosity | Per lab limits | Filter/oil change |
+| Robot Servos | Motor current trend | Amp draw deviation | >15% from baseline | Inspect gearbox |
+| Conveyor Drives | Thermal imaging | Temperature delta | >20°C above ambient | Inspect motor/bearings |
+| Air Compressors | Vibration monitoring | Velocity (mm/s) | >7.0 mm/s | Inspect compressor |
+| Gearboxes | Oil analysis | Wear metals (Fe, Cu) | Per lab limits | Inspect gears/bearings |
+
+### 7.2 CBM Data Collection Schedule
+
+| Monitoring Type | Frequency | Performed By |
+|-----------------|-----------|--------------|
+| Vibration routes | Monthly | Maintenance Technician |
+| Thermal imaging | Quarterly | Maintenance Technician / Contractor |
+| Oil sampling | Quarterly or per hours | Maintenance Technician |
+| Motor current logging | Continuous (select equipment) | Automated / PLC |
+| Ultrasonic leak detection | Quarterly | Maintenance Technician |
+
+---
+
+## 8. Predictive Maintenance (PdM)
+
+### 8.1 PdM Technologies in Use
+
+| Technology | Application | Equipment Covered |
+|------------|-------------|-------------------|
+| Vibration Analysis | Rotating equipment health | Presses, compressors, motors >10 HP |
+| Infrared Thermography | Electrical connections, motor health | Main panels, MCC, large motors |
+| Oil Analysis | Lubricant and wear condition | Hydraulic systems, gearboxes |
+| Ultrasonic Testing | Bearing condition, compressed air leaks | All bearings, air system |
+| Motor Current Analysis | Motor and drive train health | Robot servos, conveyor drives |
+
+### 8.2 PdM Schedule
+
+| Technology | Frequency | Contractor/Internal | Report Turnaround |
+|------------|-----------|---------------------|-------------------|
+| Vibration Analysis | Monthly (critical) / Quarterly (standard) | Internal | 48 hours |
+| Infrared Thermography | Quarterly | Contractor | 5 business days |
+| Oil Analysis | Quarterly | External lab | 7 business days |
+| Ultrasonic Testing | Quarterly | Internal | 48 hours |
+| Motor Current Analysis | Semi-annual | Contractor | 5 business days |
+
+### 8.3 PdM Action Thresholds
+
+| Severity | Vibration (mm/s) | Temperature Rise | Action Required |
+|----------|------------------|------------------|-----------------|
+| Normal | <2.8 | <10°C above baseline | Continue monitoring |
+| Alert | 2.8 - 4.5 | 10-20°C above baseline | Increase monitoring; plan repair |
+| Alarm | 4.5 - 7.1 | 20-40°C above baseline | Schedule repair within 30 days |
+| Critical | >7.1 | >40°C above baseline | Immediate action; stop if safety risk |
+
+---
+
+## 9. Safety-Critical System Maintenance
+
+### 9.1 Safety System PM Requirements
+
+Safety-critical systems require documented PM with specific verification:
+
+| System Type | PM Frequency | Verification Required |
+|-------------|--------------|----------------------|
+| Light curtains | Monthly | Function test with test piece |
+| E-STOP circuits | Monthly | Activation test each button |
+| Guard interlocks | Monthly | Function test each interlock |
+| Two-hand controls | Monthly | Timing and anti-tie-down test |
+| Presence sensing devices | Monthly | Detection zone verification |
+| Safety PLCs | Annual | Program verification and backup |
+| Fire suppression | Annual | Inspection by certified contractor |
+| Emergency eyewash/showers | Weekly | Activation and flow test |
+
+### 9.2 Safety System PM Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Notify Production of safety system test | Maintenance Technician |
+| 2 | Apply LOTO to equipment (if required for test) | Maintenance Technician |
+| 3 | Perform function test per manufacturer procedure | Maintenance Technician |
+| 4 | Document pass/fail for each device | Maintenance Technician |
+| 5 | If fail: tag out device, notify Supervisor, initiate repair | Maintenance Technician |
+| 6 | Repair and retest before returning to service | Maintenance Technician |
+| 7 | Document all tests and repairs in CMMS | Maintenance Technician |
+| 8 | EHS reviews safety system PM completion monthly | EHS Manager |
+
+### 9.3 Safety System Failure Response
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Immediately remove equipment from service | Maintenance Technician |
+| 2 | Tag equipment "DO NOT OPERATE — SAFETY SYSTEM FAILURE" | Maintenance Technician |
+| 3 | Notify Supervisor and EHS Manager | Maintenance Technician |
+| 4 | Document failure in CMMS and safety log | Maintenance Technician |
+| 5 | Repair and verify safety system function | Maintenance Technician |
+| 6 | Supervisor and EHS verify repair before return to service | Supervisor + EHS |
+| 7 | Document restoration and verification | Maintenance Technician |
+
+---
+
+## 10. Lubrication Program
+
+### 10.1 Lubrication Standards
+
+| Lubricant Type | Application | Brand/Specification | Storage |
+|----------------|-------------|---------------------|---------|
+| Hydraulic Oil | Press hydraulics, lift tables | ISO VG 46 AW | Bulk tank, filtered |
+| Way Oil | Machine ways, slides | ISO VG 68 | 5-gallon pail |
+| Gear Oil | Gearboxes, reducers | ISO VG 220 EP | 5-gallon pail |
+| Grease (General) | Bearings, bushings | NLGI 2, lithium complex | Cartridge |
+| Grease (High-Temp) | Heated equipment | NLGI 2, synthetic | Cartridge |
+| Food-Grade Lubricant | N/A at {{ plant_name }} | — | — |
+| Pneumatic Oil | Air line lubricators | ISO VG 32 | 1-gallon container |
+
+### 10.2 Lubrication Schedule
+
+| Frequency | Tasks |
+|-----------|-------|
+| Daily | Check hydraulic levels; grease high-cycle points |
+| Weekly | Grease conveyor bearings; check pneumatic lubricators |
+| Monthly | Grease all motor bearings; check gearbox levels |
+| Quarterly | Oil analysis sampling; filter replacement |
+| Annual | Hydraulic oil change (or per analysis); gearbox oil change |
+
+### 10.3 Lubrication Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Identify lubrication points from equipment lubrication chart | Maintenance Technician |
+| 2 | Verify correct lubricant type for each point | Maintenance Technician |
+| 3 | Clean grease fitting before applying grease gun | Maintenance Technician |
+| 4 | Apply lubricant per specified quantity | Maintenance Technician |
+| 5 | Wipe excess lubricant to prevent contamination | Maintenance Technician |
+| 6 | Document lubrication completed | Maintenance Technician |
+| 7 | Report any blocked fittings or unusual conditions | Maintenance Technician |
+
+---
+
+## 11. Spare Parts Management
+
+### 11.1 Spare Parts Classification
+
+| Category | Definition | Stocking Policy |
+|----------|------------|-----------------|
+| **Critical** | Single point of failure; long lead time; no alternative | Stock 1-2 units on-site |
+| **Essential** | Significant impact; moderate lead time | Stock based on usage rate |
+| **Standard** | Common wear parts; short lead time | Stock per min/max levels |
+| **Non-Stock** | Low usage; readily available | Order as needed |
+
+### 11.2 Critical Spares Inventory
+
+| Equipment | Critical Spare | Quantity Stocked | Lead Time (if not stocked) |
+|-----------|----------------|------------------|---------------------------|
+| Stamping Press | Main motor | 1 | 12-16 weeks |
+| Stamping Press | Hydraulic pump | 1 | 8-10 weeks |
+| Robot Cell | Servo motor (each axis) | 1 per type | 6-8 weeks |
+| Robot Cell | Controller board | 1 | 8-12 weeks |
+| Conveyor | Drive motor | 2 | 4-6 weeks |
+| Conveyor | Gearbox | 1 | 6-8 weeks |
+| Air Compressor | Air end | 1 | 10-12 weeks |
+| Air Compressor | Motor | 1 | 8-10 weeks |
+| Palletizer | Gripper assembly | 1 | 4-6 weeks |
+| Electrical | Main breakers | 1 each size | 4-8 weeks |
+
+### 11.3 Parts Requisition Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Identify part needed from equipment documentation or CMMS | Maintenance Technician |
+| 2 | Check crib inventory for availability | Maintenance Technician |
+| 3 | If available, issue part from crib; record usage | Maintenance Technician |
+| 4 | If not available, submit parts request in CMMS | Maintenance Technician |
+| 5 | Maintenance Supervisor reviews and approves | Maintenance Supervisor |
+| 6 | Purchasing orders part from approved vendor | Purchasing |
+| 7 | Part received, inspected, and stocked | Maintenance Crib |
+| 8 | Technician notified of part availability | Maintenance Crib |
+
+### 11.4 Min/Max Inventory Levels
+
+- Minimum levels based on lead time + safety stock
+- Maximum levels based on usage rate + storage constraints
+- Inventory reviewed monthly; adjusted quarterly
+- Slow-moving inventory reviewed annually for disposition
+
+---
+
+## 12. Maintenance Metrics and KPIs
+
+### 12.1 Key Performance Indicators
+
+| Metric | Definition | Target | Frequency |
+|--------|------------|--------|-----------|
+| **PM Compliance** | % of PMs completed on schedule | ≥95% | Weekly |
+| **PM Effectiveness** | % of equipment without breakdown within 30 days of PM | ≥90% | Monthly |
+| **Equipment Availability** | Uptime / (Uptime + Downtime) | ≥95% | Weekly |
+| **MTBF** | Mean Time Between Failures (hours) | Trending up | Monthly |
+| **MTTR** | Mean Time To Repair (hours) | <4 hours (Class A) | Monthly |
+| **Reactive vs Planned** | % of work orders that are reactive | <15% | Monthly |
+| **Maintenance Cost per Unit** | Total maintenance cost / units produced | Trending down | Monthly |
+| **Spare Parts Inventory Turns** | Annual usage / average inventory value | 2-4 turns | Quarterly |
+| **Safety System PM Compliance** | % of safety PMs completed on time | 100% | Monthly |
+| **Work Order Backlog** | Open work orders / weekly completion rate | <2 weeks | Weekly |
+
+### 12.2 Metrics by Line
+
+| Line | Availability Target | MTBF Target (hours) | MTTR Target (hours) |
+|------|--------------------:|--------------------:|--------------------:|
+| Line 1 — Stamping | 94% | 150 | 3.0 |
+| Line 2 — Assembly | 96% | 200 | 2.0 |
+| Line 3 — Pack-Out | 97% | 250 | 1.5 |
+
+### 12.3 Reporting Schedule
+
+| Report | Audience | Frequency | Prepared By |
+|--------|----------|-----------|-------------|
+| Daily Maintenance Summary | Supervisors | Daily | Maintenance Supervisor |
+| Weekly PM Compliance | Plant Leadership | Weekly | Maintenance Supervisor |
+| Monthly Maintenance Report | Plant Manager | Monthly | Maintenance Supervisor |
+| Quarterly Equipment Review | Leadership Team | Quarterly | Maintenance Supervisor |
+| Annual Reliability Report | Corporate | Annual | Maintenance Supervisor |
+
+---
+
+## 13. Roles and Responsibilities
+
+| Role | Responsibilities |
+|------|------------------|
+| **Plant Manager** | Approve capital maintenance projects; allocate resources; review monthly performance |
+| **Maintenance Supervisor** | Schedule and assign work; manage PM compliance; review work orders; coordinate with Production; manage spare parts; report metrics |
+| **Maintenance Technician** | Execute PM tasks; document findings; identify issues; perform repairs; maintain equipment records; follow LOTO procedures |
+| **Line Supervisor** | Coordinate equipment access for PM; notify Maintenance of issues; release equipment for scheduled maintenance |
+| **Operator** | Perform daily checks; report abnormalities; support autonomous maintenance tasks |
+| **Quality Engineer** | Coordinate calibration requirements; notify Maintenance of quality-related equipment issues |
+| **EHS Manager** | Review safety system PM compliance; investigate maintenance-related incidents; audit LOTO compliance |
+| **Purchasing** | Procure spare parts; manage vendor relationships; expedite critical parts |
+
+---
+
+## 14. Operator Autonomous Maintenance (AM)
+
+### 14.1 Autonomous Maintenance Tasks
+
+Operators perform basic care tasks to extend equipment life and identify issues early:
+
+| Task | Frequency | Responsibility |
+|------|-----------|----------------|
+| Visual inspection for leaks, damage, abnormality | Daily | Operator |
+| Clean equipment and work area | Daily | Operator |
+| Check fluid levels (hydraulic, lubricant) | Daily | Operator |
+| Listen/feel for unusual sounds or vibration | During operation | Operator |
+| Check guard and interlock function | Start of shift | Operator |
+| Report abnormalities to Supervisor | Immediately | Operator |
+| Complete daily equipment checklist | Daily | Operator |
+
+### 14.2 AM Checklist Requirements
+
+- Daily checklist posted at each piece of equipment
+- Operator completes checklist at start of shift
+- Abnormalities circled and reported to Supervisor
+- Completed checklists collected weekly by Supervisor
+- Trends reviewed at weekly maintenance meeting
+
+---
+
+## 15. Contractor Maintenance
+
+### 15.1 Contractor Usage
+
+| Work Type | Contractor Role |
+|-----------|-----------------|
+| OEM service | Equipment-specific expertise (robots, presses, PLC) |
+| Specialized testing | PdM services (vibration, thermography, oil analysis) |
+| Major overhauls | Press rebuilds, conveyor system refurbishment |
+| Regulatory inspections | Fire systems, pressure vessels, cranes |
+| Specialty trades | Electrical high-voltage, refrigeration |
+
+### 15.2 Contractor Requirements
+
+| Requirement | Verification |
+|-------------|--------------|
+| Proof of insurance | Certificate on file |
+| Safety orientation | Completed before work |
+| LOTO training | Verified or MMC training provided |
+| PPE compliance | Verified on-site |
+| Hot work permit | If applicable |
+| Escort/supervision | MMC personnel assigned |
+| Work documentation | Provided to Maintenance Supervisor |
+
+### 15.3 Contractor Coordination Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Identify need for contractor service | Maintenance Supervisor |
+| 2 | Obtain quotes and schedule work | Maintenance Supervisor + Purchasing |
+| 3 | Verify contractor documentation (insurance, training) | EHS / Purchasing |
+| 4 | Conduct safety orientation and site-specific briefing | EHS / Maintenance Supervisor |
+| 5 | Assign MMC escort if required | Maintenance Supervisor |
+| 6 | Coordinate LOTO requirements | Maintenance Supervisor |
+| 7 | Monitor contractor work | Maintenance Technician |
+| 8 | Review completed work and documentation | Maintenance Supervisor |
+| 9 | Verify equipment function before return to service | Maintenance Supervisor |
+
+---
+
+## 16. Maintenance Training
+
+### 16.1 Training Requirements
+
+| Training Topic | Audience | Frequency |
+|----------------|----------|-----------|
+| LOTO Authorized Person | All Maintenance Technicians | Initial + Annual |
+| Equipment-Specific PM | By equipment assignment | Initial + As needed |
+| Electrical Safety (Qualified) | Electrical Technicians | Initial + Annual |
+| PLC Troubleshooting | Select Technicians | As needed |
+| Robot Programming/Maintenance | Robot Technicians | OEM training + refresh |
+| Hydraulic Systems | Applicable Technicians | Initial + As needed |
+| Pneumatic Systems | All Technicians | Initial |
+| Vibration Analysis | PdM Technicians | Certification |
+| CMMS Usage | All Maintenance | Initial + updates |
+| Forklift Operation | Applicable Technicians | Initial + 3-year recert |
+
+### 16.2 Competency Verification
+
+- Technicians demonstrate PM task proficiency during on-the-job training
+- Equipment-specific qualifications recorded in training matrix
+- Annual competency verification for critical equipment
+- Retraining required after equipment modifications or incidents
+
+---
+
+## 17. Continuous Improvement
+
+### 17.1 PM Program Review
+
+| Activity | Frequency | Responsibility |
+|----------|-----------|----------------|
+| PM checklist review | Annual or after major failure | Maintenance Supervisor |
+| PM frequency optimization | Annual | Maintenance Supervisor |
+| Failure analysis (repeat failures) | Per occurrence | Maintenance Supervisor |
+| Equipment criticality review | Annual | Maintenance Supervisor + Production |
+| Spare parts review | Quarterly | Maintenance Supervisor + Purchasing |
+| CMMS data quality review | Monthly | Maintenance Supervisor |
+
+### 17.2 Failure Analysis Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Document failure details (symptoms, conditions, findings) | Maintenance Technician |
+| 2 | Identify root cause (5 Whys, fishbone) | Maintenance Supervisor |
+| 3 | Determine if PM could have prevented failure | Maintenance Supervisor |
+| 4 | Adjust PM tasks or frequency if warranted | Maintenance Supervisor |
+| 5 | Implement corrective action | Maintenance Technician |
+| 6 | Verify effectiveness | Maintenance Supervisor |
+| 7 | Update PM procedure if needed | Maintenance Supervisor |
+
+### 17.3 PM Optimization
+
+PM tasks and frequencies are optimized based on:
+- Equipment failure history
+- OEM recommendations
+- Condition monitoring data
+- Industry best practices
+- Technician feedback
+- Cost/benefit analysis
+
+---
+
+## 18. Related Documents
+
+| Document ID | Title |
+|-------------|-------|
+| MMC_{{ plant_code }}_LOTO_SOP | Lockout/Tagout Standard Operating Procedure |
+| MMC_{{ plant_code }}_Machine_Guarding_SOP | Machine Guarding Standard Operating Procedure |
+| MMC_{{ plant_code }}_Safety_Program_Overview | Safety Program Overview |
+| MMC_{{ plant_code }}_Jam_Clearing_WI | Jam Clearing Work Instruction |
+| MMC_{{ plant_code }}_Contractor_Safety_Program | Contractor Safety Requirements |
+| Equipment-specific PM checklists | Per equipment |
+| Equipment lubrication charts | Per equipment |
+| CMMS User Guide | System documentation |
+
+---
+
+## 19. Document Control
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0 | 2026-01-26 | Maintenance Supervisor | Initial release |
+
+---
+
+## Appendix A: PM Compliance Tracking
+
+### Weekly PM Compliance Report Template
+
+| Week Ending | Total PMs Scheduled | PMs Completed | PMs Deferred | Compliance Rate |
+|-------------|--------------------:|-------------:|-------------:|----------------:|
+| YYYY-MM-DD | | | | |
+
+### Monthly Summary
+
+| Month | Class A Compliance | Class B Compliance | Class C Compliance | Overall Compliance |
+|-------|-------------------:|-------------------:|-------------------:|-------------------:|
+| | | | | |
+
+---
+
+## Appendix B: Equipment Downtime Categories
+
+| Code | Category | Definition |
+|------|----------|------------|
+| PM | Planned Maintenance | Scheduled PM or planned repair |
+| CM | Corrective Maintenance | Unplanned repair (breakdown) |
+| OP | Operational | Setup, changeover, material wait |
+| QA | Quality | Quality hold, inspection, adjustment |
+| EX | External | Utilities, weather, external factors |
+| NP | No Production | No scheduled production |
+
+---
+
+## Appendix C: CMMS Work Order Codes
+
+| Code | Type | Description |
+|------|------|-------------|
+| PM | Preventive | Scheduled preventive maintenance |
+| PdM | Predictive | Condition-based or predictive task |
+| CM | Corrective | Breakdown repair |
+| EM | Emergency | Priority 1 emergency repair |
+| PRJ | Project | Capital or improvement project |
+| SAF | Safety | Safety system maintenance |
+| CAL | Calibration | Calibration and verification |
+| INS | Inspection | Inspection only (no repair) |
+
+---
+
+**End of Document**

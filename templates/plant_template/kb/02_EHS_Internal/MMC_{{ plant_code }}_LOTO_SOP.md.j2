@@ -1,0 +1,675 @@
+# MMC {{ plant_name }} — Lockout/Tagout (LOTO) Standard Operating Procedure
+**Document ID:** MMC_{{ plant_code }}_LOTO_SOP  
+**Document Owner:** EHS Manager, {{ plant_name }}  
+**Version:** v1.0  
+**Effective Date:** 2026-01-26  
+**Review Cycle:** Annual  
+**Applies To:** All employees, contractors, and service providers performing maintenance, servicing, or repair activities at MMC {{ plant_name }}
+
+---
+
+## 1. Purpose
+
+This procedure establishes requirements for the control of hazardous energy (Lockout/Tagout) during maintenance, servicing, setup, and repair activities at MMC {{ plant_name }}. Proper application of this procedure prevents unexpected startup, energization, or release of stored energy that could cause injury to personnel.
+
+---
+
+## 2. Scope
+
+This procedure applies to:
+- All maintenance, servicing, setup, and repair activities where unexpected energization or startup could cause injury
+- All energy sources: electrical, pneumatic, hydraulic, mechanical, thermal, chemical, and gravitational
+- All equipment on Lines 1, 2, and 3
+- All shared area equipment (Receiving/Shipping, Maintenance Crib, Chemical Storage, Battery Handling Station)
+- All employees performing or affected by lockout/tagout activities
+- All contractors and service providers working on {{ plant_name }} equipment
+
+**This procedure does NOT apply to:**
+- Cord and plug-connected equipment where the plug is under exclusive control of the employee
+- Hot tap operations on pressurized pipelines (separate procedure required)
+- Minor tool changes and adjustments that are routine, repetitive, and integral to production (only if alternative safeguards provide effective protection)
+
+---
+
+## 3. Regulatory Reference
+
+This procedure complies with:
+- **OSHA 29 CFR 1910.147** — The Control of Hazardous Energy (Lockout/Tagout)
+- **OSHA 29 CFR 1910.333** — Selection and Use of Work Practices (Electrical)
+- **NFPA 70E** — Standard for Electrical Safety in the Workplace
+
+---
+
+## 4. Definitions
+
+| Term | Definition |
+|------|------------|
+| **Affected Employee** | An employee whose job requires operation or use of equipment on which servicing or maintenance is being performed under lockout/tagout, or whose job requires working in an area where such activities are being performed |
+| **Authorized Employee** | An employee who locks out or tags out equipment to perform servicing or maintenance; trained and authorized to apply LOTO |
+| **Capable of Being Locked Out** | An energy isolating device that has a hasp or other means of attachment for a lock, or can be locked out using a lockout device |
+| **Energy Isolating Device** | A mechanical device that physically prevents transmission or release of energy (circuit breakers, disconnect switches, valves, blocks) |
+| **Energy Source** | Any source of electrical, mechanical, hydraulic, pneumatic, chemical, thermal, gravitational, or other energy |
+| **Group Lockout** | A procedure used when multiple authorized employees are working on the same equipment |
+| **Lockout** | Placement of a lockout device on an energy isolating device ensuring the equipment cannot be operated until the device is removed |
+| **Lockout Device** | A device that uses a positive means (lock) to hold an energy isolating device in a safe position |
+| **Tagout** | Placement of a tagout device on an energy isolating device to indicate that the equipment shall not be operated until the tag is removed |
+| **Tagout Device** | A prominent warning device (tag) attached to an energy isolating device to indicate that the equipment shall not be operated |
+| **Zero Energy State** | Condition where all hazardous energy has been isolated, locked out, and verified absent |
+
+---
+
+## 5. Hazardous Energy Sources at {{ plant_name }}
+
+### 5.1 Energy Source Identification by Area
+
+| Area | Electrical | Pneumatic | Hydraulic | Mechanical | Thermal | Chemical | Gravity |
+|------|:----------:|:---------:|:---------:|:----------:|:-------:|:--------:|:-------:|
+| **Line 1 — Stamping & Forming** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Line 2 — Assembly & Robot Cells** | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
+| **Line 3 — Conveyor & Pack-Out** | ✓ | ✓ | — | ✓ | — | — | ✓ |
+| **Receiving / Shipping** | ✓ | ✓ | ✓ | ✓ | — | — | ✓ |
+| **Chemical Storage Cage** | ✓ | ✓ | — | — | — | ✓ | — |
+| **Battery Handling Station** | ✓ | — | — | — | ✓ | ✓ | — |
+| **Maintenance Crib** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+### 5.2 Energy Source Details
+
+| Energy Type | Sources at {{ plant_name }} | Isolation Methods |
+|-------------|-------------------|-------------------|
+| **Electrical** | Motors, control panels, robot controllers, conveyor drives, battery systems, lighting panels | Disconnect switches, circuit breakers, control power switches |
+| **Pneumatic** | Air cylinders, air-operated clamps, blow-off systems, air tools, press brakes | Shut-off valves, bleed valves, disconnect couplings |
+| **Hydraulic** | Press hydraulics, lift tables, robot tooling, dock levelers, die cushions | Shut-off valves, bleed valves, blocking/cribbing |
+| **Mechanical** | Flywheels, springs, counterweights, conveyor tension, coil tension, rotating shafts | Blocking, restraining devices, releasing stored energy |
+| **Thermal** | Heated dies, curing stations, hot adhesive systems, battery thermal events | Cool-down time, temperature verification |
+| **Chemical** | Process lines, cleaning systems, adhesive dispensers, battery electrolytes | Valves, blanks, double block and bleed, draining |
+| **Gravity** | Elevated dies, suspended loads, lift tables, raised platforms, coil cradles | Blocking, cribbing, lowering to rest position |
+
+---
+
+## 6. Roles and Responsibilities
+
+| Role | Responsibilities |
+|------|------------------|
+| **EHS Manager** | Maintain LOTO program; approve procedures; conduct annual audits; investigate incidents; maintain training records; authorize new equipment-specific procedures |
+| **Maintenance Supervisor** | Ensure technicians are trained and authorized; verify procedures are followed; coordinate group lockouts; approve contractor LOTO activities; ensure equipment is properly locked out before authorizing work |
+| **Line Supervisor** | Ensure affected employees are notified; verify equipment is locked out before maintenance begins; coordinate production shutdowns; verify equipment operability after LOTO removal |
+| **Maintenance Technician** | Apply personal locks and tags; verify zero energy state; perform servicing/maintenance; remove personal locks upon completion; participate in group lockouts as required |
+| **Operator (Affected Employee)** | Understand LOTO procedures affecting their area; do not attempt to operate locked out equipment; notify Supervisor of unusual conditions; participate in notification process |
+| **Quality Engineer** | Coordinate with Maintenance and Supervision when equipment work may affect product quality; verify calibration status after maintenance |
+| **Contractor** | Follow MMC LOTO procedures or provide equivalent program; coordinate with MMC Maintenance Supervisor; apply personal locks to group lockout box |
+
+---
+
+## 7. Lockout/Tagout Devices
+
+### 7.1 Authorized Devices
+
+| Device Type | Description | Color Code |
+|-------------|-------------|------------|
+| **Personal Padlock** | Keyed-different lock issued to individual authorized employees; one key only | Red — Maintenance; Blue — Electrical; Orange — Contractor |
+| **Department Lock** | Keyed-alike locks for department/shift lockouts | Yellow |
+| **Group Lockbox** | Lockable box to hold isolation device keys during group lockout | Silver/Gray |
+| **Lockout Hasps** | Multi-hole hasps for applying multiple locks to single isolation point | Red |
+| **Danger Tags** | "DANGER — DO NOT OPERATE" tags with employee name, date, reason | Red/White/Black |
+| **Valve Lockouts** | Ball valve, gate valve, and butterfly valve lockout devices | Red |
+| **Circuit Breaker Lockouts** | Devices to lock circuit breakers in OFF position | Red |
+| **Plug Lockouts** | Devices to secure electrical plugs | Red |
+| **Pneumatic Lockouts** | Quick-disconnect lockout devices | Red |
+
+### 7.2 Lock Assignment
+
+- Each authorized employee is issued a personal lock with one unique key
+- Locks are numbered and assigned in the LOTO lock register maintained by EHS
+- Lost locks must be reported immediately to EHS Manager
+- Duplicate keys are secured in EHS office safe and accessed only per Section 13 (Lock Removal Procedure)
+- Locks remain the property of MMC and must be returned upon termination or role change
+
+### 7.3 Tag Requirements
+
+All lockout devices must be accompanied by a tag that includes:
+- "DANGER — DO NOT OPERATE" header
+- Employee name (printed)
+- Employee signature
+- Date and time applied
+- Department
+- Reason for lockout
+- Expected duration (if known)
+
+---
+
+## 8. Lockout/Tagout Procedure — Standard
+
+### 8.1 Preparation (Before Lockout)
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Identify the equipment to be locked out | Authorized Employee |
+| 2 | Locate the equipment-specific LOTO procedure (posted at equipment or in LOTO binder) | Authorized Employee |
+| 3 | Identify all energy sources, isolation points, and stored energy | Authorized Employee |
+| 4 | Notify affected employees and Supervisor that lockout will occur | Authorized Employee |
+| 5 | Gather required lockout devices, tags, and tools | Authorized Employee |
+| 6 | Review any special hazards or conditions | Authorized Employee |
+
+### 8.2 Shutdown Sequence
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Notify machine operator that equipment will be shut down | Authorized Employee |
+| 2 | If equipment is operating, shut down using normal stopping procedure | Operator or Authorized Employee |
+| 3 | Verify all moving parts have come to complete stop | Authorized Employee |
+| 4 | Ensure all personnel are clear of hazard zones | Authorized Employee |
+
+### 8.3 Isolation and Lockout
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Operate energy isolating devices to isolate equipment from energy sources | Authorized Employee |
+| 2 | Isolate in the following order: Electrical → Pneumatic → Hydraulic → Other | Authorized Employee |
+| 3 | Apply personal lock to each energy isolating device | Authorized Employee |
+| 4 | Attach completed "DANGER — DO NOT OPERATE" tag to each lock | Authorized Employee |
+| 5 | Release, restrain, or dissipate all stored/residual energy | Authorized Employee |
+| 6 | Block or support elevated components that could fall | Authorized Employee |
+
+### 8.4 Stored Energy Dissipation
+
+| Energy Type | Dissipation Method | Verification |
+|-------------|-------------------|--------------|
+| Electrical | Discharge capacitors; test with voltage meter | Zero voltage reading |
+| Pneumatic | Bleed air from lines; open drain valves | Zero pressure on gauge; physical bleed confirmation |
+| Hydraulic | Relieve pressure; cycle controls; bleed valves | Zero pressure on gauge |
+| Mechanical | Release springs; block flywheels; relieve tension | Physical restraint in place |
+| Thermal | Allow cool-down time per procedure | Temperature measurement below threshold |
+| Chemical | Drain lines; purge with inert gas if required | Empty/purged confirmation |
+| Gravity | Lower to ground or block/crib in place | Physical blocking verified |
+
+### 8.5 Verification of Zero Energy State
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Verify all isolation devices are locked and tagged | Authorized Employee |
+| 2 | Verify all stored energy has been dissipated or restrained | Authorized Employee |
+| 3 | Ensure all personnel are clear of equipment | Authorized Employee |
+| 4 | Attempt to start equipment using normal operating controls | Authorized Employee |
+| 5 | Verify equipment does not start or energize | Authorized Employee |
+| 6 | Return operating controls to OFF/NEUTRAL position | Authorized Employee |
+| 7 | Test for absence of voltage (electrical) using calibrated meter | Authorized Employee (Qualified) |
+| 8 | Document verification on LOTO permit (if required) | Authorized Employee |
+
+**CRITICAL:** If equipment starts or energy is detected, STOP. Do not proceed. Re-evaluate isolation points and repeat lockout procedure.
+
+### 8.6 Performing the Work
+
+- Work only on equipment that has been verified at zero energy state
+- Do not remove or bypass any lockout device during work
+- If additional energy isolation is discovered during work, stop and apply additional lockout
+- If work scope changes, re-evaluate hazards and update lockout as needed
+
+### 8.7 Restoring Equipment to Service
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Verify work is complete and equipment is ready for operation | Authorized Employee |
+| 2 | Remove all tools, materials, and debris from equipment | Authorized Employee |
+| 3 | Replace all guards, covers, and safety devices | Authorized Employee |
+| 4 | Verify all personnel are clear of equipment and hazard zones | Authorized Employee |
+| 5 | Notify affected employees that lockout is being removed | Authorized Employee |
+| 6 | Remove personal tag | Authorized Employee |
+| 7 | Remove personal lock from energy isolating device | Authorized Employee (lock owner only) |
+| 8 | Re-energize equipment in reverse order of isolation | Authorized Employee |
+| 9 | Verify proper operation and notify Supervisor/Operator | Authorized Employee |
+| 10 | Return equipment to production status | Line Supervisor |
+
+---
+
+## 9. Equipment-Specific LOTO Procedures
+
+Equipment-specific LOTO procedures are required for all equipment with hazardous energy sources. These procedures are:
+- Developed by Maintenance with EHS review and approval
+- Posted at the equipment or maintained in the area LOTO procedure binder
+- Referenced by procedure number on the equipment nameplate
+
+### 9.1 Procedure Content Requirements
+
+Each equipment-specific procedure must include:
+
+| Element | Description |
+|---------|-------------|
+| Equipment name and ID | Unique identifier matching asset tag |
+| Location | Line, area, and position |
+| Energy sources | All types present (electrical, pneumatic, hydraulic, etc.) |
+| Isolation points | Each point identified with location and device type |
+| Isolation sequence | Order of isolation (if sequence-critical) |
+| Stored energy | Methods to dissipate or restrain |
+| Verification method | How to confirm zero energy |
+| Special precautions | Unique hazards, PPE, or conditions |
+| Diagram/photo | Visual showing isolation point locations |
+| Approval signatures | Maintenance Supervisor, EHS Manager |
+
+### 9.2 Equipment-Specific Procedure Index
+
+| Procedure ID | Equipment | Location | Energy Sources |
+|--------------|-----------|----------|----------------|
+| LOTO-L1-001 | 600-Ton Stamping Press #1 | Line 1, Station 1 | Electrical, Hydraulic, Pneumatic, Mechanical, Gravity |
+| LOTO-L1-002 | 600-Ton Stamping Press #2 | Line 1, Station 2 | Electrical, Hydraulic, Pneumatic, Mechanical, Gravity |
+| LOTO-L1-003 | Coil Feed Line | Line 1, Infeed | Electrical, Mechanical, Gravity |
+| LOTO-L1-004 | Scrap Conveyor | Line 1, Outfeed | Electrical, Mechanical |
+| LOTO-L1-005 | Die Cart / Transfer System | Line 1, Floor | Electrical, Hydraulic, Gravity |
+| LOTO-L2-001 | Robot Cell A (Fanuc R-2000) | Line 2, Cell A | Electrical, Pneumatic, Mechanical |
+| LOTO-L2-002 | Robot Cell B (Fanuc R-2000) | Line 2, Cell B | Electrical, Pneumatic, Mechanical |
+| LOTO-L2-003 | Robot Cell C (Collaborative) | Line 2, Cell C | Electrical, Pneumatic |
+| LOTO-L2-004 | Servo Torque Station | Line 2, Station 4 | Electrical, Pneumatic |
+| LOTO-L2-005 | Vision Inspection System | Line 2, Station 5 | Electrical |
+| LOTO-L3-001 | Main Conveyor Line | Line 3, Full Length | Electrical, Mechanical, Gravity |
+| LOTO-L3-002 | Stretch Wrap Machine | Line 3, Pack-Out | Electrical, Mechanical |
+| LOTO-L3-003 | Labeling System | Line 3, Pack-Out | Electrical, Pneumatic |
+| LOTO-L3-004 | Palletizer | Line 3, End of Line | Electrical, Pneumatic, Gravity |
+| LOTO-SH-001 | Dock Leveler #1 | Shipping Dock 1 | Electrical, Hydraulic, Gravity |
+| LOTO-SH-002 | Dock Leveler #2 | Shipping Dock 2 | Electrical, Hydraulic, Gravity |
+| LOTO-CH-001 | Solvent Pump System | Chemical Storage | Electrical, Chemical |
+| LOTO-BH-001 | Battery Test Stand | Battery Handling | Electrical, Thermal, Chemical |
+| LOTO-MC-001 | Parts Washer | Maintenance Crib | Electrical, Chemical, Thermal |
+| LOTO-MC-002 | Hydraulic Press (Maintenance) | Maintenance Crib | Electrical, Hydraulic |
+
+---
+
+## 10. Group Lockout Procedure
+
+Group lockout is required when:
+- Two or more authorized employees work on the same equipment
+- Work extends across shifts
+- Multiple crafts or contractors are involved
+
+### 10.1 Group Lockout Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Designate a primary authorized employee to coordinate the group lockout | Maintenance Supervisor |
+| 2 | Primary authorized employee performs equipment shutdown and isolation per standard procedure | Primary Authorized Employee |
+| 3 | Primary authorized employee applies lock and tag to each isolation point | Primary Authorized Employee |
+| 4 | Primary authorized employee places isolation point keys in group lockbox | Primary Authorized Employee |
+| 5 | Primary authorized employee applies personal lock to group lockbox | Primary Authorized Employee |
+| 6 | Each additional authorized employee applies personal lock to group lockbox | Each Authorized Employee |
+| 7 | Verification of zero energy state performed | Primary Authorized Employee |
+| 8 | Work proceeds with all locks in place | All Authorized Employees |
+| 9 | Upon work completion, each employee removes their personal lock from lockbox | Each Authorized Employee |
+| 10 | Primary authorized employee removes their lock from lockbox last | Primary Authorized Employee |
+| 11 | Primary authorized employee retrieves keys and removes locks from isolation points | Primary Authorized Employee |
+| 12 | Equipment restored to service per standard procedure | Primary Authorized Employee |
+
+### 10.2 Shift Transfer During Group Lockout
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Outgoing primary authorized employee briefs incoming primary | Both Primary Employees |
+| 2 | Incoming primary authorized employee applies personal lock to lockbox | Incoming Primary Employee |
+| 3 | Outgoing employees remove personal locks from lockbox | Outgoing Employees |
+| 4 | Outgoing primary removes lock from lockbox last (after incoming primary's lock is applied) | Outgoing Primary Employee |
+| 5 | Incoming shift employees apply personal locks to lockbox | Incoming Employees |
+| 6 | Continuity of lockout documented on LOTO permit | Both Primary Employees |
+
+**CRITICAL:** At no time shall the group lockbox be without at least one lock during an active group lockout.
+
+---
+
+## 11. Contractor Lockout Requirements
+
+### 11.1 Pre-Work Requirements
+
+| Requirement | Responsibility |
+|-------------|----------------|
+| Review contractor's LOTO program for equivalency | EHS Manager |
+| Conduct contractor safety orientation including LOTO | EHS / Maintenance Supervisor |
+| Identify equipment and energy sources in scope of work | Maintenance Supervisor + Contractor |
+| Provide equipment-specific LOTO procedures | Maintenance Supervisor |
+| Issue contractor lockout devices (orange locks) or verify contractor devices meet MMC standards | Maintenance Supervisor |
+
+### 11.2 Coordination Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | MMC authorized employee performs initial isolation and lockout | MMC Authorized Employee |
+| 2 | MMC authorized employee verifies zero energy state | MMC Authorized Employee |
+| 3 | Contractor authorized employee(s) apply personal locks to group lockbox or isolation points | Contractor |
+| 4 | Work proceeds with all locks in place | Contractor |
+| 5 | Contractor removes personal locks upon work completion | Contractor |
+| 6 | MMC authorized employee verifies contractor locks removed | MMC Authorized Employee |
+| 7 | MMC authorized employee performs verification and restores equipment | MMC Authorized Employee |
+
+### 11.3 Contractor Isolation
+
+If a contractor provides their own lockout:
+- Contractor LOTO program must be reviewed and approved by EHS Manager
+- Contractor must demonstrate equivalent protection per OSHA 1910.147
+- MMC Maintenance Supervisor must be informed before lockout is applied
+- MMC personnel do not operate contractor-locked equipment under any circumstances
+
+---
+
+## 12. Tagout-Only Procedure
+
+Tagout-only is permitted only when:
+- The energy isolating device is not capable of being locked out, AND
+- Full employee protection is demonstrated, AND
+- EHS Manager has approved tagout-only in writing
+
+### 12.1 Additional Safeguards for Tagout-Only
+
+When tagout-only is used, the following additional measures are required:
+
+| Additional Safeguard | Description |
+|---------------------|-------------|
+| Tag placement | Tag attached directly to energy isolating device |
+| Warning communication | All affected employees verbally warned |
+| Continuous monitoring | Additional employee stationed at tagout point (if feasible) |
+| Enhanced verification | Additional testing and verification steps |
+| Documentation | Written authorization from EHS Manager for each occurrence |
+| Temporary measures | Physical barriers, additional warnings, or equipment removal |
+
+### 12.2 Tag Removal Warning
+
+**WARNING:** Tags are warning devices only and do not provide physical restraint. Tags must never be ignored, bypassed, or removed except by the employee who applied them.
+
+---
+
+## 13. Lock Removal Procedure (Absent Employee)
+
+### 13.1 Conditions for Removal
+
+A lock may be removed by someone other than the employee who applied it ONLY when:
+- The employee who applied the lock is not available at the facility
+- All reasonable efforts to contact the employee have been unsuccessful
+- The procedure below is followed exactly
+
+### 13.2 Removal Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Verify the employee who applied the lock is not on-site | Maintenance Supervisor |
+| 2 | Attempt to contact the employee by phone (minimum 2 attempts, documented) | Maintenance Supervisor |
+| 3 | If contact made, employee may verbally authorize removal after confirming work status | Maintenance Supervisor |
+| 4 | If contact unsuccessful, notify EHS Manager | Maintenance Supervisor |
+| 5 | EHS Manager authorizes lock removal in writing | EHS Manager |
+| 6 | Maintenance Supervisor verifies equipment is safe for lock removal | Maintenance Supervisor |
+| 7 | Obtain duplicate key from EHS office safe (two-person verification) | EHS Manager + Maintenance Supervisor |
+| 8 | Remove lock and document removal with date, time, and circumstances | Maintenance Supervisor |
+| 9 | Notify employee of lock removal before their next scheduled shift | Maintenance Supervisor |
+| 10 | Employee acknowledges notification in writing upon return | Employee |
+| 11 | Document entire process in LOTO incident log | EHS Manager |
+
+### 13.3 Documentation Requirements
+
+The following must be documented for any lock removal by non-owner:
+- Name of employee whose lock was removed
+- Name of employee(s) who removed the lock
+- Date and time of removal
+- Reason for removal
+- Contact attempts and results
+- Authorization from EHS Manager
+- Notification to employee
+- Employee acknowledgment
+
+---
+
+## 14. Periodic Inspection (Annual Audit)
+
+### 14.1 Inspection Requirements
+
+- Annual inspection of LOTO procedures required per OSHA 1910.147(c)(6)
+- Each equipment-specific procedure must be audited at least annually
+- Inspection conducted by authorized employee other than those using the procedure
+
+### 14.2 Inspection Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Schedule annual LOTO inspections by area | EHS Manager |
+| 2 | Select authorized employee to perform inspection (not routine user of procedure) | EHS Manager |
+| 3 | Inspector observes authorized employee applying lockout procedure | Inspector |
+| 4 | Inspector verifies procedure followed correctly | Inspector |
+| 5 | Inspector interviews authorized and affected employees on procedure understanding | Inspector |
+| 6 | Inspector documents findings on LOTO Audit Form | Inspector |
+| 7 | Deficiencies corrected and retraining conducted as needed | EHS Manager + Maintenance Supervisor |
+| 8 | Audit documentation retained for minimum 3 years | EHS Manager |
+
+### 14.3 Audit Checklist Elements
+
+| Audit Element | Verify |
+|---------------|--------|
+| Procedure availability | Written procedure accessible at equipment |
+| Energy source identification | All energy sources correctly identified |
+| Isolation points | All isolation points correctly identified and labeled |
+| Lockout device application | Lock and tag properly applied |
+| Stored energy | Dissipation/restraint methods performed |
+| Zero energy verification | Verification performed before work |
+| Affected employee notification | Notification occurred |
+| Equipment restoration | Guards replaced, verification performed |
+| Employee knowledge | Understanding of procedure and responsibilities |
+
+### 14.4 Corrective Actions
+
+| Finding | Required Action |
+|---------|-----------------|
+| Procedure not followed | Retraining; document in personnel file |
+| Procedure incomplete or incorrect | Revise procedure; retrain affected employees |
+| Equipment isolation points not labeled | Label within 30 days |
+| Lockout devices inadequate | Replace devices immediately |
+| Repeat deficiency | Investigate root cause; implement corrective action |
+
+---
+
+## 15. Training Requirements
+
+### 15.1 Training Matrix
+
+| Role | Training Type | Initial | Refresher | Trainer |
+|------|---------------|---------|-----------|---------|
+| Authorized Employee | LOTO Authorized | Before first lockout | Annual | EHS Manager |
+| Affected Employee | LOTO Awareness | Upon hire / assignment | Annual | Supervisor / EHS |
+| Supervisor | LOTO Supervisor | Upon promotion | Annual | EHS Manager |
+| Contractor | LOTO Orientation | Before each project | Per project | Maintenance Supervisor |
+
+### 15.2 Authorized Employee Training Content
+
+| Topic | Content |
+|-------|---------|
+| Purpose and scope | Why LOTO is required; applicable equipment and tasks |
+| Regulatory requirements | OSHA 1910.147 overview |
+| Energy sources | Types of hazardous energy; identification methods |
+| Lockout devices | Types, use, and limitations |
+| Standard procedure | Step-by-step lockout and tagout procedure |
+| Equipment-specific procedures | How to read and apply equipment-specific procedures |
+| Group lockout | When required and procedure |
+| Shift transfer | Continuity requirements |
+| Verification | Methods to confirm zero energy state |
+| Restoring equipment | Proper sequence for re-energization |
+| Tagout limitations | When tagout-only is permitted; additional safeguards |
+| Lock removal | Procedure for absent employee situations |
+| Practical demonstration | Hands-on application of lockout procedure |
+
+### 15.3 Affected Employee Training Content
+
+| Topic | Content |
+|-------|---------|
+| Purpose of LOTO | Why lockout is performed |
+| Recognition | How to recognize locked out equipment |
+| Prohibition | Never attempt to operate locked out equipment |
+| Notification | How to notify if work is affected by lockout |
+| Reporting | Report unsafe conditions or violations |
+
+### 15.4 Retraining Triggers
+
+Retraining is required when:
+- Audit reveals procedure not understood or not followed
+- New equipment or procedures are introduced
+- Job assignment changes to include authorized employee duties
+- Incident investigation identifies training gap
+- Supervisor observes non-compliance
+
+---
+
+## 16. Documentation and Records
+
+### 16.1 Required Documentation
+
+| Document | Purpose | Retention |
+|----------|---------|-----------|
+| Equipment-specific LOTO procedures | Define lockout steps for each machine | Current + 3 years (superseded) |
+| LOTO training records | Document employee training completion | Duration of employment + 3 years |
+| Annual audit reports | Document periodic inspection results | 3 years |
+| Lock register | Track lock assignments to employees | Current |
+| LOTO permits (if used) | Document lockout for extended/group work | 1 year |
+| Lock removal documentation | Record non-owner lock removals | 3 years |
+| Incident reports | Document LOTO-related incidents | 5 years |
+
+### 16.2 LOTO Permit
+
+A LOTO Permit is required for:
+- Group lockouts involving 3 or more authorized employees
+- Lockouts extending across more than one shift
+- Complex lockouts involving multiple systems
+- Contractor lockouts
+
+Permit contents:
+- Equipment identification
+- Work description
+- All energy sources and isolation points
+- Names of all authorized employees
+- Date/time applied and expected completion
+- Verification signatures
+- Shift transfer documentation (if applicable)
+- Completion sign-off
+
+---
+
+## 17. Incident Reporting
+
+### 17.1 Reportable Events
+
+The following LOTO-related events must be reported immediately:
+- Any injury related to unexpected energization
+- Any near-miss involving energy release
+- Any unauthorized removal of lock or tag
+- Any attempt to operate locked out equipment
+- Any discovery of inadequate lockout during work
+- Any failure of lockout device
+
+### 17.2 Reporting Procedure
+
+| Step | Action | Responsibility |
+|------|--------|----------------|
+| 1 | Stop work immediately | Discoverer |
+| 2 | Secure the area | Supervisor |
+| 3 | Notify Supervisor and EHS Manager | Discoverer |
+| 4 | Do not disturb evidence | All personnel |
+| 5 | Complete incident report | Supervisor + EHS |
+| 6 | Conduct investigation | EHS Manager |
+| 7 | Implement corrective actions | Maintenance Supervisor + EHS |
+| 8 | Communicate lessons learned | EHS Manager |
+
+---
+
+## 18. Related Documents
+
+| Document ID | Title |
+|-------------|-------|
+| MMC_{{ plant_code }}_Safety_Program_Overview | Safety Program Overview |
+| MMC_{{ plant_code }}_Machine_Guarding_SOP | Machine Guarding Standard Operating Procedure |
+| MMC_{{ plant_code }}_Electrical_Safety_Program | Electrical Safety Program |
+| MMC_{{ plant_code }}_Contractor_Safety_Program | Contractor Safety Requirements |
+| MMC_{{ plant_code }}_Confined_Space_Program | Permit-Required Confined Space Program |
+| LOTO-XXX-XXX | Equipment-Specific LOTO Procedures (see Section 9.2) |
+
+---
+
+## 19. Document Control
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0 | 2026-01-26 | EHS Manager | Initial release |
+
+---
+
+## Appendix A: LOTO Quick Reference Card
+
+**Before You Start:**
+1. ☐ Identify equipment and locate specific LOTO procedure
+2. ☐ Identify ALL energy sources
+3. ☐ Notify affected employees
+4. ☐ Gather locks, tags, and tools
+
+**Lockout Sequence:**
+1. ☐ Shut down equipment using normal procedure
+2. ☐ Isolate ALL energy sources
+3. ☐ Apply YOUR lock and tag to each isolation point
+4. ☐ Release/restrain ALL stored energy
+5. ☐ VERIFY zero energy state (try to start)
+
+**Before Removing Lockout:**
+1. ☐ Work complete and equipment ready
+2. ☐ All tools and materials removed
+3. ☐ All guards replaced
+4. ☐ All personnel clear
+5. ☐ Notify affected employees
+6. ☐ Remove YOUR lock and tag only
+
+**Remember:**
+- Only YOU remove YOUR lock
+- When in doubt, DO NOT proceed
+- Report violations immediately
+
+---
+
+## Appendix B: Sample Danger Tag
+
+```
+┌─────────────────────────────────┐
+│     ⚠️ DANGER ⚠️                 │
+│   DO NOT OPERATE               │
+│                                │
+│ Name: _______________________  │
+│                                │
+│ Date: ________ Time: ________  │
+│                                │
+│ Department: _________________  │
+│                                │
+│ Reason: _____________________  │
+│ ______________________________ │
+│                                │
+│ DO NOT REMOVE THIS TAG         │
+│ Except by person shown above   │
+│                                │
+│ Signature: __________________  │
+└─────────────────────────────────┘
+```
+
+---
+
+## Appendix C: Group Lockout Box Procedure
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                    GROUP LOCKOUT                          │
+│                                                          │
+│   1. Primary Employee isolates equipment                 │
+│   2. Primary Employee places keys in lockbox             │
+│   3. Primary Employee locks box FIRST                    │
+│   4. Each additional employee locks box                  │
+│                                                          │
+│   ┌─────────────┐                                        │
+│   │  LOCKBOX    │ ← Keys to isolation points inside     │
+│   │ ┌─┐┌─┐┌─┐┌─┐│ ← Multiple locks on hasp              │
+│   │ └─┘└─┘└─┘└─┘│                                        │
+│   └─────────────┘                                        │
+│                                                          │
+│   Removal (reverse order):                               │
+│   • Each employee removes their lock                     │
+│   • Primary Employee removes lock LAST                   │
+│   • Primary Employee removes isolation locks             │
+│                                                          │
+│   NEVER leave box unlocked during active lockout!        │
+└──────────────────────────────────────────────────────────┘
+```
+
+---
+
+**End of Document**
