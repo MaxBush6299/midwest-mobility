@@ -142,3 +142,81 @@ def test_validate_plant_rejects_plant7_equipment_id_remnant(tmp_path: Path) -> N
     assert "forbidden_source_plant_id" in codes, f"expected forbidden_source_plant_id in {codes}"
     offending = next(e for e in report["errors"] if e["code"] == "forbidden_source_plant_id")
     assert "MMC_P4_PM_Schedule.csv" in offending["path"]
+
+
+# ---------------------------------------------------------------------------
+# Task 13: enterprise cross-link validation
+# ---------------------------------------------------------------------------
+
+BOM_HEADER = (
+    "Part_ID,Part_Name,Supplier_ID,Plant_ID,Plant_Code,Line_ID,Equipment_ID,"
+    "Qty_Per_Assy,Effective_Date,Safety_Critical,Alt_Source_Status"
+)
+BOM_P4_BRK_GOOD = (
+    "BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant4,MMC_P4,L1,P4-L1-CMM-04,"
+    "1,2025-01-01,Y,NO_DIRECT_ALT"
+)
+
+
+def _write_enterprise_bom(enterprise_root: Path, body_rows: list[str]) -> None:
+    bom = enterprise_root / "supply-chain" / "data" / "bom_where_used.csv"
+    bom.parent.mkdir(parents=True, exist_ok=True)
+    bom.write_text(BOM_HEADER + "\n" + "\n".join(body_rows) + "\n", encoding="utf-8")
+
+
+def test_validate_plant_rejects_bad_cross_link_line_id(tmp_path: Path) -> None:
+    """A BOM row pointing at plant4 L9 (not in profile) yields bad_cross_link."""
+    plant_dir = tmp_path / "plants" / "plant4"
+    _write_good_plant4(plant_dir)
+    enterprise_root = tmp_path / "enterprise"
+    _write_enterprise_bom(enterprise_root, [
+        BOM_P4_BRK_GOOD,
+        "STM-PNL-A1,Stamped Panel A1,SUP-002,plant4,MMC_P4,L9,P4-L9-PRS-001,"
+        "2,2025-01-01,N,APPROVED_ALT_AVAILABLE",
+    ])
+
+    result = _run([str(plant_dir), "--enterprise-root", str(enterprise_root)])
+
+    assert result.returncode != 0
+    report = json.loads(result.stdout)
+    codes = [e["code"] for e in report["errors"]]
+    assert "bad_cross_link" in codes, f"expected bad_cross_link in {codes}"
+    bad = next(e for e in report["errors"] if e["code"] == "bad_cross_link")
+    assert "L9" in bad["message"]
+
+
+def test_validate_plant_requires_brake_caliper_cross_link(tmp_path: Path) -> None:
+    """Cloned plants without a BRK-CAL-XYZ row get missing_brake_caliper_cross_link."""
+    plant_dir = tmp_path / "plants" / "plant4"
+    _write_good_plant4(plant_dir)
+    enterprise_root = tmp_path / "enterprise"
+    # BOM exists but has no Plant 4 BRK-CAL-XYZ row.
+    _write_enterprise_bom(enterprise_root, [
+        "BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant7,MMC_P7,L1,L1-PRS-001,"
+        "1,2025-01-01,Y,NO_DIRECT_ALT",
+    ])
+
+    result = _run([str(plant_dir), "--enterprise-root", str(enterprise_root)])
+
+    assert result.returncode != 0
+    report = json.loads(result.stdout)
+    codes = [e["code"] for e in report["errors"]]
+    assert "missing_brake_caliper_cross_link" in codes, f"expected in {codes}"
+
+
+def test_validate_plant_ok_with_good_bom(tmp_path: Path) -> None:
+    """Valid BOM with proper Plant 4 cross-link still yields status=ok."""
+    plant_dir = tmp_path / "plants" / "plant4"
+    _write_good_plant4(plant_dir)
+    enterprise_root = tmp_path / "enterprise"
+    _write_enterprise_bom(enterprise_root, [
+        "BRK-CAL-XYZ,Brake Caliper Assembly,SUP-001,plant7,MMC_P7,L1,L1-PRS-001,"
+        "1,2025-01-01,Y,NO_DIRECT_ALT",
+        BOM_P4_BRK_GOOD,
+    ])
+
+    result = _run([str(plant_dir), "--enterprise-root", str(enterprise_root)])
+
+    assert result.returncode == 0, f"stdout={result.stdout}\nstderr={result.stderr}"
+    report = json.loads(result.stdout)
+    assert report["status"] == "ok"
