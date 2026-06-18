@@ -1,72 +1,72 @@
 Training_ID,Employee_ID,Employee_Name,Department,Area,Training_Course,Training_Type,Course_Category,Scheduled_Date,Completed_Date,Status,Trainer,Score_Percent,Pass_Fail,Expiration_Date,Notes
-TRN-2025-0901,E1042,Marcus Chen,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-09-03,2025-09-03,Completed,J. Patterson,92,Pass,2026-09-03,
-TRN-2025-0902,E1087,David Kowalski,Maintenance,Line 2,LOTO Authorized Person,Annual Refresher,Safety,2025-09-03,2025-09-03,Completed,J. Patterson,88,Pass,2026-09-03,
-TRN-2025-0903,E1156,Angela Torres,Production,Line 3,PPE Requirements,Annual Refresher,Safety,2025-09-04,2025-09-04,Completed,M. Williams,95,Pass,2026-09-04,
-TRN-2025-0904,E1203,Brian Mitchell,Production,Line 3,Housekeeping Standards,Initial,Safety,2025-09-05,2025-09-05,Completed,M. Williams,90,Pass,2027-09-05,New hire orientation
-TRN-2025-0905,E1089,Jennifer Walsh,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-09-08,2025-09-08,Completed,M. Williams,100,Pass,2026-09-08,Audiogram completed same day
-TRN-2025-0906,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Forklift Operator,Recertification,Safety,2025-09-09,2025-09-09,Completed,T. Jackson,94,Pass,2028-09-09,3-year certification
-TRN-2025-0907,E1145,Sarah Kim,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-09-10,2025-09-10,Completed,J. Patterson,86,Pass,2026-09-10,
-TRN-2025-0908,E1067,Michael Brown,Maintenance,Line 1,Electrical Safety Qualified,Annual Refresher,Safety,2025-09-11,2025-09-11,Completed,J. Patterson,91,Pass,2026-09-11,Arc flash awareness included
-TRN-2025-0909,E1178,Lisa Patel,Production,Line 2,Machine Guarding Awareness,Initial,Safety,2025-09-12,2025-09-12,Completed,M. Williams,88,Pass,2026-09-12,Interlock bypass procedure reviewed
-TRN-2025-0910,E1023,Carlos Mendez,Maintenance,Line 3,Jam Clearing Authorized,Annual Refresher,Safety,2025-09-15,2025-09-15,Completed,J. Patterson,90,Pass,2026-09-15,
-TRN-2025-0911,E1134,Emily Johnson,Production,Line 1,Press Safety,Annual Refresher,Safety,2025-09-16,2025-09-16,Completed,M. Williams,87,Pass,2026-09-16,Energy isolation emphasis
-TRN-2025-0912,E1098,James Wilson,Production,Line 3,Stretch Wrap Machine Operation,Initial,Equipment,2025-09-17,2025-09-17,Completed,Line Supervisor,100,Pass,2026-09-17,
-TRN-2025-0913,E1056,Amanda Davis,Quality,Line 2,Measurement Systems,Annual Refresher,Quality,2025-09-18,2025-09-18,Completed,Quality Mgr,95,Pass,2026-09-18,
-TRN-2025-0914,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Fall Protection,Initial,Safety,2025-09-19,2025-09-19,Completed,J. Patterson,92,Pass,2026-09-19,Harness inspection included
-TRN-2025-0915,E1189,Rachel Green,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-09-22,2025-09-22,Completed,M. Williams,84,Pass,2026-09-22,Guard removal procedure reviewed
-TRN-2025-0916,E1045,Thomas Anderson,Logistics,Receiving/Shipping,Forklift Operator,Recertification,Safety,2025-09-23,2025-09-23,Completed,T. Jackson,90,Pass,2028-09-23,3-year certification
-TRN-2025-0917,E1167,Nicole Martin,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-09-24,2025-09-24,Completed,M. Williams,100,Pass,2026-09-24,Audiogram completed same day
-TRN-2025-0918,E1078,Steven Garcia,Maintenance,Line 2,LOTO Authorized Person,Initial,Safety,2025-09-25,2025-09-25,Completed,J. Patterson,94,Pass,2026-09-25,New maintenance technician
-TRN-2025-0919,E1201,Melissa Clark,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-09-26,2025-09-26,Completed,M. Williams,82,Pass,2026-09-26,5S principles reinforced
-TRN-2025-0920,E1123,Daniel Lee,Production,Line 2,Robot Cell Entry,Initial,Safety,2025-09-29,2025-09-29,Completed,J. Patterson,88,Pass,2026-09-29,Safeguarded stop procedure
-TRN-2025-0921,E1054,Patricia Moore,Production,Line 1,LOTO Affected Person,Annual Refresher,Safety,2025-09-30,2025-09-30,Completed,M. Williams,96,Pass,2026-09-30,
-TRN-2025-1001,E1142,Christopher White,Maintenance,Line 1,Press Maintenance Safety,Annual Refresher,Safety,2025-10-02,2025-10-02,Completed,J. Patterson,90,Pass,2026-10-02,Die change LOTO reviewed
-TRN-2025-1002,E1095,Sandra Harris,Production,Line 3,Conveyor Safety,Annual Refresher,Safety,2025-10-03,2025-10-03,Completed,M. Williams,88,Pass,2026-10-03,Pinch point awareness
-TRN-2025-1003,E1176,Andrew Jackson,Maintenance,Line 2,Machine Guarding Inspection,Initial,Safety,2025-10-06,2025-10-06,Completed,J. Patterson,86,Pass,2026-10-06,Interlock testing procedure
-TRN-2025-1004,E1031,Laura Robinson,Logistics,Receiving/Shipping,Pedestrian Safety,Annual Refresher,Safety,2025-10-07,2025-10-07,Completed,M. Williams,100,Pass,2026-10-07,Forklift traffic awareness
-TRN-2025-1005,E1158,Mark Taylor,Production,Line 1,Hearing Conservation,Initial,Safety,2025-10-08,2025-10-08,Completed,M. Williams,100,Pass,2026-10-08,Baseline audiogram completed
-TRN-2025-1006,E1089,Jennifer Walsh,Production,Line 1,PPE Requirements,Annual Refresher,Safety,2025-10-09,2025-10-09,Completed,M. Williams,92,Pass,2026-10-09,
-TRN-2025-1007,E1067,Michael Brown,Maintenance,Line 1,Arc Flash Safety,Annual Refresher,Safety,2025-10-10,2025-10-10,Completed,J. Patterson,94,Pass,2026-10-10,NFPA 70E updates reviewed
-TRN-2025-1008,E1145,Sarah Kim,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-10-13,2025-10-13,Completed,M. Williams,90,Pass,2026-10-13,Light curtain operation
-TRN-2025-1009,E1205,Ryan Martinez,Production,Line 3,Housekeeping Standards,Initial,Safety,2025-10-14,2025-10-14,Completed,M. Williams,85,Pass,2027-10-14,New hire orientation
-TRN-2025-1010,E1042,Marcus Chen,Maintenance,Line 1,Crane and Hoist Safety,Annual Refresher,Safety,2025-10-15,2025-10-15,Completed,J. Patterson,91,Pass,2026-10-15,Die handling operations
-TRN-2025-1011,E1178,Lisa Patel,Production,Line 2,Robot Cell Entry,Initial,Safety,2025-10-16,2025-10-16,Completed,J. Patterson,87,Pass,2026-10-16,Emergency stop locations
-TRN-2025-1012,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Confined Space Entry,Initial,Safety,2025-10-17,2025-10-17,Completed,J. Patterson,89,Pass,2026-10-17,Permit required spaces ID
-TRN-2025-1013,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Dock Safety,Annual Refresher,Safety,2025-10-20,2025-10-20,Completed,M. Williams,93,Pass,2026-10-20,Dock lock procedure
-TRN-2025-1014,E1134,Emily Johnson,Production,Line 1,LOTO Affected Person,Annual Refresher,Safety,2025-10-21,2025-10-21,Completed,M. Williams,88,Pass,2026-10-21,
-TRN-2025-1015,E1023,Carlos Mendez,Maintenance,Line 3,Conveyor Maintenance,Annual Refresher,Equipment,2025-10-22,2025-10-22,Completed,J. Patterson,92,Pass,2026-10-22,Belt tensioning procedure
-TRN-2025-1016,E1087,David Kowalski,Maintenance,Line 2,Robot Safety Systems,Annual Refresher,Safety,2025-10-23,2025-10-23,Completed,J. Patterson,95,Pass,2026-10-23,Safety PLC diagnostics
+TRN-2025-0901,E1042,Marcus Chen,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-09-02,2025-09-02,Completed,J. Patterson,90,Pass,2026-09-02,
+TRN-2025-0902,E1087,David Kowalski,Maintenance,Line 2,LOTO Authorized Person,Annual Refresher,Safety,2025-09-04,2025-09-04,Completed,J. Patterson,91,Pass,2026-09-04,
+TRN-2025-0903,E1156,Angela Torres,Production,Line 3,PPE Requirements,Annual Refresher,Safety,2025-09-07,2025-09-07,Completed,M. Williams,93,Pass,2026-09-07,
+TRN-2025-0904,E1203,Brian Mitchell,Production,Line 3,Housekeeping Standards,Initial,Safety,2025-09-05,2025-09-05,Completed,M. Williams,94,Pass,2027-09-05,New hire orientation
+TRN-2025-0905,E1089,Jennifer Walsh,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-09-11,2025-09-11,Completed,M. Williams,103,Pass,2026-09-11,Audiogram completed same day
+TRN-2025-0906,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Forklift Operator,Recertification,Safety,2025-09-07,2025-09-07,Completed,T. Jackson,93,Pass,2028-09-07,3-year certification
+TRN-2025-0907,E1145,Sarah Kim,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-09-12,2025-09-12,Completed,J. Patterson,90,Pass,2026-09-12,
+TRN-2025-0908,E1067,Michael Brown,Maintenance,Line 1,Electrical Safety Qualified,Annual Refresher,Safety,2025-09-14,2025-09-14,Completed,J. Patterson,93,Pass,2026-09-14,Arc flash awareness included
+TRN-2025-0909,E1178,Lisa Patel,Production,Line 2,Machine Guarding Awareness,Initial,Safety,2025-09-15,2025-09-15,Completed,M. Williams,89,Pass,2026-09-15,Interlock bypass procedure reviewed
+TRN-2025-0910,E1023,Carlos Mendez,Maintenance,Line 3,Jam Clearing Authorized,Annual Refresher,Safety,2025-09-13,2025-09-13,Completed,J. Patterson,94,Pass,2026-09-13,
+TRN-2025-0911,E1134,Emily Johnson,Production,Line 1,Press Safety,Annual Refresher,Safety,2025-09-17,2025-09-17,Completed,M. Williams,89,Pass,2026-09-17,Energy isolation emphasis
+TRN-2025-0912,E1098,James Wilson,Production,Line 3,Stretch Wrap Machine Operation,Initial,Equipment,2025-09-16,2025-09-16,Completed,Line Supervisor,100,Pass,2026-09-16,
+TRN-2025-0913,E1056,Amanda Davis,Quality,Line 2,Measurement Systems,Annual Refresher,Quality,2025-09-19,2025-09-19,Completed,Quality Mgr,94,Pass,2026-09-19,
+TRN-2025-0914,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Fall Protection,Initial,Safety,2025-09-20,2025-09-20,Completed,J. Patterson,89,Pass,2026-09-20,Harness inspection included
+TRN-2025-0915,E1189,Rachel Green,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-09-24,2025-09-24,Completed,M. Williams,87,Pass,2026-09-24,Guard removal procedure reviewed
+TRN-2025-0916,E1045,Thomas Anderson,Logistics,Receiving/Shipping,Forklift Operator,Recertification,Safety,2025-09-22,2025-09-22,Completed,T. Jackson,92,Pass,2028-09-22,3-year certification
+TRN-2025-0917,E1167,Nicole Martin,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-09-26,2025-09-26,Completed,M. Williams,102,Pass,2026-09-26,Audiogram completed same day
+TRN-2025-0918,E1078,Steven Garcia,Maintenance,Line 2,LOTO Authorized Person,Initial,Safety,2025-09-27,2025-09-27,Completed,J. Patterson,92,Pass,2026-09-27,New maintenance technician
+TRN-2025-0919,E1201,Melissa Clark,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-09-24,2025-09-24,Completed,M. Williams,84,Pass,2026-09-24,5S principles reinforced
+TRN-2025-0920,E1123,Daniel Lee,Production,Line 2,Robot Cell Entry,Initial,Safety,2025-10-01,2025-10-01,Completed,J. Patterson,89,Pass,2026-10-01,Safeguarded stop procedure
+TRN-2025-0921,E1054,Patricia Moore,Production,Line 1,LOTO Affected Person,Annual Refresher,Safety,2025-09-30,2025-09-30,Completed,M. Williams,91,Pass,2026-09-30,
+TRN-2025-1001,E1142,Christopher White,Maintenance,Line 1,Press Maintenance Safety,Annual Refresher,Safety,2025-10-05,2025-10-05,Completed,J. Patterson,91,Pass,2026-10-05,Die change LOTO reviewed
+TRN-2025-1002,E1095,Sandra Harris,Production,Line 3,Conveyor Safety,Annual Refresher,Safety,2025-10-05,2025-10-05,Completed,M. Williams,84,Pass,2026-10-05,Pinch point awareness
+TRN-2025-1003,E1176,Andrew Jackson,Maintenance,Line 2,Machine Guarding Inspection,Initial,Safety,2025-10-03,2025-10-03,Completed,J. Patterson,83,Pass,2026-10-03,Interlock testing procedure
+TRN-2025-1004,E1031,Laura Robinson,Logistics,Receiving/Shipping,Pedestrian Safety,Annual Refresher,Safety,2025-10-07,2025-10-07,Completed,M. Williams,102,Pass,2026-10-07,Forklift traffic awareness
+TRN-2025-1005,E1158,Mark Taylor,Production,Line 1,Hearing Conservation,Initial,Safety,2025-10-09,2025-10-09,Completed,M. Williams,103,Pass,2026-10-09,Baseline audiogram completed
+TRN-2025-1006,E1089,Jennifer Walsh,Production,Line 1,PPE Requirements,Annual Refresher,Safety,2025-10-11,2025-10-11,Completed,M. Williams,94,Pass,2026-10-11,
+TRN-2025-1007,E1067,Michael Brown,Maintenance,Line 1,Arc Flash Safety,Annual Refresher,Safety,2025-10-10,2025-10-10,Completed,J. Patterson,98,Pass,2026-10-10,NFPA 70E updates reviewed
+TRN-2025-1008,E1145,Sarah Kim,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-10-13,2025-10-13,Completed,M. Williams,94,Pass,2026-10-13,Light curtain operation
+TRN-2025-1009,E1205,Ryan Martinez,Production,Line 3,Housekeeping Standards,Initial,Safety,2025-10-17,2025-10-17,Completed,M. Williams,85,Pass,2027-10-17,New hire orientation
+TRN-2025-1010,E1042,Marcus Chen,Maintenance,Line 1,Crane and Hoist Safety,Annual Refresher,Safety,2025-10-16,2025-10-16,Completed,J. Patterson,88,Pass,2026-10-16,Die handling operations
+TRN-2025-1011,E1178,Lisa Patel,Production,Line 2,Robot Cell Entry,Initial,Safety,2025-10-16,2025-10-16,Completed,J. Patterson,90,Pass,2026-10-16,Emergency stop locations
+TRN-2025-1012,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Confined Space Entry,Initial,Safety,2025-10-20,2025-10-20,Completed,J. Patterson,89,Pass,2026-10-20,Permit required spaces ID
+TRN-2025-1013,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Dock Safety,Annual Refresher,Safety,2025-10-22,2025-10-22,Completed,M. Williams,95,Pass,2026-10-22,Dock lock procedure
+TRN-2025-1014,E1134,Emily Johnson,Production,Line 1,LOTO Affected Person,Annual Refresher,Safety,2025-10-20,2025-10-20,Completed,M. Williams,85,Pass,2026-10-20,
+TRN-2025-1015,E1023,Carlos Mendez,Maintenance,Line 3,Conveyor Maintenance,Annual Refresher,Equipment,2025-10-23,2025-10-23,Completed,J. Patterson,89,Pass,2026-10-23,Belt tensioning procedure
+TRN-2025-1016,E1087,David Kowalski,Maintenance,Line 2,Robot Safety Systems,Annual Refresher,Safety,2025-10-23,2025-10-23,Completed,J. Patterson,96,Pass,2026-10-23,Safety PLC diagnostics
 TRN-2025-1017,E1156,Angela Torres,Production,Line 3,Ergonomics Awareness,Annual Refresher,Safety,2025-10-24,2025-10-24,Completed,M. Williams,90,Pass,2026-10-24,Lifting techniques
-TRN-2025-1018,E1098,James Wilson,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-10-27,2025-10-27,Completed,M. Williams,80,Pass,2026-10-27,Aisle clearance emphasis
-TRN-2025-1019,E1189,Rachel Green,Production,Line 2,ESD Protection,Annual Refresher,Quality,2025-10-28,2025-10-28,Completed,Quality Mgr,94,Pass,2026-10-28,Wrist strap testing
-TRN-2025-1020,E1056,Amanda Davis,Quality,All Areas,Internal Auditor,Recertification,Quality,2025-10-29,2025-10-29,Completed,Quality Mgr,96,Pass,2027-10-29,ISO 9001 focus
-TRN-2025-1101,E1167,Nicole Martin,Production,Line 1,Press Safety,Annual Refresher,Safety,2025-11-03,2025-11-03,Completed,M. Williams,89,Pass,2026-11-03,Two-hand control operation
-TRN-2025-1102,E1078,Steven Garcia,Maintenance,Line 2,Machine Guarding Inspection,Annual Refresher,Safety,2025-11-04,2025-11-04,Completed,J. Patterson,91,Pass,2026-11-04,Guard integrity checks
-TRN-2025-1103,E1201,Melissa Clark,Production,Line 3,Palletizer Safety,Annual Refresher,Safety,2025-11-05,2025-11-05,Completed,M. Williams,87,Pass,2026-11-05,Exclusion zone awareness
-TRN-2025-1104,E1123,Daniel Lee,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-11-06,2025-11-06,Completed,M. Williams,85,Pass,2026-11-06,Interlock defeat prohibited
-TRN-2025-1105,E1045,Thomas Anderson,Logistics,Receiving/Shipping,Hazmat Shipping,Annual Refresher,Compliance,2025-11-07,2025-11-07,Completed,EHS Manager,93,Pass,2026-11-07,DOT requirements
-TRN-2025-1106,E1054,Patricia Moore,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-11-10,2025-11-10,Completed,M. Williams,100,Pass,2026-11-10,Audiogram completed same day
-TRN-2025-1107,E1142,Christopher White,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-11-11,2025-11-11,Completed,J. Patterson,93,Pass,2026-11-11,Energy verification emphasis
-TRN-2025-1108,E1095,Sandra Harris,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-11-12,2025-11-12,Completed,M. Williams,78,Pass,2026-11-12,Slip hazard prevention
-TRN-2025-1109,E1176,Andrew Jackson,Maintenance,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-11-13,2025-11-13,Completed,J. Patterson,90,Pass,2026-11-13,Collaborative robot safety
-TRN-2025-1110,E1031,Laura Robinson,Logistics,Receiving/Shipping,Forklift Operator,Refresher,Safety,2025-11-14,2025-11-14,Completed,T. Jackson,88,Pass,2028-09-23,Post near-miss refresher
-TRN-2025-1111,E1158,Mark Taylor,Production,Line 1,LOTO Affected Person,Initial,Safety,2025-11-17,2025-11-17,Completed,M. Williams,92,Pass,2026-11-17,
-TRN-2025-1112,E1207,Jessica Adams,Production,Line 2,Machine Guarding Awareness,Initial,Safety,2025-11-18,2025-11-18,Completed,M. Williams,86,Pass,2026-11-18,New hire - interlock awareness
-TRN-2025-1113,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Aerial Lift Operator,Initial,Safety,2025-11-19,2025-11-19,Completed,T. Jackson,94,Pass,2026-11-19,Scissor lift and boom
-TRN-2025-1114,E1042,Marcus Chen,Maintenance,Line 1,Hydraulic Safety,Annual Refresher,Safety,2025-11-20,2025-11-20,Completed,J. Patterson,90,Pass,2026-11-20,Press hydraulics focus
-TRN-2025-1115,E1145,Sarah Kim,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-11-21,2025-11-21,Completed,J. Patterson,88,Pass,2026-11-21,Teach pendant safety
-TRN-2025-1201,E1087,David Kowalski,Maintenance,Line 2,LOTO Authorized Person,Annual Refresher,Safety,2025-12-01,2025-12-01,Completed,J. Patterson,95,Pass,2026-12-01,Group lockout procedure
-TRN-2025-1202,E1067,Michael Brown,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-12-02,2025-12-02,Completed,J. Patterson,97,Pass,2026-12-02,Press-specific LOTO
-TRN-2025-1203,E1205,Ryan Martinez,Production,Line 3,Conveyor Safety,Initial,Safety,2025-12-03,2025-12-03,Completed,M. Williams,84,Pass,2026-12-03,Nip point identification
-TRN-2025-1204,E1023,Carlos Mendez,Maintenance,Line 3,LOTO Authorized Person,Annual Refresher,Safety,2025-12-04,2025-12-04,Completed,J. Patterson,91,Pass,2026-12-04,
-TRN-2025-1205,E1178,Lisa Patel,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-12-05,2025-12-05,Completed,M. Williams,89,Pass,2026-12-05,Safety circuit testing
-TRN-2026-0101,E1134,Emily Johnson,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2026-01-06,2026-01-06,Completed,M. Williams,100,Pass,2027-01-06,Audiogram completed same day
-TRN-2026-0102,E1098,James Wilson,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2026-01-07,2026-01-07,Completed,M. Williams,82,Pass,2027-01-07,Shrink wrap debris cleanup
-TRN-2026-0103,E1189,Rachel Green,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2026-01-08,2026-01-08,Completed,J. Patterson,87,Pass,2027-01-08,E-stop location review
-TRN-2026-0104,E1056,Amanda Davis,Quality,Line 1,Measurement Systems,Annual Refresher,Quality,2026-01-09,2026-01-09,Completed,Quality Mgr,98,Pass,2027-01-09,Gage R&R refresher
-TRN-2026-0105,E1201,Melissa Clark,Production,Line 3,Ergonomics Awareness,Annual Refresher,Safety,2026-01-10,2026-01-10,Completed,M. Williams,91,Pass,2027-01-10,Pack-out lifting techniques
-TRN-2026-0106,E1123,Daniel Lee,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2026-01-13,2026-01-13,Completed,M. Williams,90,Pass,2027-01-13,Light curtain alignment
-TRN-2026-0107,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Pedestrian Safety,Annual Refresher,Safety,2026-01-14,2026-01-14,Completed,M. Williams,95,Pass,2027-01-14,Designated walkways
-TRN-2026-0108,E1142,Christopher White,Maintenance,Line 1,Press Maintenance Safety,Annual Refresher,Safety,2026-01-15,2026-01-15,Completed,J. Patterson,92,Pass,2027-01-15,Energy isolation verification
-TRN-2026-0109,E1095,Sandra Harris,Production,Line 3,Stretch Wrap Machine Operation,Annual Refresher,Equipment,2026-01-16,2026-01-16,Completed,Line Supervisor,88,Pass,2027-01-16,Film break procedure
-TRN-2026-0110,E1176,Andrew Jackson,Maintenance,Line 2,Machine Guarding Inspection,Annual Refresher,Safety,2026-01-17,2026-01-17,Completed,J. Patterson,93,Pass,2027-01-17,Interlock wiring inspection
+TRN-2025-1018,E1098,James Wilson,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-10-29,2025-10-29,Completed,M. Williams,78,Pass,2026-10-29,Aisle clearance emphasis
+TRN-2025-1019,E1189,Rachel Green,Production,Line 2,ESD Protection,Annual Refresher,Quality,2025-10-25,2025-10-25,Completed,Quality Mgr,94,Pass,2026-10-25,Wrist strap testing
+TRN-2025-1020,E1056,Amanda Davis,Quality,All Areas,Internal Auditor,Recertification,Quality,2025-11-01,2025-11-01,Completed,Quality Mgr,101,Pass,2027-11-01,ISO 9001 focus
+TRN-2025-1101,E1167,Nicole Martin,Production,Line 1,Press Safety,Annual Refresher,Safety,2025-11-01,2025-11-01,Completed,M. Williams,87,Pass,2026-11-01,Two-hand control operation
+TRN-2025-1102,E1078,Steven Garcia,Maintenance,Line 2,Machine Guarding Inspection,Annual Refresher,Safety,2025-11-05,2025-11-05,Completed,J. Patterson,91,Pass,2026-11-05,Guard integrity checks
+TRN-2025-1103,E1201,Melissa Clark,Production,Line 3,Palletizer Safety,Annual Refresher,Safety,2025-11-04,2025-11-04,Completed,M. Williams,86,Pass,2026-11-04,Exclusion zone awareness
+TRN-2025-1104,E1123,Daniel Lee,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-11-09,2025-11-09,Completed,M. Williams,84,Pass,2026-11-09,Interlock defeat prohibited
+TRN-2025-1105,E1045,Thomas Anderson,Logistics,Receiving/Shipping,Hazmat Shipping,Annual Refresher,Compliance,2025-11-06,2025-11-06,Completed,EHS Manager,88,Pass,2026-11-06,DOT requirements
+TRN-2025-1106,E1054,Patricia Moore,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2025-11-09,2025-11-09,Completed,M. Williams,101,Pass,2026-11-09,Audiogram completed same day
+TRN-2025-1107,E1142,Christopher White,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-11-08,2025-11-08,Completed,J. Patterson,93,Pass,2026-11-08,Energy verification emphasis
+TRN-2025-1108,E1095,Sandra Harris,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2025-11-13,2025-11-13,Completed,M. Williams,74,Pass,2026-11-13,Slip hazard prevention
+TRN-2025-1109,E1176,Andrew Jackson,Maintenance,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-11-14,2025-11-14,Completed,J. Patterson,94,Pass,2026-11-14,Collaborative robot safety
+TRN-2025-1110,E1031,Laura Robinson,Logistics,Receiving/Shipping,Forklift Operator,Refresher,Safety,2025-11-16,2025-11-16,Completed,T. Jackson,88,Pass,2028-09-25,Post near-miss refresher
+TRN-2025-1111,E1158,Mark Taylor,Production,Line 1,LOTO Affected Person,Initial,Safety,2025-11-20,2025-11-20,Completed,M. Williams,92,Pass,2026-11-20,
+TRN-2025-1112,E1207,Jessica Adams,Production,Line 2,Machine Guarding Awareness,Initial,Safety,2025-11-20,2025-11-20,Completed,M. Williams,82,Pass,2026-11-20,New hire - interlock awareness
+TRN-2025-1113,E1112,Kevin Thompson,Maintenance,Maintenance Crib,Aerial Lift Operator,Initial,Safety,2025-11-17,2025-11-17,Completed,T. Jackson,97,Pass,2026-11-17,Scissor lift and boom
+TRN-2025-1114,E1042,Marcus Chen,Maintenance,Line 1,Hydraulic Safety,Annual Refresher,Safety,2025-11-23,2025-11-23,Completed,J. Patterson,89,Pass,2026-11-23,Press hydraulics focus
+TRN-2025-1115,E1145,Sarah Kim,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2025-11-22,2025-11-22,Completed,J. Patterson,85,Pass,2026-11-22,Teach pendant safety
+TRN-2025-1201,E1087,David Kowalski,Maintenance,Line 2,LOTO Authorized Person,Annual Refresher,Safety,2025-12-02,2025-12-02,Completed,J. Patterson,93,Pass,2026-12-02,Group lockout procedure
+TRN-2025-1202,E1067,Michael Brown,Maintenance,Line 1,LOTO Authorized Person,Annual Refresher,Safety,2025-12-03,2025-12-03,Completed,J. Patterson,100,Pass,2026-12-03,Press-specific LOTO
+TRN-2025-1203,E1205,Ryan Martinez,Production,Line 3,Conveyor Safety,Initial,Safety,2025-12-05,2025-12-05,Completed,M. Williams,86,Pass,2026-12-05,Nip point identification
+TRN-2025-1204,E1023,Carlos Mendez,Maintenance,Line 3,LOTO Authorized Person,Annual Refresher,Safety,2025-12-01,2025-12-01,Completed,J. Patterson,91,Pass,2026-12-01,
+TRN-2025-1205,E1178,Lisa Patel,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2025-12-03,2025-12-03,Completed,M. Williams,91,Pass,2026-12-03,Safety circuit testing
+TRN-2026-0101,E1134,Emily Johnson,Production,Line 1,Hearing Conservation,Annual Refresher,Safety,2026-01-08,2026-01-08,Completed,M. Williams,95,Pass,2027-01-08,Audiogram completed same day
+TRN-2026-0102,E1098,James Wilson,Production,Line 3,Housekeeping Standards,Annual Refresher,Safety,2026-01-06,2026-01-06,Completed,M. Williams,82,Pass,2027-01-06,Shrink wrap debris cleanup
+TRN-2026-0103,E1189,Rachel Green,Production,Line 2,Robot Cell Entry,Annual Refresher,Safety,2026-01-11,2026-01-11,Completed,J. Patterson,85,Pass,2027-01-11,E-stop location review
+TRN-2026-0104,E1056,Amanda Davis,Quality,Line 1,Measurement Systems,Annual Refresher,Quality,2026-01-11,2026-01-11,Completed,Quality Mgr,102,Pass,2027-01-11,Gage R&R refresher
+TRN-2026-0105,E1201,Melissa Clark,Production,Line 3,Ergonomics Awareness,Annual Refresher,Safety,2026-01-13,2026-01-13,Completed,M. Williams,89,Pass,2027-01-13,Pack-out lifting techniques
+TRN-2026-0106,E1123,Daniel Lee,Production,Line 2,Machine Guarding Awareness,Annual Refresher,Safety,2026-01-15,2026-01-15,Completed,M. Williams,91,Pass,2027-01-15,Light curtain alignment
+TRN-2026-0107,E1034,Robert Hernandez,Logistics,Receiving/Shipping,Pedestrian Safety,Annual Refresher,Safety,2026-01-11,2026-01-11,Completed,M. Williams,91,Pass,2027-01-11,Designated walkways
+TRN-2026-0108,E1142,Christopher White,Maintenance,Line 1,Press Maintenance Safety,Annual Refresher,Safety,2026-01-18,2026-01-18,Completed,J. Patterson,90,Pass,2027-01-18,Energy isolation verification
+TRN-2026-0109,E1095,Sandra Harris,Production,Line 3,Stretch Wrap Machine Operation,Annual Refresher,Equipment,2026-01-19,2026-01-19,Completed,Line Supervisor,84,Pass,2027-01-19,Film break procedure
+TRN-2026-0110,E1176,Andrew Jackson,Maintenance,Line 2,Machine Guarding Inspection,Annual Refresher,Safety,2026-01-14,2026-01-14,Completed,J. Patterson,94,Pass,2027-01-14,Interlock wiring inspection

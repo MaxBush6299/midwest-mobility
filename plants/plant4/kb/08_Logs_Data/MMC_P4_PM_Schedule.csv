@@ -1,81 +1,81 @@
 PM_ID,Asset_ID,Equipment_Name,Location,PM_Type,Frequency,Scheduled_Date,Completed_Date,Status,Technician,Duration_Hours,LOTO_Required,Findings,Follow_Up_WO,Notes
-PM-2025-001,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2025-09-01,2025-09-01,Completed,D. Anderson,2.5,Yes,Hydraulic hose showing wear on cylinder 3,WO-2025-112,Scheduled hose replacement for next weekend
-PM-2025-002,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-09-01,2025-09-02,Completed,T. Wilson,1.5,Yes,All devices passed function test,,
-PM-2025-003,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-09-02,2025-09-02,Completed,M. Torres,1.0,No,Minor debris accumulation under Zone 2,,Housekeeping note added to shift log
-PM-2025-004,UT-CMP-001,Air Compressor #1,Utilities,Oil Level and Filter Check,Weekly,2025-09-02,2025-09-02,Completed,G. Garcia,0.5,No,Normal conditions,,
-PM-2025-005,L1-HPU-001,Hydraulic Power Unit,Line 1,Oil Analysis Sampling,Quarterly,2025-09-05,2025-09-05,Completed,D. Anderson,1.0,No,Sample sent to lab; awaiting results,,
-PM-2025-006,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2025-09-08,2025-09-08,Completed,J. Williams,2.0,Yes,Axis 2 motor drawing 12% above baseline,WO-2025-118,Monitor closely; gearbox inspection scheduled
-PM-2025-007,L3-SWM-001,Stretch Wrap Machine,Line 3,Film Carriage Lubrication,Weekly,2025-09-09,2025-09-09,Completed,P. Thomas,0.5,No,Normal operation,,
-PM-2025-008,L1-CFL-001,Coil Feed System,Line 1,Feed Roller Inspection,Monthly,2025-09-10,2025-09-10,Completed,D. Anderson,1.5,Yes,Rollers within spec,,
-PM-2025-009,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2025-09-12,2025-09-12,Completed,T. Wilson,1.0,Yes,Gate 2 interlock slow to respond,WO-2025-121,Interlock switch replacement scheduled
-PM-2025-010,L3-LBL-001,Labeling System,Line 3,Sensor Calibration Check,Monthly,2025-09-15,2025-09-15,Completed,L. Davis,1.0,No,Sensors within tolerance,,
-PM-2025-011,MH-FLT-001,Forklift #1,Receiving/Shipping,Monthly Safety Inspection,Monthly,2025-09-15,2025-09-16,Completed,K. Brown,1.0,No,All systems normal,,
-PM-2025-012,L1-PRS-002,600-Ton Press #2,Line 1,Electrical Panel Thermal Scan,Quarterly,2025-09-18,2025-09-18,Completed,D. Anderson,1.5,Yes,Hot spot on main contactor,WO-2025-125,Contactor replacement scheduled
-PM-2025-013,L2-STS-001,Servo Torque Station 1,Line 2,Socket Wear Inspection,Weekly,2025-09-19,2025-09-19,Completed,J. Williams,0.5,No,Sockets within wear limits,,
-PM-2025-014,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2025-09-22,2025-09-22,Completed,U. King,2.0,Yes,Gripper pads worn; replaced,,Parts used: GP-PAL-001 x4
-PM-2025-015,UT-CMP-002,Air Compressor #2,Utilities,Belt Tension Check,Monthly,2025-09-23,2025-09-23,Completed,G. Garcia,0.5,No,Belt tension adjusted,,
-PM-2025-016,L1-SCV-001,Scrap Conveyor,Line 1,Chain and Sprocket Inspection,Monthly,2025-09-25,2025-09-25,Completed,D. Anderson,1.5,Yes,Chain stretch within limits,,
-PM-2025-017,L2-RBC-001,Robot Cell C (Cobot),Line 2,Safety Sensor Calibration,Monthly,2025-09-26,2025-09-26,Completed,T. Wilson,1.5,Yes,Force limiting sensors verified,,
-PM-2025-018,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2025-09-29,2025-09-29,Completed,M. Torres,2.0,Yes,Zone 3 motor running warm,WO-2025-130,Bearing replacement scheduled
-PM-2025-019,L1-PRS-001,600-Ton Press #1,Line 1,Clutch/Brake Inspection,Monthly,2025-10-01,2025-10-01,Completed,D. Anderson,3.0,Yes,Brake wear at 60%; monitor,,Next PM: check wear again
-PM-2025-020,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-10-01,2025-10-01,Completed,T. Wilson,1.5,Yes,Cell B light curtain dirty; cleaned and passed,,
-PM-2025-021,L3-ACC-001,Accumulation Conveyor,Line 3,Photo-eye Sensor Cleaning,Weekly,2025-10-03,2025-10-03,Completed,L. Davis,0.5,No,Sensors cleaned; debris accumulation noted,,Housekeeping reminder issued
-PM-2025-022,UT-ELC-001,Main Electrical Panels,Utilities,Thermal Imaging Survey,Quarterly,2025-10-06,2025-10-06,Completed,Contractor - ThermoTech,4.0,No,3 minor hot spots identified,WO-2025-135,Connections tightened; recheck next quarter
+PM-2025-001,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2025-08-30,2025-08-30,Completed,D. Anderson,2.6,Yes,Hydraulic hose showing wear on cylinder 3,WO-2025-112,Scheduled hose replacement for next weekend
+PM-2025-002,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-08-31,2025-09-01,Completed,T. Wilson,1.4,Yes,All devices passed function test,,
+PM-2025-003,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-09-01,2025-09-01,Completed,M. Torres,1.0,No,Minor debris accumulation under Zone 2,,Housekeeping note added to shift log
+PM-2025-004,UT-CMP-001,Air Compressor #1,Utilities,Oil Level and Filter Check,Weekly,2025-09-04,2025-09-04,Completed,G. Garcia,0.5,No,Normal conditions,,
+PM-2025-005,L1-HPU-001,Hydraulic Power Unit,Line 1,Oil Analysis Sampling,Quarterly,2025-09-06,2025-09-06,Completed,D. Anderson,1.0,No,Sample sent to lab; awaiting results,,
+PM-2025-006,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2025-09-09,2025-09-09,Completed,J. Williams,1.9,Yes,Axis 2 motor drawing 12% above baseline,WO-2025-118,Monitor closely; gearbox inspection scheduled
+PM-2025-007,L3-SWM-001,Stretch Wrap Machine,Line 3,Film Carriage Lubrication,Weekly,2025-09-10,2025-09-10,Completed,P. Thomas,0.5,No,Normal operation,,
+PM-2025-008,L1-CFL-001,Coil Feed System,Line 1,Feed Roller Inspection,Monthly,2025-09-07,2025-09-07,Completed,D. Anderson,1.4,Yes,Rollers within spec,,
+PM-2025-009,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2025-09-13,2025-09-13,Completed,T. Wilson,1.0,Yes,Gate 2 interlock slow to respond,WO-2025-121,Interlock switch replacement scheduled
+PM-2025-010,L3-LBL-001,Labeling System,Line 3,Sensor Calibration Check,Monthly,2025-09-18,2025-09-18,Completed,L. Davis,1.0,No,Sensors within tolerance,,
+PM-2025-011,MH-FLT-001,Forklift #1,Receiving/Shipping,Monthly Safety Inspection,Monthly,2025-09-13,2025-09-14,Completed,K. Brown,1.0,No,All systems normal,,
+PM-2025-012,L1-PRS-002,600-Ton Press #2,Line 1,Electrical Panel Thermal Scan,Quarterly,2025-09-16,2025-09-16,Completed,D. Anderson,1.5,Yes,Hot spot on main contactor,WO-2025-125,Contactor replacement scheduled
+PM-2025-013,L2-STS-001,Servo Torque Station 1,Line 2,Socket Wear Inspection,Weekly,2025-09-22,2025-09-22,Completed,J. Williams,0.5,No,Sockets within wear limits,,
+PM-2025-014,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2025-09-24,2025-09-24,Completed,U. King,2.1,Yes,Gripper pads worn; replaced,,Parts used: GP-PAL-001 x4
+PM-2025-015,UT-CMP-002,Air Compressor #2,Utilities,Belt Tension Check,Monthly,2025-09-24,2025-09-24,Completed,G. Garcia,0.5,No,Belt tension adjusted,,
+PM-2025-016,L1-SCV-001,Scrap Conveyor,Line 1,Chain and Sprocket Inspection,Monthly,2025-09-25,2025-09-25,Completed,D. Anderson,1.4,Yes,Chain stretch within limits,,
+PM-2025-017,L2-RBC-001,Robot Cell C (Cobot),Line 2,Safety Sensor Calibration,Monthly,2025-09-25,2025-09-25,Completed,T. Wilson,1.5,Yes,Force limiting sensors verified,,
+PM-2025-018,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2025-09-30,2025-09-30,Completed,M. Torres,2.0,Yes,Zone 3 motor running warm,WO-2025-130,Bearing replacement scheduled
+PM-2025-019,L1-PRS-001,600-Ton Press #1,Line 1,Clutch/Brake Inspection,Monthly,2025-10-02,2025-10-02,Completed,D. Anderson,2.9,Yes,Brake wear at 60%; monitor,,Next PM: check wear again
+PM-2025-020,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-10-04,2025-10-04,Completed,T. Wilson,1.5,Yes,Cell B light curtain dirty; cleaned and passed,,
+PM-2025-021,L3-ACC-001,Accumulation Conveyor,Line 3,Photo-eye Sensor Cleaning,Weekly,2025-10-01,2025-10-01,Completed,L. Davis,0.5,No,Sensors cleaned; debris accumulation noted,,Housekeeping reminder issued
+PM-2025-022,UT-ELC-001,Main Electrical Panels,Utilities,Thermal Imaging Survey,Quarterly,2025-10-04,2025-10-04,Completed,Contractor - ThermoTech,4.2,No,3 minor hot spots identified,WO-2025-135,Connections tightened; recheck next quarter
 PM-2025-023,L1-HPU-001,Hydraulic Power Unit,Line 1,Filter Replacement,Monthly,2025-10-08,2025-10-08,Completed,D. Anderson,1.0,No,Filters replaced; oil clean,,Parts used: HF-HPU-001 x2
-PM-2025-024,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Gearbox Oil Level Check,Monthly,2025-10-10,2025-10-10,Completed,J. Williams,1.0,Yes,Oil level normal,,
-PM-2025-025,L3-SWM-001,Stretch Wrap Machine,Line 3,Turntable Bearing Inspection,Monthly,2025-10-13,2025-10-13,Completed,P. Thomas,1.5,Yes,Bearings normal; lubricated,,
-PM-2025-026,L1-DTC-001,Die Transfer Cart,Line 1,Hydraulic Cylinder Inspection,Quarterly,2025-10-15,2025-10-15,Completed,D. Anderson,2.0,Yes,Minor seepage on lift cylinder,WO-2025-140,Seal kit ordered
-PM-2025-027,L2-RBB-001,Robot Cell B (Fanuc),Line 2,E-Stop Circuit Test,Monthly,2025-10-17,2025-10-17,Completed,T. Wilson,1.0,Yes,All E-stops functional,,
-PM-2025-028,L3-PNA-001,Print & Apply System,Line 3,Printhead Cleaning,Weekly,2025-10-20,2025-10-20,Completed,L. Davis,0.5,No,Printhead cleaned; quality good,,
-PM-2025-029,L1-PRS-002,600-Ton Press #2,Line 1,Lubrication System Check,Monthly,2025-10-22,2025-10-22,Completed,D. Anderson,1.5,Yes,Auto-lube pump pressure low,WO-2025-145,Pump repair scheduled
-PM-2025-030,L2-STS-002,Servo Torque Station 2,Line 2,Two-Hand Control Test,Monthly,2025-10-24,2025-10-24,Completed,T. Wilson,0.5,No,Timing verified; anti-tie-down functional,,
-PM-2025-031,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-10-27,2025-10-27,Completed,M. Torres,1.0,No,Zone 4 belt tracking adjusted,,
-PM-2025-032,UT-GEN-001,Emergency Generator,Utilities,Load Bank Test,Monthly,2025-10-28,2025-10-28,Completed,Contractor - PowerGen,3.0,No,Generator passed load test,,
-PM-2025-033,L1-CCR-001,Coil Cradle,Line 1,Mechanical Inspection,Monthly,2025-10-30,2025-10-30,Completed,D. Anderson,1.5,Yes,Mandrel wear within limits,,
-PM-2025-034,L2-VIS-001,Vision Inspection System,Line 2,Camera Lens Cleaning,Weekly,2025-11-03,2025-11-03,Completed,J. Williams,0.5,No,Lenses cleaned; lighting verified,,
+PM-2025-024,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Gearbox Oil Level Check,Monthly,2025-10-07,2025-10-07,Completed,J. Williams,1.0,Yes,Oil level normal,,
+PM-2025-025,L3-SWM-001,Stretch Wrap Machine,Line 3,Turntable Bearing Inspection,Monthly,2025-10-16,2025-10-16,Completed,P. Thomas,1.5,Yes,Bearings normal; lubricated,,
+PM-2025-026,L1-DTC-001,Die Transfer Cart,Line 1,Hydraulic Cylinder Inspection,Quarterly,2025-10-17,2025-10-17,Completed,D. Anderson,1.9,Yes,Minor seepage on lift cylinder,WO-2025-140,Seal kit ordered
+PM-2025-027,L2-RBB-001,Robot Cell B (Fanuc),Line 2,E-Stop Circuit Test,Monthly,2025-10-15,2025-10-15,Completed,T. Wilson,1.0,Yes,All E-stops functional,,
+PM-2025-028,L3-PNA-001,Print & Apply System,Line 3,Printhead Cleaning,Weekly,2025-10-22,2025-10-22,Completed,L. Davis,0.5,No,Printhead cleaned; quality good,,
+PM-2025-029,L1-PRS-002,600-Ton Press #2,Line 1,Lubrication System Check,Monthly,2025-10-23,2025-10-23,Completed,D. Anderson,1.5,Yes,Auto-lube pump pressure low,WO-2025-145,Pump repair scheduled
+PM-2025-030,L2-STS-002,Servo Torque Station 2,Line 2,Two-Hand Control Test,Monthly,2025-10-26,2025-10-26,Completed,T. Wilson,0.5,No,Timing verified; anti-tie-down functional,,
+PM-2025-031,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-10-30,2025-10-30,Completed,M. Torres,1.0,No,Zone 4 belt tracking adjusted,,
+PM-2025-032,UT-GEN-001,Emergency Generator,Utilities,Load Bank Test,Monthly,2025-10-28,2025-10-28,Completed,Contractor - PowerGen,2.9,No,Generator passed load test,,
+PM-2025-033,L1-CCR-001,Coil Cradle,Line 1,Mechanical Inspection,Monthly,2025-10-31,2025-10-31,Completed,D. Anderson,1.4,Yes,Mandrel wear within limits,,
+PM-2025-034,L2-VIS-001,Vision Inspection System,Line 2,Camera Lens Cleaning,Weekly,2025-10-31,2025-10-31,Completed,J. Williams,0.5,No,Lenses cleaned; lighting verified,,
 PM-2025-035,L3-CSL-001,Case Sealer,Line 3,Tape Head Adjustment,Weekly,2025-11-04,2025-11-04,Completed,P. Thomas,0.5,No,Tape tension adjusted,,
-PM-2025-036,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2025-11-05,2025-11-05,Completed,D. Anderson,2.5,Yes,Hose replaced per WO-2025-112,,
-PM-2025-037,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-11-05,2025-11-06,Completed,T. Wilson,1.5,Yes,All devices passed,,
-PM-2025-038,L3-PAL-001,Palletizer,Line 3,Pneumatic System Inspection,Monthly,2025-11-07,2025-11-07,Completed,U. King,1.5,Yes,Minor air leak at gripper cylinder,WO-2025-152,Fitting tightened; monitoring
-PM-2025-039,UT-CMP-001,Air Compressor #1,Utilities,Vibration Analysis,Monthly,2025-11-10,2025-11-10,Completed,G. Garcia,1.0,No,Vibration levels normal (2.1 mm/s),,
+PM-2025-036,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2025-11-03,2025-11-03,Completed,D. Anderson,2.5,Yes,Hose replaced per WO-2025-112,,
+PM-2025-037,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-11-06,2025-11-07,Completed,T. Wilson,1.4,Yes,All devices passed,,
+PM-2025-038,L3-PAL-001,Palletizer,Line 3,Pneumatic System Inspection,Monthly,2025-11-06,2025-11-06,Completed,U. King,1.6,Yes,Minor air leak at gripper cylinder,WO-2025-152,Fitting tightened; monitoring
+PM-2025-039,UT-CMP-001,Air Compressor #1,Utilities,Vibration Analysis,Monthly,2025-11-08,2025-11-08,Completed,G. Garcia,1.0,No,Vibration levels normal (2.1 mm/s),,
 PM-2025-040,L1-HPU-001,Hydraulic Power Unit,Line 1,Oil Temperature Check,Weekly,2025-11-11,2025-11-11,Completed,D. Anderson,0.5,No,Oil temp 45°C; within range,,
-PM-2025-041,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2025-11-12,2025-11-13,Completed,J. Williams,2.0,Yes,Axis 2 current stabilized after gearbox service,,
-PM-2025-042,L3-LBL-001,Labeling System,Line 3,Peel Edge Alignment,Weekly,2025-11-14,2025-11-14,Completed,L. Davis,0.5,No,Alignment adjusted; label placement improved,,
-PM-2025-043,L1-CFL-001,Coil Feed System,Line 1,Loop Control Sensor Check,Monthly,2025-11-17,2025-11-17,Completed,D. Anderson,1.0,Yes,Sensors calibrated,,
-PM-2025-044,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2025-11-19,2025-11-19,Completed,T. Wilson,1.0,Yes,New interlock switch installed and tested,,Per WO-2025-121
-PM-2025-045,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2025-11-21,2025-11-21,Completed,M. Torres,2.0,Yes,Zone 3 bearings replaced; running cool,,Per WO-2025-130
-PM-2025-046,MH-FLT-002,Forklift #2,Receiving/Shipping,Monthly Safety Inspection,Monthly,2025-11-24,2025-11-24,Completed,K. Brown,1.0,No,Hydraulic fluid topped off,,
+PM-2025-041,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2025-11-09,2025-11-10,Completed,J. Williams,2.0,Yes,Axis 2 current stabilized after gearbox service,,
+PM-2025-042,L3-LBL-001,Labeling System,Line 3,Peel Edge Alignment,Weekly,2025-11-11,2025-11-11,Completed,L. Davis,0.5,No,Alignment adjusted; label placement improved,,
+PM-2025-043,L1-CFL-001,Coil Feed System,Line 1,Loop Control Sensor Check,Monthly,2025-11-15,2025-11-15,Completed,D. Anderson,1.0,Yes,Sensors calibrated,,
+PM-2025-044,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2025-11-17,2025-11-17,Completed,T. Wilson,1.0,Yes,New interlock switch installed and tested,,Per WO-2025-121
+PM-2025-045,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2025-11-18,2025-11-18,Completed,M. Torres,2.0,Yes,Zone 3 bearings replaced; running cool,,Per WO-2025-130
+PM-2025-046,MH-FLT-002,Forklift #2,Receiving/Shipping,Monthly Safety Inspection,Monthly,2025-11-22,2025-11-22,Completed,K. Brown,1.0,No,Hydraulic fluid topped off,,
 PM-2025-047,L1-PRS-002,600-Ton Press #2,Line 1,Clutch/Brake Inspection,Monthly,2025-11-26,2025-11-26,Completed,D. Anderson,3.0,Yes,Brake wear at 55%; acceptable,,
-PM-2025-048,L2-BWF-001,Bowl Feeder System,Line 2,Drive Coil Inspection,Monthly,2025-11-28,2025-11-28,Completed,J. Williams,1.0,No,Coils normal; amplitude adjusted,,
-PM-2025-049,L3-SWM-001,Stretch Wrap Machine,Line 3,Film Carriage Lubrication,Weekly,2025-12-01,2025-12-01,Completed,P. Thomas,0.5,No,Normal operation; carriage smooth,,
-PM-2025-050,UT-DRY-001,Air Dryer,Utilities,Desiccant Check,Quarterly,2025-12-02,2025-12-02,Completed,G. Garcia,1.5,No,Desiccant at 70% life; plan replacement Q1,,
-PM-2025-051,L1-PRS-001,600-Ton Press #1,Line 1,Electrical Panel Thermal Scan,Quarterly,2025-12-04,2025-12-04,Completed,D. Anderson,1.5,Yes,No hot spots detected,,
-PM-2025-052,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-12-05,2025-12-05,Completed,T. Wilson,1.5,Yes,All devices passed; alignment verified,,
-PM-2025-053,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2025-12-08,2025-12-08,Completed,U. King,2.0,Yes,Gripper pads at 60% life,,Plan replacement January
-PM-2025-054,L1-HPU-001,Hydraulic Power Unit,Line 1,Oil Analysis Sampling,Quarterly,2025-12-10,2025-12-10,Completed,D. Anderson,1.0,No,Sample sent to lab,,Results due 12/17
+PM-2025-048,L2-BWF-001,Bowl Feeder System,Line 2,Drive Coil Inspection,Monthly,2025-11-25,2025-11-25,Completed,J. Williams,1.0,No,Coils normal; amplitude adjusted,,
+PM-2025-049,L3-SWM-001,Stretch Wrap Machine,Line 3,Film Carriage Lubrication,Weekly,2025-12-03,2025-12-03,Completed,P. Thomas,0.5,No,Normal operation; carriage smooth,,
+PM-2025-050,UT-DRY-001,Air Dryer,Utilities,Desiccant Check,Quarterly,2025-11-29,2025-11-29,Completed,G. Garcia,1.6,No,Desiccant at 70% life; plan replacement Q1,,
+PM-2025-051,L1-PRS-001,600-Ton Press #1,Line 1,Electrical Panel Thermal Scan,Quarterly,2025-12-04,2025-12-04,Completed,D. Anderson,1.6,Yes,No hot spots detected,,
+PM-2025-052,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2025-12-04,2025-12-04,Completed,T. Wilson,1.6,Yes,All devices passed; alignment verified,,
+PM-2025-053,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2025-12-09,2025-12-09,Completed,U. King,2.0,Yes,Gripper pads at 60% life,,Plan replacement January
+PM-2025-054,L1-HPU-001,Hydraulic Power Unit,Line 1,Oil Analysis Sampling,Quarterly,2025-12-12,2025-12-12,Completed,D. Anderson,1.0,No,Sample sent to lab,,Results due 12/17
 PM-2025-055,L2-RBC-001,Robot Cell C (Cobot),Line 2,Safety Sensor Calibration,Monthly,2025-12-12,2025-12-12,Completed,T. Wilson,1.5,Yes,All sensors verified,,
-PM-2025-056,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-12-15,2025-12-15,Completed,M. Torres,1.0,No,All zones tracking properly,,
-PM-2025-057,L1-SCV-001,Scrap Conveyor,Line 1,Chain and Sprocket Inspection,Monthly,2025-12-17,2025-12-17,Completed,D. Anderson,1.5,Yes,Chain stretch approaching limit,WO-2025-168,Chain replacement scheduled for January shutdown
-PM-2025-058,L2-STS-001,Servo Torque Station 1,Line 2,Socket Wear Inspection,Weekly,2025-12-18,2025-12-18,Completed,J. Williams,0.5,No,Sockets replaced preventively,,Parts used: SK-STS-M8 x3
-PM-2025-059,L3-LBL-001,Labeling System,Line 3,Sensor Calibration Check,Monthly,2025-12-19,2025-12-20,Completed,L. Davis,1.0,No,Sensors recalibrated,,
-PM-2025-060,UT-HVC-001,HVAC Units,Utilities,Filter Replacement,Quarterly,2025-12-20,2025-12-20,Completed,Contractor - ClimatePro,2.0,No,All filters replaced,,
-PM-2025-061,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2026-01-02,2026-01-02,Completed,D. Anderson,2.5,Yes,System normal; oil analysis results good,,
-PM-2025-062,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2026-01-03,2026-01-03,Completed,T. Wilson,1.5,Yes,Cell A light curtain response slow,WO-2026-003,Receiver unit ordered
-PM-2025-063,L3-ACC-001,Accumulation Conveyor,Line 3,Photo-eye Sensor Cleaning,Weekly,2026-01-06,2026-01-06,Completed,L. Davis,0.5,No,Heavy dust accumulation; extra cleaning performed,,Recommended increasing frequency
-PM-2025-064,L1-CFL-001,Coil Feed System,Line 1,Feed Roller Inspection,Monthly,2026-01-08,2026-01-08,Completed,D. Anderson,1.5,Yes,Rollers within spec; minor scoring observed,,Monitor next PM
-PM-2025-065,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2026-01-10,2026-01-10,Completed,J. Williams,2.0,Yes,All axes within baseline,,
-PM-2025-066,L3-SWM-001,Stretch Wrap Machine,Line 3,Turntable Bearing Inspection,Monthly,2026-01-13,2026-01-13,Completed,P. Thomas,1.5,Yes,Bearings normal,,
-PM-2025-067,L1-PRS-002,600-Ton Press #2,Line 1,Lubrication System Check,Monthly,2026-01-15,2026-01-15,Completed,D. Anderson,1.5,Yes,Pump repaired; system operating normally,,Per WO-2025-145
-PM-2025-068,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2026-01-17,2026-01-17,Completed,T. Wilson,1.0,Yes,All interlocks functional,,
-PM-2025-069,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2026-01-20,2026-01-20,Completed,U. King,2.0,Yes,Gripper pads replaced,,Parts used: GP-PAL-001 x4
-PM-2025-070,UT-CMP-001,Air Compressor #1,Utilities,Oil and Filter Change,Quarterly,2026-01-22,2026-01-22,Completed,G. Garcia,2.0,No,Oil and filters replaced,,Next due April
-PM-2025-071,L1-HPU-001,Hydraulic Power Unit,Line 1,Filter Replacement,Monthly,2026-01-23,2026-01-23,Completed,D. Anderson,1.0,No,Filters replaced,,Parts used: HF-HPU-001 x2
-PM-2025-072,L2-STS-002,Servo Torque Station 2,Line 2,Two-Hand Control Test,Monthly,2026-01-24,2026-01-24,Completed,T. Wilson,0.5,No,All functions verified,,
-PM-2025-073,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2026-01-25,2026-01-25,Completed,M. Torres,2.0,Yes,All zones normal,,
-PM-2025-074,L1-SCV-001,Scrap Conveyor,Line 1,Chain Replacement,Annual,2026-01-25,2026-01-25,Completed,D. Anderson,4.0,Yes,New chain installed per WO-2025-168,,Weekend shutdown work
-PM-2025-075,L2-VIS-001,Vision Inspection System,Line 2,Camera Lens Cleaning,Weekly,2026-01-26,2026-01-26,Scheduled,J. Williams,0.5,No,,,
-PM-2025-076,L3-LBL-001,Labeling System,Line 3,Peel Edge Alignment,Weekly,2026-01-26,2026-01-26,Scheduled,L. Davis,0.5,No,,,
-PM-2025-077,L1-PRS-001,600-Ton Press #1,Line 1,Clutch/Brake Inspection,Monthly,2026-01-27,,Scheduled,D. Anderson,3.0,Yes,,,
+PM-2025-056,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Belt Tension and Alignment,Weekly,2025-12-14,2025-12-14,Completed,M. Torres,0.9,No,All zones tracking properly,,
+PM-2025-057,L1-SCV-001,Scrap Conveyor,Line 1,Chain and Sprocket Inspection,Monthly,2025-12-18,2025-12-18,Completed,D. Anderson,1.5,Yes,Chain stretch approaching limit,WO-2025-168,Chain replacement scheduled for January shutdown
+PM-2025-058,L2-STS-001,Servo Torque Station 1,Line 2,Socket Wear Inspection,Weekly,2025-12-21,2025-12-21,Completed,J. Williams,0.5,No,Sockets replaced preventively,,Parts used: SK-STS-M8 x3
+PM-2025-059,L3-LBL-001,Labeling System,Line 3,Sensor Calibration Check,Monthly,2025-12-18,2025-12-19,Completed,L. Davis,1.0,No,Sensors recalibrated,,
+PM-2025-060,UT-HVC-001,HVAC Units,Utilities,Filter Replacement,Quarterly,2025-12-21,2025-12-21,Completed,Contractor - ClimatePro,2.0,No,All filters replaced,,
+PM-2025-061,L1-PRS-001,600-Ton Press #1,Line 1,Hydraulic System Inspection,Monthly,2025-12-31,2025-12-31,Completed,D. Anderson,2.6,Yes,System normal; oil analysis results good,,
+PM-2025-062,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2026-01-05,2026-01-05,Completed,T. Wilson,1.4,Yes,Cell A light curtain response slow,WO-2026-003,Receiver unit ordered
+PM-2025-063,L3-ACC-001,Accumulation Conveyor,Line 3,Photo-eye Sensor Cleaning,Weekly,2026-01-08,2026-01-08,Completed,L. Davis,0.5,No,Heavy dust accumulation; extra cleaning performed,,Recommended increasing frequency
+PM-2025-064,L1-CFL-001,Coil Feed System,Line 1,Feed Roller Inspection,Monthly,2026-01-10,2026-01-10,Completed,D. Anderson,1.5,Yes,Rollers within spec; minor scoring observed,,Monitor next PM
+PM-2025-065,L2-RBA-001,Robot Cell A (Fanuc),Line 2,Servo Motor Current Check,Monthly,2026-01-12,2026-01-12,Completed,J. Williams,2.1,Yes,All axes within baseline,,
+PM-2025-066,L3-SWM-001,Stretch Wrap Machine,Line 3,Turntable Bearing Inspection,Monthly,2026-01-12,2026-01-12,Completed,P. Thomas,1.4,Yes,Bearings normal,,
+PM-2025-067,L1-PRS-002,600-Ton Press #2,Line 1,Lubrication System Check,Monthly,2026-01-13,2026-01-13,Completed,D. Anderson,1.5,Yes,Pump repaired; system operating normally,,Per WO-2025-145
+PM-2025-068,L2-RBB-001,Robot Cell B (Fanuc),Line 2,Guard Interlock Verification,Monthly,2026-01-17,2026-01-17,Completed,T. Wilson,0.9,Yes,All interlocks functional,,
+PM-2025-069,L3-PAL-001,Palletizer,Line 3,Gripper Mechanism Inspection,Monthly,2026-01-20,2026-01-20,Completed,U. King,1.9,Yes,Gripper pads replaced,,Parts used: GP-PAL-001 x4
+PM-2025-070,UT-CMP-001,Air Compressor #1,Utilities,Oil and Filter Change,Quarterly,2026-01-21,2026-01-21,Completed,G. Garcia,2.0,No,Oil and filters replaced,,Next due April
+PM-2025-071,L1-HPU-001,Hydraulic Power Unit,Line 1,Filter Replacement,Monthly,2026-01-20,2026-01-20,Completed,D. Anderson,1.0,No,Filters replaced,,Parts used: HF-HPU-001 x2
+PM-2025-072,L2-STS-002,Servo Torque Station 2,Line 2,Two-Hand Control Test,Monthly,2026-01-27,2026-01-27,Completed,T. Wilson,0.5,No,All functions verified,,
+PM-2025-073,L3-CNV-001,Main Conveyor Zone 1-4,Line 3,Drive Motor Inspection,Monthly,2026-01-22,2026-01-22,Completed,M. Torres,2.0,Yes,All zones normal,,
+PM-2025-074,L1-SCV-001,Scrap Conveyor,Line 1,Chain Replacement,Annual,2026-01-26,2026-01-26,Completed,D. Anderson,4.1,Yes,New chain installed per WO-2025-168,,Weekend shutdown work
+PM-2025-075,L2-VIS-001,Vision Inspection System,Line 2,Camera Lens Cleaning,Weekly,2026-01-29,2026-01-29,Scheduled,J. Williams,0.5,No,,,
+PM-2025-076,L3-LBL-001,Labeling System,Line 3,Peel Edge Alignment,Weekly,2026-01-25,2026-01-25,Scheduled,L. Davis,0.5,No,,,
+PM-2025-077,L1-PRS-001,600-Ton Press #1,Line 1,Clutch/Brake Inspection,Monthly,2026-01-29,,Scheduled,D. Anderson,2.8,Yes,,,
 PM-2025-078,L2-SAF-001,Light Curtains / Interlocks,Line 2,Safety Device Function Test,Monthly,2026-02-01,,Scheduled,T. Wilson,1.5,Yes,,,
-PM-2025-079,L3-PAL-001,Palletizer,Line 3,Pneumatic System Inspection,Monthly,2026-02-03,,Scheduled,U. King,1.5,Yes,,,
-PM-2025-080,UT-ELC-001,Main Electrical Panels,Utilities,Thermal Imaging Survey,Quarterly,2026-02-05,,Scheduled,Contractor - ThermoTech,4.0,No,,,
+PM-2025-079,L3-PAL-001,Palletizer,Line 3,Pneumatic System Inspection,Monthly,2026-02-01,,Scheduled,U. King,1.5,Yes,,,
+PM-2025-080,UT-ELC-001,Main Electrical Panels,Utilities,Thermal Imaging Survey,Quarterly,2026-02-03,,Scheduled,Contractor - ThermoTech,3.8,No,,,
