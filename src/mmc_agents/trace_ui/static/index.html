@@ -102,10 +102,14 @@
       box-shadow: 0 0 0 1px var(--accent-soft);
     }
     .agent.used { background: rgba(74, 217, 145, 0.08); }
+    .agent.no-data {
+      border: 1px dashed var(--warn);
+      background: rgba(244, 183, 64, 0.04);
+    }
     .agent { cursor: pointer; }
     .agent:hover { border-color: var(--accent); background: var(--accent-soft); }
     .agent .hops { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-    .agent.active .hops, .agent.used .hops { color: var(--text); }
+    .agent.active .hops, .agent.used .hops, .agent.no-data .hops { color: var(--text); }
     .agent .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .agent .proj { font-size: 10px; color: var(--text-dim); margin-top: 2px; display: block; }
     .agent.hot-added { border: 1px dashed var(--warn); background: rgba(244, 183, 64, 0.07); }
@@ -184,6 +188,23 @@
     .event.agent_call .type { background: var(--accent); }
     .event.agent_response { border-left-color: var(--success); }
     .event.agent_response .type { background: var(--success); color: #0b1020; }
+    /* agent_no_data: agent dispatched, returned no narrative content. */
+    /* Dashed amber stripe (not solid) pairs shape with color so the */
+    /* "absence of signal" reads without relying on color alone. */
+    .event.agent_no_data {
+      border-left: 3px dashed var(--warn);
+      background: rgba(244, 183, 64, 0.05);
+    }
+    .event.agent_no_data .type { background: var(--warn); color: #0b1020; }
+    .event.agent_no_data .msg { color: var(--text-muted); font-style: italic; }
+    .event.agent_no_data .msg::before {
+      content: '\2300';  /* ⌀ — empty/diameter sign, reads as "no signal" */
+      display: inline-block;
+      margin-right: 6px;
+      color: var(--warn);
+      font-style: normal;
+      font-weight: 600;
+    }
     .event.ledger_update { border-left-color: var(--warn); }
     .event.ledger_update .type { background: var(--warn); color: #0b1020; }
     .event.backtrack { border-left-color: var(--danger); background: rgba(239, 107, 107, 0.06); }
@@ -594,7 +615,21 @@
         entry.el.classList.add('active');
       } else if (state === 'used') {
         entry.el.classList.remove('active');
+        entry.el.classList.remove('no-data');
         entry.el.classList.add('used');
+        entry.hops += 1;
+        const h = entry.el.querySelector('.hops');
+        h.textContent = `×${entry.hops}`;
+        h.dataset.hops = entry.hops;
+      } else if (state === 'no-data') {
+        // Agent ran but returned no narrative content. Bump the hop counter
+        // because the executor did dispatch, but DON'T mark it 'used' (green)
+        // — that would misrepresent the outcome. The dashed amber treatment
+        // says "ran, came back empty" honestly.
+        entry.el.classList.remove('active');
+        if (!entry.el.classList.contains('used')) {
+          entry.el.classList.add('no-data');
+        }
         entry.hops += 1;
         const h = entry.el.querySelector('.hops');
         h.textContent = `×${entry.hops}`;
@@ -646,6 +681,16 @@
         markAgent(ev.agent_name, 'active');
       } else if (ev.type === 'agent_response') {
         markAgent(ev.agent_name, 'used');
+        hopCount += 1;
+        usedAgents.add(ev.agent_name);
+        statHops.textContent = hopCount;
+        statAgents.textContent = usedAgents.size;
+      } else if (ev.type === 'agent_no_data') {
+        // First-class no-data outcome: the agent dispatched and returned
+        // without narrative content. Counts toward hops (work was attempted)
+        // but is rendered distinctly so the audience can see "we asked, the
+        // system had nothing to say" instead of an empty reply card.
+        markAgent(ev.agent_name, 'no-data');
         hopCount += 1;
         usedAgents.add(ev.agent_name);
         statHops.textContent = hopCount;
@@ -728,7 +773,7 @@
         };
         // sse-starlette emits `event: <type>` per TraceEvent, so we also
         // listen on each named event so the trace cards render correctly.
-        for (const t of ['start', 'agent_call', 'agent_response', 'ledger_update', 'backtrack', 'complete', 'error']) {
+        for (const t of ['start', 'agent_call', 'agent_response', 'agent_no_data', 'ledger_update', 'backtrack', 'complete', 'error']) {
           source.addEventListener(t, (e) => {
             try { renderEvent(JSON.parse(e.data)); }
             catch (err) { console.error(err, e.data); }

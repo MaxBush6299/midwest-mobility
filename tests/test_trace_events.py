@@ -126,6 +126,7 @@ def test_trace_event_type_literal_covers_expected_lifecycle():
         "start",
         "agent_call",
         "agent_response",
+        "agent_no_data",
         "ledger_update",
         "backtrack",
         "complete",
@@ -133,3 +134,24 @@ def test_trace_event_type_literal_covers_expected_lifecycle():
     }
     # TraceEventType is exported as an Iterable of literal strings (or equivalent).
     assert set(TraceEventType.__args__) == expected  # type: ignore[attr-defined]
+
+
+def test_agent_no_data_event_is_a_first_class_outcome():
+    """An empty-bodied executor_completed should be reportable as its own
+    event type, not as an agent_response with content=None."""
+    event = TraceEvent(
+        run_id="run-no-data",
+        sequence=4,
+        type="agent_no_data",
+        message="no matching content from ent-procurement",
+        agent_name="ent-procurement",
+        hop_index=3,
+    )
+    payload = event.model_dump(mode="json")
+
+    assert payload["type"] == "agent_no_data"
+    assert payload["agent_name"] == "ent-procurement"
+    assert payload["hop_index"] == 3
+    # The whole point of the new type: no content field needed; the message
+    # carries the story.
+    assert payload["content"] is None

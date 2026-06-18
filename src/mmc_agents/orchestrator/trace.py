@@ -30,6 +30,7 @@ TraceEventType = Literal[
     "start",
     "agent_call",
     "agent_response",
+    "agent_no_data",
     "ledger_update",
     "backtrack",
     "complete",
@@ -48,6 +49,12 @@ class TraceEvent(BaseModel):
     - ``start``         — run accepted; ``message`` carries the problem statement.
     - ``agent_call``    — manager dispatches to ``agent_name`` at ``hop_index``.
     - ``agent_response``— agent replied; ``content`` carries the reply text.
+    - ``agent_no_data`` — agent was dispatched and the executor completed,
+      but no narrative reply text was extractable (annotation-only payload,
+      empty body, or "no matching records"). Distinct from ``agent_response``
+      so consumers can render it as a first-class outcome rather than a
+      malformed reply. ``content`` is ``None``; ``agent_name`` and
+      ``hop_index`` are set the same way as ``agent_response``.
     - ``ledger_update`` — task and/or progress ledger refreshed.
     - ``backtrack``     — manager replanned; ``metadata['reason']`` (e.g.
       ``"NO_DIRECT_ALT"``) should be set.

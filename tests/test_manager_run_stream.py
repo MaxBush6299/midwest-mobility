@@ -249,3 +249,58 @@ async def test_run_stream_extracts_text_from_agent_executor_response():
     assert responses[0].content == full, (
         f"expected full reply, got: {responses[0].content!r}"
     )
+
+
+@pytest.mark.asyncio
+async def test_run_stream_emits_agent_no_data_for_empty_executor_payload():
+    """Annotation-only or empty-body executor_completed events used to surface
+    as agent_response cards with no content — visually identical to a normal
+    reply but blank. They now produce a first-class ``agent_no_data`` event
+    that the UI can render with a distinct treatment."""
+    events = [
+        _ev("executor_invoked", executor_id="ent-procurement"),
+        # Empty payload: agent ran, no narrative text came back.
+        _ev(
+            "executor_completed",
+            executor_id="ent-procurement",
+            data=_FakeOutput(""),
+        ),
+        _ev("output", data=_FakeOutput("done")),
+    ]
+    out = [e async for e in run_stream(_FakeWorkflow(events), run_id="r", task="t")]
+    kinds = [e.type for e in out]
+
+    assert "agent_no_data" in kinds, kinds
+    assert "agent_response" not in kinds, (
+        "empty payload must NOT emit a blank agent_response"
+    )
+
+    no_data = next(e for e in out if e.type == "agent_no_data")
+    assert no_data.agent_name == "ent-procurement"
+    assert no_data.hop_index == 1
+    assert no_data.content is None
+    assert "ent-procurement" in no_data.message
+
+
+@pytest.mark.asyncio
+async def test_run_and_capture_counts_agent_no_data_as_a_hop():
+    """A dispatched agent that returns no content still represents work
+    attempted — ScenarioRun.hops should reflect every executor that ran,
+    not only the ones that produced narrative text."""
+    events = [
+        _ev("executor_invoked", executor_id="p7-supplier-quality"),
+        _ev(
+            "executor_completed",
+            executor_id="p7-supplier-quality",
+            data=_FakeOutput("BRK-CAL-XYZ NO_DIRECT_ALT"),
+        ),
+        _ev("executor_invoked", executor_id="ent-procurement"),
+        _ev(
+            "executor_completed",
+            executor_id="ent-procurement",
+            data=_FakeOutput(""),
+        ),
+        _ev("output", data=_FakeOutput("done")),
+    ]
+    run = await run_and_capture(_FakeWorkflow(events), task="t")
+    assert run.hops == ["p7-supplier-quality", "ent-procurement"]

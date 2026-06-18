@@ -266,13 +266,27 @@ async def run_stream(
         elif evtype == "executor_completed" and _is_agent_executor(executor_id):
             if os.environ.get("MMC_DEBUG_DUMP_PAYLOAD"):
                 _dump_payload(executor_id, data)
-            yield _next(
-                type="agent_response",
-                message=f"{executor_id} responded",
-                agent_name=executor_id,
-                hop_index=hop_index,
-                content=_extract_text(data),
-            )
+            text = _extract_text(data)
+            if text:
+                yield _next(
+                    type="agent_response",
+                    message=f"{executor_id} responded",
+                    agent_name=executor_id,
+                    hop_index=hop_index,
+                    content=text,
+                )
+            else:
+                # The executor completed but no narrative reply text was
+                # extractable — typically annotation-only chunks ("【N:M†source】")
+                # or an empty body that says "no matching records". Surface as
+                # a first-class no-data event so the UI can render it with a
+                # distinct treatment instead of an empty agent_response card.
+                yield _next(
+                    type="agent_no_data",
+                    message=f"no matching content from {executor_id}",
+                    agent_name=executor_id,
+                    hop_index=hop_index,
+                )
         elif evtype == "output":
             final_text = _extract_text(data)
 
@@ -282,15 +296,16 @@ async def run_stream(
 async def run_and_capture(workflow, task: str) -> ScenarioRun:
     """Collector over ``run_stream`` that produces a Gate B ``ScenarioRun``.
 
-    Hops are recorded from ``agent_response`` events; backtracks from
-    ``backtrack`` events; plan/progress ledger from ``ledger_update`` events;
-    final synthesis from the terminal ``complete`` event. ``run_id`` is a
-    stable per-call value because the tests only care about field aggregation,
-    not run identity.
+    Hops are recorded from ``agent_response`` and ``agent_no_data`` events
+    (both represent an executor that ran); backtracks from ``backtrack``
+    events; plan/progress ledger from ``ledger_update`` events; final
+    synthesis from the terminal ``complete`` event. ``run_id`` is a stable
+    per-call value because the tests only care about field aggregation, not
+    run identity.
     """
     out = ScenarioRun()
     async for event in run_stream(workflow, run_id="capture", task=task):
-        if event.type == "agent_response" and event.agent_name:
+        if event.type in ("agent_response", "agent_no_data") and event.agent_name:
             out.hops.append(event.agent_name)
         elif event.type == "backtrack":
             out.backtracks += 1
