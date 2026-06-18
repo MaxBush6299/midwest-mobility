@@ -102,6 +102,8 @@
       box-shadow: 0 0 0 1px var(--accent-soft);
     }
     .agent.used { background: rgba(74, 217, 145, 0.08); }
+    .agent { cursor: pointer; }
+    .agent:hover { border-color: var(--accent); background: var(--accent-soft); }
     .agent .hops { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
     .agent.active .hops, .agent.used .hops { color: var(--text); }
     .agent .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -267,6 +269,103 @@
     }
     .scenario-card code { font-family: var(--mono); font-size: 11.5px; color: var(--accent); }
 
+    /* Blast-radius modal ------------------------------------------ */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(8, 12, 24, 0.72);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 160ms ease-out;
+    }
+    .modal-backdrop.show { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal {
+      width: min(720px, calc(100vw - 32px));
+      max-height: calc(100vh - 64px);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .modal header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      background: var(--bg-elev-2);
+    }
+    .modal header .title { flex: 1; }
+    .modal header h2 { margin: 0; font-size: 15px; color: var(--text); }
+    .modal header .agent-id { font-size: 11.5px; color: var(--text-muted); font-family: var(--mono); margin-top: 2px; }
+    .modal header .close-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); border-radius: 4px;
+      width: 28px; height: 28px; cursor: pointer; font-size: 16px; line-height: 1;
+    }
+    .modal header .close-btn:hover { color: var(--text); border-color: var(--accent); }
+    .modal .body { padding: 16px 20px; overflow-y: auto; }
+    .modal .summary {
+      padding: 12px 14px;
+      background: rgba(79, 140, 255, 0.07);
+      border: 1px solid rgba(79, 140, 255, 0.25);
+      border-radius: 6px;
+      color: var(--text); font-size: 13px; line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .modal .summary strong { color: #ffffff; }
+    .modal .topline {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .modal .pill {
+      font-size: 11px; padding: 4px 10px;
+      background: var(--bg-elev-2); border: 1px solid var(--border);
+      border-radius: 999px; color: var(--text-muted);
+    }
+    .modal .pill strong { color: var(--text); font-weight: 600; }
+    .modal h3 {
+      margin: 0 0 8px; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--text-muted); font-weight: 600;
+    }
+    .modal .edge {
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      background: var(--bg);
+      border-radius: 0 6px 6px 0;
+    }
+    .modal .edge.kind-foundry_project { border-left-color: #b48cff; }
+    .modal .edge.kind-knowledge_base { border-left-color: #4f8cff; }
+    .modal .edge.kind-kb_source { border-left-color: #4ad991; }
+    .modal .edge.kind-search_service { border-left-color: #ffb84d; }
+    .modal .edge.kind-search_identity_role { border-left-color: #ff6b8b; }
+    .modal .edge.kind-sql_server,
+    .modal .edge.kind-sql_table { border-left-color: #ffd24d; }
+    .modal .edge.kind-model_deployment { border-left-color: #8a96b8; }
+    .modal .edge .kind-row {
+      display: flex; gap: 8px; align-items: center; margin-bottom: 4px;
+    }
+    .modal .edge .kind-tag {
+      font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.6px;
+      padding: 2px 6px; border-radius: 3px;
+      background: var(--bg-elev-2); color: var(--text); font-weight: 600;
+    }
+    .modal .edge .target {
+      font-family: var(--mono); font-size: 12px; color: var(--text);
+      word-break: break-all;
+    }
+    .modal .edge .detail { font-size: 12.5px; color: var(--text-muted); margin: 4px 0 6px; line-height: 1.5; }
+    .modal .edge .revoke {
+      font-size: 12px; color: #ffc8c8;
+      background: rgba(239, 107, 107, 0.06);
+      border: 1px dashed rgba(239, 107, 107, 0.3);
+      padding: 6px 10px; border-radius: 4px;
+      line-height: 1.5;
+    }
+    .modal .edge .revoke::before { content: "🔒 Revoke: "; color: #ef6b6b; font-weight: 600; }
+    .modal .empty-state {
+      padding: 24px; text-align: center; color: var(--text-muted); font-style: italic;
+    }
+
     /* Toast / errors ---------------------------------------------- */
     .toast {
       position: fixed; bottom: 20px; right: 20px;
@@ -325,6 +424,21 @@
       </div>
     </aside>
   </main>
+
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" id="blast-modal">
+      <header>
+        <div class="title">
+          <h2 id="modal-title">Blast radius</h2>
+          <div class="agent-id" id="modal-agent-id"></div>
+        </div>
+        <button type="button" class="close-btn" id="modal-close" aria-label="Close">×</button>
+      </header>
+      <div class="body" id="modal-body">
+        <div class="empty-state">Loading…</div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Populated by loadScenarios() from GET /scenarios.
@@ -406,7 +520,8 @@
             </span>
             <span class="hops" data-hops="0">—</span>
           `;
-          row.title = a.name;  // catalog id, for debugging
+          row.title = `Click to view blast radius for ${a.name}`;
+          row.addEventListener('click', () => openBlastRadius(a.name, label));
           wrap.appendChild(row);
           // Key by catalog name — that's what the orchestrator emits as
           // executor_id, so markAgent() can match exactly.
@@ -616,6 +731,71 @@
       t.textContent = msg;
       document.body.appendChild(t);
       setTimeout(() => t.remove(), 6000);
+    }
+
+    /* Blast-radius modal ---------------------------------------------- */
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalTitle = document.getElementById('modal-title');
+    const modalAgentId = document.getElementById('modal-agent-id');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+
+    function closeBlastRadius() {
+      modalBackdrop.classList.remove('show');
+    }
+    modalClose.addEventListener('click', closeBlastRadius);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeBlastRadius();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalBackdrop.classList.contains('show')) closeBlastRadius();
+    });
+
+    async function openBlastRadius(agentName, displayLabel) {
+      modalTitle.textContent = `${displayLabel} — blast radius`;
+      modalAgentId.textContent = agentName;
+      modalBody.innerHTML = '<div class="empty-state">Loading governance overlay…</div>';
+      modalBackdrop.classList.add('show');
+      try {
+        const resp = await fetch(`/agents/${encodeURIComponent(agentName)}/blast-radius`);
+        const body = await resp.json();
+        renderBlastRadius(body);
+      } catch (err) {
+        modalBody.innerHTML = `<div class="empty-state">Failed to load: ${escapeHtml(String(err))}</div>`;
+      }
+    }
+
+    function renderBlastRadius(data) {
+      if (!data.available) {
+        modalBody.innerHTML = `<div class="empty-state">${escapeHtml(data.detail || 'No governance data available for this agent.')}</div>`;
+        return;
+      }
+      const pills = [];
+      if (data.foundry_project) pills.push(`<span class="pill">project <strong>${escapeHtml(data.foundry_project)}</strong></span>`);
+      if (data.knowledge_base) pills.push(`<span class="pill">kb <strong>${escapeHtml(data.knowledge_base)}</strong></span>`);
+      pills.push(`<span class="pill"><strong>${data.edges.length}</strong> dependencies</span>`);
+
+      const summaryHtml = data.summary && window.marked
+        ? window.marked.parseInline(data.summary)
+        : escapeHtml(data.summary || '');
+
+      const edgesHtml = data.edges.map((e) => `
+        <div class="edge kind-${escapeHtml(e.kind)}">
+          <div class="kind-row">
+            <span class="kind-tag">${escapeHtml(e.kind.replace(/_/g, ' '))}</span>
+            <span class="target">${escapeHtml(e.target)}</span>
+          </div>
+          <div class="detail">${escapeHtml(e.detail)}</div>
+          <div class="revoke">${escapeHtml(e.revocation_effect)}</div>
+        </div>
+      `).join('');
+
+      modalBody.innerHTML = `
+        <div class="topline">${pills.join('')}</div>
+        ${data.summary ? `<div class="summary">${summaryHtml}</div>` : ''}
+        <h3>Dependencies (${data.edges.length})</h3>
+        ${edgesHtml || '<div class="empty-state">No dependencies recorded.</div>'}
+      `;
     }
 
     runBtn.addEventListener('click', runScenario);

@@ -61,11 +61,27 @@ class AgentListResponse(BaseModel):
     agents: list[AgentInfo]
 
 
+class BlastRadiusEdgeInfo(BaseModel):
+    kind: str
+    target: str
+    detail: str
+    revocation_effect: str
+
+
 class BlastRadiusResponse(BaseModel):
-    """Placeholder; Task 7 fills this in with computed scope data."""
+    """Per-agent governance overlay.
+
+    ``available=False`` is returned when the agent is unknown to the
+    governance metadata (e.g. it was hot-added at runtime and hasn't been
+    re-baked into ``per_agent_readable_sources`` yet) — the UI uses that to
+    render a graceful "no governance data" state instead of erroring."""
 
     agent: str
     available: bool
+    foundry_project: str | None = None
+    knowledge_base: str | None = None
+    summary: str | None = None
+    edges: list[BlastRadiusEdgeInfo] = Field(default_factory=list)
     detail: str | None = None
 
 

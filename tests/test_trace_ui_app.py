@@ -127,7 +127,8 @@ async def test_events_endpoint_404_for_unknown_run():
     assert resp.status_code == 404
 
 
-async def test_blast_radius_placeholder_response():
+async def test_blast_radius_returns_unavailable_for_unknown_agent():
+    """Unknown agents return available=False with an explanation, no 5xx."""
     client, _ = await _async_client()
     async with client:
         resp = await client.get("/agents/p7-supplier-quality/blast-radius")
@@ -135,6 +136,26 @@ async def test_blast_radius_placeholder_response():
     body = resp.json()
     assert body["agent"] == "p7-supplier-quality"
     assert body["available"] is False
+    assert "p7-supplier-quality" in (body["detail"] or "")
+
+
+async def test_blast_radius_returns_real_graph_for_known_agent():
+    """Real agent returns full governance graph with edges and revocation effects."""
+    client, _ = await _async_client()
+    async with client:
+        resp = await client.get("/agents/plant7-training/blast-radius")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["available"] is True
+    assert body["agent"] == "plant7-training"
+    assert body["foundry_project"] == "mmc-plant"
+    assert body["knowledge_base"] == "kb-plant7"
+    edge_kinds = {e["kind"] for e in body["edges"]}
+    # Must include the full chain so the demo can show every revocation lever.
+    assert {"foundry_project", "knowledge_base", "kb_source", "search_service", "sql_server"} <= edge_kinds
+    # Every edge must carry a revocation_effect string so the UI can render the
+    # "🔒 Revoke:" call-out — that's the entire point of the overlay.
+    assert all(e["revocation_effect"] for e in body["edges"])
 
 
 async def test_hot_add_placeholder_response():

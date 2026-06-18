@@ -165,11 +165,40 @@ def create_app(runner: ScenarioRunner | None = None) -> FastAPI:
         response_model=BlastRadiusResponse,
     )
     async def blast_radius(name: str) -> BlastRadiusResponse:
-        # Task 7 fills this in. Placeholder keeps the contract stable.
+        from mmc_agents.governance.blast_radius import compute_blast_radius
+        from mmc_agents.governance.metadata import (
+            load_infra_metadata,
+            load_kb_metadata,
+        )
+
+        try:
+            kb_meta = load_kb_metadata()
+            infra_meta = load_infra_metadata()
+            br = compute_blast_radius(name, kb_meta, infra_meta)
+        except KeyError:
+            return BlastRadiusResponse(
+                agent=name,
+                available=False,
+                detail=(
+                    f"No governance metadata is mapped to agent {name!r}. "
+                    "Hot-added agents must be re-baked into "
+                    "governance/kb_metadata.json before the overlay can compute."
+                ),
+            )
+        except FileNotFoundError as exc:
+            return BlastRadiusResponse(
+                agent=name,
+                available=False,
+                detail=f"Governance metadata missing on disk: {exc}",
+            )
+
         return BlastRadiusResponse(
-            agent=name,
-            available=False,
-            detail="blast-radius overlay arrives in Gate C Task 7",
+            agent=br.agent,
+            available=True,
+            foundry_project=br.foundry_project,
+            knowledge_base=br.knowledge_base,
+            summary=br.summary,
+            edges=[e.model_dump() for e in br.edges],
         )
 
     @app.post("/runs", response_model=CreateRunResponse)

@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "description": "Knowledge-base topology for the MMC demo. Each KB lives in a Foundry project and is backed by a single Azure AI Search service; each source is either a document index (paths) or an Azure SQL table (sql_table). The per_agent_readable_sources map records which KB sources each agent is allowed to retrieve from — that is the *demoable* governance edge: revoke a source from this list and the agent stops being able to answer that class of question without changing any code.",
+  "knowledge_bases": [
+    {
+      "id": "kb-plant7",
+      "display_name": "Plant 7 Knowledge Base",
+      "foundry_project": "mmc-plant",
+      "search_service": "srch-mmc-plant",
+      "sources": [
+        {
+          "id": "ehs",
+          "kind": "documents",
+          "paths": [
+            "plants/plant7/kb/02_EHS_Internal",
+            "shared/kb/regulatory-reference/OSHA"
+          ],
+          "description": "Plant 7 EHS procedures + OSHA reference docs."
+        },
+        {
+          "id": "maintenance",
+          "kind": "documents",
+          "paths": [
+            "plants/plant7/kb/03_Maintenance",
+            "shared/kb/oem-manuals"
+          ],
+          "description": "Plant 7 maintenance procedures + OEM manuals."
+        },
+        {
+          "id": "quality_ops",
+          "kind": "documents",
+          "paths": [
+            "plants/plant7/kb/04_Quality",
+            "plants/plant7/kb/05_Ops_Shift"
+          ],
+          "description": "Plant 7 quality + shift operations SOPs."
+        },
+        {
+          "id": "training_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.training_log",
+          "description": "Plant 7 training records (employees, courses, expirations)."
+        },
+        {
+          "id": "pm_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.pm_schedule",
+          "description": "Plant 7 preventive maintenance schedule + completion log."
+        },
+        {
+          "id": "incident_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.incident_log",
+          "description": "Plant 7 EHS incident log (near-misses, injuries, CAPAs)."
+        }
+      ]
+    },
+    {
+      "id": "kb-enterprise",
+      "display_name": "Enterprise Knowledge Base",
+      "foundry_project": "mmc-enterprise",
+      "search_service": "srch-mmc-enterprise",
+      "sources": [
+        {
+          "id": "supply_chain",
+          "kind": "documents",
+          "paths": ["enterprise/supply-chain/kb"],
+          "description": "Enterprise supply-chain procedures."
+        },
+        {
+          "id": "supplier_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.supplier_master",
+          "description": "Supplier master (tier, lead time, disruption flags, risk score)."
+        },
+        {
+          "id": "procurement",
+          "kind": "documents",
+          "paths": ["enterprise/procurement/kb"],
+          "description": "Enterprise procurement procedures."
+        },
+        {
+          "id": "po_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.po_spend",
+          "description": "Open + recent purchase orders with status flags + extended value."
+        },
+        {
+          "id": "engineering_plm",
+          "kind": "documents",
+          "paths": [
+            "enterprise/engineering-plm/data",
+            "enterprise/engineering-plm/kb"
+          ],
+          "description": "PLM / ECO procedures + reference data."
+        },
+        {
+          "id": "enterprise_quality",
+          "kind": "documents",
+          "paths": [
+            "enterprise/enterprise-quality/data",
+            "enterprise/enterprise-quality/kb"
+          ],
+          "description": "Enterprise quality + warranty reference data."
+        },
+        {
+          "id": "demand_program",
+          "kind": "documents",
+          "paths": [
+            "enterprise/demand-program/data",
+            "enterprise/demand-program/kb"
+          ],
+          "description": "Demand / launch-program reference data."
+        }
+      ]
+    }
+  ],
+  "per_agent_readable_sources": {
+    "plant7-ehs":           { "kb": "kb-plant7",     "sources": ["ehs", "incident_data"] },
+    "plant7-maintenance":   { "kb": "kb-plant7",     "sources": ["maintenance", "pm_data"] },
+    "plant7-quality":       { "kb": "kb-plant7",     "sources": ["quality_ops", "incident_data"] },
+    "plant7-shiftops":      { "kb": "kb-plant7",     "sources": ["quality_ops", "pm_data", "incident_data"] },
+    "plant7-training":      { "kb": "kb-plant7",     "sources": ["quality_ops", "training_data", "incident_data"] },
+    "ent-supply-chain":     { "kb": "kb-enterprise", "sources": ["supply_chain", "supplier_data"] },
+    "ent-procurement":      { "kb": "kb-enterprise", "sources": ["procurement", "po_data"] },
+    "ent-engineering-plm":  { "kb": "kb-enterprise", "sources": ["engineering_plm"] },
+    "ent-quality":          { "kb": "kb-enterprise", "sources": ["enterprise_quality"] },
+    "ent-demand-program":   { "kb": "kb-enterprise", "sources": ["demand_program"] }
+  }
+}

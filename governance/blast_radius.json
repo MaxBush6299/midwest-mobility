@@ -1,0 +1,758 @@
+{
+  "schema_version": "1.0",
+  "description": "Per-agent blast radius \u2014 generated from governance/kb_metadata.json and governance/infra_metadata.json by scripts/generate_blast_radius.py. Do not edit by hand; re-run the generator after changing profiles or governance JSON.",
+  "agents": {
+    "plant7-ehs": {
+      "agent": "plant7-ehs",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-ehs** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (2 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-ehs is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "ehs",
+          "detail": "Document source ehs. Plant 7 EHS procedures + OSHA reference docs. Paths: plants/plant7/kb/02_EHS_Internal, shared/kb/regulatory-reference/OSHA.",
+          "revocation_effect": "If source ehs is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "incident_data",
+          "detail": "SQL source incident_data -> table dbo.incident_log. Plant 7 EHS incident log (near-misses, injuries, CAPAs).",
+          "revocation_effect": "If source incident_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.incident_log and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.incident_log",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-ehs included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Contributor @ sql-mmc-demo",
+          "detail": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing).",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "plant7-maintenance": {
+      "agent": "plant7-maintenance",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-maintenance** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (2 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-maintenance is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "maintenance",
+          "detail": "Document source maintenance. Plant 7 maintenance procedures + OEM manuals. Paths: plants/plant7/kb/03_Maintenance, shared/kb/oem-manuals.",
+          "revocation_effect": "If source maintenance is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "pm_data",
+          "detail": "SQL source pm_data -> table dbo.pm_schedule. Plant 7 preventive maintenance schedule + completion log.",
+          "revocation_effect": "If source pm_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.pm_schedule and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.pm_schedule",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-maintenance included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Contributor @ sql-mmc-demo",
+          "detail": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing).",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "plant7-quality": {
+      "agent": "plant7-quality",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-quality** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (2 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-quality is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "quality_ops",
+          "detail": "Document source quality_ops. Plant 7 quality + shift operations SOPs. Paths: plants/plant7/kb/04_Quality, plants/plant7/kb/05_Ops_Shift.",
+          "revocation_effect": "If source quality_ops is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "incident_data",
+          "detail": "SQL source incident_data -> table dbo.incident_log. Plant 7 EHS incident log (near-misses, injuries, CAPAs).",
+          "revocation_effect": "If source incident_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.incident_log and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.incident_log",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-quality included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Contributor @ sql-mmc-demo",
+          "detail": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing).",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "plant7-shiftops": {
+      "agent": "plant7-shiftops",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-shiftops** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (3 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-shiftops is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "quality_ops",
+          "detail": "Document source quality_ops. Plant 7 quality + shift operations SOPs. Paths: plants/plant7/kb/04_Quality, plants/plant7/kb/05_Ops_Shift.",
+          "revocation_effect": "If source quality_ops is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "pm_data",
+          "detail": "SQL source pm_data -> table dbo.pm_schedule. Plant 7 preventive maintenance schedule + completion log.",
+          "revocation_effect": "If source pm_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.pm_schedule and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.pm_schedule",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "kb_source",
+          "target": "incident_data",
+          "detail": "SQL source incident_data -> table dbo.incident_log. Plant 7 EHS incident log (near-misses, injuries, CAPAs).",
+          "revocation_effect": "If source incident_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.incident_log and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.incident_log",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-shiftops included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Contributor @ sql-mmc-demo",
+          "detail": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing).",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "plant7-training": {
+      "agent": "plant7-training",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-training** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (3 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-training is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "quality_ops",
+          "detail": "Document source quality_ops. Plant 7 quality + shift operations SOPs. Paths: plants/plant7/kb/04_Quality, plants/plant7/kb/05_Ops_Shift.",
+          "revocation_effect": "If source quality_ops is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "training_data",
+          "detail": "SQL source training_data -> table dbo.training_log. Plant 7 training records (employees, courses, expirations).",
+          "revocation_effect": "If source training_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.training_log and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.training_log",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "kb_source",
+          "target": "incident_data",
+          "detail": "SQL source incident_data -> table dbo.incident_log. Plant 7 EHS incident log (near-misses, injuries, CAPAs).",
+          "revocation_effect": "If source incident_data is removed from KB kb-plant7 or the indexer is paused, the agent loses row-level access to dbo.incident_log and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.incident_log",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-training included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Contributor @ sql-mmc-demo",
+          "detail": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing).",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "ent-supply-chain": {
+      "agent": "ent-supply-chain",
+      "foundry_project": "mmc-enterprise",
+      "knowledge_base": "kb-enterprise",
+      "summary": "Agent **ent-supply-chain** lives in Foundry project **mmc-enterprise** and is grounded by KB **kb-enterprise** (2 source(s) readable). SQL grounding flows through srch-mmc-enterprise -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-enterprise",
+          "detail": "Agent ent-supply-chain is deployed in Foundry project mmc-enterprise.",
+          "revocation_effect": "If project mmc-enterprise is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-enterprise",
+          "detail": "KB kb-enterprise (Enterprise Knowledge Base) is attached to project mmc-enterprise.",
+          "revocation_effect": "If the KB connection on project mmc-enterprise is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "supply_chain",
+          "detail": "Document source supply_chain. Enterprise supply-chain procedures. Paths: enterprise/supply-chain/kb.",
+          "revocation_effect": "If source supply_chain is removed from KB kb-enterprise, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "supplier_data",
+          "detail": "SQL source supplier_data -> table dbo.supplier_master. Supplier master (tier, lead time, disruption flags, risk score).",
+          "revocation_effect": "If source supplier_data is removed from KB kb-enterprise or the indexer is paused, the agent loses row-level access to dbo.supplier_master and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.supplier_master",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-enterprise",
+          "detail": "Azure AI Search srch-mmc-enterprise physically hosts the indexes for KB kb-enterprise. Identity: srch-mmc-enterprise-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Cognitive Services User @ mmcfdy",
+          "detail": "KB -> LLM reasoning leg for enterprise project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-enterprise stops grounding any answer \u2014 agent ent-supply-chain included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Azure AI Project User @ mmcfdy/projects/mmc-enterprise",
+          "detail": "Lets the Search MI publish KB hits back into the Enterprise Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Contributor @ sql-mmc-demo",
+          "detail": "IndexedSqlKnowledgeSource endpoint resolution + change-tracking pulls.",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "ent-procurement": {
+      "agent": "ent-procurement",
+      "foundry_project": "mmc-enterprise",
+      "knowledge_base": "kb-enterprise",
+      "summary": "Agent **ent-procurement** lives in Foundry project **mmc-enterprise** and is grounded by KB **kb-enterprise** (2 source(s) readable). SQL grounding flows through srch-mmc-enterprise -> sql-mmc-demo/mmcops.",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-enterprise",
+          "detail": "Agent ent-procurement is deployed in Foundry project mmc-enterprise.",
+          "revocation_effect": "If project mmc-enterprise is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-enterprise",
+          "detail": "KB kb-enterprise (Enterprise Knowledge Base) is attached to project mmc-enterprise.",
+          "revocation_effect": "If the KB connection on project mmc-enterprise is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "procurement",
+          "detail": "Document source procurement. Enterprise procurement procedures. Paths: enterprise/procurement/kb.",
+          "revocation_effect": "If source procurement is removed from KB kb-enterprise, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "po_data",
+          "detail": "SQL source po_data -> table dbo.po_spend. Open + recent purchase orders with status flags + extended value.",
+          "revocation_effect": "If source po_data is removed from KB kb-enterprise or the indexer is paused, the agent loses row-level access to dbo.po_spend and can only answer from procedure docs."
+        },
+        {
+          "kind": "sql_table",
+          "target": "dbo.po_spend",
+          "detail": "Backing table on sql-mmc-demo/mmcops.",
+          "revocation_effect": "Dropping or renaming this table breaks the next change-tracking pull; existing index rows stay until refresh."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-enterprise",
+          "detail": "Azure AI Search srch-mmc-enterprise physically hosts the indexes for KB kb-enterprise. Identity: srch-mmc-enterprise-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Cognitive Services User @ mmcfdy",
+          "detail": "KB -> LLM reasoning leg for enterprise project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-enterprise stops grounding any answer \u2014 agent ent-procurement included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Azure AI Project User @ mmcfdy/projects/mmc-enterprise",
+          "detail": "Lets the Search MI publish KB hits back into the Enterprise Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Contributor @ sql-mmc-demo",
+          "detail": "IndexedSqlKnowledgeSource endpoint resolution + change-tracking pulls.",
+          "revocation_effect": "Revoke this on the SQL server scope and the IndexedSqlKnowledgeSource can no longer resolve the server endpoint \u2014 next change-tracking pull fails."
+        },
+        {
+          "kind": "sql_server",
+          "target": "sql-mmc-demo",
+          "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
+          "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "ent-engineering-plm": {
+      "agent": "ent-engineering-plm",
+      "foundry_project": "mmc-enterprise",
+      "knowledge_base": "kb-enterprise",
+      "summary": "Agent **ent-engineering-plm** lives in Foundry project **mmc-enterprise** and is grounded by KB **kb-enterprise** (1 source(s) readable).",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-enterprise",
+          "detail": "Agent ent-engineering-plm is deployed in Foundry project mmc-enterprise.",
+          "revocation_effect": "If project mmc-enterprise is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-enterprise",
+          "detail": "KB kb-enterprise (Enterprise Knowledge Base) is attached to project mmc-enterprise.",
+          "revocation_effect": "If the KB connection on project mmc-enterprise is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "engineering_plm",
+          "detail": "Document source engineering_plm. PLM / ECO procedures + reference data. Paths: enterprise/engineering-plm/data, enterprise/engineering-plm/kb.",
+          "revocation_effect": "If source engineering_plm is removed from KB kb-enterprise, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-enterprise",
+          "detail": "Azure AI Search srch-mmc-enterprise physically hosts the indexes for KB kb-enterprise. Identity: srch-mmc-enterprise-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Cognitive Services User @ mmcfdy",
+          "detail": "KB -> LLM reasoning leg for enterprise project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-enterprise stops grounding any answer \u2014 agent ent-engineering-plm included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Azure AI Project User @ mmcfdy/projects/mmc-enterprise",
+          "detail": "Lets the Search MI publish KB hits back into the Enterprise Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "ent-quality": {
+      "agent": "ent-quality",
+      "foundry_project": "mmc-enterprise",
+      "knowledge_base": "kb-enterprise",
+      "summary": "Agent **ent-quality** lives in Foundry project **mmc-enterprise** and is grounded by KB **kb-enterprise** (1 source(s) readable).",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-enterprise",
+          "detail": "Agent ent-quality is deployed in Foundry project mmc-enterprise.",
+          "revocation_effect": "If project mmc-enterprise is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-enterprise",
+          "detail": "KB kb-enterprise (Enterprise Knowledge Base) is attached to project mmc-enterprise.",
+          "revocation_effect": "If the KB connection on project mmc-enterprise is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "enterprise_quality",
+          "detail": "Document source enterprise_quality. Enterprise quality + warranty reference data. Paths: enterprise/enterprise-quality/data, enterprise/enterprise-quality/kb.",
+          "revocation_effect": "If source enterprise_quality is removed from KB kb-enterprise, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-enterprise",
+          "detail": "Azure AI Search srch-mmc-enterprise physically hosts the indexes for KB kb-enterprise. Identity: srch-mmc-enterprise-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Cognitive Services User @ mmcfdy",
+          "detail": "KB -> LLM reasoning leg for enterprise project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-enterprise stops grounding any answer \u2014 agent ent-quality included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Azure AI Project User @ mmcfdy/projects/mmc-enterprise",
+          "detail": "Lets the Search MI publish KB hits back into the Enterprise Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "ent-demand-program": {
+      "agent": "ent-demand-program",
+      "foundry_project": "mmc-enterprise",
+      "knowledge_base": "kb-enterprise",
+      "summary": "Agent **ent-demand-program** lives in Foundry project **mmc-enterprise** and is grounded by KB **kb-enterprise** (1 source(s) readable).",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-enterprise",
+          "detail": "Agent ent-demand-program is deployed in Foundry project mmc-enterprise.",
+          "revocation_effect": "If project mmc-enterprise is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-enterprise",
+          "detail": "KB kb-enterprise (Enterprise Knowledge Base) is attached to project mmc-enterprise.",
+          "revocation_effect": "If the KB connection on project mmc-enterprise is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "demand_program",
+          "detail": "Document source demand_program. Demand / launch-program reference data. Paths: enterprise/demand-program/data, enterprise/demand-program/kb.",
+          "revocation_effect": "If source demand_program is removed from KB kb-enterprise, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-enterprise",
+          "detail": "Azure AI Search srch-mmc-enterprise physically hosts the indexes for KB kb-enterprise. Identity: srch-mmc-enterprise-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Cognitive Services User @ mmcfdy",
+          "detail": "KB -> LLM reasoning leg for enterprise project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-enterprise stops grounding any answer \u2014 agent ent-demand-program included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-enterprise-system :: Azure AI Project User @ mmcfdy/projects/mmc-enterprise",
+          "detail": "Lets the Search MI publish KB hits back into the Enterprise Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    }
+  }
+}

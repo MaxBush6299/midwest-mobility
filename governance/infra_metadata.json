@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "description": "Identity + RBAC topology for the MMC demo. Captures the role-assignment chain that makes a KB-grounded agent answer actually work: agent (Foundry-managed identity) -> Foundry account -> Search service -> Search MI -> Foundry account (Cognitive Services User + Foundry User) for the KB->LLM grounding leg, plus the Search MI -> Azure SQL identity used by Pattern A IndexedSqlKnowledgeSource. Revoking any link in this chain breaks a *specific* capability without changing any code — that is the governance story the trace UI overlays per agent.",
+  "foundry_account": {
+    "name": "mmcfdy",
+    "endpoint_env": "FOUNDRY_PLANT_PROJECT_ENDPOINT",
+    "model_deployments": [
+      {
+        "name_env": "FOUNDRY_MANAGER_DEPLOYMENT",
+        "purpose": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4."
+      },
+      {
+        "name_env": "FOUNDRY_MODEL_DEPLOYMENT",
+        "purpose": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment."
+      }
+    ]
+  },
+  "foundry_projects": [
+    {
+      "name": "mmc-plant",
+      "kb": "kb-plant7",
+      "search_service": "srch-mmc-plant",
+      "agents": [
+        "plant7-ehs",
+        "plant7-maintenance",
+        "plant7-quality",
+        "plant7-shiftops",
+        "plant7-training"
+      ]
+    },
+    {
+      "name": "mmc-enterprise",
+      "kb": "kb-enterprise",
+      "search_service": "srch-mmc-enterprise",
+      "agents": [
+        "ent-supply-chain",
+        "ent-procurement",
+        "ent-engineering-plm",
+        "ent-quality",
+        "ent-demand-program"
+      ]
+    }
+  ],
+  "search_services": [
+    {
+      "name": "srch-mmc-plant",
+      "kb": "kb-plant7",
+      "managed_identity": "srch-mmc-plant-system",
+      "role_assignments": [
+        {
+          "principal": "srch-mmc-plant-system",
+          "role": "Cognitive Services User",
+          "scope": "mmcfdy",
+          "purpose": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg)."
+        },
+        {
+          "principal": "srch-mmc-plant-system",
+          "role": "Azure AI Project User",
+          "scope": "mmcfdy/projects/mmc-plant",
+          "purpose": "Lets the Search MI publish KB hits back into the Plant Foundry project."
+        },
+        {
+          "principal": "srch-mmc-plant-system",
+          "role": "Contributor",
+          "scope": "sql-mmc-demo",
+          "purpose": "Required by IndexedSqlKnowledgeSource for endpoint resolution + change-tracking pulls (Reader was insufficient in testing)."
+        }
+      ]
+    },
+    {
+      "name": "srch-mmc-enterprise",
+      "kb": "kb-enterprise",
+      "managed_identity": "srch-mmc-enterprise-system",
+      "role_assignments": [
+        {
+          "principal": "srch-mmc-enterprise-system",
+          "role": "Cognitive Services User",
+          "scope": "mmcfdy",
+          "purpose": "KB -> LLM reasoning leg for enterprise project."
+        },
+        {
+          "principal": "srch-mmc-enterprise-system",
+          "role": "Azure AI Project User",
+          "scope": "mmcfdy/projects/mmc-enterprise",
+          "purpose": "Lets the Search MI publish KB hits back into the Enterprise Foundry project."
+        },
+        {
+          "principal": "srch-mmc-enterprise-system",
+          "role": "Contributor",
+          "scope": "sql-mmc-demo",
+          "purpose": "IndexedSqlKnowledgeSource endpoint resolution + change-tracking pulls."
+        }
+      ]
+    }
+  ],
+  "sql_server": {
+    "name": "sql-mmc-demo",
+    "database": "mmcops",
+    "auth_mode": "Microsoft Entra ID only (no SQL logins)",
+    "indexed_tables": [
+      { "table": "dbo.training_log", "owner_source": "training_data", "owner_kb": "kb-plant7" },
+      { "table": "dbo.pm_schedule",  "owner_source": "pm_data",       "owner_kb": "kb-plant7" },
+      { "table": "dbo.incident_log", "owner_source": "incident_data", "owner_kb": "kb-plant7" },
+      { "table": "dbo.supplier_master", "owner_source": "supplier_data", "owner_kb": "kb-enterprise" },
+      { "table": "dbo.po_spend",     "owner_source": "po_data",       "owner_kb": "kb-enterprise" }
+    ]
+  }
+}
