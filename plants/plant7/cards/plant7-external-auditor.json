@@ -1,10 +1,10 @@
 {
   "schema_version": "1",
-  "name": "plant7-shiftops",
-  "description": "Plant 7 Shift Ops",
+  "name": "plant7-external-auditor",
+  "description": "Plant 7 External Auditor",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant",
-  "agent_id": "plant7-shiftops",
-  "version": "6",
+  "agent_id": "plant7-external-auditor",
+  "version": "1",
   "skills": [],
   "metadata": {
     "plant_id": "plant7",

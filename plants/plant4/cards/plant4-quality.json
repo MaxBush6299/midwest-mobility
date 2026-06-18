@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "name": "plant4-quality",
+  "description": "Plant 4 Quality",
+  "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant4",
+  "agent_id": "plant4-quality",
+  "version": "1",
+  "skills": [],
+  "metadata": {
+    "plant_id": "plant4",
+    "project": "mmc-plant4"
+  }
+}

@@ -74,9 +74,10 @@ async def test_list_agents_returns_full_catalog():
     body = resp.json()
     names = [a["name"] for a in body["agents"]]
     tiers = {a["tier"] for a in body["agents"]}
-    assert len(names) == 11, f"expected 11 agents (10 + plant7-external-auditor), got {len(names)}: {names}"
+    assert len(names) == 16, f"expected 16 agents (Gate D: + plant4 roster), got {len(names)}: {names}"
     assert tiers == {"plant", "enterprise"}
     assert "plant7-external-auditor" in names
+    assert "plant4-ehs" in names
 
 
 async def test_create_run_returns_run_id_and_events_url():

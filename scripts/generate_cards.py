@@ -34,26 +34,44 @@ _ENTERPRISE_NODES = {
 
 
 def _emit_plant_cards() -> int:
-    plant_id = "plant7"
-    endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
-    refs = upsert_plant_agents(plant_id, endpoint, AzureCliCredential())
+    """Emit cards for every plant whose project endpoint env is set.
 
-    out_dir = ROOT / "plants" / plant_id / "cards"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    for r in refs:
-        card = {
-            "schema_version": "1",
-            "name": r.name,
-            "description": r.description,
-            "endpoint": endpoint,
-            "agent_id": r.name,
-            "version": r.version,
-            "skills": [],
-            "metadata": {"plant_id": plant_id, "project": "mmc-plant"},
-        }
-        (out_dir / f"{r.name}.json").write_text(json.dumps(card, indent=2))
-        print(f"wrote plant {r.name}.json (version={r.version})")
-    return len(refs)
+    Supported pattern (Gate D, per-plant Foundry topology):
+      - FOUNDRY_PLANT_PROJECT_ENDPOINT      -> plant7 (legacy global)
+      - FOUNDRY_PLANT4_PROJECT_ENDPOINT     -> plant4
+      - FOUNDRY_<PLANT_ID_UPPER>_PROJECT_ENDPOINT -> any future plant
+
+    A plant is skipped if its endpoint env var is unset.
+    """
+    plant_specs: list[tuple[str, str, str]] = [
+        ("plant7", "FOUNDRY_PLANT_PROJECT_ENDPOINT", "mmc-plant"),
+        ("plant4", "FOUNDRY_PLANT4_PROJECT_ENDPOINT", "mmc-plant4"),
+    ]
+    total = 0
+    for plant_id, env_var, project_name in plant_specs:
+        endpoint = os.environ.get(env_var)
+        if not endpoint:
+            print(f"{env_var} not set; skipping {plant_id} cards.")
+            continue
+        refs = upsert_plant_agents(plant_id, endpoint, AzureCliCredential(process_timeout=60))
+
+        out_dir = ROOT / "plants" / plant_id / "cards"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        for r in refs:
+            card = {
+                "schema_version": "1",
+                "name": r.name,
+                "description": r.description,
+                "endpoint": endpoint,
+                "agent_id": r.name,
+                "version": r.version,
+                "skills": [],
+                "metadata": {"plant_id": plant_id, "project": project_name},
+            }
+            (out_dir / f"{r.name}.json").write_text(json.dumps(card, indent=2))
+            print(f"wrote {plant_id} {r.name}.json (version={r.version})")
+        total += len(refs)
+    return total
 
 
 def _emit_enterprise_cards(endpoint_base: str = "http://localhost:8080") -> int:
@@ -68,10 +86,12 @@ def _emit_enterprise_cards(endpoint_base: str = "http://localhost:8080") -> int:
 
 
 def main() -> int:
-    if os.environ.get("FOUNDRY_PLANT_PROJECT_ENDPOINT"):
+    if os.environ.get("FOUNDRY_PLANT_PROJECT_ENDPOINT") or os.environ.get(
+        "FOUNDRY_PLANT4_PROJECT_ENDPOINT"
+    ):
         _emit_plant_cards()
     else:
-        print("FOUNDRY_PLANT_PROJECT_ENDPOINT not set; skipping plant cards.")
+        print("No FOUNDRY_PLANT*_PROJECT_ENDPOINT set; skipping plant cards.")
     endpoint_base = os.environ.get(
         "ENTERPRISE_CARD_ENDPOINT_BASE", "http://localhost:8080"
     )

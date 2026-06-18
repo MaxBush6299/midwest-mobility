@@ -51,15 +51,17 @@ def test_governance_catalog_includes_external_auditor_for_sensitivity_demo():
     )
 
 
-def test_gate_b_catalog_has_all_11_agents_after_refresh():
-    """After scripts/refresh_catalog.py runs, the catalog must contain all
-    5 plant + 5 enterprise + the Gate C external-auditor agent."""
+def test_gate_b_catalog_has_all_16_agents_after_refresh():
+    """After scripts/refresh_catalog.py runs (Gate D world), the catalog must
+    contain 6 plant7 + 5 plant4 + 5 enterprise agents."""
     agents = LocalCatalogSource(Path("agents/catalog.json")).list_agents()
     names = {a.name for a in agents}
-    assert len(names) == 11, names
+    assert len(names) == 16, names
     assert {
         "plant7-ehs", "plant7-external-auditor", "plant7-maintenance",
         "plant7-quality", "plant7-shiftops", "plant7-training",
+        "plant4-ehs", "plant4-maintenance", "plant4-quality",
+        "plant4-shiftops", "plant4-training",
         "ent-supply-chain", "ent-procurement", "ent-engineering-plm",
         "ent-quality", "ent-demand-program",
     } == names

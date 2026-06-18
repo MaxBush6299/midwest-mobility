@@ -10,13 +10,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Title-case display names for the 5 Gate-A plant agents.
+# Title-case display names for plant agents.
 _PLANT_DISPLAY = {
     "plant7-ehs": "Plant 7 EHS / Safety",
     "plant7-maintenance": "Plant 7 Maintenance & Reliability",
     "plant7-quality": "Plant 7 Quality",
     "plant7-shiftops": "Plant 7 Shift Operations",
     "plant7-training": "Plant 7 Training",
+    "plant7-external-auditor": "Plant 7 External Auditor",
+    "plant4-ehs": "Plant 4 EHS / Safety",
+    "plant4-maintenance": "Plant 4 Maintenance & Reliability",
+    "plant4-quality": "Plant 4 Quality",
+    "plant4-shiftops": "Plant 4 Shift Operations",
+    "plant4-training": "Plant 4 Training",
 }
 
 

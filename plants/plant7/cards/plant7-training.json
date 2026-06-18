@@ -4,7 +4,7 @@
   "description": "Plant 7 Training / Competency",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant",
   "agent_id": "plant7-training",
-  "version": "5",
+  "version": "6",
   "skills": [],
   "metadata": {
     "plant_id": "plant7",
