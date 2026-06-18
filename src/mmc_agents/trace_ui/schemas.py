@@ -90,9 +90,17 @@ class HotAddRequest(BaseModel):
 
     name: str
     tier: Tier = "plant"
+    display_name: str | None = None
+    description: str | None = None
+    foundry_project: str | None = None
 
 
 class HotAddResponse(BaseModel):
     accepted: bool
     agent: AgentInfo | None = None
     detail: str | None = None
+    active_count: int | None = None
+
+
+class HotAddResetResponse(BaseModel):
+    cleared: int

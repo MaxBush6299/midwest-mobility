@@ -35,6 +35,7 @@ from mmc_agents.trace_ui.schemas import (
     CreateRunRequest,
     CreateRunResponse,
     HotAddRequest,
+    HotAddResetResponse,
     HotAddResponse,
     ScenarioId,
     ScenarioInfo,
@@ -73,6 +74,25 @@ def _load_agents() -> list[AgentInfo]:
             )
         )
     return out
+
+
+# Pre-baked "shadow" agents the demo can pull onto the stage at runtime via
+# POST /demo/hot-add. Storing them here (rather than reading from a file)
+# keeps the demo's hot-add story self-contained — no filesystem mutation
+# during the live run. Re-keyed by name for O(1) lookup.
+_HOT_ADD_CATALOG: dict[str, AgentInfo] = {
+    "plant7-supplier-quality": AgentInfo(
+        name="plant7-supplier-quality",
+        display_name="Plant 7 Supplier Quality (hot-added)",
+        tier="plant",
+        description=(
+            "Cross-functional supplier-quality agent for incoming-material "
+            "investigations. Demoed via hot-add at runtime — proves the "
+            "registry tier picks up new agents without a redeploy."
+        ),
+        foundry_project="mmc-plant",
+    ),
+}
 
 
 async def _live_scenario_runner(
@@ -139,10 +159,19 @@ def create_app(runner: ScenarioRunner | None = None) -> FastAPI:
         lifespan=lifespan,
     )
     app.state.store = RunStore(runner=runner or _live_scenario_runner)
+    # Names of hot-added agents that should appear in the next /agents response.
+    # Stored on app.state so create_app() callers (including tests) start with
+    # a clean slate and the lifespan teardown can clear it.
+    app.state.hot_added: set[str] = set()
 
     @app.get("/agents", response_model=AgentListResponse)
     async def list_agents() -> AgentListResponse:
-        return AgentListResponse(agents=_load_agents())
+        agents = _load_agents()
+        active_hot: list[AgentInfo] = []
+        for name in sorted(app.state.hot_added):
+            if name in _HOT_ADD_CATALOG:
+                active_hot.append(_HOT_ADD_CATALOG[name])
+        return AgentListResponse(agents=agents + active_hot)
 
     @app.get("/scenarios", response_model=ScenarioListResponse)
     async def list_scenarios() -> ScenarioListResponse:
@@ -230,11 +259,42 @@ def create_app(runner: ScenarioRunner | None = None) -> FastAPI:
 
     @app.post("/demo/hot-add", response_model=HotAddResponse)
     async def hot_add(body: HotAddRequest) -> HotAddResponse:
-        # Task 10 fills this in.
+        existing = {a.name for a in _load_agents()}
+        if body.name in existing:
+            return HotAddResponse(
+                accepted=False,
+                detail=f"agent {body.name!r} is already in the persisted catalog",
+                active_count=len(app.state.hot_added),
+            )
+        # The demo only allows hot-adding from the pre-baked shadow catalog so
+        # an attacker can't conjure arbitrary executor IDs into the trace.
+        if body.name not in _HOT_ADD_CATALOG:
+            return HotAddResponse(
+                accepted=False,
+                detail=(
+                    f"agent {body.name!r} is not in the demo hot-add catalog "
+                    f"({sorted(_HOT_ADD_CATALOG)}). Add it to _HOT_ADD_CATALOG "
+                    "in src/mmc_agents/trace_ui/app.py first."
+                ),
+                active_count=len(app.state.hot_added),
+            )
+        app.state.hot_added.add(body.name)
         return HotAddResponse(
-            accepted=False,
-            detail="hot-add demo wiring arrives in Gate C Task 10",
+            accepted=True,
+            agent=_HOT_ADD_CATALOG[body.name],
+            detail=(
+                f"agent {body.name!r} added to the in-memory catalog. The next "
+                "/agents request will include it; rerun a scenario to give the "
+                "manager a chance to dispatch to it."
+            ),
+            active_count=len(app.state.hot_added),
         )
+
+    @app.post("/demo/hot-add/reset", response_model=HotAddResetResponse)
+    async def hot_add_reset() -> HotAddResetResponse:
+        cleared = len(app.state.hot_added)
+        app.state.hot_added = set()
+        return HotAddResetResponse(cleared=cleared)
 
     if _STATIC_DIR.exists():
         app.mount("/static", StaticFiles(directory=str(_STATIC_DIR)), name="static")

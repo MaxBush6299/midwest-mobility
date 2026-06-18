@@ -74,8 +74,9 @@ async def test_list_agents_returns_full_catalog():
     body = resp.json()
     names = [a["name"] for a in body["agents"]]
     tiers = {a["tier"] for a in body["agents"]}
-    assert len(names) == 10, f"expected 10 agents, got {len(names)}: {names}"
+    assert len(names) == 11, f"expected 11 agents (10 + plant7-external-auditor), got {len(names)}: {names}"
     assert tiers == {"plant", "enterprise"}
+    assert "plant7-external-auditor" in names
 
 
 async def test_create_run_returns_run_id_and_events_url():
@@ -158,7 +159,7 @@ async def test_blast_radius_returns_real_graph_for_known_agent():
     assert all(e["revocation_effect"] for e in body["edges"])
 
 
-async def test_hot_add_placeholder_response():
+async def test_hot_add_rejects_already_persisted_agent():
     client, _ = await _async_client()
     async with client:
         resp = await client.post(
@@ -167,7 +168,47 @@ async def test_hot_add_placeholder_response():
     assert resp.status_code == 200
     body = resp.json()
     assert body["accepted"] is False
-    assert "Task 10" in body["detail"]
+    assert "already in the persisted catalog" in body["detail"]
+
+
+async def test_hot_add_rejects_agent_outside_shadow_catalog():
+    client, _ = await _async_client()
+    async with client:
+        resp = await client.post(
+            "/demo/hot-add", json={"name": "plant7-totally-made-up"}
+        )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["accepted"] is False
+    assert "hot-add catalog" in body["detail"]
+
+
+async def test_hot_add_pulls_shadow_agent_onto_stage_and_appears_in_list():
+    client, _ = await _async_client()
+    async with client:
+        before = (await client.get("/agents")).json()["agents"]
+        names_before = {a["name"] for a in before}
+        assert "plant7-supplier-quality" not in names_before
+
+        resp = await client.post(
+            "/demo/hot-add", json={"name": "plant7-supplier-quality"}
+        )
+        body = resp.json()
+        assert body["accepted"] is True
+        assert body["agent"]["name"] == "plant7-supplier-quality"
+        assert body["agent"]["tier"] == "plant"
+        assert body["active_count"] == 1
+
+        after = (await client.get("/agents")).json()["agents"]
+        names_after = {a["name"] for a in after}
+        assert "plant7-supplier-quality" in names_after
+        assert len(after) == len(before) + 1
+
+        reset = await client.post("/demo/hot-add/reset")
+        assert reset.json() == {"cleared": 1}
+
+        after_reset = (await client.get("/agents")).json()["agents"]
+        assert {a["name"] for a in after_reset} == names_before
 
 
 async def test_static_index_is_served():

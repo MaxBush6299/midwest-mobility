@@ -33,15 +33,33 @@ def test_watched_picks_up_new_card(tmp_path: Path):
     assert {a.name for a in src.list_agents()} == {"x-agent", "y-agent"}
 
 
-def test_gate_b_catalog_has_all_10_agents_after_refresh():
-    """After scripts/refresh_catalog.py runs, the catalog must contain all
-    5 plant agents + 5 enterprise agents (Gate B Task 24)."""
+def test_governance_catalog_includes_external_auditor_for_sensitivity_demo():
+    """plant7-external-auditor must be present + have ONLY [ehs] in its readable
+    sources — that is the sensitivity-demo invariant. If a future profile edit
+    accidentally hands the auditor `ehs_restricted` or `incident_data`, this
+    fails loudly and the demo's whole point would be silently broken."""
     agents = LocalCatalogSource(Path("agents/catalog.json")).list_agents()
     names = {a.name for a in agents}
-    assert len(names) == 10, names
+    assert "plant7-external-auditor" in names
+
+    import json
+    kb_meta = json.loads(Path("governance/kb_metadata.json").read_text(encoding="utf-8"))
+    auditor = kb_meta["per_agent_readable_sources"]["plant7-external-auditor"]
+    assert auditor["sources"] == ["ehs"], (
+        "External auditor must NOT have access to ehs_restricted or incident_data "
+        "— the sensitivity-demo overlay depends on this invariant"
+    )
+
+
+def test_gate_b_catalog_has_all_11_agents_after_refresh():
+    """After scripts/refresh_catalog.py runs, the catalog must contain all
+    5 plant + 5 enterprise + the Gate C external-auditor agent."""
+    agents = LocalCatalogSource(Path("agents/catalog.json")).list_agents()
+    names = {a.name for a in agents}
+    assert len(names) == 11, names
     assert {
-        "plant7-ehs", "plant7-maintenance", "plant7-quality",
-        "plant7-shiftops", "plant7-training",
+        "plant7-ehs", "plant7-external-auditor", "plant7-maintenance",
+        "plant7-quality", "plant7-shiftops", "plant7-training",
         "ent-supply-chain", "ent-procurement", "ent-engineering-plm",
         "ent-quality", "ent-demand-program",
     } == names

@@ -18,6 +18,12 @@ kb:
   sources:
     ehs:
       paths: ["plants/plant7/kb/02_EHS_Internal", "shared/kb/regulatory-reference/OSHA"]
+    ehs_restricted:
+      # Sensitivity-demo source: confidential incident brief. Only the internal
+      # plant7-ehs agent has this in its kb_sources mapping. The external auditor
+      # agent has access to the same KB but its profile omits this source, so
+      # the per-agent readable-source mapping prevents it from being retrieved.
+      paths: ["plants/plant7/kb/02_EHS_Internal_Restricted"]
     maintenance:
       paths: ["plants/plant7/kb/03_Maintenance", "shared/kb/oem-manuals"]
     quality_ops:
@@ -37,7 +43,7 @@ kb:
 agents:
   - role: ehs
     display_name: Plant 7 EHS / Safety
-    kb_sources: [ehs, incident_data]
+    kb_sources: [ehs, ehs_restricted, incident_data]
     tools: [capa]
     skills:
       - id: hazard_loto_lookup
@@ -90,3 +96,17 @@ agents:
         description: "Who is qualified for this task?"
       - id: training_gap_link
         description: Training-gap vs. incident linkage
+  - role: external-auditor
+    display_name: Plant 7 External Auditor
+    # Sensitivity-demo agent. Reads the SAME KB as plant7-ehs but its
+    # kb_sources mapping deliberately OMITS `ehs_restricted` and
+    # `incident_data` — proves the per-agent readable-source mapping in
+    # governance/kb_metadata.json governs what an agent can retrieve even
+    # when the underlying KB physically contains the data.
+    kb_sources: [ehs]
+    tools: []
+    skills:
+      - id: external_audit_walkdown
+        description: External-auditor compliance walk-down support
+      - id: published_policy_lookup
+        description: Look up only publicly-disclosed EHS policy

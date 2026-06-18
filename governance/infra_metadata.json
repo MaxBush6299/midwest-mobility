@@ -22,6 +22,7 @@
       "search_service": "srch-mmc-plant",
       "agents": [
         "plant7-ehs",
+        "plant7-external-auditor",
         "plant7-maintenance",
         "plant7-quality",
         "plant7-shiftops",

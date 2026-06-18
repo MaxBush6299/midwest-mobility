@@ -6,7 +6,7 @@
       "agent": "plant7-ehs",
       "foundry_project": "mmc-plant",
       "knowledge_base": "kb-plant7",
-      "summary": "Agent **plant7-ehs** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (2 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
+      "summary": "Agent **plant7-ehs** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (3 source(s) readable). SQL grounding flows through srch-mmc-plant -> sql-mmc-demo/mmcops.",
       "edges": [
         {
           "kind": "foundry_project",
@@ -25,6 +25,12 @@
           "target": "ehs",
           "detail": "Document source ehs. Plant 7 EHS procedures + OSHA reference docs. Paths: plants/plant7/kb/02_EHS_Internal, shared/kb/regulatory-reference/OSHA.",
           "revocation_effect": "If source ehs is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "kb_source",
+          "target": "ehs_restricted",
+          "detail": "Document source ehs_restricted. Restricted EHS material \u2014 confidential incident brief. Per-agent readable-source mapping gates retrieval; only plant7-ehs is allowed to surface it. Paths: plants/plant7/kb/02_EHS_Internal_Restricted.",
+          "revocation_effect": "If source ehs_restricted is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
         },
         {
           "kind": "kb_source",
@@ -67,6 +73,62 @@
           "target": "sql-mmc-demo",
           "detail": "Azure SQL sql-mmc-demo/mmcops; auth: Microsoft Entra ID only (no SQL logins).",
           "revocation_effect": "Stopping the server, dropping the database, or revoking the Search MI's Entra access breaks the next indexer pull."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MANAGER_DEPLOYMENT",
+          "detail": "Magentic manager (planning + progress-ledger). Defaulted to gpt-5.4.",
+          "revocation_effect": "Deleting the FOUNDRY_MANAGER_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        },
+        {
+          "kind": "model_deployment",
+          "target": "FOUNDRY_MODEL_DEPLOYMENT",
+          "detail": "Per-agent worker model. Defaulted to gpt-5.4-mini to avoid 429s on the manager's deployment.",
+          "revocation_effect": "Deleting the FOUNDRY_MODEL_DEPLOYMENT deployment or exhausting its quota stalls runs at the next call to that model."
+        }
+      ]
+    },
+    "plant7-external-auditor": {
+      "agent": "plant7-external-auditor",
+      "foundry_project": "mmc-plant",
+      "knowledge_base": "kb-plant7",
+      "summary": "Agent **plant7-external-auditor** lives in Foundry project **mmc-plant** and is grounded by KB **kb-plant7** (1 source(s) readable).",
+      "edges": [
+        {
+          "kind": "foundry_project",
+          "target": "mmc-plant",
+          "detail": "Agent plant7-external-auditor is deployed in Foundry project mmc-plant.",
+          "revocation_effect": "If project mmc-plant is deleted or the agent is removed from it, the agent endpoint goes away entirely."
+        },
+        {
+          "kind": "knowledge_base",
+          "target": "kb-plant7",
+          "detail": "KB kb-plant7 (Plant 7 Knowledge Base) is attached to project mmc-plant.",
+          "revocation_effect": "If the KB connection on project mmc-plant is deleted, the agent loses all retrieval grounding and answers from the base model only."
+        },
+        {
+          "kind": "kb_source",
+          "target": "ehs",
+          "detail": "Document source ehs. Plant 7 EHS procedures + OSHA reference docs. Paths: plants/plant7/kb/02_EHS_Internal, shared/kb/regulatory-reference/OSHA.",
+          "revocation_effect": "If source ehs is removed from KB kb-plant7, the agent loses retrieval grounding for those documents."
+        },
+        {
+          "kind": "search_service",
+          "target": "srch-mmc-plant",
+          "detail": "Azure AI Search srch-mmc-plant physically hosts the indexes for KB kb-plant7. Identity: srch-mmc-plant-system.",
+          "revocation_effect": "Deleting the search service or its system-assigned identity breaks every KB query for every agent on this KB."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Cognitive Services User @ mmcfdy",
+          "detail": "Lets the Search MI call the Foundry account's models when grounding KB answers (KB -> LLM reasoning leg).",
+          "revocation_effect": "Revoke this and the Search MI can no longer call Foundry models, so KB kb-plant7 stops grounding any answer \u2014 agent plant7-external-auditor included."
+        },
+        {
+          "kind": "search_identity_role",
+          "target": "srch-mmc-plant-system :: Azure AI Project User @ mmcfdy/projects/mmc-plant",
+          "detail": "Lets the Search MI publish KB hits back into the Plant Foundry project.",
+          "revocation_effect": "Revoke this and the Search MI can no longer publish KB hits back into the Foundry project's grounding pipeline."
         },
         {
           "kind": "model_deployment",

@@ -115,7 +115,21 @@ def test_compute_all_blast_radii_covers_full_catalog() -> None:
     infra = load_infra_metadata()
     radii = compute_all_blast_radii(kb, infra)
     assert set(radii) == set(kb.per_agent_readable_sources)
-    assert len(radii) == 10
+    assert len(radii) == 11
+    assert "plant7-external-auditor" in radii
+
+
+def test_external_auditor_blast_radius_omits_restricted_source():
+    """Sensitivity-demo invariant: the auditor's overlay must NOT include
+    `ehs_restricted` or `incident_data` — those are exactly the sources the
+    audience expects the auditor to be denied."""
+    kb = load_kb_metadata()
+    infra = load_infra_metadata()
+    br = compute_blast_radius("plant7-external-auditor", kb, infra)
+    source_targets = {e.target for e in br.edges if e.kind == "kb_source"}
+    assert source_targets == {"ehs"}
+    assert "ehs_restricted" not in source_targets
+    assert "incident_data" not in source_targets
 
 
 def test_generated_blast_radius_json_matches_current_metadata() -> None:

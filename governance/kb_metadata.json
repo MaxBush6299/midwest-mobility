@@ -18,6 +18,14 @@
           "description": "Plant 7 EHS procedures + OSHA reference docs."
         },
         {
+          "id": "ehs_restricted",
+          "kind": "documents",
+          "paths": [
+            "plants/plant7/kb/02_EHS_Internal_Restricted"
+          ],
+          "description": "Restricted EHS material — confidential incident brief. Per-agent readable-source mapping gates retrieval; only plant7-ehs is allowed to surface it."
+        },
+        {
           "id": "maintenance",
           "kind": "documents",
           "paths": [
@@ -116,15 +124,16 @@
     }
   ],
   "per_agent_readable_sources": {
-    "plant7-ehs":           { "kb": "kb-plant7",     "sources": ["ehs", "incident_data"] },
-    "plant7-maintenance":   { "kb": "kb-plant7",     "sources": ["maintenance", "pm_data"] },
-    "plant7-quality":       { "kb": "kb-plant7",     "sources": ["quality_ops", "incident_data"] },
-    "plant7-shiftops":      { "kb": "kb-plant7",     "sources": ["quality_ops", "pm_data", "incident_data"] },
-    "plant7-training":      { "kb": "kb-plant7",     "sources": ["quality_ops", "training_data", "incident_data"] },
-    "ent-supply-chain":     { "kb": "kb-enterprise", "sources": ["supply_chain", "supplier_data"] },
-    "ent-procurement":      { "kb": "kb-enterprise", "sources": ["procurement", "po_data"] },
-    "ent-engineering-plm":  { "kb": "kb-enterprise", "sources": ["engineering_plm"] },
-    "ent-quality":          { "kb": "kb-enterprise", "sources": ["enterprise_quality"] },
-    "ent-demand-program":   { "kb": "kb-enterprise", "sources": ["demand_program"] }
+    "plant7-ehs":              { "kb": "kb-plant7",     "sources": ["ehs", "ehs_restricted", "incident_data"] },
+    "plant7-external-auditor": { "kb": "kb-plant7",     "sources": ["ehs"] },
+    "plant7-maintenance":      { "kb": "kb-plant7",     "sources": ["maintenance", "pm_data"] },
+    "plant7-quality":          { "kb": "kb-plant7",     "sources": ["quality_ops", "incident_data"] },
+    "plant7-shiftops":         { "kb": "kb-plant7",     "sources": ["quality_ops", "pm_data", "incident_data"] },
+    "plant7-training":         { "kb": "kb-plant7",     "sources": ["quality_ops", "training_data", "incident_data"] },
+    "ent-supply-chain":        { "kb": "kb-enterprise", "sources": ["supply_chain", "supplier_data"] },
+    "ent-procurement":         { "kb": "kb-enterprise", "sources": ["procurement", "po_data"] },
+    "ent-engineering-plm":     { "kb": "kb-enterprise", "sources": ["engineering_plm"] },
+    "ent-quality":             { "kb": "kb-enterprise", "sources": ["enterprise_quality"] },
+    "ent-demand-program":      { "kb": "kb-enterprise", "sources": ["demand_program"] }
   }
 }

@@ -108,6 +108,27 @@
     .agent.active .hops, .agent.used .hops { color: var(--text); }
     .agent .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .agent .proj { font-size: 10px; color: var(--text-dim); margin-top: 2px; display: block; }
+    .agent.hot-added { border: 1px dashed var(--warn); background: rgba(244, 183, 64, 0.07); }
+    .agent.hot-added .badge { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+
+    .hot-add-bar { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .hot-add-btn, .hot-add-reset-btn {
+      background: var(--bg-elev-2); color: var(--text); border: 1px dashed var(--warn);
+      padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;
+      transition: background 120ms, border-color 120ms;
+    }
+    .hot-add-btn:hover { background: rgba(244, 183, 64, 0.15); }
+    .hot-add-reset-btn { border-style: solid; border-color: var(--border); color: var(--text-muted); }
+    .hot-add-reset-btn:hover { color: var(--text); border-color: var(--text-muted); }
+    .hot-add-btn:disabled, .hot-add-reset-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .hot-add-toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--bg-elev-2); color: var(--text);
+      border: 1px solid var(--warn); border-radius: var(--radius);
+      padding: 10px 14px; font-size: 13px; max-width: 360px;
+      box-shadow: var(--shadow); z-index: 10000;
+      animation: pop 220ms ease-out;
+    }
 
     /* Trace pane --------------------------------------------------- */
     .pane.center { background: var(--bg); }
@@ -405,6 +426,14 @@
     <aside class="pane left">
       <h2>Agents</h2>
       <div id="agents"></div>
+      <div class="hot-add-bar">
+        <button id="hot-add-btn" type="button" class="hot-add-btn" title="Pull a pre-baked agent onto the stage live (demo)">
+          + Hot-add supplier-quality
+        </button>
+        <button id="hot-add-reset-btn" type="button" class="hot-add-reset-btn" title="Remove all hot-added agents">
+          Reset
+        </button>
+      </div>
     </aside>
 
     <section class="pane center">
@@ -510,7 +539,8 @@
         wrap.appendChild(h);
         for (const a of list) {
           const row = document.createElement('div');
-          row.className = `agent ${tier}`;
+          const isHot = !!a.description && /hot-add/i.test(a.description);
+          row.className = `agent ${tier}${isHot ? ' hot-added' : ''}`;
           const label = a.display_name || a.name;
           row.innerHTML = `
             <span class="badge"></span>
@@ -799,6 +829,56 @@
     }
 
     runBtn.addEventListener('click', runScenario);
+
+    const hotAddBtn = document.getElementById('hot-add-btn');
+    const hotAddResetBtn = document.getElementById('hot-add-reset-btn');
+    const HOT_ADD_NAME = 'plant7-supplier-quality';
+
+    function hotAddToast(msg, isError) {
+      const el = document.createElement('div');
+      el.className = 'hot-add-toast';
+      if (isError) el.style.borderColor = 'var(--danger)';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4500);
+    }
+
+    hotAddBtn.addEventListener('click', async () => {
+      hotAddBtn.disabled = true;
+      try {
+        const resp = await fetch('/demo/hot-add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: HOT_ADD_NAME, tier: 'plant' }),
+        });
+        const body = await resp.json();
+        if (body.accepted) {
+          hotAddToast(`✨ Hot-added ${body.agent.display_name}. The next /agents call (and rerun) will see it.`);
+          await loadAgents();
+        } else {
+          hotAddToast(body.detail || 'Hot-add rejected', true);
+        }
+      } catch (err) {
+        hotAddToast('Hot-add failed: ' + err, true);
+      } finally {
+        hotAddBtn.disabled = false;
+      }
+    });
+
+    hotAddResetBtn.addEventListener('click', async () => {
+      hotAddResetBtn.disabled = true;
+      try {
+        const resp = await fetch('/demo/hot-add/reset', { method: 'POST' });
+        const body = await resp.json();
+        hotAddToast(`Cleared ${body.cleared} hot-added agent${body.cleared === 1 ? '' : 's'}.`);
+        await loadAgents();
+      } catch (err) {
+        hotAddToast('Reset failed: ' + err, true);
+      } finally {
+        hotAddResetBtn.disabled = false;
+      }
+    });
+
     loadScenarios();
     loadAgents();
   </script>
