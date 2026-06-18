@@ -1,0 +1,55 @@
+{
+  "title": "MMC Multi-Agent Manufacturing Assistant — Solution Architecture",
+  "meta": {
+    "type": "Container diagram (C4 L2) · as-built demo",
+    "author": "Microsoft · MMC demo",
+    "version": "1.0",
+    "updated": "2026-06-17",
+    "scope": "A Magentic manager decomposes a plant-floor question and dispatches 10 portal-managed Azure AI Foundry prompt agents (5 plant + 5 enterprise), each grounded in a Foundry IQ knowledge base that blends policy docs with live Azure SQL rows; the run streams to a FastAPI + SSE trace UI."
+  },
+  "iconRoot": "C:\\Users\\maxbush\\Downloads\\Azure_Public_Service_Icons_V23\\Azure_Public_Service_Icons\\Icons",
+  "canvas": { "w": 1320, "h": 810 },
+
+  "zones": [
+    {"id":"local","label":"Local demo runtime  ·  Python (src/mmc_agents)","x":170,"y":250,"w":400,"h":170,"fill":"#FBF6EF","stroke":"#E3C9A6","dashed":true},
+    {"id":"azure","label":"Microsoft Azure   ·   AI Foundry (Agents Service + Foundry IQ) + Azure SQL","x":600,"y":120,"w":680,"h":570,"fill":"#F7FAFF","stroke":"#B9CBE6","dashed":true},
+    {"id":"plantz","label":"Foundry project: mmc-plant","x":622,"y":160,"w":440,"h":175,"fill":"#F1F7F0","stroke":"#B6D0B0"},
+    {"id":"entz","label":"Foundry project: mmc-enterprise","x":622,"y":420,"w":440,"h":175,"fill":"#F1F7F0","stroke":"#B6D0B0"}
+  ],
+
+  "nodes": [
+    {"id":"user","label":"Plant / enterprise user","sub":"browser","shape":"actor","x":70,"y":315},
+
+    {"id":"ui","label":"FastAPI trace UI","sub":"SSE live event stream","icon":"App-Services","x":230,"y":300},
+    {"id":"orch","label":"Magentic Orchestrator","sub":"manager · gpt-5.4 · plan/dispatch/replan","icon":"Azure-OpenAI","x":420,"y":300},
+
+    {"id":"plant","label":"5 plant prompt agents","sub":"ehs · maint · quality · shiftops · training","icon":"AI-Studio","x":680,"y":205},
+    {"id":"kbplant","label":"Foundry IQ: kb-plant7","sub":"3 doc + 3 SQL sources","icon":"Cognitive-Search","x":900,"y":205},
+
+    {"id":"ent","label":"5 enterprise prompt agents","sub":"supply-chain · procurement · plm · quality · demand","icon":"AI-Studio","x":680,"y":465},
+    {"id":"kbent","label":"Foundry IQ: kb-enterprise","sub":"5 doc + 2 SQL sources","icon":"Cognitive-Search","x":900,"y":465},
+
+    {"id":"sql","label":"Azure SQL: mmcops","sub":"5 tables · 283 rows · change tracking","icon":"SQL-Database","x":1150,"y":325,"labelPos":"left"}
+  ],
+
+  "edges": [
+    {"from":"user","to":"ui","label":"HTTPS","step":1,"exit":"e","entry":"w"},
+    {"from":"ui","to":"orch","label":"ScenarioSpec → run_stream()","step":2,"exit":"e","entry":"w"},
+    {"from":"orch","to":"plant","label":"dispatch · portal-managed agents","step":3,"exit":"ne","entry":"w"},
+    {"from":"orch","to":"ent","label":"dispatch · portal-managed agents","step":3,"exit":"se","entry":"w"},
+    {"from":"plant","to":"kbplant","label":"Foundry IQ MCP tool","step":4,"exit":"e","entry":"w"},
+    {"from":"ent","to":"kbent","label":"Foundry IQ MCP tool","step":4,"exit":"e","entry":"w"},
+    {"from":"kbplant","to":"sql","label":"IndexedSql · MI auth","step":5,"dashed":true,"exit":"e","entry":"n"},
+    {"from":"kbent","to":"sql","label":"IndexedSql · MI auth","step":5,"dashed":true,"exit":"e","entry":"s"}
+  ],
+
+  "legend": {"x":955,"y":705,"items":[
+    {"swatch":"line","label":"Synchronous (HTTPS / MCP / REST)"},
+    {"swatch":"dash","label":"Indexed SQL · managed-identity auth"},
+    {"swatch":"box","color":"#F1F7F0","label":"Azure AI Foundry project boundary"}
+  ]},
+
+  "notes": [
+    {"x":60,"y":705,"w":860,"h":95,"text":"<b>As-built multi-agent demo.</b>  \u2460 A user asks a plant-floor question in the browser over HTTPS.  \u2461 The <b>FastAPI trace UI</b> hands a <b>ScenarioSpec</b> to the <b>Magentic orchestrator</b>, which plans, dispatches, and replans (manager gpt-5.4 / workers gpt-5.4-mini).  \u2462 It dispatches from 10 <b>portal-managed Foundry prompt agents</b> across two projects.  \u2463 Each agent grounds itself through its <b>Foundry IQ</b> knowledge base via an MCP tool (policy docs + indexed rows).  \u2464 SQL sources read <b>Azure SQL</b> live via IndexedSqlKnowledgeSource with managed-identity auth and change tracking.  Non-Azure mark: FastAPI app shown with the App Service icon."}
+  ]
+}
