@@ -20,7 +20,8 @@
   "tier": "enterprise",
   "metadata": {
     "kb_sources": [
-      "supply_chain"
+      "supply_chain",
+      "supplier_data"
     ],
     "tools": [
       "erp",
