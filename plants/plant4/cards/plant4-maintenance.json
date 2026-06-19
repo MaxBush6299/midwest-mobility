@@ -4,7 +4,7 @@
   "description": "Plant 4 Maintenance & Reliability",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant4",
   "agent_id": "plant4-maintenance",
-  "version": "3",
+  "version": "4",
   "skills": [],
   "metadata": {
     "plant_id": "plant4",

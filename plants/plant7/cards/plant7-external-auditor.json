@@ -4,7 +4,7 @@
   "description": "Plant 7 External Auditor",
   "endpoint": "https://mmcfdy.services.ai.azure.com/api/projects/mmc-plant",
   "agent_id": "plant7-external-auditor",
-  "version": "1",
+  "version": "2",
   "skills": [],
   "metadata": {
     "plant_id": "plant7",
