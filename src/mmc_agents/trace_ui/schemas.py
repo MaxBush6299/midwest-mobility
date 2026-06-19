@@ -14,6 +14,7 @@ ScenarioId = Literal[
     "pm_check",
     "supplier_risk_pm",
     "multi_plant_warranty",
+    "multi_plant_training",
 ]
 Tier = Literal["plant", "enterprise"]
 

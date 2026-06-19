@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from . import (
     brake_caliper,
     loto_cluster,
+    multi_plant_training,
     multi_plant_warranty,
     pm_check,
     po_status,
@@ -71,6 +72,24 @@ SCENARIOS: dict[str, ScenarioSpec] = {
             "with <em>Acme Brakes</em>. <em>~60 hops, all plant + enterprise agents.</em>"
         ),
         problem_statement=multi_plant_warranty.PROBLEM_STATEMENT,
+    ),
+    "multi_plant_training": ScenarioSpec(
+        id="multi_plant_training",
+        label="Multi-plant training · LOTO refresher rollup",
+        blurb=(
+            "Cross-plant training query grounded in each plant's "
+            "<code>Training_Log</code> CSV. <em>plant7-training</em> and "
+            "<em>plant4-training</em> each list LOTO Authorized Person "
+            "expirations before 2026-12-31, and <em>ent-quality</em> rolls "
+            "up the combined refresher load. <em>~8-12 hops, 3 agents.</em>"
+        ),
+        problem_statement=multi_plant_training.PROBLEM_STATEMENT,
+        participants=(
+            "plant7-training",
+            "plant4-training",
+            "ent-quality",
+        ),
+        max_rounds=8,
     ),
     "training_gap": ScenarioSpec(
         id="training_gap",
