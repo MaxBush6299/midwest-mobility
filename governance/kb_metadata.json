@@ -64,6 +64,67 @@
       ]
     },
     {
+      "id": "kb-plant4",
+      "display_name": "Plant 4 Knowledge Base (Monterrey)",
+      "foundry_project": "mmc-plant4",
+      "search_service": "srch-mmc-plant4",
+      "sources": [
+        {
+          "id": "ehs",
+          "kind": "documents",
+          "paths": [
+            "plants/plant4/kb/02_EHS_Internal",
+            "shared/kb/regulatory-reference/OSHA"
+          ],
+          "description": "Plant 4 EHS procedures + OSHA reference docs (Spanish)."
+        },
+        {
+          "id": "ehs_restricted",
+          "kind": "documents",
+          "paths": [
+            "plants/plant4/kb/02_EHS_Internal_Restricted"
+          ],
+          "description": "Restricted EHS material — confidential incident brief. Per-agent readable-source mapping gates retrieval; only plant4-ehs is allowed to surface it."
+        },
+        {
+          "id": "maintenance",
+          "kind": "documents",
+          "paths": [
+            "plants/plant4/kb/03_Maintenance",
+            "shared/kb/oem-manuals"
+          ],
+          "description": "Plant 4 maintenance procedures + OEM manuals."
+        },
+        {
+          "id": "quality_ops",
+          "kind": "documents",
+          "paths": [
+            "plants/plant4/kb/04_Quality",
+            "plants/plant4/kb/05_Ops_Shift"
+          ],
+          "description": "Plant 4 quality + shift operations SOPs."
+        },
+        {
+          "id": "training_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.training_log_p4",
+          "description": "Plant 4 training records (employees, courses, expirations)."
+        },
+        {
+          "id": "pm_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.pm_schedule_p4",
+          "description": "Plant 4 preventive maintenance schedule + completion log."
+        },
+        {
+          "id": "incident_data",
+          "kind": "sql_table",
+          "sql_table": "dbo.incident_log_p4",
+          "description": "Plant 4 EHS incident log (near-misses, injuries, CAPAs)."
+        }
+      ]
+    },
+    {
       "id": "kb-enterprise",
       "display_name": "Enterprise Knowledge Base",
       "foundry_project": "mmc-enterprise",
@@ -130,6 +191,11 @@
     "plant7-quality":          { "kb": "kb-plant7",     "sources": ["quality_ops", "incident_data"] },
     "plant7-shiftops":         { "kb": "kb-plant7",     "sources": ["quality_ops", "pm_data", "incident_data"] },
     "plant7-training":         { "kb": "kb-plant7",     "sources": ["quality_ops", "training_data", "incident_data"] },
+    "plant4-ehs":              { "kb": "kb-plant4",     "sources": ["ehs", "ehs_restricted", "incident_data"] },
+    "plant4-maintenance":      { "kb": "kb-plant4",     "sources": ["maintenance", "pm_data"] },
+    "plant4-quality":          { "kb": "kb-plant4",     "sources": ["quality_ops", "incident_data"] },
+    "plant4-shiftops":         { "kb": "kb-plant4",     "sources": ["quality_ops", "pm_data", "incident_data"] },
+    "plant4-training":         { "kb": "kb-plant4",     "sources": ["quality_ops", "training_data", "incident_data"] },
     "ent-supply-chain":        { "kb": "kb-enterprise", "sources": ["supply_chain", "supplier_data"] },
     "ent-procurement":         { "kb": "kb-enterprise", "sources": ["procurement", "po_data"] },
     "ent-engineering-plm":     { "kb": "kb-enterprise", "sources": ["engineering_plm"] },

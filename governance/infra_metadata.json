@@ -30,6 +30,18 @@
       ]
     },
     {
+      "name": "mmc-plant4",
+      "kb": "kb-plant4",
+      "search_service": "srch-mmc-plant4",
+      "agents": [
+        "plant4-ehs",
+        "plant4-maintenance",
+        "plant4-quality",
+        "plant4-shiftops",
+        "plant4-training"
+      ]
+    },
+    {
       "name": "mmc-enterprise",
       "kb": "kb-enterprise",
       "search_service": "srch-mmc-enterprise",
@@ -69,6 +81,31 @@
       ]
     },
     {
+      "name": "srch-mmc-plant4",
+      "kb": "kb-plant4",
+      "managed_identity": "srch-mmc-plant4-system",
+      "role_assignments": [
+        {
+          "principal": "srch-mmc-plant4-system",
+          "role": "Cognitive Services User",
+          "scope": "mmcfdy",
+          "purpose": "KB -> LLM reasoning leg for Plant 4 (Monterrey) project."
+        },
+        {
+          "principal": "srch-mmc-plant4-system",
+          "role": "Azure AI Project User",
+          "scope": "mmcfdy/projects/mmc-plant4",
+          "purpose": "Lets the Search MI publish KB hits back into the Plant 4 Foundry project."
+        },
+        {
+          "principal": "srch-mmc-plant4-system",
+          "role": "Contributor",
+          "scope": "sql-mmc-demo",
+          "purpose": "IndexedSqlKnowledgeSource endpoint resolution + change-tracking pulls for Plant 4 SQL-backed sources."
+        }
+      ]
+    },
+    {
       "name": "srch-mmc-enterprise",
       "kb": "kb-enterprise",
       "managed_identity": "srch-mmc-enterprise-system",
@@ -102,6 +139,9 @@
       { "table": "dbo.training_log", "owner_source": "training_data", "owner_kb": "kb-plant7" },
       { "table": "dbo.pm_schedule",  "owner_source": "pm_data",       "owner_kb": "kb-plant7" },
       { "table": "dbo.incident_log", "owner_source": "incident_data", "owner_kb": "kb-plant7" },
+      { "table": "dbo.training_log_p4", "owner_source": "training_data", "owner_kb": "kb-plant4" },
+      { "table": "dbo.pm_schedule_p4",  "owner_source": "pm_data",       "owner_kb": "kb-plant4" },
+      { "table": "dbo.incident_log_p4", "owner_source": "incident_data", "owner_kb": "kb-plant4" },
       { "table": "dbo.supplier_master", "owner_source": "supplier_data", "owner_kb": "kb-enterprise" },
       { "table": "dbo.po_spend",     "owner_source": "po_data",       "owner_kb": "kb-enterprise" }
     ]

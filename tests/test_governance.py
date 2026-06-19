@@ -28,8 +28,8 @@ def test_governance_metadata_loads_cleanly() -> None:
     infra = load_infra_metadata()
     assert isinstance(kb, KbMetadata)
     assert isinstance(infra, InfraMetadata)
-    assert len(kb.knowledge_bases) == 2
-    assert {k.id for k in kb.knowledge_bases} == {"kb-plant7", "kb-enterprise"}
+    assert len(kb.knowledge_bases) == 3
+    assert {k.id for k in kb.knowledge_bases} == {"kb-plant7", "kb-plant4", "kb-enterprise"}
 
 
 def test_every_agent_in_kb_metadata_has_a_foundry_project() -> None:
@@ -115,8 +115,9 @@ def test_compute_all_blast_radii_covers_full_catalog() -> None:
     infra = load_infra_metadata()
     radii = compute_all_blast_radii(kb, infra)
     assert set(radii) == set(kb.per_agent_readable_sources)
-    assert len(radii) == 11
+    assert len(radii) == 16
     assert "plant7-external-auditor" in radii
+    assert {f"plant4-{r}" for r in ("ehs", "maintenance", "quality", "shiftops", "training")} <= set(radii)
 
 
 def test_external_auditor_blast_radius_omits_restricted_source():
