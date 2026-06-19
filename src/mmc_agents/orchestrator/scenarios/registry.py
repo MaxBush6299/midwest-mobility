@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from . import (
     brake_caliper,
     loto_cluster,
+    multi_plant_warranty,
     pm_check,
     po_status,
     supplier_risk_pm,
@@ -59,6 +60,17 @@ SCENARIOS: dict[str, ScenarioSpec] = {
             "quality verifies the CAPA cluster. <em>~15 hops, 5-6 agents.</em>"
         ),
         problem_statement=loto_cluster.PROBLEM_STATEMENT,
+    ),
+    "multi_plant_warranty": ScenarioSpec(
+        id="multi_plant_warranty",
+        label="Multi-plant warranty · BRK-CAL-XYZ spike",
+        blurb=(
+            "Cross-plant warranty spike on <code>BRK-CAL-XYZ</code>. Plant 7 "
+            "and Plant 4 quality + maintenance respond locally while "
+            "<em>ent-quality</em> and <em>ent-supply-chain</em> coordinate "
+            "with <em>Acme Brakes</em>. <em>~60 hops, all plant + enterprise agents.</em>"
+        ),
+        problem_statement=multi_plant_warranty.PROBLEM_STATEMENT,
     ),
     "training_gap": ScenarioSpec(
         id="training_gap",

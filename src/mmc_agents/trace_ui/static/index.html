@@ -548,15 +548,40 @@
     function renderAgents(agents) {
       agentState.clear();
       agentsEl.innerHTML = '';
-      const groups = { plant: [], enterprise: [] };
-      for (const a of agents) (groups[a.tier] || groups.plant).push(a);
+      // Group plant-tier agents by plant id (derived from name prefix),
+      // keep enterprise as one group. Ordering: plant7, plant4, ..., enterprise.
+      const plantGroups = new Map();
+      const enterprise = [];
+      for (const a of agents) {
+        if (a.tier === 'plant') {
+          const m = /^(plant\d+)-/.exec(a.name);
+          const key = m ? m[1] : 'plant';
+          if (!plantGroups.has(key)) plantGroups.set(key, []);
+          plantGroups.get(key).push(a);
+        } else {
+          enterprise.push(a);
+        }
+      }
+      const plantKeysSorted = Array.from(plantGroups.keys()).sort((a, b) => {
+        const na = parseInt(a.replace(/^plant/, ''), 10);
+        const nb = parseInt(b.replace(/^plant/, ''), 10);
+        return (isNaN(na) ? 999 : na) - (isNaN(nb) ? 999 : nb);
+      });
+      const sections = plantKeysSorted.map(k => [k, plantGroups.get(k)]);
+      sections.push(['enterprise', enterprise]);
 
-      for (const [tier, list] of [['plant', groups.plant], ['enterprise', groups.enterprise]]) {
+      for (const [groupKey, list] of sections) {
         if (!list.length) continue;
+        const tier = groupKey === 'enterprise' ? 'enterprise' : 'plant';
         const wrap = document.createElement('div');
         wrap.className = 'tier-group';
         const h = document.createElement('h2');
-        h.textContent = tier === 'plant' ? 'Plant 7' : 'Enterprise';
+        if (groupKey === 'enterprise') {
+          h.textContent = 'Enterprise';
+        } else {
+          const n = groupKey.replace(/^plant/, '');
+          h.textContent = `Plant ${n}`;
+        }
         wrap.appendChild(h);
         for (const a of list) {
           const row = document.createElement('div');
