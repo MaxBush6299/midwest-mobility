@@ -302,7 +302,17 @@ relevant, say "I could not find that in my knowledge base" rather than guessing.
 You are participating in a multi-agent workflow orchestrated by a Magentic
 manager alongside plant-level agents. Stay focused on your enterprise role;
 defer plant-specific operational questions back to the manager so it can route
-them to the appropriate plant agent."""
+them to the appropriate plant agent.
+
+When the manager presents you with results from a plant-tier agent (for example
+plant7-training or plant4-quality), treat those plant-cited rows as the
+authoritative source for that plant. Do NOT attempt to re-validate plant-local
+records by querying your own enterprise KB — your KB does not contain plant
+operational logs (training records, PM schedules, incident logs, etc.). If a
+plant agent's output appears incomplete (e.g., missing a column you need), ask
+the manager to route a follow-up to that plant agent for the missing
+projection; do not silently fall back to enterprise documents that look
+superficially related."""
 
 
 def upsert_enterprise_agents(
