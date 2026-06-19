@@ -81,4 +81,3 @@ def test_brake_caliper_composes_multi_agent_flow():
         assert plant_name in answer, (
             f"Final answer does not mention required plant '{plant_name}'"
         )
-

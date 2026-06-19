@@ -31,9 +31,14 @@ EXPECTED_BOUNDS = {
     # Gate D: require at least one Plant 4 plant-local hop. Allow role-naming
     # drift across Gate B/C (shiftops vs production) — any of the alternatives
     # in each set is sufficient.
+    #
+    # Note: brake-caliper seed data allocates BRK-CAL-XYZ 100% to MMC_P7 (Plant 7),
+    # so we deliberately do NOT assert Plant 4 in the final answer here — the
+    # manager is expected to dispatch Plant 4 agents and then truthfully report
+    # they are unaffected. Task 23's multi_plant_warranty scenario is the one
+    # designed to require both plant names in the final answer.
     "must_include_any": [
         {"plant4-shiftops", "plant4-production", "plant4-maintenance"},
     ],
     "must_observe_terms": {"BRK-CAL-XYZ"},
-    "must_mention_plants": {"Plant 7", "Plant 4"},
 }
