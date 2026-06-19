@@ -116,14 +116,18 @@ async def _live_scenario_runner(
     cred = AzureCliCredential()
     plant_endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     participants = build_foundry_agents("plant7", plant_endpoint, cred)
-    # Include plant4 if its profile is present (Gate D). Both plants are
-    # registered in the same Foundry project, so plant4 uses the shared
-    # plant-project endpoint (matches the live smoke test wiring).
+    # Include plant4 if its profile is present (Gate D). plant4 agents live
+    # in the mmc-plant4 Foundry project (canonical wiring per
+    # scripts/generate_cards.py); fall back to the shared plant endpoint
+    # if FOUNDRY_PLANT4_PROJECT_ENDPOINT isn't set.
     from pathlib import Path as _Path
     _repo_root = _Path(__file__).resolve().parents[3]
     if (_repo_root / "plants" / "plant4" / "profile.yaml").exists():
+        plant4_endpoint = os.environ.get(
+            "FOUNDRY_PLANT4_PROJECT_ENDPOINT", plant_endpoint
+        )
         participants = participants + build_foundry_agents(
-            "plant4", plant_endpoint, cred
+            "plant4", plant4_endpoint, cred
         )
     ent_endpoint = os.environ.get("FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT")
     if ent_endpoint:

@@ -34,11 +34,12 @@ def test_multi_plant_training_rolls_up_loto_refreshers():
     )
 
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
+    plant4_endpoint = os.environ.get("FOUNDRY_PLANT4_PROJECT_ENDPOINT", endpoint)
     ent_endpoint = os.environ["FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT"]
     cred = AzureCliCredential()
     participants = (
         build_foundry_agents("plant7", endpoint, cred)
-        + build_foundry_agents("plant4", endpoint, cred)
+        + build_foundry_agents("plant4", plant4_endpoint, cred)
         + build_enterprise_agents(ent_endpoint, cred)
     )
     # Narrow to the registry-declared participants so the manager doesn't
