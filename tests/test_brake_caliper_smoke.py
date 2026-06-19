@@ -4,6 +4,10 @@ Gate A (Task 28) established baseline composition; Gate B (Task 31) tightened
 the assertions to use ``run_and_capture`` so we can verify that the full
 10-agent pool composes a real cross-tier answer to BRK-CAL-XYZ.
 
+Gate D (Task 22) extends the participants to include Plant 4 and asserts a
+cross-plant composition: at least one Plant 4 plant-local hop must appear and
+the final answer must mention both Plant 7 and Plant 4.
+
 Backtracks are now expected to be 0 — with the enterprise pool present the
 manager plans correctly upfront. See ``scenarios/brake_caliper.py`` for the
 full rationale.
@@ -39,8 +43,10 @@ def test_brake_caliper_composes_multi_agent_flow():
     endpoint = os.environ["FOUNDRY_PLANT_PROJECT_ENDPOINT"]
     ent_endpoint = os.environ["FOUNDRY_ENTERPRISE_PROJECT_ENDPOINT"]
     cred = AzureCliCredential()
-    participants = build_foundry_agents("plant7", endpoint, cred) + build_enterprise_agents(
-        ent_endpoint, cred
+    participants = (
+        build_foundry_agents("plant7", endpoint, cred)
+        + build_foundry_agents("plant4", endpoint, cred)
+        + build_enterprise_agents(ent_endpoint, cred)
     )
     workflow = MagenticBuilder(
         participants=participants, manager=_build_manager()
@@ -58,12 +64,21 @@ def test_brake_caliper_composes_multi_agent_flow():
     must = EXPECTED_BOUNDS["must_include_agents"]
     missing = must - distinct
     assert not missing, f"Required agents missing from trace: {missing}"
+    for alternatives in EXPECTED_BOUNDS.get("must_include_any", []):
+        assert distinct & alternatives, (
+            f"None of {alternatives} appeared in trace: {distinct}"
+        )
     assert run.backtracks >= EXPECTED_BOUNDS["min_backtracks"], (
         f"Expected >= {EXPECTED_BOUNDS['min_backtracks']} backtracks, got {run.backtracks}"
     )
-    haystack = (run.last_progress_ledger + " " + run.answer).upper()
+    haystack_upper = (run.last_progress_ledger + " " + run.answer).upper()
     for term in EXPECTED_BOUNDS.get("must_observe_terms", set()):
-        assert term.upper() in haystack, (
+        assert term.upper() in haystack_upper, (
             f"Required term '{term}' missing from ledger and final answer"
+        )
+    answer = run.answer
+    for plant_name in EXPECTED_BOUNDS.get("must_mention_plants", set()):
+        assert plant_name in answer, (
+            f"Final answer does not mention required plant '{plant_name}'"
         )
 

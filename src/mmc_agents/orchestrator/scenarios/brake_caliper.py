@@ -20,7 +20,7 @@ PROBLEM_STATEMENT = (
 )
 
 EXPECTED_BOUNDS = {
-    "min_distinct_agents": 5,
+    "min_distinct_agents": 6,
     "min_backtracks": 0,
     "must_include_agents": {
         "ent-supply-chain",
@@ -28,5 +28,12 @@ EXPECTED_BOUNDS = {
         "plant7-quality",
         "ent-procurement",
     },
+    # Gate D: require at least one Plant 4 plant-local hop. Allow role-naming
+    # drift across Gate B/C (shiftops vs production) — any of the alternatives
+    # in each set is sufficient.
+    "must_include_any": [
+        {"plant4-shiftops", "plant4-production", "plant4-maintenance"},
+    ],
     "must_observe_terms": {"BRK-CAL-XYZ"},
+    "must_mention_plants": {"Plant 7", "Plant 4"},
 }
