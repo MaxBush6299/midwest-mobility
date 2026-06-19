@@ -55,6 +55,83 @@ _QTY_HEADER_KEYWORDS: tuple[str, ...] = (
     "volume",
 )
 
+# Columns whose values get name-substituted per plant. Header match is
+# case-insensitive on these tokens.
+_NAME_HEADER_KEYWORDS: tuple[str, ...] = (
+    "employee_name",
+    "trainer",
+    "technician",
+    "reported_by",
+    "investigated_by",
+)
+
+# Role-style labels and contractor placeholders are preserved verbatim
+# across plants — they aren't real names.
+_PRESERVE_LITERALLY: frozenset[str] = frozenset(
+    {
+        "EHS Manager",
+        "Line Supervisor",
+        "Line Lead",
+        "Operator",
+        "Supervisor",
+        "Quality Mgr",
+    }
+)
+
+
+def _is_role_label(value: str) -> bool:
+    if value in _PRESERVE_LITERALLY:
+        return True
+    return value.startswith("Contractor -")
+
+
+# Per-plant employee + trainer rosters. Plant 7 is the source-of-truth
+# plant and keeps its original names; cloned plants get a locale-appropriate
+# roster so multi-plant queries don't collapse to identical headcounts.
+#
+# The mapping from a Plant 7 name to a plant-specific name is
+# deterministic: ``sha256(plant_id + ":" + original)`` mod len(roster).
+# Collisions are accepted; with ~80 candidates and 88 distinct source
+# names the few collisions just mean two Plant 7 employees map to the
+# same Plant 4 employee, which is realistic.
+_NAME_ROSTERS: dict[str, list[str]] = {
+    "plant4": [
+        # Mexican / Hispanic names for Monterrey plant.
+        "Alejandro Hernández", "Ana López", "Andrés Ramírez", "Antonio Soto",
+        "Beatriz Castillo", "Carlos Vargas", "Carmen Mendoza", "César Aguilar",
+        "Claudia Torres", "Cristina Reyes", "Daniela Gutiérrez", "David Ortiz",
+        "Diana Salinas", "Eduardo Méndez", "Elena Cordero", "Emilio Cruz",
+        "Enrique Castañeda", "Esteban Lara", "Fernanda Ríos", "Fernando Solís",
+        "Francisco Ibarra", "Gabriela Núñez", "Gerardo Cabrera", "Gloria Peña",
+        "Guadalupe Cervantes", "Hector Galindo", "Hugo Quintero", "Ignacio Beltrán",
+        "Inés Padilla", "Isabel Domínguez", "Jaime Carrillo", "Javier Pacheco",
+        "Jorge Espinoza", "José Luis Acosta", "Juan Pablo Tovar", "Julia Santana",
+        "Karina Velázquez", "Laura Bautista", "Leonardo Treviño", "Leticia Aragón",
+        "Lorena Flores", "Lucía Camacho", "Luis Estrada", "Manuel Becerra",
+        "Marcela Olvera", "María Elena Zúñiga", "Mariana Tapia", "Mario Jiménez",
+        "Martha Cisneros", "Mauricio Arellano", "Miguel Ángel Cuéllar",
+        "Mónica Avalos", "Natalia Carrasco", "Néstor Maldonado", "Norma Esquivel",
+        "Octavio Pineda", "Olivia Magaña", "Óscar Robles", "Pablo Rivera",
+        "Patricia Zamora", "Paula Bermúdez", "Pedro Quiroz", "Rafael Cárdenas",
+        "Ramón Linares", "Raquel Mejía", "Raúl Tello", "Rebeca Avila",
+        "Ricardo Hidalgo", "Roberto Cantú", "Rocío Bravo", "Rodolfo Rangel",
+        "Rosa María Pulido", "Salvador Tirado", "Sandra Lugo", "Santiago Vega",
+        "Sergio Montaño", "Silvia Anguiano", "Sofía Alarcón", "Tomás Negrete",
+        "Verónica Madrigal", "Víctor Manuel Solano", "Yolanda Garibay",
+    ],
+}
+
+_TRAINER_ROSTERS: dict[str, list[str]] = {
+    "plant4": [
+        "L. Ramírez",
+        "M. Sánchez",
+        "J. Castillo",
+        "P. Hernández",
+        "C. Aguilar",
+        "R. Domínguez",
+    ],
+}
+
 
 def derive_plant_code(profile: dict, plant_id: str) -> str:
     """Return profile['plant_code'] if present, else derive from plant_id."""
@@ -129,12 +206,42 @@ def _is_quantity_header(name: str) -> bool:
     return any(k in n for k in _QTY_HEADER_KEYWORDS)
 
 
+def _is_name_header(name: str) -> bool:
+    n = name.lower()
+    return any(k == n or k in n for k in _NAME_HEADER_KEYWORDS)
+
+
+def _is_trainer_header(name: str) -> bool:
+    return name.lower() == "trainer"
+
+
+def _substitute_name(plant_id: str, original: str, roster: list[str]) -> str:
+    """Deterministic per-plant name replacement.
+
+    Same ``original`` always maps to the same roster entry within a plant,
+    so a single Plant 7 employee appearing in N rows maps to a single
+    plant-specific employee across all those rows. Role-style labels
+    (``EHS Manager``, ``Operator``, etc.) and contractor placeholders are
+    preserved verbatim.
+    """
+    if not original or _is_role_label(original):
+        return original
+    if not roster:
+        return original
+    h = hashlib.sha256(f"{plant_id}:{original}".encode("utf-8")).digest()
+    idx = int.from_bytes(h[:8], "big") % len(roster)
+    return roster[idx]
+
+
 def process_csv(path: Path, plant_id: str, plant_code: str) -> None:
     """Apply substitutions + per-row jitter to a CSV in place."""
     subs = build_substitutions(plant_code)
     raw = path.read_text(encoding="utf-8")
     for pat, repl in subs:
         raw = pat.sub(repl, raw)
+
+    name_roster = _NAME_ROSTERS.get(plant_id, [])
+    trainer_roster = _TRAINER_ROSTERS.get(plant_id, [])
 
     reader = csv.reader(io.StringIO(raw))
     rows = list(reader)
@@ -151,6 +258,10 @@ def process_csv(path: Path, plant_id: str, plant_code: str) -> None:
                 new_row.append(jitter_date(cell, seed))
             elif _is_quantity_header(col_name):
                 new_row.append(jitter_numeric(cell, seed))
+            elif _is_trainer_header(col_name) and trainer_roster:
+                new_row.append(_substitute_name(plant_id, cell, trainer_roster))
+            elif _is_name_header(col_name) and name_roster:
+                new_row.append(_substitute_name(plant_id, cell, name_roster))
             else:
                 new_row.append(cell)
         out_rows.append(new_row)
