@@ -24,7 +24,7 @@
 
 - [ ] In the Foundry portal, open the **mmc-plant** project → **Knowledge** → **Connections**, confirm the `kb-plant7` IQ connection exists and points to AI Search service `mmc-plant-search` (eastus).
 - [ ] Repeat for **mmc-enterprise** project → `kb-enterprise` → `mmc-enterprise-search`.
-- [ ] If missing: re-create via portal (Bicep can't do this — Foundry IQ connections are portal-only as of this writing). See `docs/specs/gate-b-status.md` §Deferred.
+- [ ] If missing: re-create via portal (Bicep can't do this — Foundry IQ connections are portal-only as of this writing). See `docs/internal/specs/gate-b-status.md` §Deferred.
 
 ### Data freshness
 

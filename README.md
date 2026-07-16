@@ -99,8 +99,8 @@ mmc_demo/
 ├── docs/
 │   ├── SOLUTION_ARCHITECTURE.md    ← deep-dive technical doc
 │   ├── DATASET.md                  ← Plant 7 + enterprise dataset card
-│   ├── plans/                      ← gate plans (A/B/C)
-│   └── specs/                      ← gate status snapshots
+│   ├── demo/                       ← run-of-show + hot-add runbook
+│   └── internal/                   ← build-tracking docs (plans, specs, results, handoff)
 │
 ├── infra/bicep/                    ← all Azure IaC
 │   ├── main.bicep                  ← top-level deployment

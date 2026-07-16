@@ -3,8 +3,8 @@ from pathlib import Path
 import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "docs" / "specs" / "2026-06-16-mmc-agent-network-implementation-design.md"
-OUT = ROOT / "docs" / "specs" / "2026-06-16-mmc-agent-network-implementation-design.html"
+SRC = ROOT / "docs" / "internal" / "specs" / "2026-06-16-mmc-agent-network-implementation-design.md"
+OUT = ROOT / "docs" / "internal" / "specs" / "2026-06-16-mmc-agent-network-implementation-design.html"
 
 CSS = """
 :root {

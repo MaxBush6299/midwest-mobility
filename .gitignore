@@ -6,6 +6,6 @@ agents/catalog.json
 .pytest_cache/
 htmlcov/
 *.egg-info/
-docs/specs/*.html
+docs/internal/specs/*.html
 infra/bicep/**/*.json
 scenario_out.txt
