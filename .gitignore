@@ -9,3 +9,6 @@ htmlcov/
 docs/internal/specs/*.html
 infra/bicep/**/*.json
 scenario_out.txt
+
+# Third-party OEM equipment manuals (not redistributed); place local copies here
+shared/kb/oem-manuals/*.pdf
