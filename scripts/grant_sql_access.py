@@ -25,11 +25,20 @@ load_dotenv(REPO_ROOT / ".env")
 SQL_FQDN = os.environ["SQL_SERVER_FQDN"]
 SQL_DB = os.environ["SQL_DATABASE_NAME"]
 
-# (display_name_in_sql, MI object id) — Search service MIs that need read access.
+# (display_name_in_sql, env var holding the MI object id) — Search service MIs
+# that need read access. Object ids are read from the environment so no
+# tenant-specific principal ids are committed to the repo. Populate these in
+# .env after deploy, e.g.:
+#   az search service show -n srch-mmc-plant -g <rg> --query identity.principalId -o tsv
+_PRINCIPAL_ENV = [
+    ("srch-mmc-plant", "SEARCH_PLANT_MI_OBJECT_ID"),
+    ("srch-mmc-plant4", "SEARCH_PLANT4_MI_OBJECT_ID"),
+    ("srch-mmc-enterprise", "SEARCH_ENTERPRISE_MI_OBJECT_ID"),
+]
 PRINCIPALS = [
-    ("srch-mmc-plant", "<search-plant-mi-object-id>"),
-    ("srch-mmc-plant4", "<search-plant4-mi-object-id>"),
-    ("srch-mmc-enterprise", "<search-enterprise-mi-object-id>"),
+    (name, os.environ[env_var])
+    for name, env_var in _PRINCIPAL_ENV
+    if os.environ.get(env_var)
 ]
 
 SQL_COPT_SS_ACCESS_TOKEN = 1256
@@ -61,6 +70,12 @@ def grant(conn: pyodbc.Connection, name: str, object_id: str) -> None:
 
 
 def main() -> int:
+    if not PRINCIPALS:
+        log.error(
+            "No Search MI object ids set. Populate SEARCH_PLANT_MI_OBJECT_ID / "
+            "SEARCH_PLANT4_MI_OBJECT_ID / SEARCH_ENTERPRISE_MI_OBJECT_ID in .env."
+        )
+        return 1
     log.info("connecting to %s / %s", SQL_FQDN, SQL_DB)
     conn = connect()
     try:

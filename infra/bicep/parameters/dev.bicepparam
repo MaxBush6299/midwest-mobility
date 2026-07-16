@@ -14,6 +14,8 @@ param enterpriseProjectName = 'mmc-enterprise'
 // resources remain in eastus.
 param sqlServerName = 'sql-mmc-demo-91327'
 param sqlDatabaseName = 'mmcops'
-param sqlAadAdminObjectId = '<admin-object-id>'
-param sqlAadAdminLogin = '<admin-upn>'
+// SQL AAD admin = the deploying user/group. Fill these in for your tenant, e.g.:
+//   az ad signed-in-user show --query '{id:id, upn:userPrincipalName}'
+param sqlAadAdminObjectId = '<your-sql-admin-object-id>'
+param sqlAadAdminLogin = '<your-sql-admin-upn>'
 param sqlAadAdminPrincipalType = 'User'

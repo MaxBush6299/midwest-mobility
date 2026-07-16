@@ -7,7 +7,7 @@
     "updated": "2026-06-17",
     "scope": "A Magentic manager decomposes a plant-floor question and dispatches 10 portal-managed Azure AI Foundry prompt agents (5 plant + 5 enterprise), each grounded in a Foundry IQ knowledge base that blends policy docs with live Azure SQL rows; the run streams to a FastAPI + SSE trace UI."
   },
-  "iconRoot": "C:\\Users\\maxbush\\Downloads\\Azure_Public_Service_Icons_V23\\Azure_Public_Service_Icons\\Icons",
+  "iconRoot": "<path-to>/Azure_Public_Service_Icons_V23/Azure_Public_Service_Icons/Icons",
   "canvas": { "w": 1320, "h": 810 },
 
   "zones": [
