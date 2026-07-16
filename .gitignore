@@ -12,3 +12,7 @@ scenario_out.txt
 
 # Third-party OEM equipment manuals (not redistributed); place local copies here
 shared/kb/oem-manuals/*.pdf
+
+# Internal-only build artifacts (kept local, not published)
+.impeccable/
+docs/internal/
