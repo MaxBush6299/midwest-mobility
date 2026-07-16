@@ -298,7 +298,7 @@ Documented to set expectations for future work — see also `docs/identity-propa
 
 ## 11. Testing
 
-* `pytest tests/` — 88 tests, 4 skipped. Covers scenario registry shape, agent factory snapshots, manager event mapping, trace UI schemas, and orchestrator integration smoke tests.
+* `pytest tests/` — 154 tests, 6 skipped. Covers scenario registry shape, agent factory snapshots, manager event mapping, trace UI schemas, multi-plant cloning, and orchestrator integration smoke tests.
 * `tests/snapshots/enterprise_agent_cards/` — pinned snapshots of factory-emitted JSON cards. If you change `profile.yaml`, refresh the snapshots with the loop in `scripts/refresh_catalog.py` or copy-paste from the failure diff.
 * `tests/` does not invoke live Azure — all Foundry/Search/SQL clients are mocked or fixtured. Live verification is done by running scenarios through the trace UI.
 

@@ -153,7 +153,7 @@ Recap the four moments:
 - **Per-agent blast-radius with revocation transparency** (governance modal)
 - **Hot-pluggable registry + per-agent identity** (hot-add + Bicep)
 
-Close: "Built on Foundry, Foundry IQ over Azure SQL, FastAPI for the trace UI, ~100 tests gating the demo invariants. Everything visible on stage is in the repo."
+Close: "Built on Foundry, Foundry IQ over Azure SQL, FastAPI for the trace UI, ~150 tests gating the demo invariants. Everything visible on stage is in the repo."
 
 ---
 
